@@ -25,59 +25,23 @@ namespace VSTool {
         public VSTOOL(string[] pToIni) {
            
             InitializeComponent();
+         
             this.txtToPath.DataBindings.Add(new Binding("Text",Toolpars.formEntity, "txtToPath",true,DataSourceUpdateMode.OnPropertyChanged));
             this.txtPKGpath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtPKGpath",true,DataSourceUpdateMode.OnPropertyChanged));
             this.txtNewTypeKey.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtNewTypeKey",true,DataSourceUpdateMode.OnPropertyChanged));
             this.Industry.DataBindings.Add(new Binding("Checked", Toolpars.formEntity, "Industry",true,DataSourceUpdateMode.OnPropertyChanged));
-           
+
             #region 自動更新
 
-            if (CallUpdate.GetServerExePath("VSTool") != "")
-            {
-                if (File.Exists(CallUpdate.GetServerExePath("VSTool")))
-                {
-                    if (CallUpdate.CompareFileLastWritedate(Application.ExecutablePath,
-                        CallUpdate.GetServerExePath("VSTool")))
-                    {
-                        if (File.Exists(CallUpdate.GetServerExePath("WFLiveUpdate")))
-                        {
-                            if (File.Exists(Environment.CurrentDirectory + @"\WFLiveUpdate.exe"))
-                            {
-                                File.SetAttributes(Environment.CurrentDirectory + @"\WFLiveUpdate.exe",
-                                    FileAttributes.Normal);
-                            }
-                            File.Copy(CallUpdate.GetServerExePath("WFLiveUpdate"),
-                                Environment.CurrentDirectory + @"\WFLiveUpdate.exe", true);
-                            if (File.Exists(Environment.CurrentDirectory + @"\WFLiveUpdate.exe"))
-                            {
-                                //string lpParameters = "";
-                                ////取得From路徑
-                                //lpParameters = lpParameters + VSTool.CallUpdate.GetServerExePath("VSTool").Replace(" ", "§") + " ";
-                                ////取得TO路徑
-                                //lpParameters = lpParameters + Application.ExecutablePath.Replace(" ", "§") + " ";
-                                //VSTool.CallUpdate.CallExe(0, Environment.CurrentDirectory + @"\WFLiveUpdate.exe", lpParameters);
-                                //Environment.Exit(Environment.ExitCode);
-                                //Thread.Sleep(5000);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                //
-                MessageBox.Show("您的機器尚未執行過登錄檔，請先執行登錄檔才可使用工具!");
-                Environment.Exit(Environment.ExitCode);
-                //Exit;
-            }
+            //CallUpdate.autoUpdate();
 
             #endregion
 
             #region 複製最新的佈署dll
 
             try {
-                string mServerExePath = CallUpdate.GetExeFolder(CallUpdate.GetServerExePath("VSTool"));
-                Tools.CopynewVSTool(mServerExePath, Toolpars.MVSToolpath);
+                //string mServerExePath = CallUpdate.GetExeFolder(CallUpdate.GetServerExePath("VSTool"));
+                //Tools.CopynewVSTool(mServerExePath, Toolpars.MVSToolpath);
             }
             catch {
             }
@@ -122,8 +86,6 @@ namespace VSTool {
 
 
         private void VSTOOL_Load(object sender, EventArgs e) {
-            //this.bindingSource1.Add(new FormEntity());
-            //Toolpars.formEntity = this.bindingSource1.Current as FormEntity;
             #region 给treeview控件添加选项
             System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
             document.Load(Toolpars.MVSToolpath + "TYPE.xml");
@@ -132,23 +94,71 @@ namespace VSTool {
         //    treeView1.ShowPlusMinus = false;
             treeView1.ShowLines = false;
 
-            populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
+            populateTreeControl(document.DocumentElement, this.treeView1.Nodes,null);
             //treeView1.ExpandAll();显示所有节点
 
             #endregion
         }
 
-        private void populateTreeControl(XmlNode document, TreeNodeCollection nodes) {
+        private void populateTreeControl(XmlNode document, TreeNodeCollection nodes,string filterNode) {
             foreach (System.Xml.XmlNode node in document.ChildNodes) {
                 string text = (node.Value ?? ((node.Attributes != null &&
                                                node.Attributes.Count > 0)
                     ? node.Attributes[0].Value
                     : node.Name));
-                TreeNode new_child = new TreeNode(text);
+                if (!findByName(node, filterNode)) {
+                    continue;
+                }
+                  GTreeNode new_child = new GTreeNode(text);
                 new_child.ForeColor = Color.Gray;
+                new_child.CheckBoxVisible = true;
+
+                if (node.ChildNodes.Count > 0)
+                {
+                    new_child.CheckBoxVisible = false;
+
+                }
+
+
                 nodes.Add(new_child);
-                populateTreeControl(node, new_child.Nodes);
+                populateTreeControl(node, new_child.Nodes, filterNode);
             }
+        }
+
+       public bool findByName(XmlNode node, string filterNode) {
+            var flag = (filterNode ?? string.Empty).Equals(string.Empty);
+           if (node.HasChildNodes) {
+               foreach (System.Xml.XmlNode newChildNode in node.ChildNodes) {
+                   string text = (node.Value ?? ((node.Attributes != null &&
+                                                  node.Attributes.Count > 0)
+                                      ? node.Attributes[0].Value
+                                      : node.Name));
+                   if (!(filterNode ?? string.Empty).Equals(string.Empty)
+                       && text.IndexOf(filterNode, StringComparison.CurrentCulture) > -1) {
+                       flag = true;
+                       break;
+                   }
+                   if (findByName(newChildNode, filterNode)) {
+                       flag = true;
+                       break;
+                   }
+               }
+           }
+           else {
+               string text = (node.Value ?? ((node.Attributes != null &&
+                                              node.Attributes.Count > 0)
+                                  ? node.Attributes[0].Value
+                                  : node.Name));
+
+               if (!(filterNode ?? string.Empty).Equals(string.Empty)
+                   && text.IndexOf(filterNode, StringComparison.CurrentCulture) > -1)
+               {
+                   flag = true;
+               }
+            
+            }
+           
+            return flag;
         }
 
         private List<string> msave = new List<string>();
@@ -2883,35 +2893,27 @@ namespace VSTool {
       
 
         private void RBBusiness_CheckedChanged(object sender, EventArgs e) {
-            if (RBBusiness.Checked) {
-                System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
-                document.Load(Toolpars.MVSToolpath + "TYPE.xml");
-                treeView1.Nodes.Clear();
-                populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
-                listDATA.Items.Clear();
-            }
+            sertTree(RBBusiness.Checked, Toolpars.MVSToolpath + "TYPE.xml");
         }
 
         private void RBBatch_CheckedChanged(object sender, EventArgs e) {
-            if (RBBatch.Checked) {
+          
+            sertTree(RBBatch.Checked, Toolpars.MVSToolpath + "TYPEBatch.xml");
+        }
+
+        public void sertTree(bool chk,string name) {
+            if (chk)
+            {
                 System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
                 //string strins = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;                
-                document.Load(Toolpars.MVSToolpath + "TYPEBatch.xml");
+                document.Load(name);
                 treeView1.Nodes.Clear();
-                populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
+                populateTreeControl(document.DocumentElement, this.treeView1.Nodes, null);
                 listDATA.Items.Clear();
             }
         }
-
         private void RBReport_CheckedChanged(object sender, EventArgs e) {
-            if (RBReport.Checked) {
-                string str = System.Environment.CurrentDirectory;
-                System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
-                document.Load(Toolpars.MVSToolpath + "TYPEReport.xml");
-                treeView1.Nodes.Clear();
-                populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
-                listDATA.Items.Clear();
-            }
+            sertTree(RBReport.Checked, Toolpars.MVSToolpath + "TYPEReport.xml");
         }
 
         private void btnOpen_Click(object sender, EventArgs e) //打开文件夹
@@ -3249,6 +3251,15 @@ namespace VSTool {
             e.ItemHeight = e.ItemHeight + 15;  
         }
 
-
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter) {
+                System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
+                document.Load(Toolpars.MVSToolpath + "TYPE.xml");
+                treeView1.Nodes.Clear();
+                populateTreeControl(document.DocumentElement, this.treeView1.Nodes,textBox1.Text.Trim());
+                listDATA.Items.Clear();
+            }
+        }
     }
 }
