@@ -1,0 +1,8 @@
+F:\Public\myprojects\VSTool\Common\bin\Debug\Common.Implement.dll
+F:\Public\myprojects\VSTool\Common\bin\Debug\Common.Implement.pdb
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.dll
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.pdb
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.cardCustomer.resources
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.csproj.GenerateResource.Cache
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache

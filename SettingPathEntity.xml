@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SettingPathEntity>
+	<ServerDir>\\Server\\Application\\Customization</ServerDir>
+	<DeployServerDir>\\DeployServer\\Shared\\Customization</DeployServerDir>
+	<IndustryServerDir>\\Server\\Application\\Industry</IndustryServerDir>
+	<IndustryDeployDir>\\Server\\Application\\Industry</IndustryDeployDir>
+	<Programs>\\Programs\\</Programs>
+	<BasicDir></BasicDir>
+	<ExportDir>\\Export\\</ExportDir>
+	<BusinessDirExtention>.Business</BusinessDirExtention>
+	<ImplementDirExtention>.Implement</ImplementDirExtention>
+	<UIDirExtention>.UI</UIDirExtention>
+	<DllExtention>.dll</DllExtention>
+	<PackageBaseName>Digiwin.ERP.</PackageBaseName>
+	<TemplateDir>Digiwin.ERP.XTEST</TemplateDir>
+</SettingPathEntity>

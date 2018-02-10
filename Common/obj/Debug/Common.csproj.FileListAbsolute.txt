@@ -1,0 +1,5 @@
+F:\Public\myprojects\VSTool\Common\bin\Debug\Common.dll
+F:\Public\myprojects\VSTool\Common\bin\Debug\Common.pdb
+F:\Public\myprojects\VSTool\Common\obj\Debug\ResolveAssemblyReference.cache
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.dll
+F:\Public\myprojects\VSTool\Common\obj\Debug\Common.pdb

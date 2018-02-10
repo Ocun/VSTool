@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<切片类型>
+  <contacts id="服务"/>
+  <contacts id="向导式批次">
+	<contact id="ConditionAction"/>
+	<contact id="GuideInterceptor">
+	  <ActionExcuted/>
+	  <ActionExcuting/>
+	  <Completed/>
+	  <Initialize/> 
+	  <InitializeActionContext/> 
+	  <Rollbacked/> 
+	  <Rollbacking/> 
+	  <Starting/> 
+	  <Validating/> 	  
+	</contact>
+	<contact ID="QueryResultAction"/>
+	<contact ID="QueryDeleteAction"/>
+	<contact ID="QueryAddAction"/>
+  </contacts>
+  <contacts id="普通批次">
+	<contact id="FreeBatchService"/>
+	<contact id="DataEntityChangedInterceptorAttribute"/>
+	<contact id="IDocumentBatchServiceEvents">
+	  <Confirm/>
+	  <InitializedParameter/>
+	  <InitializingParameter/>
+	  <Processed/> 
+	  <Processing/> 	  	 
+	</contact>
+	<contact id="IEditorView">
+	  <Load/>
+	  <Initialized/>
+	  <DataSourceChanged/>
+	  <DataSourceChanging/> 
+	  <Applyed/> 
+	  <Applying/> 
+	  <EndEditing/> 
+	</contact>
+	<contact id="IDataEntityTraceService">
+	  <DataEntityChanged/>
+	  <Excepting/>
+	  <ListChanged/>
+	  <ListChanging/>
+	  <PropertyChanged/>
+	  <PropertyChanging/>
+	  <PropertyErrorChanged/>
+	  <RegisteringCallback/>
+	</contact>
+	<contact ID="IDocumentResponseServiceEvents">
+	  <ReqeustParamProcessing/>
+	  <RespondOutputPreparing/>
+	</contact>
+  </contacts>
+</切片类型>

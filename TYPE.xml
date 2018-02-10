@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<切片类型>
+  <contacts id="服务"/>
+  <contacts id="普通切片">
+	<contact id="IEditorView">
+	  <Load/>
+	  <Initialized/>
+	  <DataSourceChanged/>
+	  <DataSourceChanging/> 
+	  <Applyed/> 
+	  <Applying/> 
+	  <EndEditing/> 
+	</contact>
+	<contact id="IBrowseView">
+	  <Load/>
+	  <Initialized/>
+	  <DataSourceChanged/>
+	  <DataSourceChanging/> 
+	  <GridColumnEditorChanging/> 
+	  <InitializeContextData/> 
+	  <QueryAdvancedChanged/>
+	  <QueryProjectChanged/>
+	  <SelectionChanged/>
+	  <CustomQuery/>
+	  <CustomContextMenu/> 
+	  <CommitSelectedRows/> 
+	  <DataGridControlMouseClick/> 
+	  <DataGridControlKeyDown/>
+	</contact>
+	<contact id="IDataEntityTraceService">
+	  <DataEntityChanged/>
+	  <Excepting/>
+	  <ListChanged/>
+	  <ListChanging/>
+	  <PropertyChanged/>
+	  <PropertyChanging/>
+	  <PropertyErrorChanged/>
+	  <RegisteringCallback/>
+	</contact>
+	<contact id="IDocumentDataConvertSubServiceEvents">
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	  <Filling/>
+	</contact>
+	<contact id="IDataConvertServiceEvents">
+	  <Completed/>
+	  <Initialized/>
+	  <Prepared/>
+	  <Preparing/>
+	  <Terminated/>
+	  <Validated/>
+	</contact>
+	<contact id="IDeleteServiceEvents">
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	</contact>
+	<contact id="IApproveStatusServiceEvents">
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	</contact>
+  </contacts>
+  <contacts id="保存">
+	<contact id="ISaveServiceEvents">
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	  <Saved/>
+	</contact>
+	<contact id="IDocumentSaveServiceEvents">
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	</contact>
+  </contacts>
+  <contacts id="审核">
+	<contact id="IConfirmServiceEvents">
+	  <AfterBusinessObjectExecute/>
+	  <BeforeBusinessObjectExecute/>
+	  <BusinessObjectCompleted/>
+	  <BusinessObjectExecute/>
+	  <BusinessObjectValidating/>
+	  <DetailCompleted/>
+	  <DetailExecute/>
+	  <DetailExecute2/>
+	  <DetailValidating/>
+	  <Execute/>
+	  <Execute2/>
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	</contact>
+	<contact id="IDisconfirmServiceEvents">
+	  <BusinessObjectCompleted/>
+	  <BusinessObjectExecute/>
+	  <BusinessObjectValidating/>
+	  <DetailCompleted/>
+	  <DetailExecute/>
+	  <DetailExecute2/>
+	  <DetailValidating/>
+	  <Execute/>
+	  <Execute2/>
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	</contact>
+	<contact id="IDocumentConfirmServiceEvents">
+	  <ConditionPanelLoading/>
+	  <Completed/>
+	  <Excepting/>
+	  <Initialize/>
+	  <InitializeActionContext/>
+	  <SecurityDemand/>
+	  <Starting/>
+	  <Validating/>
+	</contact>
+  </contacts>
+  <contacts id="校验"/>
+  <contacts id="数据跟踪"/>
+  <contacts id="菜单">
+	<contact id="表决器"/>
+	<contact id="无表决器"/>
+  </contacts>
+  <contacts id="功能开窗"/>
+</切片类型>
