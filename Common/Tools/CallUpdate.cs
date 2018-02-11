@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Net;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Common.Implement {
     public class CallUpdate {
@@ -143,5 +144,49 @@ namespace Common.Implement {
         }
 
         //取得機碼執行檔路徑
+
+        public static void autoUpgrade() {
+
+            if (CallUpdate.GetServerExePath("VSTool") != "")
+            {
+                if (File.Exists(CallUpdate.GetServerExePath("VSTool")))
+                {
+                    if (CallUpdate.CompareFileLastWritedate(Application.ExecutablePath,
+                        CallUpdate.GetServerExePath("VSTool")))
+                    {
+                        if (File.Exists(CallUpdate.GetServerExePath("WFLiveUpdate")))
+                        {
+                            if (File.Exists(Environment.CurrentDirectory + @"\WFLiveUpdate.exe"))
+                            {
+                                File.SetAttributes(Environment.CurrentDirectory + @"\WFLiveUpdate.exe",
+                                    FileAttributes.Normal);
+                            }
+                            File.Copy(CallUpdate.GetServerExePath("WFLiveUpdate"),
+                                Environment.CurrentDirectory + @"\WFLiveUpdate.exe", true);
+                            if (File.Exists(Environment.CurrentDirectory + @"\WFLiveUpdate.exe"))
+                            {
+                                //string lpParameters = "";
+                                ////取得From路徑
+                                //lpParameters = lpParameters + VSTool.CallUpdate.GetServerExePath("VSTool").Replace(" ", "§") + " ";
+                                ////取得TO路徑
+                                //lpParameters = lpParameters + Application.ExecutablePath.Replace(" ", "§") + " ";
+                                //VSTool.CallUpdate.CallExe(0, Environment.CurrentDirectory + @"\WFLiveUpdate.exe", lpParameters);
+                                //Environment.Exit(Environment.ExitCode);
+                                //Thread.Sleep(5000);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //
+                MessageBox.Show("您的機器尚未執行過登錄檔，請先執行登錄檔才可使用工具!");
+                Environment.Exit(Environment.ExitCode);
+                //Exit;
+            }
+
+        }
+       
     }
 }

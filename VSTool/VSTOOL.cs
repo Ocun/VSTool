@@ -7,10 +7,11 @@ using System.IO;
 using System.Xml;
 using System.Diagnostics;
 using Common.Implement;
+using Common.Implement.UI;
+using Common.Implement.Entity;
 
 namespace VSTool {
-    public partial class VSTOOL : Form
-    {
+    public partial class VSTOOL : Form {
         #region 屬性
 
         private toolpars _toolpars = new toolpars();
@@ -21,63 +22,31 @@ namespace VSTool {
 
         #endregion
 
-       
+
+        private delegate void beginInvokeDelegate();
+
         public VSTOOL(string[] pToIni) {
-           
             InitializeComponent();
-            this.txtToPath.DataBindings.Add(new Binding("Text",Toolpars.formEntity, "txtToPath",true,DataSourceUpdateMode.OnPropertyChanged));
-            this.txtPKGpath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtPKGpath",true,DataSourceUpdateMode.OnPropertyChanged));
-            this.txtNewTypeKey.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtNewTypeKey",true,DataSourceUpdateMode.OnPropertyChanged));
-            this.Industry.DataBindings.Add(new Binding("Checked", Toolpars.formEntity, "Industry",true,DataSourceUpdateMode.OnPropertyChanged));
-           
+            this.txtToPath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtToPath", true,
+                DataSourceUpdateMode.OnPropertyChanged));
+            this.txtPKGpath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtPKGpath", true,
+                DataSourceUpdateMode.OnPropertyChanged));
+            this.txtNewTypeKey.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtNewTypeKey", true,
+                DataSourceUpdateMode.OnPropertyChanged));
+            this.Industry.DataBindings.Add(new Binding("Checked", Toolpars.formEntity, "Industry", true,
+                DataSourceUpdateMode.OnPropertyChanged));
+
             #region 自動更新
 
-            if (CallUpdate.GetServerExePath("VSTool") != "")
-            {
-                if (File.Exists(CallUpdate.GetServerExePath("VSTool")))
-                {
-                    if (CallUpdate.CompareFileLastWritedate(Application.ExecutablePath,
-                        CallUpdate.GetServerExePath("VSTool")))
-                    {
-                        if (File.Exists(CallUpdate.GetServerExePath("WFLiveUpdate")))
-                        {
-                            if (File.Exists(Environment.CurrentDirectory + @"\WFLiveUpdate.exe"))
-                            {
-                                File.SetAttributes(Environment.CurrentDirectory + @"\WFLiveUpdate.exe",
-                                    FileAttributes.Normal);
-                            }
-                            File.Copy(CallUpdate.GetServerExePath("WFLiveUpdate"),
-                                Environment.CurrentDirectory + @"\WFLiveUpdate.exe", true);
-                            if (File.Exists(Environment.CurrentDirectory + @"\WFLiveUpdate.exe"))
-                            {
-                                //string lpParameters = "";
-                                ////取得From路徑
-                                //lpParameters = lpParameters + VSTool.CallUpdate.GetServerExePath("VSTool").Replace(" ", "§") + " ";
-                                ////取得TO路徑
-                                //lpParameters = lpParameters + Application.ExecutablePath.Replace(" ", "§") + " ";
-                                //VSTool.CallUpdate.CallExe(0, Environment.CurrentDirectory + @"\WFLiveUpdate.exe", lpParameters);
-                                //Environment.Exit(Environment.ExitCode);
-                                //Thread.Sleep(5000);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                //
-                MessageBox.Show("您的機器尚未執行過登錄檔，請先執行登錄檔才可使用工具!");
-                Environment.Exit(Environment.ExitCode);
-                //Exit;
-            }
+            //CallUpdate.autoUpgrade;
 
             #endregion
 
             #region 複製最新的佈署dll
 
             try {
-                string mServerExePath = CallUpdate.GetExeFolder(CallUpdate.GetServerExePath("VSTool"));
-                Tools.CopynewVSTool(mServerExePath, Toolpars.MVSToolpath);
+                //string mServerExePath = CallUpdate.GetExeFolder(CallUpdate.GetServerExePath("VSTool"));
+                //Tools.CopynewVSTool(mServerExePath, Toolpars.MVSToolpath);
             }
             catch {
             }
@@ -108,7 +77,7 @@ namespace VSTool {
                 Toolpars.formEntity.Industry = Toolpars.MIndustry;
                 if (Toolpars.Mpath.Contains("PKG")
                     && !Toolpars.MIndustry) {
-                        Toolpars.formEntity.txtToPath = Toolpars.MdesignPath + @"\WD_PR\SRC\";
+                    Toolpars.formEntity.txtToPath = Toolpars.MdesignPath + @"\WD_PR\SRC\";
                 }
                 btncopydll.Visible = true;
                 btncopyUIdll.Visible = true;
@@ -122,14 +91,17 @@ namespace VSTool {
 
 
         private void VSTOOL_Load(object sender, EventArgs e) {
+            createTree();
             //this.bindingSource1.Add(new FormEntity());
             //Toolpars.formEntity = this.bindingSource1.Current as FormEntity;
+
             #region 给treeview控件添加选项
+
             System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
             document.Load(Toolpars.MVSToolpath + "TYPE.xml");
 
             treeView1.Nodes.Clear();
-        //    treeView1.ShowPlusMinus = false;
+            //    treeView1.ShowPlusMinus = false;
             treeView1.ShowLines = false;
 
             populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
@@ -142,26 +114,61 @@ namespace VSTool {
             foreach (System.Xml.XmlNode node in document.ChildNodes) {
                 string text = (node.Value ?? ((node.Attributes != null &&
                                                node.Attributes.Count > 0)
-                    ? node.Attributes[0].Value
-                    : node.Name));
-                TreeNode new_child = new TreeNode(text);
+                                   ? node.Attributes[0].Value
+                                   : node.Name));
+
+                MyTreeNode new_child = new MyTreeNode(text);
+                if (!node.HasChildNodes) {
+                    new_child.CheckBoxVisible = true;
+                }
                 new_child.ForeColor = Color.Gray;
                 nodes.Add(new_child);
                 populateTreeControl(node, new_child.Nodes);
             }
         }
 
+        void createTree() {
+            string Path = Toolpars.MVSToolpath + "BuildeEntity.xml";
+            BuildeEntity BuildeEntity = null;
+            if (ValidateTool.checkFile(Path)) {
+                BuildeEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
+            }
+            this.treeView1.Nodes.Clear();
+            var TreeNodeCollection = this.treeView1.Nodes;
+
+            if (BuildeEntity != null
+                && BuildeEntity.BuildeTypies.Length > 0) {
+                BuildeEntity.BuildeTypies.ToList().ForEach(BuildeType => {
+                    TreeNodeCollection.Add(CreateTree(BuildeType));
+                });
+            }
+        }
+
+        TreeNode CreateTree(BuildeType buildeType) {
+            string text = buildeType.Name ?? string.Empty;
+            string des = buildeType.Description ?? string.Empty;
+            MyTreeNode new_child = new MyTreeNode(text);
+            new_child.Descrition = des;
+            if (buildeType.BuildeItems == null
+                || buildeType.BuildeItems.Length == 0) {
+                new_child.CheckBoxVisible = true;
+            }
+            else if (buildeType.BuildeItems.Length > 0) {
+                buildeType.BuildeItems.ToList().ForEach(BuildeItem => { new_child.Nodes.Add(CreateTree(BuildeItem)); });
+            }
+            return new_child;
+        }
+
+
         private List<string> msave = new List<string>();
 
         #region insertToolInfo
-
-      
 
         #endregion
 
         private void btnCreate_Click(object sender, EventArgs e) {
             try {
-                Tools.WriteLog(Toolpars,listDATA);
+                Tools.WriteLog(Toolpars, listDATA);
 
                 Toolpars.GToIni = Toolpars.formEntity.txtToPath;
                 if ((Toolpars.formEntity.txtToPath == "")
@@ -170,12 +177,16 @@ namespace VSTool {
                     return;
                 }
                 DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
-                if (Directory.Exists(Path.Combine(Toolpars.GToIni + @"\", "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
+                if (Directory.Exists(Path.Combine(Toolpars.GToIni + @"\",
+                    "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
                     DialogResult result =
-                        MessageBox.Show(Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey) + "\r\n目錄已存在，是否覆蓋??",
+                        MessageBox.Show(
+                            Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                            + "\r\n目錄已存在，是否覆蓋??",
                             "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes) {
-                        object tArgsPath = Path.Combine(Toolpars.GToIni + @"\", "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                        object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
+                            "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
                         Tools.DeleteAll(tArgsPath);
                     }
                     else {
@@ -191,7 +202,8 @@ namespace VSTool {
                 #region 修改文件名
 
                 DirectoryInfo tDes =
-                    new DirectoryInfo(Toolpars.GToIni + @"\" + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\");
+                    new DirectoryInfo(
+                        Toolpars.GToIni + @"\" + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\");
                 List<string> tSearchPatternList = new List<string>();
                 tSearchPatternList.Add("*xml");
                 tSearchPatternList.Add("*.sln");
@@ -206,14 +218,16 @@ namespace VSTool {
                                 File.Exists(d.Parent.FullName + "\\"
                                             + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey))) {
                                 File.SetAttributes(
-                                    d.Parent.FullName + "\\" + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey),
+                                    d.Parent.FullName + "\\"
+                                    + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey),
                                     FileAttributes.Normal);
                                 File.Delete(d.Parent.FullName + "\\"
                                             + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey));
                             }
                             if (
                                 Directory.Exists(d.Parent.FullName + "\\" +
-                                                 d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey)) == false) {
+                                                 d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey))
+                                == false) {
                                 d.MoveTo(d.Parent.FullName + "\\"
                                          + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey));
                             }
@@ -229,7 +243,8 @@ namespace VSTool {
                             if (File.Exists(f.FullName)) {
                                 if (
                                     File.Exists(f.Directory.FullName + "\\" +
-                                                f.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey)) == false) {
+                                                f.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey))
+                                    == false) {
                                     f.MoveTo(f.Directory.FullName + "\\" +
                                              f.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey));
                                 }
@@ -241,7 +256,8 @@ namespace VSTool {
 
 
                 for (int i = 0; i < tSearchPatternList.Count; i++) {
-                    foreach (System.IO.FileInfo f in tDes.GetFiles(tSearchPatternList[i], SearchOption.AllDirectories)) {
+                    foreach (System.IO.FileInfo f in tDes.GetFiles(tSearchPatternList[i], SearchOption.AllDirectories)
+                    ) {
                         if (File.Exists(f.FullName)) {
                             string text = File.ReadAllText(f.FullName);
                             text = text.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey);
@@ -257,13 +273,15 @@ namespace VSTool {
 
                 if (RBBatch.Checked
                     || RBReport.Checked) {
-                    string mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\" + "Digiwin.ERP." +
+                    string mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\" + "Digiwin.ERP."
+                                    +
                                     Toolpars.formEntity.txtNewTypeKey + ".UI.Implement\\FunctionWindowOpener";
                     if (Directory.Exists(mpatha)) {
                         DirectoryInfo di = new DirectoryInfo(mpatha);
                         di.Delete(true);
                     }
-                    mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\" + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey
+                    mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\" + "Digiwin.ERP."
+                             + Toolpars.formEntity.txtNewTypeKey
                              +
                              ".UI.Implement\\MenuItem";
                     if (Directory.Exists(mpatha)) {
@@ -343,14 +361,14 @@ namespace VSTool {
                         return;
                     }
 
-                   //目标已存在
+                    //目标已存在
                     if (File.Exists(mto)) {
                         FileInfo f = new FileInfo(mto);
                         if (csname != "") {
                             string replaceText = "ITestsService";
                             string replacedText = f.Name.Replace(replaceText, csname);
                             string fullPath = string.Format("{0}\\{1}", f.Directory.FullName, replacedText);
-                            if (File.Exists(fullPath) ) {
+                            if (File.Exists(fullPath)) {
                                 f.MoveTo(fullPath);
                                 string text = File.ReadAllText(f.FullName);
                                 text = text.Replace(replaceText, csname).Replace("Digiwin.ERP." + Toolpars.OldTypekey,
@@ -530,8 +548,10 @@ namespace VSTool {
                             }
                         }
                     }
-                        #endregion
-                        #region 菜单
+
+                    #endregion
+
+                    #region 菜单
 
                     else if (str == "菜单") {
                         if (str2.Substring(str2.LastIndexOf("\\") + 1) == "表决器") {
@@ -542,7 +562,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".UI.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -619,7 +640,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".UI.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -660,8 +682,10 @@ namespace VSTool {
                             }
                         }
                     }
-                        #endregion
-                        #region 功能开窗
+
+                    #endregion
+
+                    #region 功能开窗
 
                     else if (str == "功能开窗") {
                         string mfrom = Toolpars.MVSToolpath +
@@ -708,8 +732,10 @@ namespace VSTool {
                             }
                         }
                     }
-                        #endregion
-                        #region 校验
+
+                    #endregion
+
+                    #region 校验
 
                     else if (str == "校验") {
                         string mfrom = Toolpars.MVSToolpath +
@@ -789,8 +815,10 @@ namespace VSTool {
                         }
                         //Tools.ModiCS(mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY + ".Business.Implement.csproj", "Interceptor\\" + csname + ".cs");
                     }
-                        #endregion
-                        #region 保存
+
+                    #endregion
+
+                    #region 保存
 
                     else if (str == "保存") {
                         string saveA = str2.Substring(0, str2.LastIndexOf("\\"));
@@ -805,7 +833,8 @@ namespace VSTool {
                                 string mto = mpaths + @"\" + StrYY +
                                              ".Business.Implement\\Interceptor\\SaveSInterceptor.cs";
                                 if (!File.Exists(mto)) {
-                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom, Toolpars);
+                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom,
+                                        Toolpars);
                                 }
                                 else {
                                     MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
@@ -969,8 +998,10 @@ namespace VSTool {
                             }
                         }
                     }
-                        #endregion
-                        #region 审核
+
+                    #endregion
+
+                    #region 审核
 
                     else if (str == "审核") {
                         string ConfirmA = str2.Substring(0, str2.LastIndexOf("\\"));
@@ -987,7 +1018,8 @@ namespace VSTool {
                                 string mto = mpaths + @"\" + StrYY +
                                              ".Business.Implement\\Interceptor\\ApproveSInterceptor.cs";
                                 if (!File.Exists(mto)) {
-                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom, Toolpars);
+                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom,
+                                        Toolpars);
                                 }
                                 else {
                                     MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
@@ -1086,7 +1118,8 @@ namespace VSTool {
                                     if (csname != "") {
                                         if (
                                             File.Exists(f.Directory.FullName + "\\" +
-                                                        f.Name.Replace("DocumentConfirmInterceptor", csname)) == false) {
+                                                        f.Name.Replace("DocumentConfirmInterceptor", csname))
+                                            == false) {
                                             f.MoveTo(f.Directory.FullName + "\\" +
                                                      f.Name.Replace("DocumentConfirmInterceptor", csname));
                                             string text = File.ReadAllText(f.FullName);
@@ -1139,7 +1172,8 @@ namespace VSTool {
                                                 string STRAS = "[EventInterceptor(typeof(" + mSERVER + "),\"" + point +
                                                                "\")]\r\n"
                                                                + "        public void " + mFUNC + "(object sender, " +
-                                                               mtypes + " e)\r\n        {\r\n        }\r\n        //ADD";
+                                                               mtypes
+                                                               + " e)\r\n        {\r\n        }\r\n        //ADD";
                                                 text = text.Replace("//ADD", STRAS);
                                             }
                                             text = text.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey);
@@ -1157,16 +1191,17 @@ namespace VSTool {
                             }
                         }
                     }
-                        #endregion
-                        #region 普通切片
+
+                    #endregion
+
+                    #region 普通切片
 
                     else if (str == "普通切片") {
                         string ConfirmA = str2.Substring(0, str2.LastIndexOf("\\"));
                         ConfirmA = ConfirmA.Substring(ConfirmA.LastIndexOf("\\") + 1);
                         if ((ConfirmA == "IEditorView")
                             || (ConfirmA == "IBrowseView")
-                            ||
-                            (ConfirmA == "IDataEntityTraceService")) {
+                            || (ConfirmA == "IDataEntityTraceService")) {
                             if (R == 0) {
                                 R = 1;
                                 CopyFileA("普通切片\\IEditorView"); //统计相同切片不同时机点
@@ -1360,8 +1395,7 @@ namespace VSTool {
                         }
                         else if ((ConfirmA == "IDeleteServiceEvents")
                                  || (ConfirmA == "IApproveStatusServiceEvents")
-                                 ||
-                                 (ConfirmA == "IDataConvertServiceEvents")) {
+                                 || (ConfirmA == "IDataConvertServiceEvents")) {
                             if (Q == 0) {
                                 Q = 1;
                                 CopyFileA("普通切片\\IDeleteServiceEvents"); //统计相同切片不同时机点
@@ -1372,7 +1406,8 @@ namespace VSTool {
                                 string mto = mpaths + @"\" + StrYY +
                                              ".Business.Implement\\Interceptor\\DetailInterceptorS.cs";
                                 if (!File.Exists(mto)) {
-                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom, Toolpars);
+                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom,
+                                        Toolpars);
                                 }
                                 else {
                                     MessageBox.Show(
@@ -1585,8 +1620,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region ConditionAction
+
+                        #endregion
+
+                        #region ConditionAction
 
                         else if (mService == "ConditionAction") {
                             string mfrom = Toolpars.MVSToolpath +
@@ -1596,7 +1633,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".UI.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -1637,8 +1675,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region QueryResultAction
+
+                        #endregion
+
+                        #region QueryResultAction
 
                         else if (mService == "QueryResultAction") {
                             string mfrom = Toolpars.MVSToolpath +
@@ -1648,7 +1688,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".UI.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -1689,8 +1730,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region QueryDeleteAction
+
+                        #endregion
+
+                        #region QueryDeleteAction
 
                         else if (mService == "QueryDeleteAction") {
                             string mfrom = Toolpars.MVSToolpath +
@@ -1700,7 +1743,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".UI.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -1741,8 +1785,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region QueryAddAction
+
+                        #endregion
+
+                        #region QueryAddAction
 
                         else if (mService == "QueryAddAction") {
                             string mfrom = Toolpars.MVSToolpath +
@@ -1752,7 +1798,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".UI.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -1762,7 +1809,8 @@ namespace VSTool {
                                     if (
                                         File.Exists(f.Directory.FullName + "\\" +
                                                     f.Name.Replace("QueryAddAction", csname)) == false) {
-                                        f.MoveTo(f.Directory.FullName + "\\" + f.Name.Replace("QueryAddAction", csname));
+                                        f.MoveTo(f.Directory.FullName + "\\"
+                                                 + f.Name.Replace("QueryAddAction", csname));
                                         string text = File.ReadAllText(f.FullName);
                                         text = text.Replace("QueryAddAction", csname);
                                         text = text.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey);
@@ -1795,7 +1843,8 @@ namespace VSTool {
 
                         #endregion
                     }
-                        #endregion
+
+                    #endregion
 
                     else {
                         #region FreeBatchService
@@ -1808,7 +1857,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -1848,8 +1898,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region DataEntityChangedInterceptorAttribute
+
+                        #endregion
+
+                        #region DataEntityChangedInterceptorAttribute
 
                         else if (mService == "DataEntityChangedInterceptorAttribute") {
                             string mfrom = Toolpars.MVSToolpath +
@@ -1859,7 +1911,8 @@ namespace VSTool {
                                 Tools.CopyFileCS(mpaths + @"\" + StrYY + ".UI.Implement", mto, mfrom, Toolpars);
                             }
                             else {
-                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！", "Error",
+                                MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
+                                    "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
@@ -1933,8 +1986,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region IDocumentBatchServiceEvents
+
+                        #endregion
+
+                        #region IDocumentBatchServiceEvents
 
                         else if (mService == "IDocumentBatchServiceEvents") {
                             if (L1 == 0) {
@@ -2035,8 +2090,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region IEditorView/IDataEntityTraceService
+
+                        #endregion
+
+                        #region IEditorView/IDataEntityTraceService
 
                         else if (mService == "IEditorView"
                                  || mService == "IDataEntityTraceService") {
@@ -2131,8 +2188,10 @@ namespace VSTool {
                                 }
                             }
                         }
-                            #endregion
-                            #region IDocumentResponseServiceEvents
+
+                        #endregion
+
+                        #region IDocumentResponseServiceEvents
 
                         else if (mService == "IDocumentResponseServiceEvents") {
                             if (H1 == 0) {
@@ -2261,7 +2320,8 @@ namespace VSTool {
                                              ".Business.Implement\\Interceptor\\DetailInterceptorS.cs";
 
                                 if (!File.Exists(mto)) {
-                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom, Toolpars);
+                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom,
+                                        Toolpars);
                                 }
                                 else {
                                     MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
@@ -2337,13 +2397,16 @@ namespace VSTool {
                                         Application.DoEvents();
                                         Tools.ModiCS(
                                             mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY +
-                                            ".Business.Implement.csproj", "Interceptor\\DetailInterceptorS" + ra + ".cs");
+                                            ".Business.Implement.csproj",
+                                            "Interceptor\\DetailInterceptorS" + ra + ".cs");
                                     }
                                 }
                             }
                         }
-                            #endregion
-                            #region IReportServiceEvents
+
+                        #endregion
+
+                        #region IReportServiceEvents
 
                         else if (mService == "IReportServiceEvents") {
                             if (R1 == 0) {
@@ -2354,7 +2417,8 @@ namespace VSTool {
                                 string mto = mpaths + @"\" + StrYY +
                                              ".Business.Implement\\Interceptor\\DetailInterceptorS.cs";
                                 if (!File.Exists(mto)) {
-                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom, Toolpars);
+                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom,
+                                        Toolpars);
                                 }
                                 else {
                                     MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
@@ -2428,13 +2492,16 @@ namespace VSTool {
                                         Application.DoEvents();
                                         Tools.ModiCS(
                                             mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY +
-                                            ".Business.Implement.csproj", "Interceptor\\DetailInterceptorS" + ra + ".cs");
+                                            ".Business.Implement.csproj",
+                                            "Interceptor\\DetailInterceptorS" + ra + ".cs");
                                     }
                                 }
                             }
                         }
-                            #endregion
-                            #region IQueryJetServiceServiceEvents
+
+                        #endregion
+
+                        #region IQueryJetServiceServiceEvents
 
                         else if (mService == "IQueryJetServiceServiceEvents") {
                             if (T1 == 0) {
@@ -2445,7 +2512,8 @@ namespace VSTool {
                                 string mto = mpaths + @"\" + StrYY +
                                              ".Business.Implement\\Interceptor\\DetailInterceptorS.cs";
                                 if (!File.Exists(mto)) {
-                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom, Toolpars);
+                                    Tools.CopyFileCS(mpaths + @"\" + StrYY + ".Business.Implement", mto, mfrom,
+                                        Toolpars);
                                 }
                                 else {
                                     MessageBox.Show("已存在类" + mto.Substring(mto.LastIndexOf("\\") + 1) + "，请重新命名类名！",
@@ -2524,7 +2592,8 @@ namespace VSTool {
                                         Application.DoEvents();
                                         Tools.ModiCS(
                                             mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY +
-                                            ".Business.Implement.csproj", "Interceptor\\DetailInterceptorS" + ra + ".cs");
+                                            ".Business.Implement.csproj",
+                                            "Interceptor\\DetailInterceptorS" + ra + ".cs");
                                     }
                                 }
                             }
@@ -2542,7 +2611,6 @@ namespace VSTool {
 
 
         private void btnOpenTo_Click(object sender, EventArgs e) {
-         
             if (Toolpars.formEntity.txtToPath.Trim() != "") {
                 folderBrowserDialog1.SelectedPath = Toolpars.formEntity.txtToPath.Trim();
             }
@@ -2556,7 +2624,6 @@ namespace VSTool {
             }
         }
 
-      
 
         #region 勾选事件，生成切片种类          
 
@@ -2619,14 +2686,11 @@ namespace VSTool {
                             if (mfirstname == "普通切片") {
                                 if (msecondname == "IEditorView"
                                     || msecondname == "IDataEntityTraceService"
-                                    ||
-                                    msecondname == "IBrowseView") {
+                                    || msecondname == "IBrowseView") {
                                     for (int i = 0; i < listDATA.Items.Count; i++) {
                                         if (listDATA.Items[i].ToString().Contains("IEditorView")
-                                            ||
-                                            listDATA.Items[i].ToString().Contains("IBrowseView")
-                                            ||
-                                            listDATA.Items[i].ToString().Contains("IDataEntityTraceService")) {
+                                            || listDATA.Items[i].ToString().Contains("IBrowseView")
+                                            || listDATA.Items[i].ToString().Contains("IDataEntityTraceService")) {
                                             Toolpars.MDistince = true;
                                             break;
                                         }
@@ -2634,14 +2698,11 @@ namespace VSTool {
                                 }
                                 if (msecondname == "IDataConvertServiceEvents"
                                     || msecondname == "IDeleteServiceEvents"
-                                    ||
-                                    msecondname == "IApproveStatusServiceEvents") {
+                                    || msecondname == "IApproveStatusServiceEvents") {
                                     for (int i = 0; i < listDATA.Items.Count; i++) {
                                         if (listDATA.Items[i].ToString().Contains("IDataConvertServiceEvents")
-                                            ||
-                                            listDATA.Items[i].ToString().Contains("IDeleteServiceEvents")
-                                            ||
-                                            listDATA.Items[i].ToString().Contains("IApproveStatusServiceEvents")) {
+                                            || listDATA.Items[i].ToString().Contains("IDeleteServiceEvents")
+                                            || listDATA.Items[i].ToString().Contains("IApproveStatusServiceEvents")) {
                                             Toolpars.MDistince = true;
                                             break;
                                         }
@@ -2657,8 +2718,10 @@ namespace VSTool {
                                     }
                                 }
                             }
-                                #endregion
-                                #region 保存
+
+                            #endregion
+
+                            #region 保存
 
                             else if (mfirstname == "保存") {
                                 if (msecondname == "ISaveServiceEvents") {
@@ -2678,16 +2741,17 @@ namespace VSTool {
                                     }
                                 }
                             }
-                                #endregion
-                                #region 审核
+
+                            #endregion
+
+                            #region 审核
 
                             else if (mfirstname == "审核") {
                                 if (msecondname == "IConfirmServiceEvents"
                                     || msecondname == "IDisconfirmServiceEvents") {
                                     for (int i = 0; i < listDATA.Items.Count; i++) {
                                         if (listDATA.Items[i].ToString().Contains("IConfirmServiceEvents")
-                                            ||
-                                            listDATA.Items[i].ToString().Contains("IDisconfirmServiceEvents")) {
+                                            || listDATA.Items[i].ToString().Contains("IDisconfirmServiceEvents")) {
                                             Toolpars.MDistince = true;
                                             break;
                                         }
@@ -2702,16 +2766,17 @@ namespace VSTool {
                                     }
                                 }
                             }
-                                #endregion
-                                #region 普通批次                            
+
+                            #endregion
+
+                            #region 普通批次                            
 
                             else if (mfirstname == "普通批次") {
                                 if (msecondname == "IEditorView"
                                     || msecondname == "IDataEntityTraceService") {
                                     for (int i = 0; i < listDATA.Items.Count; i++) {
                                         if (listDATA.Items[i].ToString().Contains("IEditorView")
-                                            ||
-                                            listDATA.Items[i].ToString().Contains("IDataEntityTraceService")) {
+                                            || listDATA.Items[i].ToString().Contains("IDataEntityTraceService")) {
                                             Toolpars.MDistince = true;
                                             break;
                                         }
@@ -2726,7 +2791,8 @@ namespace VSTool {
                                     }
                                 }
                             }
-                                #endregion
+
+                            #endregion
 
                             else {
                                 for (int i = 0; i < listDATA.Items.Count; i++) {
@@ -2755,7 +2821,7 @@ namespace VSTool {
                     #endregion
 
                     if (!rbModi.Checked) {
-                        int gLeft = MYForm.Width/2 - MYForm.lblattention.Width/2;
+                        int gLeft = MYForm.Width / 2 - MYForm.lblattention.Width / 2;
                         MYForm.lblattention.Location = new Point(gLeft, MYForm.lblattention.Top);
                         MYForm.StartPosition = FormStartPosition.CenterParent;
                         MYForm.ShowDialog();
@@ -2763,7 +2829,7 @@ namespace VSTool {
                         if (MYForm.txt01.Text != String.Empty
                             || MYForm.txt02.Text != String.Empty) {
                             StrA = mFullPath + ";" + MYForm.txt01.Text + ";" + MYForm.txt02.Text;
-                         //   listDATA.Items.Add(StrA);
+                            //   listDATA.Items.Add(StrA);
                             addListData(StrA);
                         }
                         else {
@@ -2774,7 +2840,7 @@ namespace VSTool {
                         if (mFullPath.Contains(".cs")
                             || mFullPath.Contains(".resx")) {
                             StrA = mFullPath + ";;";
-                          //  listDATA.Items.Add(StrA);
+                            //  listDATA.Items.Add(StrA);
 
                             addListData(StrA);
                         }
@@ -2796,8 +2862,8 @@ namespace VSTool {
         }
 
         #endregion
-        private void addListData(string str)
-        {
+
+        private void addListData(string str) {
             listDATA.Items.Add(str);
             //listDATA.ItemHeight = 50;
             //listDATA.ColumnWidth = 50;
@@ -2828,17 +2894,18 @@ namespace VSTool {
             }
         }
 
-       
+
         private void btnCreateCS_Click(object sender, EventArgs e) //生成类
         {
             Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-            Tools.WriteLog(Toolpars,listDATA);
+            Tools.WriteLog(Toolpars, listDATA);
             if ((Toolpars.formEntity.txtToPath == "")
                 || (Toolpars.formEntity.txtNewTypeKey == "")) {
                 MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (Directory.Exists(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey)) {
+            if (Directory.Exists(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP."
+                                 + Toolpars.formEntity.txtNewTypeKey)) {
                 if (listDATA.Items.Count != 0) {
                     if (rbModi.Checked) {
                         copyModi();
@@ -2856,7 +2923,9 @@ namespace VSTool {
                 MessageBox.Show("生成成功 !!!");
             }
             else {
-                MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + "不存在，请查看！！！", "Error",
+                MessageBox.Show(
+                    "文件夹" + Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey
+                    + "不存在，请查看！！！", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -2880,7 +2949,6 @@ namespace VSTool {
             }
         }
 
-      
 
         private void RBBusiness_CheckedChanged(object sender, EventArgs e) {
             if (RBBusiness.Checked) {
@@ -2916,7 +2984,8 @@ namespace VSTool {
 
         private void btnOpen_Click(object sender, EventArgs e) //打开文件夹
         {
-            if (Directory.Exists(Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey)) {
+            if (Directory.Exists(Toolpars.formEntity.txtToPath + @"\Digiwin.ERP."
+                                 + Toolpars.formEntity.txtNewTypeKey)) {
                 Process.Start(Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
             }
             else {
@@ -2930,7 +2999,8 @@ namespace VSTool {
             if (rbModi.Checked) {
                 if (Toolpars.formEntity.txtToPath != ""
                     && Toolpars.formEntity.txtNewTypeKey != "") {
-                    string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                    string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                                   + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                     if (Directory.Exists(strb1)) {
                         paintTreeView(treeView1, strb1); //mfroma
                         listDATA.Items.Clear();
@@ -2994,8 +3064,7 @@ namespace VSTool {
             }
             for (int i = 0; i < filecount; i++) {
                 if (file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "cs"
-                    ||
-                    file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "resx") {
+                    || file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "resx") {
                     treeNode.Nodes.Add(file[i].Name);
                 }
             }
@@ -3034,7 +3103,8 @@ namespace VSTool {
                     mstrins = ".Business";
                 }
                 string mfroma = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + typeKN.Substring(1) + "\\" + ITEM;
-                string mtoa = Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + typeKN + "\\" + "Digiwin.ERP." + typeKN + mstrins +
+                string mtoa = Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + typeKN + "\\" + "Digiwin.ERP." + typeKN
+                              + mstrins +
                               MPKG;
                 string mpatha = mtoa.Substring(0, mtoa.LastIndexOf("\\"));
                 if (File.Exists(mfroma)) {
@@ -3072,7 +3142,8 @@ namespace VSTool {
             if (rbModi.Checked) {
                 if (Toolpars.formEntity.txtToPath != ""
                     && Toolpars.formEntity.txtNewTypeKey != "") {
-                    string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                    string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                                   + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                     if (Directory.Exists(strb1)) {
                         paintTreeView(treeView1, strb1);
                         listDATA.Items.Clear();
@@ -3103,7 +3174,7 @@ namespace VSTool {
 
         private void btncopyUIdll_Click(object sender, EventArgs e) {
             try {
-               // Tools.getPathEntity(Toolpars);
+                // Tools.getPathEntity(Toolpars);
                 string Export = Toolpars.PathEntity.ExportPath;
                 string toPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Customization\\Programs\\";
                 string filterStr = "*" + Toolpars.formEntity.txtNewTypeKey + ".UI.*";
@@ -3129,7 +3200,8 @@ namespace VSTool {
                     && Toolpars.formEntity.txtNewTypeKey != "") {
                     if (Directory.Exists(Toolpars.formEntity.txtToPath)) {
                         DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
-                        string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                        string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                                       + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                         if (!Directory.Exists(strb1)) {
                             MessageBox.Show("文件夹" + strb1 + "不存在，请查看！！！", "Error", MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
@@ -3141,7 +3213,8 @@ namespace VSTool {
                                     "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
                                 DialogResult result =
                                     MessageBox.Show(
-                                        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey) + "\r\n目錄已存在，是否覆蓋??",
+                                        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                                        + "\r\n目錄已存在，是否覆蓋??",
                                         "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                                 if (result == DialogResult.Yes) {
                                     object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
@@ -3156,7 +3229,8 @@ namespace VSTool {
                         }
                     }
                     else {
-                        MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "不存在，请查看！！！", "Error", MessageBoxButtons.OK,
+                        MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "不存在，请查看！！！", "Error",
+                            MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return;
                     }
@@ -3191,7 +3265,6 @@ namespace VSTool {
         }
 
         private void Industry_CheckedChanged(object sender, EventArgs e) {
-
             Toolpars.MIndustry = Industry.Checked;
             Toolpars.formEntity.txtToPath = Toolpars.Mpath;
             if (Toolpars.MIndustry) {
@@ -3210,45 +3283,41 @@ namespace VSTool {
         }
 
         private void btnG_Click(object sender, EventArgs e) {
-            if (Directory.Exists(Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey.Substring(1))) {
-                Process.Start(Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey.Substring(1));
+            if (Directory.Exists(Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                                 + Toolpars.formEntity.txtNewTypeKey.Substring(1))) {
+                Process.Start(Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                              + Toolpars.formEntity.txtNewTypeKey.Substring(1));
             }
             else {
                 MessageBox.Show("文件夹不存在~", "注意!!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-    
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
+
+        private void panel3_Paint(object sender, PaintEventArgs e) {
             var BorderLineStyle = ButtonBorderStyle.Solid;
             var BorderLineStyleNo = ButtonBorderStyle.None;
             int BorderWidth = 1;
             var BorderColor = Color.LightGray;
             ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
-                   BorderColor, BorderWidth, BorderLineStyle,
-                   BorderColor, BorderWidth, BorderLineStyleNo,
-                   BorderColor, BorderWidth, BorderLineStyleNo,
-                   BorderColor, BorderWidth, BorderLineStyleNo);
-
+                BorderColor, BorderWidth, BorderLineStyle,
+                BorderColor, BorderWidth, BorderLineStyleNo,
+                BorderColor, BorderWidth, BorderLineStyleNo,
+                BorderColor, BorderWidth, BorderLineStyleNo);
         }
 
-        private void listDATA_DrawItem(object sender, DrawItemEventArgs e)
-        {
+        private void listDATA_DrawItem(object sender, DrawItemEventArgs e) {
             e.Graphics.FillRectangle(new SolidBrush(e.BackColor), e.Bounds);
-            if (e.Index >= 0)
-            {
+            if (e.Index >= 0) {
                 StringFormat sStringFormat = new StringFormat();
                 sStringFormat.LineAlignment = StringAlignment.Center;
-                e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds, sStringFormat);
+                e.Graphics.DrawString(((ListBox) sender).Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor),
+                    e.Bounds, sStringFormat);
             }
-            e.DrawFocusRectangle();  
+            e.DrawFocusRectangle();
         }
 
-        private void listDATA_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            e.ItemHeight = e.ItemHeight + 15;  
+        private void listDATA_MeasureItem(object sender, MeasureItemEventArgs e) {
+            e.ItemHeight = e.ItemHeight + 15;
         }
-
-
     }
 }

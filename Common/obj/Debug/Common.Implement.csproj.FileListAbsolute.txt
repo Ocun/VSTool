@@ -6,3 +6,11 @@ F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.cardCustomer.resou
 F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.csproj.GenerateResource.Cache
 F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
 F:\Public\myprojects\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool\Common\bin\Debug\Common.Implement.dll
+E:\MyProject\VSTool\Common\bin\Debug\Common.Implement.pdb
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.GenerateResource.Cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.dll
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.pdb
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.Properties.Resource.resources

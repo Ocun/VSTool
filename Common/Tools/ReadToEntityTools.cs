@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Common.Implement
 {
-    class ReadToEntityTools
+    public class ReadToEntityTools
     {
 
         public static T ReadToEntity<T>(string path) where T : class {

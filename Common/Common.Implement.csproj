@@ -67,29 +67,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\BuildeEntity.cs" />
     <Compile Include="Entity\SettingEntity.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tools\CallUpdate.cs" />
     <Compile Include="Tools\paloTool.cs" />
     <Compile Include="Tools\PathTools.cs" />
     <Compile Include="Tools\ReadToEntityTools.cs" />
     <Compile Include="Tools\ValidateTool.cs" />
-    <Compile Include="UI\cardCustomer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\cardCustomer.Designer.cs">
-      <DependentUpon>cardCustomer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entity\FormEntity.cs" />
     <Compile Include="Entity\PathEntity.cs" />
     <Compile Include="Entity\toolpars.cs" />
     <Compile Include="Tools\sqlTools.cs" />
     <Compile Include="Tools\Tools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UI\cardCustomer.resx">
-      <DependentUpon>cardCustomer.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="UI\MyTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\MyTreeView.Designer.cs">
+      <DependentUpon>MyTreeView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -97,6 +98,25 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\checked_.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\left-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\right-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\unchecked.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
