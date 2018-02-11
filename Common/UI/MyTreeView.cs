@@ -241,9 +241,9 @@ namespace Common.Implement.UI {
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0)
                 {
-                    //graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
+                    graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
                     ////绘制TreeNode选择后的边框线条  
-                    //graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width-3, this.ItemHeight - 1);
+                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width-3, this.ItemHeight - 1);
                  }
                
                 graphics.DrawString(node.Text, nodeFont, new SolidBrush(this.ForeColor), Rectangle.Inflate(textRec, 2, -2));

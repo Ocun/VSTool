@@ -14,3 +14,11 @@ E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.c
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.dll
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.pdb
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.Properties.Resource.resources
+G:\my document\my project\VSTool\Common\bin\Debug\Common.Implement.dll
+G:\my document\my project\VSTool\Common\bin\Debug\Common.Implement.pdb
+G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.Properties.Resource.resources
+G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.csproj.GenerateResource.Cache
+G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
+G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.dll
+G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.pdb
