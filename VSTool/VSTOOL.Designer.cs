@@ -493,7 +493,7 @@ namespace VSTool
             this.treeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.treeView1.FullRowSelect = true;
-            this.treeView1.HotTracking = true;
+            this.treeView1.HideSelection = false;
             this.treeView1.ImageHeight = 25;
             this.treeView1.ImageWidth = 25;
             this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
@@ -577,7 +577,6 @@ namespace VSTool
         private System.Windows.Forms.TextBox txtNewTypeKey;
         private System.Windows.Forms.CheckBox Industry;
         private System.Windows.Forms.Button btnKill;
-        private Common.Implement.UI.MyTreeView treeView1;
         private System.Windows.Forms.Button btncopyUIdll;
         private System.Windows.Forms.ListBox listDATA;
         private System.Windows.Forms.Button btncopydll;
@@ -586,6 +585,7 @@ namespace VSTool
         private System.Windows.Forms.RadioButton RBBatch;
         private System.Windows.Forms.RadioButton RBReport;
         private System.Windows.Forms.Label label1;
+        private Common.Implement.UI.MyTreeView treeView1;
     }
 }
 

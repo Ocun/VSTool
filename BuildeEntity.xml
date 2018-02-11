@@ -18,37 +18,37 @@
 					<BuildeItems>
 						<BuildeItem>
 							<Id>Load</Id>
-							<Name/>
+							<Name>加载</Name>
 							<Description>界面绘制时</Description>
 						</BuildeItem>
 						<BuildeItem>
 							<Id>Initialized</Id>
-							<Name/>
+							<Name>初始化</Name>
 							<Description>界面初始化时</Description>
 						</BuildeItem>
 						<BuildeItem>
 							<Id>DataSourceChanged</Id>
-							<Name/>
+							<Name>数据源改变</Name>
 							<Description>数据源改变后</Description>
 						</BuildeItem>
 						<BuildeItem>
 							<Id>DataSourceChanging</Id>
-							<Name/>
+							<Name>数据源改变</Name>
 							<Description>数据源改变时</Description>
 						</BuildeItem>
 						<BuildeItem>
 							<Id>Applyed</Id>
-							<Name/>
+							<Name>未知</Name>
 							<Description>未知</Description>
 						</BuildeItem>
 						<BuildeItem>
 							<Id>Applying</Id>
-							<Name/>
+							<Name>未知</Name>
 							<Description>未知</Description>
 						</BuildeItem>
 						<BuildeItem>
 							<Id>EndEditing</Id>
-							<Name/>
+							<Name>未知</Name>
 							<Description>结束编辑时</Description>
 						</BuildeItem>
 					</BuildeItems>

@@ -158,8 +158,11 @@ namespace Common.Implement.UI {
                 return;
             }
             if (node.IsVisible) {
-                //设置Image绘制Rectangle  
-                Point pt = new Point(node.Bounds.X + NodeOffset, node.Bounds.Y);
+               if( node.Descrition != null && !(node.Descrition.Equals(string.Empty))) {
+                   this.ItemHeight = 50;
+               }
+               //设置Image绘制Rectangle  
+               Point pt = new Point(node.Bounds.X + NodeOffset, node.Bounds.Y);
                 Rectangle nodeRect = new Rectangle(pt, NodeImageSize);
                 if (node.Nodes.Count != 0)
                 {
@@ -182,7 +185,7 @@ namespace Common.Implement.UI {
                     Point drawPt = new Point(nodeRect.X, nodeRect.Y + 2);     //绘制图标的起始位置  
                     Rectangle imgRect = new Rectangle(drawPt, NodeImageSize);
 
-                    if (e.Node.Checked)
+                    if (node.Checked)
                     {
                         if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox)
                         {
@@ -213,12 +216,12 @@ namespace Common.Implement.UI {
                 Rectangle textRec;
                 if (node.CheckBoxVisible && node.Level != 0)
                 {
-                    textRec = new Rectangle(nodeRect.X + NodeImageSize.Width + 15, nodeRect.Y, node.Bounds.Width, this.ItemHeight);
+                    textRec = new Rectangle(nodeRect.X + NodeImageSize.Width + 15, nodeRect.Y, this.Width - 3, node.Bounds.Height);
                 }
                 else
                 {
 
-                    textRec = new Rectangle(nodeRect.X +15, nodeRect.Y, node.Bounds.Width, this.ItemHeight); ;
+                    textRec = new Rectangle(nodeRect.X +15, nodeRect.Y, this.Width - 3, node.Bounds.Height); ;
                    
                 }
 
@@ -238,13 +241,20 @@ namespace Common.Implement.UI {
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0)
                 {
-                    graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
-                    //绘制TreeNode选择后的边框线条  
-                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width-3, this.ItemHeight - 1);
+                    //graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
+                    ////绘制TreeNode选择后的边框线条  
+                    //graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width-3, this.ItemHeight - 1);
                  }
+               
+                graphics.DrawString(node.Text, nodeFont, new SolidBrush(this.ForeColor), Rectangle.Inflate(textRec, 2, -2));
+                if (node.Descrition != null && !(node.Descrition.Equals(string.Empty)))
+                {
+                    textRec.Y += 25;
 
-                graphics.DrawString(e.Node.Text, nodeFont, new SolidBrush(this.ForeColor), Rectangle.Inflate(textRec, 2, -2));
-              //  textRec = new Rectangle(nodeRect.X + 15, nodeRect.Y+25, node.Bounds.Width, this.ItemHeight); ;
+                    graphics.DrawString(node.Descrition, nodeFont, new SolidBrush(this.ForeColor), Rectangle.Inflate(textRec, 2, -2));
+                }
+              
+              // 
                 
                 graphics.Dispose();
             }

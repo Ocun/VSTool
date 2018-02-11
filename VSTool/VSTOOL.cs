@@ -92,6 +92,7 @@ namespace VSTool {
 
         private void VSTOOL_Load(object sender, EventArgs e) {
             createTree();
+            return;
             //this.bindingSource1.Add(new FormEntity());
             //Toolpars.formEntity = this.bindingSource1.Current as FormEntity;
 
