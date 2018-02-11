@@ -234,6 +234,7 @@ namespace Common.Implement {
                 graphic.DrawString(e.Node.Text, nodeFont, BackgroundBrush, Rectangle.Inflate(textRec, 2, -1));
                 BackgroundPen.Dispose();
                 BackBrush.Dispose();
+                graphic.Dispose();
             }
         }
 
