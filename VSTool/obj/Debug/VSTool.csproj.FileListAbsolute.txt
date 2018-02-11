@@ -18,3 +18,14 @@ F:\Public\myprojects\VSTool\VSTool.pdb
 F:\Public\myprojects\VSTool\VSTool\obj\Debug\VSTool.csprojResolveAssemblyReference.cache
 F:\Public\myprojects\VSTool\VSTool\obj\Debug\VSTool.csproj.CoreCompileInputs.cache
 F:\Public\myprojects\VSTool\VSTool.exe.config
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.VSTOOL.resources
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.ModiName.resources
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.Properties.Resources.resources
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.csproj.GenerateResource.Cache
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool\VSTool.exe.config
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.exe
+E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.pdb
+E:\MyProject\VSTool\VSTool.exe
+E:\MyProject\VSTool\VSTool.pdb
