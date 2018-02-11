@@ -123,7 +123,7 @@ namespace Common.Implement.UI {
             }
 
             //设置Image绘制Rectangle  
-            Rectangle checkboxImgRect = new Rectangle(node.Bounds.X, node.Bounds.Y, this.Width,ImageHeight);     //节点区域  
+            Rectangle checkboxImgRect = new Rectangle(node.Bounds.X, node.Bounds.Y,ImageWidth,ImageHeight);     //节点区域  
           
          
             // 如果点击的是checkbox图片  
@@ -180,7 +180,7 @@ namespace Common.Implement.UI {
 
 
                 // 如果需要显示CheckBox,则绘制  
-                if (node.CheckBoxVisible && node.Level != 0)
+                if (node.CheckBoxVisible && node.Level > 0)
                 {
                     Point drawPt = new Point(nodeRect.X, nodeRect.Y + 2);     //绘制图标的起始位置  
                     Rectangle imgRect = new Rectangle(drawPt, NodeImageSize);
@@ -214,7 +214,7 @@ namespace Common.Implement.UI {
 
                 //-----------------------绘制文本 -------------------------------  
                 Rectangle textRec;
-                if (node.CheckBoxVisible && node.Level != 0)
+                if (node.CheckBoxVisible )
                 {
                     textRec = new Rectangle(nodeRect.X + NodeImageSize.Width + 15, nodeRect.Y, this.Width - 3, node.Bounds.Height);
                 }
