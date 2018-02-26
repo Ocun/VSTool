@@ -88,7 +88,7 @@ namespace VSTool {
         private void VSTOOL_Load(object sender, EventArgs e) {
             #region 给treeview控件添加选项
             System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
-            document.Load(Toolpars.MVSToolpath + "TYPE.xml");
+            document.Load(Toolpars.MVSToolpath + @"Config\TYPE.xml");
 
             treeView1.Nodes.Clear();
         //    treeView1.ShowPlusMinus = false;
@@ -2893,12 +2893,12 @@ namespace VSTool {
       
 
         private void RBBusiness_CheckedChanged(object sender, EventArgs e) {
-            sertTree(RBBusiness.Checked, Toolpars.MVSToolpath + "TYPE.xml");
+            sertTree(RBBusiness.Checked, Toolpars.MVSToolpath + @"Config\TYPE.xml");
         }
 
         private void RBBatch_CheckedChanged(object sender, EventArgs e) {
           
-            sertTree(RBBatch.Checked, Toolpars.MVSToolpath + "TYPEBatch.xml");
+            sertTree(RBBatch.Checked, Toolpars.MVSToolpath + @"Config\TYPEBatch.xml");
         }
 
         public void sertTree(bool chk,string name) {
@@ -2913,7 +2913,7 @@ namespace VSTool {
             }
         }
         private void RBReport_CheckedChanged(object sender, EventArgs e) {
-            sertTree(RBReport.Checked, Toolpars.MVSToolpath + "TYPEReport.xml");
+            sertTree(RBReport.Checked, Toolpars.MVSToolpath + @"Config\TYPEReport.xml");
         }
 
         private void btnOpen_Click(object sender, EventArgs e) //打开文件夹
@@ -3255,7 +3255,7 @@ namespace VSTool {
         {
             if(e.KeyCode == Keys.Enter) {
                 System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
-                document.Load(Toolpars.MVSToolpath + "TYPE.xml");
+                document.Load(Toolpars.MVSToolpath + @"Config\TYPE.xml");
                 treeView1.Nodes.Clear();
                 populateTreeControl(document.DocumentElement, this.treeView1.Nodes,textBox1.Text.Trim());
                 listDATA.Items.Clear();
