@@ -234,11 +234,11 @@ namespace Common.Implement.UI {
                 //graphics.Clear(this.BackColor);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
-                if ((e.State & TreeNodeStates.Focused) != 0)
+                if ((e.State & TreeNodeStates.Selected) != 0)
                 {
-                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, SystemColors.Highlight)), 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
+                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
                     ////绘制TreeNode选择后的边框线条  
-                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width-3, this.ItemHeight - 1);
+                    graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width-2, this.ItemHeight - 1);
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0)
                 {
