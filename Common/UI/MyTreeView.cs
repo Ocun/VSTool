@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Common.Implement.Properties;
 
@@ -76,6 +71,11 @@ namespace Common.Implement.UI {
 
         void initPars()
         {
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.ResizeRedraw |
+                     ControlStyles.AllPaintingInWmPaint, true);
+
             //不显示树形节点显示连接线  
             this.ShowLines = false;
 
@@ -94,15 +94,8 @@ namespace Common.Implement.UI {
             BackgroundPen = new Pen(Color.FromArgb(130, 249, 252), 1);
             //设置默认节点显示图标便宜位置  
             NodeOffset = 0;
-            this.ItemHeight = 50;
+            //this.ItemHeight = 50;
             NodeImageSize = new Size(ImageWidth, ImageHeight);
-        }
-        public MyTreeView() {
-            InitializeComponent();
-            //this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
-            //              ControlStyles.AllPaintingInWmPaint, true);
-            //this.UpdateStyles();
-            initPars();
             imgUnchecked = Resource.TreeNodeUnchecked;
             imgChecked = Resource.TreeNodeChecked;
             imgRBUnchecked = Resource.TreeNodeUnchecked;
@@ -113,6 +106,14 @@ namespace Common.Implement.UI {
             this.DrawMode = TreeViewDrawMode.OwnerDrawText;
             this.DrawNode += new DrawTreeNodeEventHandler(TreeView_DrawNode);
             this.MouseUp += new MouseEventHandler(TreeView_MouseUp);
+        }
+        public MyTreeView() {
+            InitializeComponent();
+            //this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
+            //              ControlStyles.AllPaintingInWmPaint, true);
+            //this.UpdateStyles();
+            initPars();
+          
         }
 
         private void TreeView_MouseUp(object sender, MouseEventArgs e) {
