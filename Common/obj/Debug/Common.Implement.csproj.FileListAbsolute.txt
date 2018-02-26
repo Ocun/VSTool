@@ -16,3 +16,13 @@ G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.pdb
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.Properties.Resource.resources
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.CustomerTreeView.resources
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool\Common\bin\Debug\Common.Implement.dll
+E:\MyProject\VSTool\Common\bin\Debug\Common.Implement.pdb
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.Properties.Resource.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.cardCustomer.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.CustomerTreeView.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.GenerateResource.Cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.dll
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.pdb

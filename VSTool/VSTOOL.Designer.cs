@@ -87,7 +87,7 @@ namespace VSTool
             this.btnCreate.BackColor = System.Drawing.SystemColors.Window;
             this.btnCreate.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCreate.ForeColor = System.Drawing.Color.Black;
-            this.btnCreate.Location = new System.Drawing.Point(1038, 26);
+            this.btnCreate.Location = new System.Drawing.Point(881, 26);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(75, 26);
             this.btnCreate.TabIndex = 6;
@@ -121,7 +121,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateCS.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCreateCS.ForeColor = System.Drawing.Color.Black;
-            this.btnCreateCS.Location = new System.Drawing.Point(1038, 55);
+            this.btnCreateCS.Location = new System.Drawing.Point(881, 55);
             this.btnCreateCS.Name = "btnCreateCS";
             this.btnCreateCS.Size = new System.Drawing.Size(75, 26);
             this.btnCreateCS.TabIndex = 12;
@@ -135,7 +135,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClear.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnClear.ForeColor = System.Drawing.Color.Black;
-            this.btnClear.Location = new System.Drawing.Point(1038, 113);
+            this.btnClear.Location = new System.Drawing.Point(881, 113);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 26);
             this.btnClear.TabIndex = 15;
@@ -149,7 +149,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpen.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnOpen.ForeColor = System.Drawing.Color.Black;
-            this.btnOpen.Location = new System.Drawing.Point(1038, 84);
+            this.btnOpen.Location = new System.Drawing.Point(881, 84);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 26);
             this.btnOpen.TabIndex = 19;
@@ -293,7 +293,7 @@ namespace VSTool
             this.panel4.Controls.Add(this.btnClear);
             this.panel4.Location = new System.Drawing.Point(-6, 540);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1130, 158);
+            this.panel4.Size = new System.Drawing.Size(973, 158);
             this.panel4.TabIndex = 35;
             // 
             // label4
