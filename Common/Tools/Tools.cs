@@ -37,6 +37,83 @@ namespace Common.Implement {
             ;
         }
 
+        /// <summary>
+        /// 修改方案
+        /// </summary>
+        private void copyModi(toolpars Toolpars,ListView listDATA)
+        {
+            string typeKN = Toolpars.formEntity.txtNewTypeKey;
+            string stra = Toolpars.formEntity.txtToPath.Substring(0, Toolpars.formEntity.txtToPath.IndexOf("\\"));
+            string strb = Toolpars.formEntity.txtToPath.Substring(Toolpars.formEntity.txtToPath.IndexOf("\\") + 1);
+            strb = strb.Substring(0, strb.IndexOf("\\"));
+            for (int i = 0; i < listDATA.Items.Count; i++)
+            {
+                string ITEM = listDATA.Items[i].ToString();
+                ITEM = ITEM.Substring(0, ITEM.Length - 2);
+                string mcspro = "";
+                string MPKG = "";
+                if (ITEM.Contains("\\"))
+                {
+                    mcspro = ITEM.Substring(0, ITEM.IndexOf("\\"));
+                    MPKG = ITEM.Substring(ITEM.IndexOf("\\"));
+                }
+                string mstrins = "";
+                if (mcspro.Contains("."))
+                {
+                    if (mcspro.Substring(mcspro.LastIndexOf(".") + 1) == "Business")
+                    {
+                        mstrins = ".Business";
+                    }
+                    if (mcspro.Contains("Business.Implement"))
+                    {
+                        mstrins = ".Business.Implement";
+                    }
+                    if (mcspro.Contains("UI.Implement"))
+                    {
+                        mstrins = ".UI.Implement";
+                    }
+                }
+                else if (mcspro.Substring(mcspro.LastIndexOf(".") + 1) == "Business")
+                {
+                    mstrins = ".Business";
+                }
+                string mfroma = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + typeKN.Substring(1) + "\\" + ITEM;
+                string mtoa = Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + typeKN + "\\" + "Digiwin.ERP." + typeKN
+                              + mstrins +
+                              MPKG;
+                string mpatha = mtoa.Substring(0, mtoa.LastIndexOf("\\"));
+                if (File.Exists(mfroma))
+                {
+                    if (Directory.Exists(mpatha.Substring(0, mpatha.LastIndexOf("\\"))))
+                    {
+                        if (!Directory.Exists(mpatha))
+                        {
+                            Directory.CreateDirectory(mpatha);
+                        }
+                        System.IO.File.Copy(mfroma, mtoa, true);
+                        if (File.Exists(mtoa))
+                        {
+                            FileInfo f = new FileInfo(mtoa);
+                            string text = File.ReadAllText(f.FullName);
+                            text = text.Replace("Digiwin.ERP." + typeKN.Substring(1), "Digiwin.ERP." + typeKN);
+                            File.SetAttributes(f.FullName, FileAttributes.Normal);
+                            File.Delete(f.FullName);
+                            File.WriteAllText(f.FullName, text, System.Text.UTF8Encoding.UTF8);
+                            //^_^ 20160802 by 05485 for 编码方式修改
+                        }
+                        Application.DoEvents();
+                        string mpan = mtoa.Substring(0, mtoa.LastIndexOf("\\"));
+                        string mfileN = mpan.Substring(mpan.LastIndexOf("\\") + 1);
+                        mpan = mpan.Substring(0, mpan.LastIndexOf("\\"));
+                        string mpans = mpan.Substring(mpan.LastIndexOf("\\") + 1);
+                        Tools.ModiCS(mpan + "\\" + mpans + ".csproj", mfileN + mtoa.Substring(mtoa.LastIndexOf("\\")));
+                        string[] strpath = mtoa.Split('\\');
+
+                        //Tools.ModiCS(mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY + ".Business.Implement.csproj", "Implement\\" + csname.Substring(1) + ".cs");
+                    }
+                }
+            }
+        }
 
         public static void copyDll(toolpars Toolpars) {
             var PathEntity = Toolpars.PathEntity;

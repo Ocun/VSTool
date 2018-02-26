@@ -180,19 +180,21 @@ namespace VSTool {
                 DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
                 if (Directory.Exists(Path.Combine(Toolpars.GToIni + @"\",
                     "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
-                    DialogResult result =
-                        MessageBox.Show(
-                            Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
-                            + "\r\n目錄已存在，是否覆蓋??",
-                            "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (result == DialogResult.Yes) {
-                        object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
-                            "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
-                        Tools.DeleteAll(tArgsPath);
-                    }
-                    else {
-                        return;
-                    }
+                    btnCreateCS_Click(null,null);
+                    return;
+                    //DialogResult result =
+                    //    MessageBox.Show(
+                    //        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                    //        + "\r\n目錄已存在，是否覆蓋??",
+                    //        "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    //if (result == DialogResult.Yes) {
+                    //    object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
+                    //        "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                    //    Tools.DeleteAll(tArgsPath);
+                    //}
+                    //else {
+                    //    return;
+                    //}
                 }
 
                 if (Directory.Exists(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey)) {
@@ -311,6 +313,51 @@ namespace VSTool {
             sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
         }
 
+        private void btnCreateCS_Click(object sender, EventArgs e) //生成类
+        {
+            Toolpars.GToIni = Toolpars.formEntity.txtToPath;
+            Tools.WriteLog(Toolpars, listDATA);
+            if ((Toolpars.formEntity.txtToPath == "")
+                || (Toolpars.formEntity.txtNewTypeKey == ""))
+            {
+                MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (Directory.Exists(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP."
+                                 + Toolpars.formEntity.txtNewTypeKey))
+            {
+                if (listDATA.Items.Count != 0)
+                {
+                    if (rbModi.Checked)
+                    {
+                        copyModi();
+                    }
+                    else
+                    {
+                        CopyFile(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                    }
+                }
+                msave.Clear();
+                listDATA.Items.Clear();
+                foreach (TreeNode node in treeView1.Nodes)
+                {
+                    SetCheckedChildNodes(node);
+                    node.Checked = false;
+                }
+                MessageBox.Show("生成成功 !!!");
+            }
+            else
+            {
+                MessageBox.Show(
+                    "文件夹" + Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey
+                    + "不存在，请查看！！！", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "ADDCS");
+        }
         public void CopyFileA(string mSTR) //统计相同切片不同时机点
         {
             for (int i = 0; i < listDATA.Items.Count; i++) {
@@ -2896,44 +2943,6 @@ namespace VSTool {
         }
 
 
-        private void btnCreateCS_Click(object sender, EventArgs e) //生成类
-        {
-            Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-            Tools.WriteLog(Toolpars, listDATA);
-            if ((Toolpars.formEntity.txtToPath == "")
-                || (Toolpars.formEntity.txtNewTypeKey == "")) {
-                MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (Directory.Exists(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP."
-                                 + Toolpars.formEntity.txtNewTypeKey)) {
-                if (listDATA.Items.Count != 0) {
-                    if (rbModi.Checked) {
-                        copyModi();
-                    }
-                    else {
-                        CopyFile(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
-                    }
-                }
-                msave.Clear();
-                listDATA.Items.Clear();
-                foreach (TreeNode node in treeView1.Nodes) {
-                    SetCheckedChildNodes(node);
-                    node.Checked = false;
-                }
-                MessageBox.Show("生成成功 !!!");
-            }
-            else {
-                MessageBox.Show(
-                    "文件夹" + Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey
-                    + "不存在，请查看！！！", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "ADDCS");
-        }
 
         private void btnClear_Click(object sender, EventArgs e) {
             listDATA.Items.Clear();
@@ -3074,6 +3083,9 @@ namespace VSTool {
 
         #endregion
 
+        /// <summary>
+        /// 修改方案
+        /// </summary>
         private void copyModi() {
             string typeKN = Toolpars.formEntity.txtNewTypeKey;
             string stra = Toolpars.formEntity.txtToPath.Substring(0, Toolpars.formEntity.txtToPath.IndexOf("\\"));
