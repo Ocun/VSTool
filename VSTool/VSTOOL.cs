@@ -99,7 +99,7 @@ namespace VSTool {
             #region 给treeview控件添加选项
 
             System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
-            document.Load(Toolpars.MVSToolpath + "TYPE.xml");
+            document.Load(Toolpars.MVSToolpath + @"Config\TYPE.xml");
 
             treeView1.Nodes.Clear();
             //    treeView1.ShowPlusMinus = false;
@@ -129,7 +129,7 @@ namespace VSTool {
         }
 
         void createTree() {
-            string Path = Toolpars.MVSToolpath + "BuildeEntity.xml";
+            string Path = Toolpars.MVSToolpath + @"Config\BuildeEntity.xml";
             BuildeEntity BuildeEntity = null;
             if (ValidateTool.checkFile(Path)) {
                 BuildeEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
@@ -2954,7 +2954,7 @@ namespace VSTool {
         private void RBBusiness_CheckedChanged(object sender, EventArgs e) {
             if (RBBusiness.Checked) {
                 System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
-                document.Load(Toolpars.MVSToolpath + "TYPE.xml");
+                document.Load(Toolpars.MVSToolpath + @"Config\TYPE.xml");
                 treeView1.Nodes.Clear();
                 populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
                 listDATA.Items.Clear();
@@ -2965,7 +2965,7 @@ namespace VSTool {
             if (RBBatch.Checked) {
                 System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
                 //string strins = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;                
-                document.Load(Toolpars.MVSToolpath + "TYPEBatch.xml");
+                document.Load(Toolpars.MVSToolpath + @"Config\TYPEBatch.xml");
                 treeView1.Nodes.Clear();
                 populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
                 listDATA.Items.Clear();
@@ -2976,7 +2976,7 @@ namespace VSTool {
             if (RBReport.Checked) {
                 string str = System.Environment.CurrentDirectory;
                 System.Xml.XmlDocument document = new System.Xml.XmlDataDocument();
-                document.Load(Toolpars.MVSToolpath + "TYPEReport.xml");
+                document.Load(Toolpars.MVSToolpath + @"Config\TYPEReport.xml");
                 treeView1.Nodes.Clear();
                 populateTreeControl(document.DocumentElement, this.treeView1.Nodes);
                 listDATA.Items.Clear();

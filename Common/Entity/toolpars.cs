@@ -20,7 +20,7 @@ namespace Common.Implement {
             get
             {
                 if (_settingPathEntity == null) {
-                    string settingPath = MVSToolpath + "SettingPathEntity.xml";
+                    string settingPath = MVSToolpath + @"Config\SettingPathEntity.xml";
                     if (ValidateTool.checkFile(settingPath)) {
                         _settingPathEntity = ReadToEntityTools.ReadToEntity<SettingPathEntity>(settingPath);
                     }
