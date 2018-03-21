@@ -62,13 +62,13 @@ namespace VSTool
             this.txtNewTypeKey = new System.Windows.Forms.TextBox();
             this.Industry = new System.Windows.Forms.CheckBox();
             this.btnKill = new System.Windows.Forms.Button();
+            this.treeView1 = new Common.Implement.UI.MyTreeView();
             this.btncopyUIdll = new System.Windows.Forms.Button();
             this.btncopydll = new System.Windows.Forms.Button();
             this.rbModi = new System.Windows.Forms.RadioButton();
             this.RBBusiness = new System.Windows.Forms.RadioButton();
             this.RBBatch = new System.Windows.Forms.RadioButton();
             this.RBReport = new System.Windows.Forms.RadioButton();
-            this.treeView1 = new Common.Implement.UI.MyTreeView();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -391,7 +391,7 @@ namespace VSTool
             // 
             this.btnKill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKill.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btnKill.Location = new System.Drawing.Point(545, 55);
+            this.btnKill.Location = new System.Drawing.Point(14, 58);
             this.btnKill.Name = "btnKill";
             this.btnKill.Size = new System.Drawing.Size(75, 23);
             this.btnKill.TabIndex = 25;
@@ -399,11 +399,53 @@ namespace VSTool
             this.btnKill.UseVisualStyleBackColor = true;
             this.btnKill.Click += new System.EventHandler(this.button1_Click);
             // 
+            // treeView1
+            // 
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.treeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.treeView1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.treeView1.FullRowSelect = true;
+            this.treeView1.HideSelection = false;
+            this.treeView1.HotTracking = true;
+            this.treeView1.ImageHeight = 25;
+            this.treeView1.ImageWidth = 25;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.treeView1.ItemHeight = 25;
+            this.treeView1.Location = new System.Drawing.Point(95, 55);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.NodeFont = null;
+            this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
+            this.treeView1.NodeOffset = 0;
+            treeNode1.Name = "节点3";
+            treeNode1.Text = "节点3";
+            treeNode2.Name = "节点0";
+            treeNode2.Text = "节点0";
+            treeNode3.Name = "节点4";
+            treeNode3.Text = "节点4";
+            treeNode4.Name = "节点1";
+            treeNode4.Text = "节点1";
+            treeNode5.Name = "节点2";
+            treeNode5.Text = "节点2";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode5});
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowPlusMinus = false;
+            this.treeView1.Size = new System.Drawing.Size(541, 409);
+            this.treeView1.TabIndex = 13;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
+            // 
             // btncopyUIdll
             // 
             this.btncopyUIdll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btncopyUIdll.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btncopyUIdll.Location = new System.Drawing.Point(545, 109);
+            this.btncopyUIdll.Location = new System.Drawing.Point(14, 112);
             this.btncopyUIdll.Name = "btncopyUIdll";
             this.btncopyUIdll.Size = new System.Drawing.Size(75, 23);
             this.btncopyUIdll.TabIndex = 23;
@@ -415,7 +457,7 @@ namespace VSTool
             // 
             this.btncopydll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btncopydll.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btncopydll.Location = new System.Drawing.Point(545, 82);
+            this.btncopydll.Location = new System.Drawing.Point(14, 85);
             this.btncopydll.Name = "btncopydll";
             this.btncopydll.Size = new System.Drawing.Size(75, 23);
             this.btncopydll.TabIndex = 22;
@@ -481,47 +523,6 @@ namespace VSTool
             this.RBReport.Text = "报表";
             this.RBReport.UseVisualStyleBackColor = false;
             this.RBReport.CheckedChanged += new System.EventHandler(this.RBReport_CheckedChanged);
-            // 
-            // treeView1
-            // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.treeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.treeView1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.HideSelection = false;
-            this.treeView1.HotTracking = true;
-            this.treeView1.ImageHeight = 25;
-            this.treeView1.ImageWidth = 25;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.treeView1.ItemHeight = 25;
-            this.treeView1.Location = new System.Drawing.Point(93, 55);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.NodeFont = null;
-            this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
-            this.treeView1.NodeOffset = 0;
-            treeNode1.Name = "节点3";
-            treeNode1.Text = "节点3";
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "节点0";
-            treeNode3.Name = "节点4";
-            treeNode3.Text = "节点4";
-            treeNode4.Name = "节点1";
-            treeNode4.Text = "节点1";
-            treeNode5.Name = "节点2";
-            treeNode5.Text = "节点2";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode5});
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowPlusMinus = false;
-            this.treeView1.Size = new System.Drawing.Size(446, 386);
-            this.treeView1.TabIndex = 13;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             // 
             // VSTOOL
             // 

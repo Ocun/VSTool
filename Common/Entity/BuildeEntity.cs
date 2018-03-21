@@ -41,6 +41,9 @@ namespace Common.Implement.Entity
 
         private string descriptionField;
 
+        private string checkedField;
+        private string readOnlyField;
+
         private BuildeType[] buildeItemsField;
 
         /// <remarks/>
@@ -94,6 +97,16 @@ namespace Common.Implement.Entity
             {
                 this.buildeItemsField = value;
             }
+        }
+
+        public string Checked {
+            get { return checkedField; }
+            set { checkedField = value; }
+        }
+
+        public string ReadOnly {
+            get { return readOnlyField; }
+            set { readOnlyField = value; }
         }
     }
 

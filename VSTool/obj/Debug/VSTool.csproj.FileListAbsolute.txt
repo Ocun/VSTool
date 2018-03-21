@@ -20,7 +20,6 @@ F:\Public\myprojects\VSTool\VSTool\obj\Debug\VSTool.csproj.CoreCompileInputs.cac
 F:\Public\myprojects\VSTool\VSTool.exe.config
 E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.csprojResolveAssemblyReference.cache
 E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.VSTOOL.resources
-E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.ModiName.resources
 E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.Properties.Resources.resources
 E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.csproj.GenerateResource.Cache
 E:\MyProject\VSTool\VSTool\obj\Debug\VSTool.csproj.CoreCompileInputs.cache

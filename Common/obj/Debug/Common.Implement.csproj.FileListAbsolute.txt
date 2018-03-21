@@ -21,3 +21,5 @@ G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.csproj.Genera
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.dll
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.pdb
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ModiName.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache

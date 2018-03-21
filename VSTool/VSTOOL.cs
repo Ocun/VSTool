@@ -148,8 +148,12 @@ namespace VSTool {
         TreeNode CreateTree(BuildeType buildeType) {
             string text = buildeType.Name ?? string.Empty;
             string des = buildeType.Description ?? string.Empty;
+            string check = buildeType.Checked ?? string.Empty;
             MyTreeNode new_child = new MyTreeNode(text);
-            new_child.Descrition = des;
+
+            new_child.buildeType = buildeType;
+            //new_child.buildeType.Description = des;
+            //new_child.buildeType.Checked = check;
             if (buildeType.BuildeItems == null
                 || buildeType.BuildeItems.Length == 0) {
                 new_child.CheckBoxVisible = true;
@@ -2703,7 +2707,7 @@ namespace VSTool {
                     e.Node.Parent.Checked = true;
                 }
                 if (e.Node.Nodes.Count == 0) {
-                    VSTool.ModiName MYForm = new VSTool.ModiName(this);
+                    ModiName MYForm = new ModiName();
                     string mFullPath = e.Node.FullPath.ToString();
 
                     #region 画面调整

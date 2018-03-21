@@ -11,9 +11,12 @@ using Digiwin.Common.Torridity;
 using Digiwin.Common.Torridity.Metadata;
 using Digiwin.ERP.Common.Business;
 using Digiwin.ERP.Common.Utils;
+using System.Runtime.Remoting.Messaging;
 
-namespace Digiwin.ERP.XTEST.Business.Implement {
+namespace Digiwin.ERP.XIM_B900.Business.Implement {
     public class Tools {
+        #region 属性
+
         private IResourceServiceProvider _resourceServiceProvider;
         private ServiceCallContext _serviceCallContext;
 
@@ -27,16 +30,27 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             set { _serviceCallContext = value; }
         }
 
+
         public Tools(IResourceServiceProvider ResourceServiceProvider, ServiceCallContext ServiceCallContext) {
             this.Provider = ResourceServiceProvider;
             this.CallContext = ServiceCallContext;
         }
 
+        #endregion
 
+        #region 辅助方法
+
+        /// <summary>
+        /// 返回实体对应的dt与doc的结构
+        /// </summary>
+        /// <param name="TypeKey">作业MO.XX.XX</param>
+        /// <param name="dt"></param>
+        /// <param name="targetType"></param>
         public void creatTmp(string TypeKey, out DataTable dt, out DependencyObjectType targetType) {
             dt = null;
             targetType = null;
             string[] spiltTypeKeys = null;
+            ///单身
             bool isColls = false;
             string primaryKey = string.Empty;
             if (TypeKey.Contains(@".")) {
@@ -52,6 +66,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             }
             var entity = createSrv.Create() as DependencyObject;
             DependencyObjectType toType = entity.DependencyObjectType;
+            //去单身实体结构
             if (isColls && spiltTypeKeys != null) {
                 spiltTypeKeys.ToList().ForEach(key => {
                     if (!key.Equals(TypeKey)) {
@@ -64,6 +79,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 Provider.GetService(typeof (IBusinessTypeService), CallContext.TypeKey) as IBusinessTypeService;
             targetType = RegiesterType(toType, targetType);
             if (isColls) {
+                //附加父主键
                 string primaryKeyName = primaryKey + "_ID";
 
                 targetType.RegisterSimpleProperty(primaryKeyName, businessTypeSrv.SimplePrimaryKeyType,
@@ -102,42 +118,51 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             return docNo;
         }
 
+
+    
         /// <summary>
-        /// 例如,根据colls 插入到表，colls应与表字段一致
+        /// 创建datas的临时表
         /// </summary>
         /// <param name="qurService"></param>
-        /// <param name="businessTypeSrv"></param>
-        /// <param name="entityD"></param>
-        /// <param name="TableName"></param>
-        private void Insert(IQueryService qurService,
-            DependencyObjectCollection colls, string typeKey) {
-            var ItemDependencyObjectType = colls.ItemDependencyObjectType;
-            //创建临时表
-            DependencyObjectType tmpType = RegiesterType(ItemDependencyObjectType, null);
-            qurService.CreateTempTable(tmpType);
-            //创建DataTable
-            var TempDt = new DataTable();
-            TempDt = CreateDt(ItemDependencyObjectType, TempDt);
-            DOCToDataTable(colls, TempDt);
-            //插入临时表
-            List<QueryProperty> propies = new List<QueryProperty>();
-            InsertTemp(qurService, TempDt, tmpType.Name);
-
-            if (TempDt == null) {
-                return;
+        /// <param name="datas"></param>
+        /// <param name="tmp"></param>
+        /// <param name="tmpdt"></param>
+        public void CreateTmp(IQueryService qurService,
+            DependencyObjectCollection datas,out DependencyObjectType tmp,out DataTable tmpdt) {
+            try {
+                var ItemDependencyObjectType = datas.ItemDependencyObjectType;
+                //创建临时表
+                tmp = RegiesterType(ItemDependencyObjectType, null);
+                qurService.CreateTempTable(tmp);
+                //创建DataTable
+                tmpdt = new DataTable();
+                tmpdt = CreateDt(ItemDependencyObjectType, tmpdt);
+                DOCToDataTable(datas, tmpdt);
+                //插入临时表
+                List<QueryProperty> propies = new List<QueryProperty>();
+                InsertTemp(qurService, tmpdt, tmp.Name);
             }
-            foreach (DataColumn row in TempDt.Columns) {
-                propies.Add(OOQL.CreateProperty(row.ColumnName, row.ColumnName));
-            }
-
-            if (propies != null && propies.Count > 0) {
-                QueryNode node = OOQL.Select(propies
-                    ).From(tmpType.Name);
-                node = OOQL.Insert(typeKey, node, propies.Select(c => c.Alias).ToArray());
-                qurService.ExecuteNoQueryWithManageProperties(node);
+            catch (Exception ex) {
+                throw new BusinessRuleException(ex.Message);
             }
         }
-
+      
+        /// <summary>
+        /// 从queryNode插入到实体
+        /// </summary>
+        /// <param name="qurService"></param>
+        /// <param name="typekey"></param>
+        /// <param name="node"></param>
+        /// <param name="selectNode">插入属性</param>
+        public void CreateInsert(IQueryService qurService,string typekey, QueryNode node,List<QueryProperty> selectNode) {
+            try {
+                node = OOQL.Insert(typekey, node, selectNode.Select(c => c.Alias).ToArray());
+                qurService.ExecuteNoQueryWithManageProperties(node);
+            }
+            catch (Exception ex) {
+                throw new BusinessRuleException("插单" + typekey + ex.Message);
+            }
+        }
 
         /// <summary>
         /// 将DataTable填充到临时表 
@@ -166,7 +191,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 //}
                 mappingList.Add(new BulkCopyColumnMapping(dcScan.ColumnName, targetName));
             }
-            //3.0 不支持直接将dt 插入到实体表中,可借用临时表插入
+            //3.0 不支持直接将dt 插入到实体表（例如MO）中,可借用临时表插入（插入临时表,再由临时表插入MO）
             qurService.BulkCopy(dt, tname, mappingList.ToArray());
         }
 
@@ -213,7 +238,8 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
 
                 Type prop_type = prop.PropertyType;
 
-                if (prop_type == typeof (DependencyObject) ||
+                if (prop_type == typeof (DependencyObject)
+                    ||
                     prop_type == typeof (DependencyObjectCollection)) {
                     // 本次个案需要
                     try {
@@ -521,7 +547,8 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                                 fristObject =
                                     item.DependencyObjectType.Properties.FirstOrDefault(p => p.Name.Equals(targetName));
                                 if (fristObject != null) {
-                                    if (fristObject.PropertyType is IComplexProperty &&
+                                    if (fristObject.PropertyType is IComplexProperty
+                                        &&
                                         (((IComplexProperty) (fristObject)).DataEntityType.Name == "ReferToEntity")) {
                                         dr[col.ColumnName] = (item[targetName] as DependencyObject)[extName];
                                     }
@@ -537,6 +564,73 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             return targetTable;
         }
 
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typekey"></param>
+        /// <param name="id"></param>
+        /// <param name="type">1 通过保存 2根据工厂参数</param>
+        public void AutoApprove(string typekey, object id, int type)
+        {
+            //保存单据,自動審核
+         
+            SetIgnoreWarningTag();
+            try {
+                if (type == 1) {
+                    IReadService readSrv = Provider.GetService(typeof (IReadService), typekey) as IReadService;
+                    ISaveService saveSrv = Provider.GetService(typeof (ISaveService), typekey) as ISaveService;
+                    var entity = readSrv.Read(id);
+                    if (entity != null
+                        ) {
+                        saveSrv.Save(entity);
+                    }
+                }else if (type == 2) {
+                    DateTime dt = DateTime.Now.Date;
+                    //if (plant_approve_date_by.Equals("2"))
+                    //{
+                    //    dt = DocDate;
+                    //}
+                    IConfirmService confirmService = Provider.GetService(typeof(IConfirmService), typekey) as IConfirmService;
+                    ILogOnService logOnSer = Provider.GetService(typeof(ILogOnService), typekey) as ILogOnService;
+                    ConfirmContext context = new ConfirmContext(id, logOnSer.CurrentUserId, dt);
+                    context.UseTransaction = false;
+                    confirmService.Execute(context);
+                }
+            }
+            catch (Exception ex) {
+                throw new BusinessRuleException(typekey + "审核时出错：" + ex.Message);
+            }
+            finally {
+                ResetIgnoreWarningTag();
+            }
+        }
+
+
+        public void SetIgnoreWarningTag() {
+            DeliverContext deliver =
+                System.Runtime.Remoting.Messaging.CallContext.GetData(DeliverContext.Name) as DeliverContext;
+            if (deliver == null) {
+                deliver = new DeliverContext();
+                System.Runtime.Remoting.Messaging.CallContext.SetData(DeliverContext.Name, deliver);
+            }
+            if (deliver.ContainsKey("IgnoreWarning")) {
+                deliver["IgnoreWarning"] = true;
+            }
+            else {
+                deliver.Add("IgnoreWarning", true);
+            }
+        }
+
+        public void ResetIgnoreWarningTag() {
+            DeliverContext deliver =
+                System.Runtime.Remoting.Messaging.CallContext.GetData(DeliverContext.Name) as DeliverContext;
+            if (deliver != null
+                && deliver.ContainsKey("IgnoreWarning")) {
+                deliver["IgnoreWarning"] = false;
+            }
+        }
     }
 
     public class RegiesterTypeParameter {

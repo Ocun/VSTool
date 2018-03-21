@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Common.Implement.Entity;
 using Common.Implement.Properties;
 
 namespace Common.Implement.UI {
@@ -69,8 +70,7 @@ namespace Common.Implement.UI {
         private Image imgLeft;
         private Image imaDown;
 
-        void initPars()
-        {
+        void initPars() {
             DoubleBuffered = true;
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw |
@@ -107,46 +107,44 @@ namespace Common.Implement.UI {
             this.DrawNode += new DrawTreeNodeEventHandler(TreeView_DrawNode);
             this.MouseUp += new MouseEventHandler(TreeView_MouseUp);
         }
+
         public MyTreeView() {
             InitializeComponent();
             //this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
             //              ControlStyles.AllPaintingInWmPaint, true);
             //this.UpdateStyles();
             initPars();
-          
         }
 
         private void TreeView_MouseUp(object sender, MouseEventArgs e) {
             MyTreeNode node = GetNodeAt(e.X, e.Y) as MyTreeNode;
-            if (node == null || !node.CheckBoxVisible|| !node.IsVisible)
-            {
+            if (node == null
+                || !node.CheckBoxVisible
+                || !node.IsVisible) {
                 return;
             }
 
             //设置Image绘制Rectangle  
-            Rectangle checkboxImgRect = new Rectangle(node.Bounds.X, node.Bounds.Y,ImageWidth,ImageHeight);     //节点区域  
-          
-         
+            Rectangle checkboxImgRect = new Rectangle(node.Bounds.X, node.Bounds.Y, ImageWidth, ImageHeight); //节点区域  
+
+
             // 如果点击的是checkbox图片  
-            if (checkboxImgRect.Contains(e.X, e.Y))
-            {
+            if (checkboxImgRect.Contains(e.X, e.Y)) {
                 node.Checked = !node.Checked;
 
                 // 如果是单选，则设置同级别的其它单选项为unchecked.  
-                if (node.Parent != null && node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton)
-                {
-                    foreach (TreeNode siblingNode in node.Parent.Nodes)
-                    {
+                if (node.Parent != null
+                    && node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton) {
+                    foreach (TreeNode siblingNode in node.Parent.Nodes) {
                         var siblingGNode = siblingNode as MyTreeNode;
-                        if (siblingGNode == null)
-                        {
+                        if (siblingGNode == null) {
                             continue;
                         }
-                        if (siblingGNode.Name != node.Name && siblingGNode.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton && siblingGNode.Checked)
-                        {
+                        if (siblingGNode.Name != node.Name
+                            && siblingGNode.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton
+                            && siblingGNode.Checked) {
                             siblingGNode.Checked = false;
                         }
-
                     }
                 }
             }
@@ -154,122 +152,113 @@ namespace Common.Implement.UI {
 
         private void TreeView_DrawNode(object sender, DrawTreeNodeEventArgs e) {
             MyTreeNode node = e.Node as MyTreeNode;
-            if (node == null )
-            {
+            if (node == null) {
                 return;
             }
             if (node.IsVisible) {
-               if( node.Descrition != null && !(node.Descrition.Equals(string.Empty))) {
-                   this.ItemHeight = 50;
-               }
-               //设置Image绘制Rectangle  
-               Point pt = new Point(node.Bounds.X + NodeOffset, node.Bounds.Y);
+                if (node.buildeType.Description != null
+                    && !(node.buildeType.Description.Equals(string.Empty))) {
+                    this.ItemHeight = 50;
+                }
+                //else {
+                //    this.ItemHeight = 25;
+                //}
+                //设置Image绘制Rectangle  
+                Point pt = new Point(node.Bounds.X + NodeOffset, node.Bounds.Y);
                 Rectangle nodeRect = new Rectangle(pt, NodeImageSize);
-                if (node.Nodes.Count != 0)
-                {
-                    if (node.IsExpanded)
-                    {
+                if (node.Nodes.Count != 0) {
+                    if (node.IsExpanded) {
                         e.Graphics.DrawImage(imgLeft, nodeRect);
                     }
-                    else
-                    {
+                    else {
                         e.Graphics.DrawImage(imaDown, nodeRect);
                     }
                     nodeRect.X += 15;
                 }
 
 
-
                 // 如果需要显示CheckBox,则绘制  
-                if (node.CheckBoxVisible && node.Level > 0)
-                {
-                    Point drawPt = new Point(nodeRect.X, nodeRect.Y + 2);     //绘制图标的起始位置  
+                if (node.CheckBoxVisible
+                    && node.Level > 0) {
+                    Point drawPt = new Point(nodeRect.X, nodeRect.Y + 2); //绘制图标的起始位置  
                     Rectangle imgRect = new Rectangle(drawPt, NodeImageSize);
 
-                    if (node.Checked)
-                    {
-                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox)
-                        {
+                    
+                    if (node.Checked || (node.buildeType.Checked != null
+                                         && node.buildeType.Checked.Equals("True"))) {
+                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox) {
                             e.Graphics.DrawImage(imgChecked, imgRect);
                         }
-                        else
-                        {
+                        else {
                             e.Graphics.DrawImage(imgRBChecked, imgRect);
-
                         }
                     }
-                    else
-                    {
-                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox)
-                        {
+                    else {
+                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox) {
                             e.Graphics.DrawImage(imgUnchecked, imgRect);
                         }
-                        else
-                        {
+                        else {
                             e.Graphics.DrawImage(imgRBUnchecked, imgRect);
                         }
                     }
                 }
 
 
-
                 //-----------------------绘制文本 -------------------------------  
                 Rectangle textRec;
-                if (node.CheckBoxVisible )
-                {
-                    textRec = new Rectangle(nodeRect.X + NodeImageSize.Width + 15, nodeRect.Y, this.Width - 3, node.Bounds.Height);
+                if (node.CheckBoxVisible) {
+                    textRec = new Rectangle(nodeRect.X + NodeImageSize.Width + 15, nodeRect.Y, this.Width - 3,
+                        node.Bounds.Height);
                 }
-                else
-                {
-
-                    textRec = new Rectangle(nodeRect.X +15, nodeRect.Y, this.Width - 3, node.Bounds.Height); ;
-                   
+                else {
+                    textRec = new Rectangle(nodeRect.X + 15, nodeRect.Y, this.Width - 3, node.Bounds.Height);
+                    ;
                 }
 
                 Font nodeFont = e.Node.NodeFont;
                 if (nodeFont == null)
-                    nodeFont = ((TreeView)sender).Font;
+                    nodeFont = ((TreeView) sender).Font;
                 Brush textBrush = SystemBrushes.WindowText;
                 Graphics graphics = e.Graphics;
                 //graphics.Clear(this.BackColor);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
-                if ((e.State & TreeNodeStates.Selected) != 0)
-                {
-                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
+                if ((e.State & TreeNodeStates.Selected) != 0) {
+                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2,
+                        node.Bounds.Y, this.Width, this.ItemHeight - 1);
                     ////绘制TreeNode选择后的边框线条  
-                    graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width-2, this.ItemHeight - 1);
+                    graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
                 }
-                else if ((e.State & TreeNodeStates.Hot) > 0)
-                {
+                else if ((e.State & TreeNodeStates.Hot) > 0) {
                     graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
                     ////绘制TreeNode选择后的边框线条  
-                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width-3, this.ItemHeight - 1);
-                 }
-               
-                graphics.DrawString(node.Text, nodeFont, new SolidBrush(this.ForeColor), Rectangle.Inflate(textRec, 2, -2));
-                if (node.Descrition != null && !(node.Descrition.Equals(string.Empty)))
-                {
-                    textRec.Y += 25;
-
-                    graphics.DrawString(node.Descrition, nodeFont, new SolidBrush(this.ForeColor), Rectangle.Inflate(textRec, 2, -2));
+                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width - 3, this.ItemHeight - 1);
                 }
-              
-              // 
-                
+
+                graphics.DrawString(node.Text, nodeFont, new SolidBrush(this.ForeColor),
+                    Rectangle.Inflate(textRec, 2, -2));
+                if (node.buildeType.Description != null
+                    && !(node.buildeType.Description.Equals(string.Empty))) {
+                    textRec.Y += 25;
+                    var subNode = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular,
+                        System.Drawing.GraphicsUnit.Point, ((byte) (134)));
+                    ;
+                    graphics.DrawString(node.buildeType.Description, subNode, new SolidBrush(this.ForeColor),
+                        Rectangle.Inflate(textRec, 2, -2));
+                }
+
+                // 
+
                 graphics.Dispose();
             }
-
-
-    }
+        }
 
 
         /// <summary>  
         /// 节点被选中后，如果节点有事件处理程序，则调用   
         /// </summary>  
         /// <param name="e"></param>  
-        protected override void OnAfterSelect(TreeViewEventArgs e)
-        {
+        protected override void OnAfterSelect(TreeViewEventArgs e) {
             var gNode = e.Node as MyTreeNode;
             //if (gNode != null && gNode.NodeSelected != null)
             //{
@@ -295,14 +284,14 @@ namespace Common.Implement.UI {
     public partial class MyTreeNode : TreeNode {
         public bool CheckBoxVisible { get; set; }
         public CheckBoxStyleEnum CheckBoxStyle { get; set; }
-         public String Descrition { get; set; }
-        public enum CheckBoxStyleEnum
-        {
-            RadioButton, CheckBox
+        public BuildeType buildeType { get; set; }
+
+        public enum CheckBoxStyleEnum {
+            RadioButton,
+            CheckBox
         }
 
         public MyTreeNode(string text) : base(text) {
-            
         }
     }
 }
