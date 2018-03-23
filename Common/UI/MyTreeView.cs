@@ -115,8 +115,10 @@ namespace Common.Implement.UI {
             //this.UpdateStyles();
             initPars();
         }
+        
 
         private void TreeView_MouseUp(object sender, MouseEventArgs e) {
+          
             MyTreeNode node = GetNodeAt(e.X, e.Y) as MyTreeNode;
             if (node == null
                 || !node.CheckBoxVisible
@@ -149,7 +151,7 @@ namespace Common.Implement.UI {
                 }
             }
         }
-
+   
         private void TreeView_DrawNode(object sender, DrawTreeNodeEventArgs e) {
             MyTreeNode node = e.Node as MyTreeNode;
             if (node == null) {
@@ -157,7 +159,8 @@ namespace Common.Implement.UI {
             }
             if (node.IsVisible) {
                 if (node.buildeType.Description != null
-                    && !(node.buildeType.Description.Equals(string.Empty))) {
+                    && !(node.buildeType.Description.Equals(string.Empty))
+                    ) {
                     this.ItemHeight = 50;
                 }
                 //else {
@@ -178,8 +181,7 @@ namespace Common.Implement.UI {
 
 
                 // 如果需要显示CheckBox,则绘制  
-                if (node.CheckBoxVisible
-                    && node.Level > 0) {
+                if (node.CheckBoxVisible) {
                     Point drawPt = new Point(nodeRect.X, nodeRect.Y + 2); //绘制图标的起始位置  
                     Rectangle imgRect = new Rectangle(drawPt, NodeImageSize);
 
@@ -223,11 +225,15 @@ namespace Common.Implement.UI {
                 //graphics.Clear(this.BackColor);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
+                //Pen newPen = new Pen(Color.FromArgb(90, Color.FromArgb(205, 226, 252)));
+                Pen newPen = new Pen(Color.FromArgb(90, Color.FromArgb(205, 226, 252)));
                 if ((e.State & TreeNodeStates.Selected) != 0) {
                     graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2,
+                   // graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), 2,
                         node.Bounds.Y, this.Width, this.ItemHeight - 1);
                     ////绘制TreeNode选择后的边框线条  
-                    graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
+                    //graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
+                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0) {
                     graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
@@ -259,16 +265,148 @@ namespace Common.Implement.UI {
         /// </summary>  
         /// <param name="e"></param>  
         protected override void OnAfterSelect(TreeViewEventArgs e) {
-            var gNode = e.Node as MyTreeNode;
-            //if (gNode != null && gNode.NodeSelected != null)
+            MyTreeNode gNode = e.Node as MyTreeNode;
+            //if (gNode != null && gNode.IsSelected)
             //{
             //    TreeViewEventArgs arg = new TreeViewEventArgs(e.Node);
-            //    gNode.NodeSelected(this, arg);
+            //   // gNode.SelectedNodeChanged(this, arg);
             //    return;
             //}
             base.OnAfterSelect(e);
         }
 
+        public delegate void SetAutoScrollHandler(object sender,int upAndDown);
+
+        public event SetAutoScrollHandler SetAutoScrollEvent;
+
+        //自定义消息
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_mouse_Click = 0x0201;
+            const int WM_mouse_double_click = 0x0203;
+            const int WM_mouse_move = 0x0200;
+            const int WM_mouse_move_out = 0x02A3;
+            const int WM_mouse_wheel= 0x020A;
+            const int WM_MOUSE_DOWN = 0x0210;
+           #region 日后参考
+		    //if (m.Msg == WM_mouse_Click)//单击  
+            //{
+            //    int wparam = m.LParam.ToInt32();
+            //    Point point = new Point(
+            //        LOWORD(wparam),
+            //        HIWORD(wparam));
+            //    //point = PointToClient(point);  
+            //    TreeNode tn = this.GetNodeAt(point);
+            //    if (tn == null)
+            //    {
+            //        base.WndProc(ref m);
+            //        return;
+            //    }
+            //    if (tn.Level == 0)
+            //    {
+            //        if (tn.IsExpanded)
+            //        {
+            //            tn.Collapse();
+            //        }
+            //        else
+            //        {
+            //            tn.Expand();
+            //        }
+                  
+            //        this.SelectedNode = tn;
+            //        m.Result = IntPtr.Zero;
+            //        base.WndProc(ref m);
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        base.WndProc(ref m);
+            //        //tn.IsSelected = true;  
+            //        //this.SelectedNode = tn;  
+            //    }
+            //}
+            //else if (m.Msg == WM_mouse_double_click)//双击  
+            //{
+            //    int wparam = m.LParam.ToInt32();
+            //    Point point = new Point(
+            //        LOWORD(wparam),
+            //        HIWORD(wparam));
+            //    //point = PointToClient(point);  
+            //    TreeNode tn = this.GetNodeAt(point);
+            //    if (tn == null)
+            //    {
+            //        base.WndProc(ref m);
+            //        return;
+            //    }
+            //    if (tn.Level == 0)
+            //    {
+            //        m.Result = IntPtr.Zero;
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        base.WndProc(ref m);
+            //    }
+            //}
+            //else if (m.Msg == WM_mouse_move)//鼠标移动  
+            //{
+            //    try
+            //    {
+            //        int wparam = m.LParam.ToInt32();
+            //        Point point = new Point(
+            //            LOWORD(wparam),
+            //            HIWORD(wparam));
+            //        //point = PointToClient(point);  
+            //        TreeNode tn = this.GetNodeAt(point);
+            //        if (tn == null)
+            //        {
+            //            this.SelectedNode = null;
+            //            base.WndProc(ref m);
+            //            return;
+            //        }
+            //        this.SelectedNode = tn;
+
+            //    }
+            //    catch { }
+            //}
+            //else if (m.Msg == WM_mouse_move_out)//鼠标移出 WM_MOUSELEAVE = $02A3;  
+            //{
+            //    this.SelectedNode = null;
+            //    base.WndProc(ref m);
+            //    return;
+            //} 
+	#endregion
+            if (m.Msg == WM_mouse_wheel) {
+                // TrackedTopNode = this.
+                int LParam = m.LParam.ToInt32();
+                int HWnd = m.HWnd.ToInt32();
+                // int wparam = m.WParam.ToInt32();
+                var isup = ((m.WParam.ToInt64()) & 0xFFFF0000) / 0x10000;
+                int up = -1;
+                if (isup > 30000) {
+                    up = 1;
+                }
+
+                SetAutoScrollEvent?.Invoke(this,up);
+
+                base.WndProc(ref m);
+            }
+            else
+            {
+                base.WndProc(ref m);
+            }
+            //WM_LBUTTONDOWN = $0201  
+            //WM_LBUTTONDBLCLK = $0203;  
+          //  Application.DoEvents();
+        }
+        public static int LOWORD(int value)
+        {
+            return value & 0xFFFF;
+        }
+        public static int HIWORD(int value)
+        {
+            return value >> 16;
+        }
 
         //返回TreeView中TreeNode的整行区域  
         private Rectangle NodeBounds(TreeNode node) {
@@ -292,6 +430,7 @@ namespace Common.Implement.UI {
         }
 
         public MyTreeNode(string text) : base(text) {
+            buildeType = new BuildeType();
         }
     }
 }

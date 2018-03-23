@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text; 
 using System.Windows.Forms;
+using Common.Implement.Entity;
+using Common.Implement.UI;
 
 namespace Common.Implement {
     public class paloTool {
@@ -102,5 +104,46 @@ namespace Common.Implement {
                 }
             }
         }
+
+
+
+       public static void createTree(MyTreeView mytree, List<BuildeType> BuildeEntity,bool showCheck)
+        {
+            mytree.Nodes.Clear();
+            if (BuildeEntity != null
+                && BuildeEntity.Count > 0)
+            {
+                var item = BuildeEntity.ToList();
+
+                item.ForEach(BuildeType => { mytree.Nodes.Add(CreateTree(BuildeType, showCheck, false)); });
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buildeType"></param>
+        /// <param name="type">是否读取子节点 </param>
+        /// <returns></returns>
+        public static TreeNode CreateTree(BuildeType buildeType,bool showCheck, bool readSubView)
+        {
+            string text = buildeType.Name ?? string.Empty;
+            MyTreeNode new_child = new MyTreeNode(text);
+            new_child.buildeType = buildeType;
+            if (buildeType.BuildeItems == null
+                || showCheck)
+            {
+                new_child.CheckBoxVisible = true;
+            }
+            //读下层目录
+            else if (readSubView && buildeType.BuildeItems.Length > 0)
+            {
+                buildeType.BuildeItems.ToList().ForEach(BuildeItem => {
+                    new_child.Nodes.Add(CreateTree(BuildeItem, showCheck,readSubView));
+                });
+            }
+            return new_child;
+        }
+
     }
 }

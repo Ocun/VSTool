@@ -27,6 +27,9 @@ namespace VSTool {
 
         public VSTOOL(string[] pToIni) {
             InitializeComponent();
+            splitContainer2.Panel2.HorizontalScroll.Visible = false;
+    
+            //绑定类，当类或控件值改变时触发更新
             this.txtToPath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtToPath", true,
                 DataSourceUpdateMode.OnPropertyChanged));
             this.txtPKGpath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtPKGpath", true,
@@ -91,7 +94,7 @@ namespace VSTool {
 
 
         private void VSTOOL_Load(object sender, EventArgs e) {
-            createTree();
+            createTree("RootView");
             return;
             //this.bindingSource1.Add(new FormEntity());
             //Toolpars.formEntity = this.bindingSource1.Current as FormEntity;
@@ -128,40 +131,51 @@ namespace VSTool {
             }
         }
 
-        void createTree() {
-            string Path = Toolpars.MVSToolpath + @"Config\BuildeEntity.xml";
-            BuildeEntity BuildeEntity = null;
-            if (ValidateTool.checkFile(Path)) {
-                BuildeEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
-            }
-            this.treeView1.Nodes.Clear();
-            var TreeNodeCollection = this.treeView1.Nodes;
+        void createTree(string id) {
+            BuildeEntity BuildeEntity = _toolpars.BuilderEntity;
 
-            if (BuildeEntity != null
-                && BuildeEntity.BuildeTypies.Length > 0) {
-                BuildeEntity.BuildeTypies.ToList().ForEach(BuildeType => {
-                    TreeNodeCollection.Add(CreateTree(BuildeType));
-                });
-            }
-        }
+            var item = BuildeEntity.BuildeTypies.Where(et => et.Id.Equals(id) || id.Equals("RootView")).ToList();
 
-        TreeNode CreateTree(BuildeType buildeType) {
-            string text = buildeType.Name ?? string.Empty;
-            string des = buildeType.Description ?? string.Empty;
-            string check = buildeType.Checked ?? string.Empty;
-            MyTreeNode new_child = new MyTreeNode(text);
+            if (item.Count > 0) {
+                if (id.Equals("RootView")) {
+                    paloTool.createTree(myTreeView1,item, false);
+                    return;
+                }
+                //最大3列，平均显示
+                myTreeView2.Nodes.Clear();
+                myTreeView3.Nodes.Clear();
+                myTreeView4.Nodes.Clear();
+                // 右两排折叠
+                int vnum = 0, ftake = 0, count = item[0].BuildeItems.Count();
 
-            new_child.buildeType = buildeType;
-            //new_child.buildeType.Description = des;
-            //new_child.buildeType.Checked = check;
-            if (buildeType.BuildeItems == null
-                || buildeType.BuildeItems.Length == 0) {
-                new_child.CheckBoxVisible = true;
+                if (splitContainer3.Panel2Collapsed) {
+                    ftake = count;
+                }
+                //最右列折叠
+                else if (splitContainer4.Panel2Collapsed) {
+                    vnum = count / 2;
+                    ftake = count - vnum;
+                }
+                else {
+                    vnum = count / 3;
+                    ftake = count - 2 * vnum;
+                }
+                var item2 = item[0].BuildeItems.Take(ftake).ToList();
+                var item3 = item[0].BuildeItems.Skip(ftake).Take(vnum).ToList();
+                var item4 = item[0].BuildeItems.Skip(ftake + vnum).Take(vnum).ToList();
+                paloTool.createTree(myTreeView2, item2,true);
+                paloTool.createTree(myTreeView3, item3, true);
+                paloTool.createTree(myTreeView4, item4, true);
+                int nodeCount = item2.Count;
+                int hight = nodeCount * myTreeView2.ItemHeight;
+                if (hight > splitContainer2.Panel2.ClientSize.Height) {
+                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
+                }
+                else {
+                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, splitContainer2.Panel2.ClientSize.Height);
+
+                }
             }
-            else if (buildeType.BuildeItems.Length > 0) {
-                buildeType.BuildeItems.ToList().ForEach(BuildeItem => { new_child.Nodes.Add(CreateTree(BuildeItem)); });
-            }
-            return new_child;
         }
 
 
@@ -184,7 +198,7 @@ namespace VSTool {
                 DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
                 if (Directory.Exists(Path.Combine(Toolpars.GToIni + @"\",
                     "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
-                    btnCreateCS_Click(null,null);
+                    btnCreateCS_Click(null, null);
                     return;
                     //DialogResult result =
                     //    MessageBox.Show(
@@ -322,36 +336,29 @@ namespace VSTool {
             Toolpars.GToIni = Toolpars.formEntity.txtToPath;
             Tools.WriteLog(Toolpars, listDATA);
             if ((Toolpars.formEntity.txtToPath == "")
-                || (Toolpars.formEntity.txtNewTypeKey == ""))
-            {
+                || (Toolpars.formEntity.txtNewTypeKey == "")) {
                 MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (Directory.Exists(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP."
-                                 + Toolpars.formEntity.txtNewTypeKey))
-            {
-                if (listDATA.Items.Count != 0)
-                {
-                    if (rbModi.Checked)
-                    {
+                                 + Toolpars.formEntity.txtNewTypeKey)) {
+                if (listDATA.Items.Count != 0) {
+                    if (rbModi.Checked) {
                         copyModi();
                     }
-                    else
-                    {
+                    else {
                         CopyFile(Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
                     }
                 }
                 msave.Clear();
                 listDATA.Items.Clear();
-                foreach (TreeNode node in treeView1.Nodes)
-                {
+                foreach (TreeNode node in treeView1.Nodes) {
                     SetCheckedChildNodes(node);
                     node.Checked = false;
                 }
                 MessageBox.Show("生成成功 !!!");
             }
-            else
-            {
+            else {
                 MessageBox.Show(
                     "文件夹" + Toolpars.formEntity.txtToPath + "\\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey
                     + "不存在，请查看！！！", "Error",
@@ -362,6 +369,7 @@ namespace VSTool {
 
             sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "ADDCS");
         }
+
         public void CopyFileA(string mSTR) //统计相同切片不同时机点
         {
             for (int i = 0; i < listDATA.Items.Count; i++) {
@@ -2947,7 +2955,6 @@ namespace VSTool {
         }
 
 
-
         private void btnClear_Click(object sender, EventArgs e) {
             listDATA.Items.Clear();
             foreach (TreeNode node in treeView1.Nodes) {
@@ -3336,5 +3343,75 @@ namespace VSTool {
         private void listDATA_MeasureItem(object sender, MeasureItemEventArgs e) {
             e.ItemHeight = e.ItemHeight + 15;
         }
+
+
+        private void myTreeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
+            MyTreeNode node = e.Node as MyTreeNode;
+            myTreeView1.SelectedNode = node;
+            createTree(node.buildeType.Id);
+        }
+        
+
+        private void VSTOOL_ClientSizeChanged(object sender, EventArgs e)
+        {
+            var clientSize = splitContainer2.Panel2.ClientSize;
+            int currentWidth = clientSize.Width;
+            int width = currentWidth;
+
+            if (currentWidth > 600 && currentWidth <= 800)
+            {
+
+                splitContainer3.Panel2Collapsed = false;
+                splitContainer4.Panel2Collapsed = true;
+                splitContainer3.SplitterDistance = width / 2;
+            }
+            else
+            if (currentWidth > 800)
+            {
+
+                splitContainer3.Panel2Collapsed = false;
+                splitContainer4.Panel2Collapsed = false;
+
+                width /= 3;
+                splitContainer4.SplitterDistance = width;
+                splitContainer3.SplitterDistance = width;
+            }
+            else
+            {
+                splitContainer3.Panel2Collapsed = true;
+                splitContainer4.Panel2Collapsed = true;
+            }
+            if (myTreeView1.SelectedNode != null)
+            {
+                MyTreeNode node = myTreeView1.SelectedNode as MyTreeNode;
+                createTree(node.buildeType.Id);
+            }
+        }
+
+        private void myTreeView2_SetAutoScrollEvent(object sender,int upAndDown) {
+           bool vscroll = splitContainer2.Panel2.VerticalScroll.Visible;
+            if (vscroll) {
+                var Maxnum = splitContainer2.Panel2.VerticalScroll.Maximum;
+                int growbase = myTreeView2.Nodes.Count / 20;
+                int growNum = growbase == 0? 40: growbase*40;
+
+                var minNum = splitContainer2.Panel2.VerticalScroll.Minimum;
+                var cnum = splitContainer2.Panel2.VerticalScroll.Value;
+                if (upAndDown == 1) {
+                        splitContainer2.Panel2.VerticalScroll.Value += growNum;
+                }
+                else {
+                    if ( cnum - growNum > minNum) {
+                        splitContainer2.Panel2.VerticalScroll.Value -= growNum;
+                    }
+                    else {
+                        splitContainer2.Panel2.VerticalScroll.Value = minNum;
+                    }
+                }
+
+            }
+          
+        }
+        
     }
 }

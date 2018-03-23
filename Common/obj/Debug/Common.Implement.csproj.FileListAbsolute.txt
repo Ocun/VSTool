@@ -22,4 +22,4 @@ G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCo
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.dll
 G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.pdb
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ModiName.resources
-E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.InterceptorForm.resources

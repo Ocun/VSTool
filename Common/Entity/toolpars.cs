@@ -1,3 +1,5 @@
+using Common.Implement.Entity;
+
 namespace Common.Implement {
     public class toolpars {
         private string _oldTypekey;
@@ -15,6 +17,7 @@ namespace Common.Implement {
         private FormEntity _formEntity;
         private PathEntity _pathEntity;
         public SettingPathEntity _settingPathEntity;
+        public BuildeEntity _builderEntity;
         
         public SettingPathEntity SettingPathEntity {
             get
@@ -29,6 +32,21 @@ namespace Common.Implement {
                 return _settingPathEntity;
             }
             set { _settingPathEntity = value; }
+        }
+   
+        public BuildeEntity BuilderEntity {
+            get
+            {
+                if (_builderEntity == null) {
+                    string  Path = MVSToolpath + @"Config\BuildeEntity.xml";
+                    if (ValidateTool.checkFile(Path)) {
+                        _builderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
+                    }
+
+                }
+                return _builderEntity;
+            }
+            set { _builderEntity = value; }
         }
 
 
