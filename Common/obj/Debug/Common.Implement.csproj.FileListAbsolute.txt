@@ -24,3 +24,5 @@ G:\my document\my project\VSTool\Common\obj\Debug\Common.Implement.pdb
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ModiName.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.InterceptorForm.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.dll
+G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.pdb
