@@ -58,6 +58,24 @@ namespace Common.Implement.UI {
             get { return _imageHeight; }
             set { _imageHeight = value; }
         }
+        /// <summary>
+        /// 控件间距
+        /// </summary>
+        public int PaddingSet {
+            get { return _paddingSet; }
+            set { _paddingSet = value; }
+        }
+        /// <summary>
+        /// 是否以卡片形式绘制
+        /// </summary>
+        public bool IsCard {
+            get { return _isCard; }
+            set { _isCard = value; }
+        }
+
+        private int _paddingSet;
+
+        private bool _isCard;
 
         #endregion
 
@@ -102,6 +120,7 @@ namespace Common.Implement.UI {
             imgRBChecked = Resource.TreeNodeChecked;
             imgLeft = Resource.down_arrow;
             imaDown = Resource.right_arrow;
+            PaddingSet = 0;
             // 设置TreeView为自己绘制文本和图标并绑定相关的事件  
             this.DrawMode = TreeViewDrawMode.OwnerDrawText;
             this.DrawNode += new DrawTreeNodeEventHandler(TreeView_DrawNode);
@@ -133,7 +152,7 @@ namespace Common.Implement.UI {
             // 如果点击的是checkbox图片  
             if (checkboxImgRect.Contains(e.X, e.Y)) {
                 node.Checked = !node.Checked;
-
+                
                 // 如果是单选，则设置同级别的其它单选项为unchecked.  
                 if (node.Parent != null
                     && node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton) {
@@ -161,7 +180,7 @@ namespace Common.Implement.UI {
                 if (node.buildeType.Description != null
                     && !(node.buildeType.Description.Equals(string.Empty))
                     ) {
-                    this.ItemHeight = 50;
+                   
                 }
                 //else {
                 //    this.ItemHeight = 25;
@@ -230,19 +249,25 @@ namespace Common.Implement.UI {
                 if ((e.State & TreeNodeStates.Selected) != 0) {
                     graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2,
                    // graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), 2,
-                        node.Bounds.Y, this.Width, this.ItemHeight - 1);
+                        node.Bounds.Y, this.Width, this.ItemHeight - PaddingSet);
                     ////绘制TreeNode选择后的边框线条  
                     //graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
-                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
+                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y- PaddingSet, this.Width - 2, this.ItemHeight - PaddingSet);
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0) {
-                    graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width, this.ItemHeight - 1);
+                    graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y , this.Width, this.ItemHeight - PaddingSet);
                     ////绘制TreeNode选择后的边框线条  
-                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y, this.Width - 3, this.ItemHeight - 1);
+                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y , this.Width - 3, this.ItemHeight - PaddingSet);
                 }
 
                 graphics.DrawString(node.Text, nodeFont, new SolidBrush(this.ForeColor),
                     Rectangle.Inflate(textRec, 2, -2));
+                Pen mynewPen = new Pen(Color.FromArgb(90, Color.Gray));
+                if (IsCard) {
+                  //  graphics.DrawRectangle(mynewPen, 1, node.Bounds.Y - PaddingSet, this.Width - 3, this.ItemHeight - PaddingSet);
+                    //graphics.DrawRectangle(mynewPen, 1, node.Bounds.Y - PaddingSet, this.Width- PaddingSet, this.ItemHeight - PaddingSet);
+                }
+
                 if (node.buildeType.Description != null
                     && !(node.buildeType.Description.Equals(string.Empty))) {
                     textRec.Y += 25;
@@ -252,8 +277,6 @@ namespace Common.Implement.UI {
                     graphics.DrawString(node.buildeType.Description, subNode, new SolidBrush(this.ForeColor),
                         Rectangle.Inflate(textRec, 2, -2));
                 }
-
-                // 
 
                 graphics.Dispose();
             }

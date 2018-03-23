@@ -28,7 +28,7 @@ namespace VSTool {
         public VSTOOL(string[] pToIni) {
             InitializeComponent();
             splitContainer2.Panel2.HorizontalScroll.Visible = false;
-    
+
             //绑定类，当类或控件值改变时触发更新
             this.txtToPath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtToPath", true,
                 DataSourceUpdateMode.OnPropertyChanged));
@@ -138,7 +138,7 @@ namespace VSTool {
 
             if (item.Count > 0) {
                 if (id.Equals("RootView")) {
-                    paloTool.createTree(myTreeView1,item, false);
+                    paloTool.createTree(myTreeView1, item, false);
                     return;
                 }
                 //最大3列，平均显示
@@ -163,7 +163,7 @@ namespace VSTool {
                 var item2 = item[0].BuildeItems.Take(ftake).ToList();
                 var item3 = item[0].BuildeItems.Skip(ftake).Take(vnum).ToList();
                 var item4 = item[0].BuildeItems.Skip(ftake + vnum).Take(vnum).ToList();
-                paloTool.createTree(myTreeView2, item2,true);
+                paloTool.createTree(myTreeView2, item2, true);
                 paloTool.createTree(myTreeView3, item3, true);
                 paloTool.createTree(myTreeView4, item4, true);
                 int nodeCount = item2.Count;
@@ -172,8 +172,8 @@ namespace VSTool {
                     splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
                 }
                 else {
-                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, splitContainer2.Panel2.ClientSize.Height);
-
+                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width,
+                        splitContainer2.Panel2.ClientSize.Height);
                 }
             }
         }
@@ -3350,25 +3350,20 @@ namespace VSTool {
             myTreeView1.SelectedNode = node;
             createTree(node.buildeType.Id);
         }
-        
 
-        private void VSTOOL_ClientSizeChanged(object sender, EventArgs e)
-        {
+
+        private void VSTOOL_ClientSizeChanged(object sender, EventArgs e) {
             var clientSize = splitContainer2.Panel2.ClientSize;
             int currentWidth = clientSize.Width;
             int width = currentWidth;
 
-            if (currentWidth > 600 && currentWidth <= 800)
-            {
-
+            if (currentWidth > 600
+                && currentWidth <= 800) {
                 splitContainer3.Panel2Collapsed = false;
                 splitContainer4.Panel2Collapsed = true;
                 splitContainer3.SplitterDistance = width / 2;
             }
-            else
-            if (currentWidth > 800)
-            {
-
+            else if (currentWidth > 800) {
                 splitContainer3.Panel2Collapsed = false;
                 splitContainer4.Panel2Collapsed = false;
 
@@ -3376,42 +3371,83 @@ namespace VSTool {
                 splitContainer4.SplitterDistance = width;
                 splitContainer3.SplitterDistance = width;
             }
-            else
-            {
+            else {
                 splitContainer3.Panel2Collapsed = true;
                 splitContainer4.Panel2Collapsed = true;
             }
-            if (myTreeView1.SelectedNode != null)
-            {
+            if (myTreeView1.SelectedNode != null) {
                 MyTreeNode node = myTreeView1.SelectedNode as MyTreeNode;
                 createTree(node.buildeType.Id);
             }
         }
 
-        private void myTreeView2_SetAutoScrollEvent(object sender,int upAndDown) {
-           bool vscroll = splitContainer2.Panel2.VerticalScroll.Visible;
+        private void myTreeView2_SetAutoScrollEvent(object sender, int upAndDown) {
+            bool vscroll = splitContainer2.Panel2.VerticalScroll.Visible;
             if (vscroll) {
                 var Maxnum = splitContainer2.Panel2.VerticalScroll.Maximum;
                 int growbase = myTreeView2.Nodes.Count / 20;
-                int growNum = growbase == 0? 40: growbase*40;
+                int growNum = growbase == 0 ? 40 : growbase * 40;
 
                 var minNum = splitContainer2.Panel2.VerticalScroll.Minimum;
                 var cnum = splitContainer2.Panel2.VerticalScroll.Value;
                 if (upAndDown == 1) {
-                        splitContainer2.Panel2.VerticalScroll.Value += growNum;
+                    splitContainer2.Panel2.VerticalScroll.Value += growNum;
                 }
                 else {
-                    if ( cnum - growNum > minNum) {
+                    if (cnum - growNum > minNum) {
                         splitContainer2.Panel2.VerticalScroll.Value -= growNum;
                     }
                     else {
                         splitContainer2.Panel2.VerticalScroll.Value = minNum;
                     }
                 }
-
             }
-          
         }
-        
+
+        private void myTreeView2_AfterCheck(object sender, TreeViewEventArgs e) {
+            Toolpars.MDistince = false;
+
+            string StrA = "";
+            MyTreeNode node = myTreeView1.SelectedNode as MyTreeNode;
+
+            if (e.Node.Checked) {
+                node.buildeType.Checked = "True";
+                ModiName MYForm = new ModiName();
+                if (!rbModi.Checked) {
+                    int gLeft = MYForm.Width / 2 - MYForm.lblattention.Width / 2;
+                    MYForm.lblattention.Location = new Point(gLeft, MYForm.lblattention.Top);
+                    MYForm.StartPosition = FormStartPosition.CenterParent;
+                    MYForm.ShowDialog();
+
+                    if (MYForm.txt01.Text != String.Empty
+                        || MYForm.txt02.Text != String.Empty) {
+                        StrA = MYForm.txt01.Text + ";" + MYForm.txt02.Text;
+                        //   listDATA.Items.Add(StrA);
+                        addListData(StrA);
+                    }
+                    else {
+                        node.buildeType.Checked = "False";
+
+                        e.Node.Checked = false;
+                    }
+                    if (myTreeView1.SelectedNode != null) {
+                        var par_item = _toolpars.BuilderEntity.BuildeTypies.ToList()
+                            .Where(et => et.Id.Equals(node.buildeType.Id)).ToList();
+                        if (par_item.Count > 0) {
+                            var citem = par_item[0].BuildeItems
+                                .Where(et => et.Id.Equals((e.Node as MyTreeNode).buildeType.Id)).ToList();
+                            if (citem != null
+                                && citem.Count > 0) {
+                                if (e.Node.Checked)
+                                    citem.ForEach(ee => ee.Checked = "True");
+                                else {
+                                    citem.ForEach(ee => ee.Checked = "False");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
