@@ -154,7 +154,7 @@ namespace Common.Implement.UI {
             }
 
             //设置Image绘制Rectangle  
-            Rectangle checkboxImgRect = new Rectangle(node.Bounds.X, node.Bounds.Y, ImageWidth, ImageHeight); //节点区域  
+            Rectangle checkboxImgRect = new Rectangle(node.Bounds.X+ PaddingSetting.X, node.Bounds.Y + PaddingSetting.Y+3, ImageWidth, ImageHeight); //节点区域  
 
 
             // 如果点击的是checkbox图片  
@@ -181,7 +181,7 @@ namespace Common.Implement.UI {
                         }
                     }
                 }
-            }
+           }
         }
    
         private void TreeView_DrawNode(object sender, DrawTreeNodeEventArgs e) {
@@ -232,23 +232,25 @@ namespace Common.Implement.UI {
                 Pen newPen = SystemPens.Highlight;
                   //  new Pen(Color.FromArgb(90, Color.FromArgb(205, 226, 252)));
                 if ((e.State & TreeNodeStates.Selected) != 0) {
-                    //graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), -2,
-                    //    node.Bounds.Y, this.Width + 2, this.ItemHeight + 10);
+                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2,
+                        node.Bounds.Y, this.Width + 2, this.ItemHeight-2 );
+
+                    //绘制TreeNode选择后的边框线条   
+                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y, this.Width - 1, this.ItemHeight-2);
+
                     //graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2,
                     //pt.Y - 5, this.Width - 2, this.ItemHeight - PaddingSetting.Y + 3);
-                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), 2,
-                        pt.Y - 4, this.Width , this.ItemHeight - PaddingSetting.Y +3 );
-                    ////绘制TreeNode选择后的边框线条   
-                    // graphics.DrawRectangle(newPen, 0, node.Bounds.Y, this.Width -1, this.ItemHeight - PaddingSet);
-                    // graphics.DrawRectangle(newPen, 0, pt.Y - 5, this.Width -1, this.ItemHeight - PaddingSetting.Y);
+                    //graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), PaddingSetting.X-1,
+                    //    pt.Y - 4, this.Width , this.ItemHeight - PaddingSetting.Y +3 );
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0) {
                  
-                    graphics.FillRectangle(BackgroundBrush, 2, pt.Y-5 , this.Width-3, this.ItemHeight - PaddingSetting.Y);
-                    //graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width-3, this.ItemHeight - PaddingSetting.Y);
+                   
+                    graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width-3, this.ItemHeight-2);
                     ////绘制TreeNode选择后的边框线条  
-                    //graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y , this.Width -1, this.ItemHeight - PaddingSetting.Y);
-                    graphics.DrawRectangle(newPen, 1, pt.Y-4 , this.Width -2, this.ItemHeight - PaddingSetting.Y);
+                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y , this.Width -1, this.ItemHeight-2);
+                    //graphics.DrawRectangle(newPen, 1, pt.Y-4 , this.Width -2, this.ItemHeight - PaddingSetting.Y);
+                    //graphics.FillRectangle(BackgroundBrush, 2, pt.Y - 5, this.Width - 3, this.ItemHeight - PaddingSetting.Y);
                 }
 
                 graphics.DrawString(node.Text, nodeFont, new SolidBrush(this.ForeColor),

@@ -3465,10 +3465,6 @@ namespace VSTool {
             }
         }
 
-        private void myTreeView2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            myTreeView1.SelectedNode.BackColor = SystemColors.ControlDark;
-            myTreeView1.SelectedNode.ForeColor = Color.White;
-        }
+      
     }
 }

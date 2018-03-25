@@ -640,7 +640,7 @@ namespace VSTool
             this.myTreeView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView2.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView2.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.myTreeView2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.myTreeView2.ForeColor = System.Drawing.Color.Black;
             this.myTreeView2.FullRowSelect = true;
             this.myTreeView2.HotTracking = true;
             this.myTreeView2.ImageHeight = 25;
@@ -662,7 +662,6 @@ namespace VSTool
             this.myTreeView2.TabIndex = 33;
             this.myTreeView2.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.myTreeView2_SetAutoScrollEvent);
             this.myTreeView2.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.myTreeView2_AfterCheck);
-            this.myTreeView2.Validating += new System.ComponentModel.CancelEventHandler(this.myTreeView2_Validating);
             // 
             // splitContainer4
             // 
@@ -691,13 +690,13 @@ namespace VSTool
             this.myTreeView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView3.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView3.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.myTreeView3.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.myTreeView3.ForeColor = System.Drawing.Color.Black;
             this.myTreeView3.FullRowSelect = true;
             this.myTreeView3.HotTracking = true;
             this.myTreeView3.ImageHeight = 25;
             this.myTreeView3.ImageWidth = 25;
             this.myTreeView3.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.myTreeView3.IsCard = true;
+            this.myTreeView3.IsCard = false;
             this.myTreeView3.ItemHeight = 85;
             this.myTreeView3.Location = new System.Drawing.Point(0, 0);
             this.myTreeView3.Margin = new System.Windows.Forms.Padding(4);
@@ -721,13 +720,13 @@ namespace VSTool
             this.myTreeView4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView4.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView4.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.myTreeView4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.myTreeView4.ForeColor = System.Drawing.Color.Black;
             this.myTreeView4.FullRowSelect = true;
             this.myTreeView4.HotTracking = true;
             this.myTreeView4.ImageHeight = 25;
             this.myTreeView4.ImageWidth = 25;
             this.myTreeView4.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.myTreeView4.IsCard = true;
+            this.myTreeView4.IsCard = false;
             this.myTreeView4.ItemHeight = 85;
             this.myTreeView4.Location = new System.Drawing.Point(0, 0);
             this.myTreeView4.Margin = new System.Windows.Forms.Padding(4);
