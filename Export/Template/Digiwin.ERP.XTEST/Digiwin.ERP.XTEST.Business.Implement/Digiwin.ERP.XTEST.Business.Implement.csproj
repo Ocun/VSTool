@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,11 +12,6 @@
     <AssemblyName>Digiwin.ERP.XTEST.Business.Implement</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,7 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup>  
     <Reference Include="DevExpress.PivotGrid.v10.2.Core, Version=10.2.5.0, Culture=neutral, PublicKeyToken=9fd16e9d2ca877f9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\DevExpress.PivotGrid.v10.2.Core.dll</HintPath>
@@ -84,7 +79,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.ApplicationUtils.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Digiwin.Mars.ApplicationUtils.Service, Version=1.9.0.50, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="Digiwin.Mars.ApplicationUtils.Service, Version=1.9.0.50, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.ApplicationUtils.Service.dll</HintPath>
     </Reference>
@@ -108,7 +103,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\DevExpress.Data.v10.2.dll</HintPath>
     </Reference>
-    <Reference Include="Digiwin.Mars.Report, Version=1.7.1.25, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="Digiwin.Mars.Report, Version=1.7.1.25, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Report.dll</HintPath>
     </Reference>
@@ -120,7 +115,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Digiwin.ERP.CommonManufacture.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="Digiwin.ERP.CommonManufacture.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonManufacture.Business.dll</HintPath>
     </Reference>

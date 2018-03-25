@@ -1,8 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
-MinimumVisualStudioVersion = 10.0.40219.1
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digiwin.ERP.XTEST.Business", "Digiwin.ERP.XTEST.Business\Digiwin.ERP.XTEST.Business.csproj", "{7754BEE7-697F-4403-A43D-CDAF55B9B1F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digiwin.ERP.XTEST.Business.Implement", "Digiwin.ERP.XTEST.Business.Implement\Digiwin.ERP.XTEST.Business.Implement.csproj", "{18B8E76B-0A1C-488A-9825-39A39DD20880}"
@@ -30,8 +28,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DA93985A-1CB2-44E6-A098-D1399B9B1439}
 	EndGlobalSection
 EndGlobal
