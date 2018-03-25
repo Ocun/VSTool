@@ -52,6 +52,12 @@ namespace Common.Implement.UI
                 BatchcomBox.ValueMember = "Id";
                 BatchcomBox.DisplayMember = "Name";
             }
+            this.txt01.Text = string.Format("Create{0}", this.BuildeType.Id);
+            this.txt02.Text = string.Format("Create{0}", this.BuildeType.Id);
+
+          this.btnOK.Focus();
+
+
         }
 
         
