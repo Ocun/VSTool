@@ -116,7 +116,7 @@
 				<BuildeItem>
 					<Id>EditControllerCommand</Id>
 					<Name>菜单</Name>
-					<Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
+					<Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
 				</BuildeItem>
 				<BuildeItem>
 					<Id>SaveService</Id>

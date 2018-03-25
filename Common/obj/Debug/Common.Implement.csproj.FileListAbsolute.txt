@@ -32,3 +32,4 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.Prope
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.ModiName.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csproj.GenerateResource.Cache
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
+G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache

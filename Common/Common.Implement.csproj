@@ -100,6 +100,9 @@
     <Compile Include="UI\MyTreeView.Designer.cs">
       <DependentUpon>MyTreeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ScrollerBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

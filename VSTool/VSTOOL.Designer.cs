@@ -64,7 +64,6 @@ namespace VSTool
             this.label1 = new System.Windows.Forms.Label();
             this.listDATA = new System.Windows.Forms.ListBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.treeView1 = new Common.Implement.UI.MyTreeView();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -77,6 +76,7 @@ namespace VSTool
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.myTreeView3 = new Common.Implement.UI.MyTreeView();
             this.myTreeView4 = new Common.Implement.UI.MyTreeView();
+            this.treeView1 = new Common.Implement.UI.MyTreeView();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -250,7 +250,8 @@ namespace VSTool
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.lbl01);
@@ -429,7 +430,7 @@ namespace VSTool
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(248, 584);
+            this.panel3.Size = new System.Drawing.Size(236, 584);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
@@ -461,7 +462,7 @@ namespace VSTool
             this.listDATA.Margin = new System.Windows.Forms.Padding(4);
             this.listDATA.Name = "listDATA";
             this.listDATA.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listDATA.Size = new System.Drawing.Size(232, 542);
+            this.listDATA.Size = new System.Drawing.Size(220, 542);
             this.listDATA.Sorted = true;
             this.listDATA.TabIndex = 14;
             this.listDATA.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listDATA_DrawItem);
@@ -490,48 +491,6 @@ namespace VSTool
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1229, 198);
             this.panel4.TabIndex = 35;
-            // 
-            // treeView1
-            // 
-            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.treeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.treeView1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.HideSelection = false;
-            this.treeView1.HotTracking = true;
-            this.treeView1.ImageHeight = 25;
-            this.treeView1.ImageWidth = 25;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.treeView1.IsCard = false;
-            this.treeView1.ItemHeight = 25;
-            this.treeView1.Location = new System.Drawing.Point(489, 139);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(4);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.NodeFont = null;
-            this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
-            this.treeView1.NodeOffset = 0;
-            treeNode1.Name = "节点3";
-            treeNode1.Text = "节点3";
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "节点0";
-            treeNode3.Name = "节点4";
-            treeNode3.Text = "节点4";
-            treeNode4.Name = "节点1";
-            treeNode4.Text = "节点1";
-            treeNode5.Name = "节点2";
-            treeNode5.Text = "节点2";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode5});
-            this.treeView1.PaddingSet = 0;
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowPlusMinus = false;
-            this.treeView1.Size = new System.Drawing.Size(432, 194);
-            this.treeView1.TabIndex = 13;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             // 
             // label4
             // 
@@ -575,7 +534,7 @@ namespace VSTool
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Size = new System.Drawing.Size(1237, 584);
-            this.splitContainer1.SplitterDistance = 988;
+            this.splitContainer1.SplitterDistance = 1000;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 36;
             // 
@@ -587,7 +546,7 @@ namespace VSTool
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(988, 584);
+            this.panel2.Size = new System.Drawing.Size(1000, 584);
             this.panel2.TabIndex = 33;
             // 
             // splitContainer2
@@ -607,14 +566,14 @@ namespace VSTool
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.scrollPanel);
-            this.splitContainer2.Size = new System.Drawing.Size(988, 584);
+            this.splitContainer2.Size = new System.Drawing.Size(1000, 584);
             this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 14;
             // 
             // myTreeView1
             // 
-            this.myTreeView1.BackColor = System.Drawing.SystemColors.Menu;
+            this.myTreeView1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.myTreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.myTreeView1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.myTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -634,8 +593,8 @@ namespace VSTool
             this.myTreeView1.Name = "myTreeView1";
             this.myTreeView1.NodeFont = null;
             this.myTreeView1.NodeImageSize = new System.Drawing.Size(20, 20);
-            this.myTreeView1.NodeOffset = 0;
-            this.myTreeView1.PaddingSet = 2;
+            this.myTreeView1.PaddingSetting = new System.Drawing.Point(0, 4);
+            this.myTreeView1.ShowDescription = true;
             this.myTreeView1.ShowLines = false;
             this.myTreeView1.ShowPlusMinus = false;
             this.myTreeView1.Size = new System.Drawing.Size(245, 584);
@@ -649,7 +608,7 @@ namespace VSTool
             this.scrollPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scrollPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollPanel.Name = "scrollPanel";
-            this.scrollPanel.Size = new System.Drawing.Size(742, 584);
+            this.scrollPanel.Size = new System.Drawing.Size(754, 584);
             this.scrollPanel.TabIndex = 35;
             // 
             // splitContainer3
@@ -669,7 +628,7 @@ namespace VSTool
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(742, 584);
+            this.splitContainer3.Size = new System.Drawing.Size(754, 584);
             this.splitContainer3.SplitterDistance = 132;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 34;
@@ -681,28 +640,29 @@ namespace VSTool
             this.myTreeView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView2.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView2.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.myTreeView2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.myTreeView2.ForeColor = System.Drawing.SystemColors.InfoText;
             this.myTreeView2.FullRowSelect = true;
             this.myTreeView2.HotTracking = true;
             this.myTreeView2.ImageHeight = 25;
             this.myTreeView2.ImageWidth = 25;
             this.myTreeView2.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.myTreeView2.IsCard = true;
-            this.myTreeView2.ItemHeight = 65;
+            this.myTreeView2.IsCard = false;
+            this.myTreeView2.ItemHeight = 85;
             this.myTreeView2.Location = new System.Drawing.Point(0, 0);
             this.myTreeView2.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView2.Name = "myTreeView2";
             this.myTreeView2.NodeFont = null;
             this.myTreeView2.NodeImageSize = new System.Drawing.Size(20, 20);
-            this.myTreeView2.NodeOffset = 0;
-            this.myTreeView2.PaddingSet = 3;
+            this.myTreeView2.PaddingSetting = new System.Drawing.Point(5, 15);
             this.myTreeView2.Scrollable = false;
+            this.myTreeView2.ShowDescription = true;
             this.myTreeView2.ShowLines = false;
             this.myTreeView2.ShowPlusMinus = false;
-            this.myTreeView2.Size = new System.Drawing.Size(742, 584);
+            this.myTreeView2.Size = new System.Drawing.Size(754, 584);
             this.myTreeView2.TabIndex = 33;
             this.myTreeView2.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.myTreeView2_SetAutoScrollEvent);
             this.myTreeView2.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.myTreeView2_AfterCheck);
+            this.myTreeView2.Validating += new System.ComponentModel.CancelEventHandler(this.myTreeView2_Validating);
             // 
             // splitContainer4
             // 
@@ -738,15 +698,15 @@ namespace VSTool
             this.myTreeView3.ImageWidth = 25;
             this.myTreeView3.ImeMode = System.Windows.Forms.ImeMode.On;
             this.myTreeView3.IsCard = true;
-            this.myTreeView3.ItemHeight = 65;
+            this.myTreeView3.ItemHeight = 85;
             this.myTreeView3.Location = new System.Drawing.Point(0, 0);
             this.myTreeView3.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView3.Name = "myTreeView3";
             this.myTreeView3.NodeFont = null;
             this.myTreeView3.NodeImageSize = new System.Drawing.Size(20, 20);
-            this.myTreeView3.NodeOffset = 0;
-            this.myTreeView3.PaddingSet = 3;
+            this.myTreeView3.PaddingSetting = new System.Drawing.Point(5, 15);
             this.myTreeView3.Scrollable = false;
+            this.myTreeView3.ShowDescription = true;
             this.myTreeView3.ShowLines = false;
             this.myTreeView3.ShowPlusMinus = false;
             this.myTreeView3.Size = new System.Drawing.Size(45, 100);
@@ -768,21 +728,63 @@ namespace VSTool
             this.myTreeView4.ImageWidth = 25;
             this.myTreeView4.ImeMode = System.Windows.Forms.ImeMode.On;
             this.myTreeView4.IsCard = true;
-            this.myTreeView4.ItemHeight = 65;
+            this.myTreeView4.ItemHeight = 85;
             this.myTreeView4.Location = new System.Drawing.Point(0, 0);
             this.myTreeView4.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView4.Name = "myTreeView4";
             this.myTreeView4.NodeFont = null;
             this.myTreeView4.NodeImageSize = new System.Drawing.Size(20, 20);
-            this.myTreeView4.NodeOffset = 0;
-            this.myTreeView4.PaddingSet = 3;
+            this.myTreeView4.PaddingSetting = new System.Drawing.Point(5, 15);
             this.myTreeView4.Scrollable = false;
+            this.myTreeView4.ShowDescription = true;
             this.myTreeView4.ShowLines = false;
             this.myTreeView4.ShowPlusMinus = false;
             this.myTreeView4.Size = new System.Drawing.Size(50, 100);
             this.myTreeView4.TabIndex = 35;
             this.myTreeView4.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.myTreeView2_SetAutoScrollEvent);
             this.myTreeView4.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.myTreeView2_AfterCheck);
+            // 
+            // treeView1
+            // 
+            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.treeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.treeView1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.treeView1.FullRowSelect = true;
+            this.treeView1.HideSelection = false;
+            this.treeView1.HotTracking = true;
+            this.treeView1.ImageHeight = 25;
+            this.treeView1.ImageWidth = 25;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.treeView1.IsCard = false;
+            this.treeView1.ItemHeight = 25;
+            this.treeView1.Location = new System.Drawing.Point(489, 139);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(4);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.NodeFont = null;
+            this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
+            treeNode1.Name = "节点3";
+            treeNode1.Text = "节点3";
+            treeNode2.Name = "节点0";
+            treeNode2.Text = "节点0";
+            treeNode3.Name = "节点4";
+            treeNode3.Text = "节点4";
+            treeNode4.Name = "节点1";
+            treeNode4.Text = "节点1";
+            treeNode5.Name = "节点2";
+            treeNode5.Text = "节点2";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode5});
+            this.treeView1.PaddingSetting = new System.Drawing.Point(0, 0);
+            this.treeView1.ShowDescription = false;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowPlusMinus = false;
+            this.treeView1.Size = new System.Drawing.Size(432, 194);
+            this.treeView1.TabIndex = 13;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             // 
             // VSTOOL
             // 

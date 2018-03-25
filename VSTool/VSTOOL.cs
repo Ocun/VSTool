@@ -3282,12 +3282,16 @@ namespace VSTool {
         #endregion
 
         private void button1_Click(object sender, EventArgs e) {
+          
+            
             string[] processNames = {
                 "Digiwin.Mars.ClientStart", "Digiwin.Mars.ServerStart",
                 "Digiwin.Mars.AccountSetStart"
             };
             Tools.killProcess(processNames);
         }
+
+     
 
         private void Industry_CheckedChanged(object sender, EventArgs e) {
             Toolpars.MIndustry = Industry.Checked;
@@ -3349,6 +3353,7 @@ namespace VSTool {
         private void myTreeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
             MyTreeNode node = e.Node as MyTreeNode;
             myTreeView1.SelectedNode = node;
+          
             createTree(node.buildeType.Id);
         }
 
@@ -3458,6 +3463,12 @@ namespace VSTool {
                     }
                 }
             }
+        }
+
+        private void myTreeView2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            myTreeView1.SelectedNode.BackColor = SystemColors.ControlDark;
+            myTreeView1.SelectedNode.ForeColor = Color.White;
         }
     }
 }

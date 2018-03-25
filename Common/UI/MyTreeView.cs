@@ -41,14 +41,7 @@ namespace Common.Implement.UI {
             set { _NodeImageSize = value; }
         }
 
-        //节点显示图标离左边界的位置  
-        private int _NodeOffset;
-
-        public int NodeOffset {
-            get { return _NodeOffset; }
-            set { _NodeOffset = value; }
-        }
-
+ 
         public int ImageWidth {
             get => _imageWidth;
             set => _imageWidth = value;
@@ -58,13 +51,7 @@ namespace Common.Implement.UI {
             get { return _imageHeight; }
             set { _imageHeight = value; }
         }
-        /// <summary>
-        /// 控件间距
-        /// </summary>
-        public int PaddingSet {
-            get { return _paddingSet; }
-            set { _paddingSet = value; }
-        }
+      
         /// <summary>
         /// 是否以卡片形式绘制
         /// </summary>
@@ -72,12 +59,22 @@ namespace Common.Implement.UI {
             get { return _isCard; }
             set { _isCard = value; }
         }
-        
+        /// <summary>
+        /// 是否显示说明
+        /// </summary>
+        public bool ShowDescription {
+            get { return _showDescription; }
+            set { _showDescription = value; }
+        }
 
-        #endregion
-
+        public Point PaddingSetting {
+            get { return _padding; }
+            set { _padding = value; }
+        }
         private int _paddingSet;
-
+        private int _innerPaddingSet;
+        private Point _padding;
+        private bool _showDescription;
         private bool _isCard;
         private int _imageWidth = 25;
         private int _imageHeight = 25;
@@ -87,6 +84,9 @@ namespace Common.Implement.UI {
         private Image imgRBUnchecked;
         private Image imgLeft;
         private Image imaDown;
+
+        #endregion
+
 
         void initPars() {
             DoubleBuffered = true;
@@ -110,8 +110,6 @@ namespace Common.Implement.UI {
 
             //设置默认BackgroundPen  
             BackgroundPen = new Pen(Color.FromArgb(130, 249, 252), 1);
-            //设置默认节点显示图标便宜位置  
-            NodeOffset = 0;
             //this.ItemHeight = 50;
             NodeImageSize = new Size(ImageWidth, ImageHeight);
             imgUnchecked = Resource.TreeNodeUnchecked;
@@ -120,7 +118,6 @@ namespace Common.Implement.UI {
             imgRBChecked = Resource.TreeNodeChecked;
             imgLeft = Resource.down_arrow;
             imaDown = Resource.right_arrow;
-            PaddingSet = 0;
             // 设置TreeView为自己绘制文本和图标并绑定相关的事件  
             this.DrawMode = TreeViewDrawMode.OwnerDrawText;
             this.DrawNode += new DrawTreeNodeEventHandler(TreeView_DrawNode);
@@ -133,8 +130,19 @@ namespace Common.Implement.UI {
             //              ControlStyles.AllPaintingInWmPaint, true);
             //this.UpdateStyles();
             initPars();
+
         }
-        
+        //private TreeNode prevHoverNode = null;
+        //void MyContractTree_NodeMouseHover(object sender, TreeNodeMouseHoverEventArgs e)
+        //{
+        //    if (prevHoverNode != null)
+        //    {
+        //        prevHoverNode.BackColor = Color.Empty;
+        //        prevHoverNode.ForeColor = Color.Empty;
+        //    }
+        //    e.Node.BackColor = Color.Black;
+        //    prevHoverNode = e.Node;
+        //}
 
         private void TreeView_MouseUp(object sender, MouseEventArgs e) {
             MyTreeNode node = GetNodeAt(e.X, e.Y) as MyTreeNode;
@@ -183,99 +191,71 @@ namespace Common.Implement.UI {
                 return;
             }
             if (node.IsVisible) {
-                if (node.buildeType.Description != null
-                    && !(node.buildeType.Description.Equals(string.Empty))
-                    ) {
-                   
-                }
-                //else {
-                //    this.ItemHeight = 25;
-                //}
+                Graphics graphics = e.Graphics;
+                //graphics.Clear(this.BackColor);
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                Pen BorderPen = new Pen(Color.FromArgb(90, Color.Gray));
+
                 //设置Image绘制Rectangle  
-                Point pt = new Point(node.Bounds.X + NodeOffset, node.Bounds.Y);
+                Point pt = new Point(node.Bounds.X+PaddingSetting.X, node.Bounds.Y+ PaddingSetting.Y);
+            
+            
+
+                //Point pt = new Point(node.Bounds.X + PaddingSetting.X, node.Bounds.Y + PaddingSetting.Y);
                 Rectangle nodeRect = new Rectangle(pt, NodeImageSize);
                 if (node.Nodes.Count != 0) {
                     if (node.IsExpanded) {
-                        e.Graphics.DrawImage(imgLeft, nodeRect);
+                        graphics.DrawImage(imgLeft, nodeRect);
                     }
                     else {
-                        e.Graphics.DrawImage(imaDown, nodeRect);
+                        graphics.DrawImage(imaDown, nodeRect);
                     }
                     nodeRect.X += 15;
                 }
 
-
-                // 如果需要显示CheckBox,则绘制  
-                if (node.CheckBoxVisible) {
-                    Point drawPt = new Point(nodeRect.X, nodeRect.Y + 2); //绘制图标的起始位置  
-                    Rectangle imgRect = new Rectangle(drawPt, NodeImageSize);
-
-                    
-                    if (node.Checked || (node.buildeType.Checked != null
-                                         && node.buildeType.Checked.Equals("True"))) {
-                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox) {
-                            e.Graphics.DrawImage(imgChecked, imgRect);
-                        }
-                        else {
-                            e.Graphics.DrawImage(imgRBChecked, imgRect);
-                        }
-                    }
-                    else {
-                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox) {
-                            e.Graphics.DrawImage(imgUnchecked, imgRect);
-                        }
-                        else {
-                            e.Graphics.DrawImage(imgRBUnchecked, imgRect);
-                        }
-                    }
-                }
-
-
                 //-----------------------绘制文本 -------------------------------  
                 Rectangle textRec;
                 if (node.CheckBoxVisible) {
-                    textRec = new Rectangle(nodeRect.X + NodeImageSize.Width + 15, nodeRect.Y, this.Width - 3,
+                    textRec = new Rectangle(nodeRect.X + NodeImageSize.Width + 15, nodeRect.Y , this.Width - 30,
                         node.Bounds.Height);
                 }
                 else {
-                    textRec = new Rectangle(nodeRect.X + 15, nodeRect.Y, this.Width - 3, node.Bounds.Height);
-                    ;
+                    textRec = new Rectangle(nodeRect.X + 15, nodeRect.Y, this.Width - 30, node.Bounds.Height);
                 }
 
                 Font nodeFont = e.Node.NodeFont;
                 if (nodeFont == null)
                     nodeFont = ((TreeView) sender).Font;
                 Brush textBrush = SystemBrushes.WindowText;
-                Graphics graphics = e.Graphics;
-                //graphics.Clear(this.BackColor);
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                //Pen newPen = new Pen(Color.FromArgb(90, Color.FromArgb(205, 226, 252)));
-                Pen newPen = new Pen(Color.FromArgb(90, Color.FromArgb(205, 226, 252)));
+
+                Pen newPen = SystemPens.Highlight;
+                  //  new Pen(Color.FromArgb(90, Color.FromArgb(205, 226, 252)));
                 if ((e.State & TreeNodeStates.Selected) != 0) {
-                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2,
-                   // graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), 2,
-                        node.Bounds.Y, this.Width, this.ItemHeight - PaddingSet);
-                    ////绘制TreeNode选择后的边框线条  
-                    //graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
-                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - PaddingSet);
+                    //graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), -2,
+                    //    node.Bounds.Y, this.Width + 2, this.ItemHeight + 10);
+                    //graphics.FillRectangle(new SolidBrush(Color.FromArgb(90, Color.FromArgb(205, 226, 252))), 2,
+                    //pt.Y - 5, this.Width - 2, this.ItemHeight - PaddingSetting.Y + 3);
+                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 255, 255))), 2,
+                        pt.Y - 4, this.Width , this.ItemHeight - PaddingSetting.Y +3 );
+                    ////绘制TreeNode选择后的边框线条   
+                    // graphics.DrawRectangle(newPen, 0, node.Bounds.Y, this.Width -1, this.ItemHeight - PaddingSet);
+                    // graphics.DrawRectangle(newPen, 0, pt.Y - 5, this.Width -1, this.ItemHeight - PaddingSetting.Y);
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0) {
-                    graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y , this.Width, this.ItemHeight - PaddingSet);
+                 
+                    graphics.FillRectangle(BackgroundBrush, 2, pt.Y-5 , this.Width-3, this.ItemHeight - PaddingSetting.Y);
+                    //graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y, this.Width-3, this.ItemHeight - PaddingSetting.Y);
                     ////绘制TreeNode选择后的边框线条  
-                    graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y , this.Width - 3, this.ItemHeight - PaddingSet);
+                    //graphics.DrawRectangle(BackgroundPen, 1, node.Bounds.Y , this.Width -1, this.ItemHeight - PaddingSetting.Y);
+                    graphics.DrawRectangle(newPen, 1, pt.Y-4 , this.Width -2, this.ItemHeight - PaddingSetting.Y);
                 }
 
                 graphics.DrawString(node.Text, nodeFont, new SolidBrush(this.ForeColor),
                     Rectangle.Inflate(textRec, 2, -2));
-                Pen mynewPen = new Pen(Color.FromArgb(90, Color.Gray));
-                if (IsCard) {
-                    graphics.DrawRectangle(mynewPen, 1, node.Bounds.Y - PaddingSet, this.Width - 3, this.ItemHeight - PaddingSet);
-                    //graphics.DrawRectangle(mynewPen, 1, node.Bounds.Y - PaddingSet, this.Width- PaddingSet, this.ItemHeight - PaddingSet);
-                }
-
+           
                 if (node.buildeType.Description != null
-                    && !(node.buildeType.Description.Equals(string.Empty))) {
+                    && ShowDescription) {
                     textRec.Y += 25;
                     var subNode = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular,
                         System.Drawing.GraphicsUnit.Point, ((byte) (134)));
@@ -283,26 +263,62 @@ namespace Common.Implement.UI {
                     graphics.DrawString(node.buildeType.Description, subNode, new SolidBrush(this.ForeColor),
                         Rectangle.Inflate(textRec, 2, -2));
                 }
+                if (IsCard)
+                {
+                    //Y轴向下变量
+                    graphics.DrawRectangle(BorderPen, 1, pt.Y - 3, this.Width - 3, this.ItemHeight - PaddingSetting.Y);
+                }
+                // 如果需要显示CheckBox,则绘制  
+                if (node.CheckBoxVisible)
+                {
+                    Point drawPt = new Point(nodeRect.X, nodeRect.Y + 3); //绘制图标的起始位置  
+                    Rectangle imgRect = new Rectangle(drawPt, NodeImageSize);
 
+
+                    if (node.Checked || (node.buildeType.Checked != null
+                                         && node.buildeType.Checked.Equals("True")))
+                    {
+                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox)
+                        {
+                            graphics.DrawImage(imgChecked, imgRect);
+                        }
+                        else
+                        {
+                            graphics.DrawImage(imgRBChecked, imgRect);
+                        }
+                    }
+                    else
+                    {
+                        if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox)
+                        {
+                            graphics.DrawImage(imgUnchecked, imgRect);
+                        }
+                        else
+                        {
+                            graphics.DrawImage(imgRBUnchecked, imgRect);
+                        }
+                    }
+                }
                 graphics.Dispose();
             }
         }
 
 
-        ///// <summary>  
-        ///// 节点被选中后，如果节点有事件处理程序，则调用   
-        ///// </summary>  
-        ///// <param name="e"></param>  
-        //protected override void OnAfterSelect(TreeViewEventArgs e) {
-        //    MyTreeNode gNode = e.Node as MyTreeNode;
-        //    //if (gNode != null && gNode.IsSelected)
-        //    //{
-        //    //    TreeViewEventArgs arg = new TreeViewEventArgs(e.Node);
-        //    //   // gNode.SelectedNodeChanged(this, arg);
-        //    //    return;
-        //    //}
-        //    base.OnAfterSelect(e);
-        //}
+        /// <summary>  
+        /// 节点被选中后，如果节点有事件处理程序，则调用   
+        /// </summary>  
+        /// <param name="e"></param>  
+        protected override void OnAfterSelect(TreeViewEventArgs e)
+        {
+            MyTreeNode gNode = e.Node as MyTreeNode;
+            //if (gNode != null && gNode.IsSelected)
+            //{
+            //    TreeViewEventArgs arg = new TreeViewEventArgs(e.Node);
+            //   // gNode.SelectedNodeChanged(this, arg);
+            //    return;
+            //}
+            base.OnAfterSelect(e);
+        }
 
         public delegate void SetAutoScrollHandler(object sender,int upAndDown);
 
@@ -317,42 +333,40 @@ namespace Common.Implement.UI {
             const int WM_mouse_move_out = 0x02A3;
             const int WM_mouse_wheel= 0x020A;
             const int WM_MOUSE_DOWN = 0x0210;
-           #region 日后参考
-		    //if (m.Msg == WM_mouse_Click)//单击  
+            #region 日后参考
+            //if (m.Msg == WM_mouse_Click)//单击  
             //{
-            //    int wparam = m.LParam.ToInt32();
-            //    Point point = new Point(
-            //        LOWORD(wparam),
-            //        HIWORD(wparam));
-            //    //point = PointToClient(point);  
-            //    TreeNode tn = this.GetNodeAt(point);
-            //    if (tn == null)
-            //    {
-            //        base.WndProc(ref m);
-            //        return;
-            //    }
-            //    if (tn.Level == 0)
-            //    {
-            //        if (tn.IsExpanded)
-            //        {
-            //            tn.Collapse();
-            //        }
-            //        else
-            //        {
-            //            tn.Expand();
-            //        }
-                  
-            //        this.SelectedNode = tn;
-            //        m.Result = IntPtr.Zero;
-            //        base.WndProc(ref m);
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        base.WndProc(ref m);
-            //        //tn.IsSelected = true;  
-            //        //this.SelectedNode = tn;  
-            //    }
+                //int wparam = m.LParam.ToInt32();
+                //Point point = new Point(
+                //    LOWORD(wparam),
+                //    HIWORD(wparam));
+                ////point = PointToClient(point);  
+                //TreeNode tn = this.GetNodeAt(point);
+                //if (tn == null)
+                //{
+                //    base.WndProc(ref m);
+                //    return;
+                //}
+                //if (tn.Level == 0)
+                //{
+                //    if (tn.IsExpanded)
+                //    {
+                //        tn.Collapse();
+                //    }
+                //    else
+                //    {
+                //        tn.Expand();
+                //    }
+                //    this.SelectedNode = tn;
+                //    m.Result = IntPtr.Zero;
+                //    return;
+                //}
+                //else
+                //{
+                //    base.WndProc(ref m);
+                //    //tn.IsSelected = true;  
+                //    //this.SelectedNode = tn;  
+                //}
             //}
             //else if (m.Msg == WM_mouse_double_click)//双击  
             //{
@@ -404,8 +418,8 @@ namespace Common.Implement.UI {
             //    base.WndProc(ref m);
             //    return;
             //} 
-	#endregion
-            if (m.Msg == WM_mouse_wheel) {
+            #endregion
+             if (m.Msg == WM_mouse_wheel) {
                 // TrackedTopNode = this.
                 int LParam = m.LParam.ToInt32();
                 int HWnd = m.HWnd.ToInt32();
@@ -422,10 +436,8 @@ namespace Common.Implement.UI {
             }
             else
             {
-                base.WndProc(ref m);
+               base.WndProc(ref m);
             }
-            //WM_LBUTTONDOWN = $0201  
-            //WM_LBUTTONDBLCLK = $0203;  
            // Application.DoEvents();
         }
         public static int LOWORD(int value)
