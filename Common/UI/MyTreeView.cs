@@ -72,13 +72,13 @@ namespace Common.Implement.UI {
             get { return _isCard; }
             set { _isCard = value; }
         }
+        
+
+        #endregion
 
         private int _paddingSet;
 
         private bool _isCard;
-
-        #endregion
-
         private int _imageWidth = 25;
         private int _imageHeight = 25;
         private Image imgChecked;
@@ -137,11 +137,11 @@ namespace Common.Implement.UI {
         
 
         private void TreeView_MouseUp(object sender, MouseEventArgs e) {
-          
             MyTreeNode node = GetNodeAt(e.X, e.Y) as MyTreeNode;
             if (node == null
                 || !node.CheckBoxVisible
-                || !node.IsVisible) {
+                || !node.IsVisible)
+            {
                 return;
             }
 
@@ -150,20 +150,25 @@ namespace Common.Implement.UI {
 
 
             // 如果点击的是checkbox图片  
-            if (checkboxImgRect.Contains(e.X, e.Y)) {
+            if (checkboxImgRect.Contains(e.X, e.Y))
+            {
                 node.Checked = !node.Checked;
-                
+
                 // 如果是单选，则设置同级别的其它单选项为unchecked.  
                 if (node.Parent != null
-                    && node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton) {
-                    foreach (TreeNode siblingNode in node.Parent.Nodes) {
+                    && node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton)
+                {
+                    foreach (TreeNode siblingNode in node.Parent.Nodes)
+                    {
                         var siblingGNode = siblingNode as MyTreeNode;
-                        if (siblingGNode == null) {
+                        if (siblingGNode == null)
+                        {
                             continue;
                         }
                         if (siblingGNode.Name != node.Name
                             && siblingGNode.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton
-                            && siblingGNode.Checked) {
+                            && siblingGNode.Checked)
+                        {
                             siblingGNode.Checked = false;
                         }
                     }
@@ -173,6 +178,7 @@ namespace Common.Implement.UI {
    
         private void TreeView_DrawNode(object sender, DrawTreeNodeEventArgs e) {
             MyTreeNode node = e.Node as MyTreeNode;
+            
             if (node == null) {
                 return;
             }
@@ -252,7 +258,7 @@ namespace Common.Implement.UI {
                         node.Bounds.Y, this.Width, this.ItemHeight - PaddingSet);
                     ////绘制TreeNode选择后的边框线条  
                     //graphics.DrawRectangle(BackgroundPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - 1);
-                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y- PaddingSet, this.Width - 2, this.ItemHeight - PaddingSet);
+                    graphics.DrawRectangle(newPen, 0, node.Bounds.Y, this.Width - 2, this.ItemHeight - PaddingSet);
                 }
                 else if ((e.State & TreeNodeStates.Hot) > 0) {
                     graphics.FillRectangle(BackgroundBrush, 2, node.Bounds.Y , this.Width, this.ItemHeight - PaddingSet);
@@ -264,7 +270,7 @@ namespace Common.Implement.UI {
                     Rectangle.Inflate(textRec, 2, -2));
                 Pen mynewPen = new Pen(Color.FromArgb(90, Color.Gray));
                 if (IsCard) {
-                  //  graphics.DrawRectangle(mynewPen, 1, node.Bounds.Y - PaddingSet, this.Width - 3, this.ItemHeight - PaddingSet);
+                    graphics.DrawRectangle(mynewPen, 1, node.Bounds.Y - PaddingSet, this.Width - 3, this.ItemHeight - PaddingSet);
                     //graphics.DrawRectangle(mynewPen, 1, node.Bounds.Y - PaddingSet, this.Width- PaddingSet, this.ItemHeight - PaddingSet);
                 }
 
@@ -283,20 +289,20 @@ namespace Common.Implement.UI {
         }
 
 
-        /// <summary>  
-        /// 节点被选中后，如果节点有事件处理程序，则调用   
-        /// </summary>  
-        /// <param name="e"></param>  
-        protected override void OnAfterSelect(TreeViewEventArgs e) {
-            MyTreeNode gNode = e.Node as MyTreeNode;
-            //if (gNode != null && gNode.IsSelected)
-            //{
-            //    TreeViewEventArgs arg = new TreeViewEventArgs(e.Node);
-            //   // gNode.SelectedNodeChanged(this, arg);
-            //    return;
-            //}
-            base.OnAfterSelect(e);
-        }
+        ///// <summary>  
+        ///// 节点被选中后，如果节点有事件处理程序，则调用   
+        ///// </summary>  
+        ///// <param name="e"></param>  
+        //protected override void OnAfterSelect(TreeViewEventArgs e) {
+        //    MyTreeNode gNode = e.Node as MyTreeNode;
+        //    //if (gNode != null && gNode.IsSelected)
+        //    //{
+        //    //    TreeViewEventArgs arg = new TreeViewEventArgs(e.Node);
+        //    //   // gNode.SelectedNodeChanged(this, arg);
+        //    //    return;
+        //    //}
+        //    base.OnAfterSelect(e);
+        //}
 
         public delegate void SetAutoScrollHandler(object sender,int upAndDown);
 
@@ -420,7 +426,7 @@ namespace Common.Implement.UI {
             }
             //WM_LBUTTONDOWN = $0201  
             //WM_LBUTTONDBLCLK = $0203;  
-          //  Application.DoEvents();
+           // Application.DoEvents();
         }
         public static int LOWORD(int value)
         {

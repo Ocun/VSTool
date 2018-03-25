@@ -147,7 +147,7 @@ namespace VSTool {
                 myTreeView4.Nodes.Clear();
                 // 右两排折叠
                 int vnum = 0, ftake = 0, count = item[0].BuildeItems.Count();
-
+                int elseNum = 0; 
                 if (splitContainer3.Panel2Collapsed) {
                     ftake = count;
                 }
@@ -158,7 +158,8 @@ namespace VSTool {
                 }
                 else {
                     vnum = count / 3;
-                    ftake = count - 2 * vnum;
+                    elseNum = count % 3;
+                    ftake = elseNum ==2? count - 2 * vnum - 1:count - 2 * vnum;
                 }
                 var item2 = item[0].BuildeItems.Take(ftake).ToList();
                 var item3 = item[0].BuildeItems.Skip(ftake).Take(vnum).ToList();
@@ -169,7 +170,7 @@ namespace VSTool {
                 int nodeCount = item2.Count;
                 int hight = nodeCount * myTreeView2.ItemHeight;
                 if (hight > splitContainer2.Panel2.ClientSize.Height) {
-                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
+                  splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
                 }
                 else {
                     splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width,
@@ -3382,23 +3383,32 @@ namespace VSTool {
         }
 
         private void myTreeView2_SetAutoScrollEvent(object sender, int upAndDown) {
-            bool vscroll = splitContainer2.Panel2.VerticalScroll.Visible;
-            if (vscroll) {
-                var Maxnum = splitContainer2.Panel2.VerticalScroll.Maximum;
+         
+
+            bool vscroll = scrollPanel.VerticalScroll.Visible;
+            if (vscroll)
+            {
+
+
+                var Maxnum = scrollPanel.VerticalScroll.Maximum;
                 int growbase = myTreeView2.Nodes.Count / 20;
                 int growNum = growbase == 0 ? 40 : growbase * 40;
 
-                var minNum = splitContainer2.Panel2.VerticalScroll.Minimum;
-                var cnum = splitContainer2.Panel2.VerticalScroll.Value;
-                if (upAndDown == 1) {
-                    splitContainer2.Panel2.VerticalScroll.Value += growNum;
+                var minNum = scrollPanel.VerticalScroll.Minimum;
+                var cnum = scrollPanel.VerticalScroll.Value;
+                if (upAndDown == 1)
+                {
+                    scrollPanel.VerticalScroll.Value += growNum;
                 }
-                else {
-                    if (cnum - growNum > minNum) {
-                        splitContainer2.Panel2.VerticalScroll.Value -= growNum;
+                else
+                {
+                    if (cnum - growNum > minNum)
+                    {
+                        scrollPanel.VerticalScroll.Value -= growNum;
                     }
-                    else {
-                        splitContainer2.Panel2.VerticalScroll.Value = minNum;
+                    else
+                    {
+                        scrollPanel.VerticalScroll.Value = minNum;
                     }
                 }
             }
@@ -3406,16 +3416,14 @@ namespace VSTool {
 
         private void myTreeView2_AfterCheck(object sender, TreeViewEventArgs e) {
             Toolpars.MDistince = false;
-
             string StrA = "";
-            MyTreeNode node = myTreeView1.SelectedNode as MyTreeNode;
-
+            var node = e.Node  as MyTreeNode;
             if (e.Node.Checked) {
                 node.buildeType.Checked = "True";
-                ModiName MYForm = new ModiName();
+                ModiName MYForm = new ModiName(node.buildeType);
                 if (!rbModi.Checked) {
-                    int gLeft = MYForm.Width / 2 - MYForm.lblattention.Width / 2;
-                    MYForm.lblattention.Location = new Point(gLeft, MYForm.lblattention.Top);
+                    //int gLeft = MYForm.Width / 2 - MYForm.lblattention.Width / 2;
+                    //MYForm.lblattention.Location = new Point(gLeft, MYForm.lblattention.Top);
                     MYForm.StartPosition = FormStartPosition.CenterParent;
                     MYForm.ShowDialog();
 
@@ -3429,10 +3437,12 @@ namespace VSTool {
                         node.buildeType.Checked = "False";
 
                         e.Node.Checked = false;
+                        
                     }
                     if (myTreeView1.SelectedNode != null) {
+                         var par_node = myTreeView1.SelectedNode as MyTreeNode;
                         var par_item = _toolpars.BuilderEntity.BuildeTypies.ToList()
-                            .Where(et => et.Id.Equals(node.buildeType.Id)).ToList();
+                            .Where(et => et.Id.Equals(par_node.buildeType.Id)).ToList();
                         if (par_item.Count > 0) {
                             var citem = par_item[0].BuildeItems
                                 .Where(et => et.Id.Equals((e.Node as MyTreeNode).buildeType.Id)).ToList();

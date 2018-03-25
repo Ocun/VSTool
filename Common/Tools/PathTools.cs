@@ -16,21 +16,21 @@ namespace Common.Implement
         public static PathEntity getPathEntity(toolpars Toolpars) {
             var SettingPathEntity = Toolpars.SettingPathEntity;
             string serverProgramsPath = CombineStr(new[]{Toolpars.Mplatform , SettingPathEntity.ServerDir,
-                                SettingPathEntity.Programs});
+                                SettingPathEntity.Programs});//\\Server\\Application\\Customization\\Programs\\
             string clientProgramsPath = CombineStr(new[]{Toolpars.Mplatform, SettingPathEntity.DeployServerDir,
-                                SettingPathEntity.Programs});
-            string ExportPath = CombineStr(new[]{Toolpars.formEntity.txtToPath , SettingPathEntity.ExportDir});
+                                SettingPathEntity.Programs});//\\DeployServer\\Shared\\Customization\\Programs\\
+            string ExportPath = CombineStr(new[]{Toolpars.formEntity.txtToPath , SettingPathEntity.ExportDir});//..\\Export\\
             string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
-            string rootDir = CombineStr(new[] {SettingPathEntity.PackageBaseName, txtNewTypeKey});
-            string businessDir = CombineStr(new[]{rootDir, SettingPathEntity.BusinessDirExtention});
-            string ImplementDir = CombineStr(new[]{ businessDir , SettingPathEntity.ImplementDirExtention });
-            string UIDir = CombineStr(new[]{rootDir , SettingPathEntity.UIDirExtention  });
-            string UIImplementDir = CombineStr(new[]{ UIDir, SettingPathEntity.ImplementDirExtention});
-            string businessDllName = CombineStr(new[]{businessDir, SettingPathEntity.DllExtention});
-            string ImplementDllName = CombineStr(new[] {ImplementDir, SettingPathEntity.DllExtention});
-            string UIDllName = CombineStr(new[] { UIDir, SettingPathEntity.DllExtention });
-            string UIImplementDllName = CombineStr(new[] { UIImplementDir, SettingPathEntity.DllExtention });
-                                      
+            string rootDir = CombineStr(new[] {SettingPathEntity.PackageBaseName, txtNewTypeKey});//..\\Digiwin.ERP.typekey
+            string businessDir = CombineStr(new[]{rootDir, SettingPathEntity.BusinessDirExtention});//..\\Digiwin.ERP.typekey.Business\\
+            string ImplementDir = CombineStr(new[]{ businessDir , SettingPathEntity.ImplementDirExtention });//..\\Digiwin.ERP.typekey.Business.Implement\\
+            string UIDir = CombineStr(new[]{rootDir , SettingPathEntity.UIDirExtention  });//..\\Digiwin.ERP.typekey.UI\\
+            string UIImplementDir = CombineStr(new[]{ UIDir, SettingPathEntity.ImplementDirExtention});//..\\Digiwin.ERP.typekey.UI.Implement\\
+            string businessDllName = CombineStr(new[]{businessDir, SettingPathEntity.DllExtention});//..\\Digiwin.ERP.typekey.Business.dll\\
+            string ImplementDllName = CombineStr(new[] {ImplementDir, SettingPathEntity.DllExtention});//..\\Digiwin.ERP.typekey.Business.Implement.dll\\
+            string UIDllName = CombineStr(new[] { UIDir, SettingPathEntity.DllExtention });//..\\Digiwin.ERP.typekey.UI.dll\\
+            string UIImplementDllName = CombineStr(new[] { UIImplementDir, SettingPathEntity.DllExtention });//..\\Digiwin.ERP.typekey.UI.Implement.dll\\
+
 
             if (Toolpars.MIndustry)
             {
