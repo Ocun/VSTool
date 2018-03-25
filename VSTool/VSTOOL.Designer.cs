@@ -430,7 +430,7 @@ namespace VSTool
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(236, 584);
+            this.panel3.Size = new System.Drawing.Size(233, 584);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
@@ -462,7 +462,7 @@ namespace VSTool
             this.listDATA.Margin = new System.Windows.Forms.Padding(4);
             this.listDATA.Name = "listDATA";
             this.listDATA.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listDATA.Size = new System.Drawing.Size(220, 542);
+            this.listDATA.Size = new System.Drawing.Size(217, 542);
             this.listDATA.Sorted = true;
             this.listDATA.TabIndex = 14;
             this.listDATA.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listDATA_DrawItem);
@@ -534,7 +534,7 @@ namespace VSTool
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Size = new System.Drawing.Size(1237, 584);
-            this.splitContainer1.SplitterDistance = 1000;
+            this.splitContainer1.SplitterDistance = 1003;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 36;
             // 
@@ -546,7 +546,7 @@ namespace VSTool
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1000, 584);
+            this.panel2.Size = new System.Drawing.Size(1003, 584);
             this.panel2.TabIndex = 33;
             // 
             // splitContainer2
@@ -566,7 +566,7 @@ namespace VSTool
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.scrollPanel);
-            this.splitContainer2.Size = new System.Drawing.Size(1000, 584);
+            this.splitContainer2.Size = new System.Drawing.Size(1003, 584);
             this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 14;
@@ -608,7 +608,7 @@ namespace VSTool
             this.scrollPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scrollPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollPanel.Name = "scrollPanel";
-            this.scrollPanel.Size = new System.Drawing.Size(754, 584);
+            this.scrollPanel.Size = new System.Drawing.Size(757, 584);
             this.scrollPanel.TabIndex = 35;
             // 
             // splitContainer3
@@ -628,7 +628,7 @@ namespace VSTool
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(754, 584);
+            this.splitContainer3.Size = new System.Drawing.Size(757, 584);
             this.splitContainer3.SplitterDistance = 132;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 34;
@@ -658,10 +658,11 @@ namespace VSTool
             this.myTreeView2.ShowDescription = true;
             this.myTreeView2.ShowLines = false;
             this.myTreeView2.ShowPlusMinus = false;
-            this.myTreeView2.Size = new System.Drawing.Size(754, 584);
+            this.myTreeView2.Size = new System.Drawing.Size(757, 584);
             this.myTreeView2.TabIndex = 33;
             this.myTreeView2.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.myTreeView2_SetAutoScrollEvent);
             this.myTreeView2.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.myTreeView2_AfterCheck);
+          
             // 
             // splitContainer4
             // 

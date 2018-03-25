@@ -39,6 +39,34 @@ namespace Common.Implement.UI
             }
         }
 
+        private void ModiName_Load(object sender, EventArgs e)
+        {
+            if (this.BuildeType.Id.Equals("Batch")) {
+                this.BatchcomBox.Visible = true;
+                List< BatchInfo > batchInfo = new List<BatchInfo>();
+                batchInfo.AddRange(new [] {
+                   new BatchInfo(){Id = "FreeBatchService",Name = "普通批次"},
+                   new BatchInfo(){Id = "GuideInterceptor",Name = "向导式批次"}
+                });
+                BatchcomBox.DataSource = batchInfo;
+                BatchcomBox.ValueMember = "Id";
+                BatchcomBox.DisplayMember = "Name";
+            }
+        }
+
         
+        private void txt01_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                SendKeys.Send("{tab}");
+            }
+        }
+    }
+    public class BatchInfo
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+
     }
 }

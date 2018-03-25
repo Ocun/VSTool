@@ -368,7 +368,7 @@ namespace Common.Implement.UI {
 
         [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("操作"),
          Description("当Value值改变时发生")]
-        public event EventHandler ValueChanged = null;
+        public event System.EventHandler ValueChanged = null;
 
 
         public ScrollerBar() {

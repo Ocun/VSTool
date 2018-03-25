@@ -62,5 +62,6 @@ namespace Common.Implement
             strs.ToList().ForEach(str => sb.Append((str ?? string.Empty).Trim()));
             return sb.ToString();
         }
+      
     }
 }

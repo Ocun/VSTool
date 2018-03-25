@@ -83,111 +83,7 @@
 					<Name>菜单</Name>
 					<Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
 				</BuildeItem>
-				<BuildeItem>
-					<Id>SaveService</Id>
-					<Name>保存</Name>
-					<Description>涉及保存操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>ConfirmService</Id>
-					<Name>审核</Name>
-					<Description>涉及审核操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>DisconfirmService</Id>
-					<Name>撤销审核</Name>
-					<Description>涉及撤销审核操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>Validator</Id>
-					<Name>校验</Name>
-					<Description>涉及校验操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>DataEntityChanged</Id>
-					<Name>数据跟踪</Name>
-					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>SelectWindowDialogEx</Id>
-					<Name>功能开窗</Name>
-					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>EditControllerCommand</Id>
-					<Name>菜单</Name>
-					<Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>SaveService</Id>
-					<Name>保存</Name>
-					<Description>涉及保存操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>ConfirmService</Id>
-					<Name>审核</Name>
-					<Description>涉及审核操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>DisconfirmService</Id>
-					<Name>撤销审核</Name>
-					<Description>涉及撤销审核操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>Validator</Id>
-					<Name>校验</Name>
-					<Description>涉及校验操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>DataEntityChanged</Id>
-					<Name>数据跟踪</Name>
-					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>SelectWindowDialogEx</Id>
-					<Name>功能开窗</Name>
-					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>EditControllerCommand</Id>
-					<Name>菜单</Name>
-					<Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>SaveService</Id>
-					<Name>保存</Name>
-					<Description>涉及保存操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>ConfirmService</Id>
-					<Name>审核</Name>
-					<Description>涉及审核操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>DisconfirmService</Id>
-					<Name>撤销审核</Name>
-					<Description>涉及撤销审核操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>Validator</Id>
-					<Name>校验</Name>
-					<Description>涉及校验操作时</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>DataEntityChanged</Id>
-					<Name>数据跟踪</Name>
-					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>SelectWindowDialogEx</Id>
-					<Name>功能开窗</Name>
-					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-				</BuildeItem>
-				<BuildeItem>
-					<Id>EditControllerCommand</Id>
-					<Name>菜单</Name>
-					<Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
-				</BuildeItem>
+				
 			</BuildeItems>
 		</BuildeType>
 		<BuildeType>
@@ -231,6 +127,11 @@
 					<Description>提供表格全选,撤销功能</Description>
 				</BuildeItem>
 			</BuildeItems>
+		</BuildeType>
+		<BuildeType>
+			<Id>Modi</Id>
+			<Name>修改</Name>
+			<Description>Copy标准</Description>
 		</BuildeType>
 	</BuildeTypies>
 </BuildeEntity>	

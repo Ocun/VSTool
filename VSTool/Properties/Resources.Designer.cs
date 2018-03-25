@@ -59,5 +59,23 @@ namespace VSTool.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   查找类似 本次操作将清空新增页面选择项，你确定这样做吗？ 的本地化字符串。
+        /// </summary>
+        internal static string ClearMsg {
+            get {
+                return ResourceManager.GetString("ClearMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 警告 的本地化字符串。
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
     }
 }

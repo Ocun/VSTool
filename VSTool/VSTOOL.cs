@@ -9,6 +9,8 @@ using System.Diagnostics;
 using Common.Implement;
 using Common.Implement.UI;
 using Common.Implement.Entity;
+using Common.Implement.EventHandler;
+using VSTool.Properties;
 
 namespace VSTool {
     public partial class VSTOOL : Form {
@@ -92,9 +94,15 @@ namespace VSTool {
 
         private List<string> Mnotes = new List<string>();
 
-
+        private void addEventer() {
+            this.myTreeView2.Leave +=  EventHelper.myTreeView_Leave;
+            this.myTreeView3.Leave +=  EventHelper.myTreeView_Leave;
+            this.myTreeView4.Leave +=  EventHelper.myTreeView_Leave;
+        }
+      
         private void VSTOOL_Load(object sender, EventArgs e) {
             createTree("RootView");
+            addEventer();
             return;
             //this.bindingSource1.Add(new FormEntity());
             //Toolpars.formEntity = this.bindingSource1.Current as FormEntity;
@@ -141,12 +149,14 @@ namespace VSTool {
                     paloTool.createTree(myTreeView1, item, false);
                     return;
                 }
+                if (item[0].BuildeItems == null) return;
                 //最大3列，平均显示
                 myTreeView2.Nodes.Clear();
                 myTreeView3.Nodes.Clear();
                 myTreeView4.Nodes.Clear();
                 // 右两排折叠
-                int vnum = 0, ftake = 0, count = item[0].BuildeItems.Count();
+                int vnum = 0, ftake = 0, count =  item[0].BuildeItems.Count();
+                
                 int elseNum = 0; 
                 if (splitContainer3.Panel2Collapsed) {
                     ftake = count;
@@ -3188,7 +3198,7 @@ namespace VSTool {
 
         private void btncopydll_Click(object sender, EventArgs e) {
             try {
-                Tools.copyDll(Toolpars);
+                paloTool.copyDll(Toolpars);
                 MessageBox.Show("复制成功 !!!");
             }
             catch (Exception ex) {
@@ -3206,7 +3216,7 @@ namespace VSTool {
                 if (Toolpars.MIndustry) {
                     toPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Industry\\Programs\\";
                 }
-                Tools.FileCopyUIdll(Export, toPath, filterStr);
+                paloTool.FileCopyUIdll(Export, toPath, filterStr);
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -3282,8 +3292,6 @@ namespace VSTool {
         #endregion
 
         private void button1_Click(object sender, EventArgs e) {
-          
-            
             string[] processNames = {
                 "Digiwin.Mars.ClientStart", "Digiwin.Mars.ServerStart",
                 "Digiwin.Mars.AccountSetStart"
@@ -3353,7 +3361,8 @@ namespace VSTool {
         private void myTreeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
             MyTreeNode node = e.Node as MyTreeNode;
             myTreeView1.SelectedNode = node;
-          
+           
+            
             createTree(node.buildeType.Id);
         }
 
@@ -3388,13 +3397,9 @@ namespace VSTool {
         }
 
         private void myTreeView2_SetAutoScrollEvent(object sender, int upAndDown) {
-         
-
             bool vscroll = scrollPanel.VerticalScroll.Visible;
             if (vscroll)
             {
-
-
                 var Maxnum = scrollPanel.VerticalScroll.Maximum;
                 int growbase = myTreeView2.Nodes.Count / 20;
                 int growNum = growbase == 0 ? 40 : growbase * 40;
@@ -3419,6 +3424,11 @@ namespace VSTool {
             }
         }
 
+        /// <summary>
+        /// 单击选择
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void myTreeView2_AfterCheck(object sender, TreeViewEventArgs e) {
             Toolpars.MDistince = false;
             string StrA = "";
@@ -3465,6 +3475,6 @@ namespace VSTool {
             }
         }
 
-      
+        
     }
 }

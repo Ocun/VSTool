@@ -115,71 +115,8 @@ namespace Common.Implement {
             }
         }
 
-        public static void copyDll(toolpars Toolpars) {
-            var PathEntity = Toolpars.PathEntity;
-            if (PathEntity != null) {
-                string serverPath = PathEntity.ServerProgramsPath;
-                string clientPath = PathEntity.DeployProgramsPath;
-                string businessDllFullPath = PathEntity.ExportPath + PathEntity.BusinessDllName;
-                string ImplementDllFullPath = PathEntity.ExportPath + PathEntity.ImplementDllName;
-                string UIDllFullPath = PathEntity.ExportPath + PathEntity.UIDllName;
-                string UIImplementDllFullPath = PathEntity.ExportPath + PathEntity.UIImplementDllName;
-                //Path.GetDirectoryName()
-                string toPath = string.Empty;
-                if (File.Exists(businessDllFullPath)) {
-                    if (Directory.Exists(serverPath)) {
-                        toPath = serverPath + PathEntity.BusinessDllName;
-                        File.Copy(businessDllFullPath, toPath, true);
-                    }
-                    if (Directory.Exists(clientPath)) {
-                        toPath = clientPath + PathEntity.BusinessDllName;
-                        File.Copy(businessDllFullPath, toPath, true);
-                    }
-                }
-                if (File.Exists(ImplementDllFullPath)) {
-                    if (Directory.Exists(serverPath)) {
-                        File.Copy(ImplementDllFullPath,
-                            serverPath + PathEntity.ImplementDllName, true);
-                    }
-                }
-                if (File.Exists(UIDllFullPath)) {
-                    if (Directory.Exists(clientPath)) {
-                        File.Copy(UIDllFullPath,
-                            clientPath + PathEntity.UIDllName, true);
-                    }
-                }
-                if (File.Exists(UIImplementDllFullPath)) {
-                    if (Directory.Exists(clientPath)) {
-                        File.Copy(UIImplementDllFullPath,
-                            clientPath + PathEntity.UIImplementDllName, true);
-                    }
-                }
-            }
-        }
-
-        public static void FileCopy(string fromFile) {
-        }
-
-
-        /// <summary>
-        /// 將dll 考入平臺目錄
-        /// </summary>
-        /// <param name="fromPath"></param>
-        /// <param name="toPath"></param>
-        /// <param name="filterStr"></param>
-        public static void FileCopyUIdll(string fromPath, string toPath, string filterStr) {
-            try {
-                string[] filedir = Directory.GetFiles(fromPath, filterStr,
-                    SearchOption.AllDirectories);
-                foreach (var mfile in filedir) {
-                    File.Copy(mfile, mfile.Replace(fromPath, toPath), true);
-                }
-                MessageBox.Show("复制成功 !!!");
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+     
+      
 
         /// <summary>
         /// 

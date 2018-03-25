@@ -26,8 +26,8 @@ namespace Common.Implement {
                 FileInfo fileinfo = new FileInfo(file);
                 string file_name = Path.GetFileNameWithoutExtension(file);
                 if (!fileNames.Contains(file_name)) continue;
-                string absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty);
-                string absolutePath = file.Replace(fromDir, string.Empty);
+                string absolutedir = fileinfo.Directory.FullName.Replace(fromDir, String.Empty);
+                string absolutePath = file.Replace(fromDir, String.Empty);
                 string newFilePath = Path.Combine(toDir, absolutePath);
                 string newFileDir = Path.Combine(toDir, absolutedir).Replace(fromTypeKey,ToTypeKey);
                 if (!Directory.Exists(newFileDir)) {
@@ -51,6 +51,7 @@ namespace Common.Implement {
             }
             ;
         }
+       
         /// <summary>
         /// 获取项目配置路径
         /// </summary>
@@ -59,6 +60,7 @@ namespace Common.Implement {
             //if(dir!=null)
             return null;
         }
+        
         /// <summary>
         /// 递归获取指定文件夹内所有文件全路径
         /// </summary>
@@ -68,6 +70,7 @@ namespace Common.Implement {
             List<string> filepathList = new List<string>();
             if (Directory.Exists(dirpath)) {
                 DirectoryInfo dirinfo = new DirectoryInfo(dirpath);
+                //递归目录
                 DirectoryInfo[] childDirList = dirinfo.GetDirectories();
                 if (childDirList.Length > 0) {
                     childDirList.ToList().ForEach(a => {
@@ -78,6 +81,7 @@ namespace Common.Implement {
                     }
                         );
                 }
+                //文件
                 FileInfo[] filepaths = dirinfo.GetFiles();
                 filepaths.ToList().ForEach(a => filepathList.Add(a.FullName));
             }
@@ -86,8 +90,48 @@ namespace Common.Implement {
             return filepathList;
         }
 
+        /// <summary>
+        /// 查找指定目录下文件，返回路径
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="filterName"></param>
+        /// <returns></returns>
+        private static string SearchFile(string dirpath, string searchFile,bool containerSub) {
+            string filePath = String.Empty;
+            if (Directory.Exists(dirpath))
+            {
+                DirectoryInfo dirinfo = new DirectoryInfo(dirpath);
+                FileInfo[] filepaths = dirinfo.GetFiles();
+                var fob = filepaths.ToList().FirstOrDefault(file=>file.Name.Equals(searchFile));
+                if (fob != null) {
+                    filePath = fob.FullName;
+                    
+                }
+                else if(containerSub)
+                {
+                    DirectoryInfo[] childDirList = dirinfo.GetDirectories();
+                    if (childDirList.Length > 0)
+                    {
+                        childDirList.ToList().ForEach(a => {
+                                var res = SearchFile(a.FullName, searchFile, containerSub);
+                                if (!res.Equals(String.Empty) )
+                                {
+                                    filePath = res;
+                                }
+                            }
+                        );
+                    }
+                }
+            }
+            return filePath;
+        }
        
-
+        /// <summary>
+        /// 指定文件文本替换
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fromName"></param>
+        /// <param name="toName"></param>
         private static void changeText(string path, string fromName, string toName) {
             string con = "";
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read)) {
@@ -104,9 +148,7 @@ namespace Common.Implement {
                 }
             }
         }
-
-
-
+        
        public static void createTree(MyTreeView mytree, List<BuildeType> BuildeEntity,bool showCheck)
         {
             mytree.Nodes.Clear();
@@ -127,11 +169,10 @@ namespace Common.Implement {
         /// <returns></returns>
         public static TreeNode CreateTree(BuildeType buildeType,bool showCheck, bool readSubView)
         {
-            string text = buildeType.Name ?? string.Empty;
+            string text = buildeType.Name ?? String.Empty;
             MyTreeNode new_child = new MyTreeNode(text);
             new_child.buildeType = buildeType;
-            if (buildeType.BuildeItems == null
-                || showCheck)
+            if (showCheck)
             {
                 new_child.CheckBoxVisible = true;
             }
@@ -146,5 +187,81 @@ namespace Common.Implement {
         }
 
 
+        /// <summary>
+        /// 將dll 考入平臺目錄
+        /// </summary>
+        /// <param name="fromPath"></param>
+        /// <param name="toPath"></param>
+        /// <param name="filterStr"></param>
+        public static void FileCopyUIdll(string fromPath, string toPath, string filterStr)
+        {
+            try
+            {
+                string[] filedir = Directory.GetFiles(fromPath, filterStr,
+                    SearchOption.AllDirectories);
+                foreach (var mfile in filedir)
+                {
+                    File.Copy(mfile, mfile.Replace(fromPath, toPath), true);
+                }
+                MessageBox.Show("复制成功 !!!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void copyDll(toolpars Toolpars)
+        {
+            var PathEntity = Toolpars.PathEntity;
+            if (PathEntity != null)
+            {
+                string serverPath = PathEntity.ServerProgramsPath;
+                string clientPath = PathEntity.DeployProgramsPath;
+                string businessDllFullPath = PathEntity.ExportPath + PathEntity.BusinessDllName;
+                string ImplementDllFullPath = PathEntity.ExportPath + PathEntity.ImplementDllName;
+                string UIDllFullPath = PathEntity.ExportPath + PathEntity.UIDllName;
+                string UIImplementDllFullPath = PathEntity.ExportPath + PathEntity.UIImplementDllName;
+                //Path.GetDirectoryName()
+                string toPath = String.Empty;
+                if (File.Exists(businessDllFullPath))
+                {
+                    if (Directory.Exists(serverPath))
+                    {
+                        toPath = serverPath + PathEntity.BusinessDllName;
+                        File.Copy(businessDllFullPath, toPath, true);
+                    }
+                    if (Directory.Exists(clientPath))
+                    {
+                        toPath = clientPath + PathEntity.BusinessDllName;
+                        File.Copy(businessDllFullPath, toPath, true);
+                    }
+                }
+                if (File.Exists(ImplementDllFullPath))
+                {
+                    if (Directory.Exists(serverPath))
+                    {
+                        File.Copy(ImplementDllFullPath,
+                            serverPath + PathEntity.ImplementDllName, true);
+                    }
+                }
+                if (File.Exists(UIDllFullPath))
+                {
+                    if (Directory.Exists(clientPath))
+                    {
+                        File.Copy(UIDllFullPath,
+                            clientPath + PathEntity.UIDllName, true);
+                    }
+                }
+                if (File.Exists(UIImplementDllFullPath))
+                {
+                    if (Directory.Exists(clientPath))
+                    {
+                        File.Copy(UIImplementDllFullPath,
+                            clientPath + PathEntity.UIImplementDllName, true);
+                    }
+                }
+            }
+        }
     }
 }

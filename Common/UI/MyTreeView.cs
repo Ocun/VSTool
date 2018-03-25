@@ -132,6 +132,10 @@ namespace Common.Implement.UI {
             initPars();
 
         }
+
+        protected override void SetVisibleCore(bool value) {
+            base.SetVisibleCore(value);
+        }
         //private TreeNode prevHoverNode = null;
         //void MyContractTree_NodeMouseHover(object sender, TreeNodeMouseHoverEventArgs e)
         //{
