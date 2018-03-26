@@ -25,6 +25,57 @@ namespace VSTool {
         #endregion
 
 
+        public void CreateRightView() {
+            myTreeView5.Nodes.Clear();
+            var BuildeEntity =_toolpars.BuilderEntity.BuildeTypies;
+
+            if (BuildeEntity != null)
+            {
+                var item = BuildeEntity.ToList();
+                item.ForEach(buildeType => {
+                    var node = createTree(buildeType);
+                    if (node != null) {
+                        myTreeView5.Nodes.Add(node);
+                    }
+                });
+            }
+        }
+
+        MyTreeNode createTree(BuildeType buildeType) {
+            string text = buildeType.Name ?? String.Empty;
+            MyTreeNode new_child = new MyTreeNode(text);
+            bool existedFile = true;
+            new_child.buildeType = buildeType;
+            if (new_child.buildeType.FileInfosField == null
+                || new_child.buildeType.FileInfosField.Count == 0) {
+                //读下层目录
+                if (buildeType.BuildeItems != null
+                    && buildeType.BuildeItems.Length > 0) {
+                    buildeType.BuildeItems.ToList().ForEach(BuildeItem => {
+                        var node = createTree(BuildeItem);
+                        if (node != null) {
+                            new_child.Nodes.Add(node);
+                        }
+                    });
+                }
+                else {
+                    existedFile = false;
+                }
+            }
+            else {
+                new_child.buildeType.FileInfosField.ToList().ForEach(createfile => {
+                    MyTreeNode file_child = new MyTreeNode(createfile.FileNameFiled);
+                    new_child.Nodes.Add(file_child);
+                });
+              
+            }
+            if (existedFile&& new_child.Nodes.Count>0)
+                return new_child;
+            else {
+                return null;
+            }
+        }
+
         private delegate void beginInvokeDelegate();
 
         public VSTOOL(string[] pToIni) {
@@ -95,11 +146,11 @@ namespace VSTool {
         private List<string> Mnotes = new List<string>();
 
         private void addEventer() {
-            this.myTreeView2.Leave +=  EventHelper.myTreeView_Leave;
-            this.myTreeView3.Leave +=  EventHelper.myTreeView_Leave;
-            this.myTreeView4.Leave +=  EventHelper.myTreeView_Leave;
+            this.myTreeView2.Leave += EventHelper.myTreeView_Leave;
+            this.myTreeView3.Leave += EventHelper.myTreeView_Leave;
+            this.myTreeView4.Leave += EventHelper.myTreeView_Leave;
         }
-      
+
         private void VSTOOL_Load(object sender, EventArgs e) {
             createTree("RootView");
             addEventer();
@@ -139,6 +190,10 @@ namespace VSTool {
             }
         }
 
+        /// <summary>
+        /// 绘制左侧导航及主视图区
+        /// </summary>
+        /// <param name="id"></param>
         void createTree(string id) {
             BuildeEntity BuildeEntity = _toolpars.BuilderEntity;
 
@@ -155,9 +210,9 @@ namespace VSTool {
                 myTreeView3.Nodes.Clear();
                 myTreeView4.Nodes.Clear();
                 // 右两排折叠
-                int vnum = 0, ftake = 0, count =  item[0].BuildeItems.Count();
-                
-                int elseNum = 0; 
+                int vnum = 0, ftake = 0, count = item[0].BuildeItems.Count();
+
+                int elseNum = 0;
                 if (splitContainer3.Panel2Collapsed) {
                     ftake = count;
                 }
@@ -169,7 +224,7 @@ namespace VSTool {
                 else {
                     vnum = count / 3;
                     elseNum = count % 3;
-                    ftake = elseNum ==2? count - 2 * vnum - 1:count - 2 * vnum;
+                    ftake = elseNum == 2 ? count - 2 * vnum - 1 : count - 2 * vnum;
                 }
                 var item2 = item[0].BuildeItems.Take(ftake).ToList();
                 var item3 = item[0].BuildeItems.Skip(ftake).Take(vnum).ToList();
@@ -180,7 +235,7 @@ namespace VSTool {
                 int nodeCount = item2.Count;
                 int hight = nodeCount * myTreeView2.ItemHeight;
                 if (hight > splitContainer2.Panel2.ClientSize.Height) {
-                  splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
+                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
                 }
                 else {
                     splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width,
@@ -197,8 +252,10 @@ namespace VSTool {
         #endregion
 
         private void btnCreate_Click(object sender, EventArgs e) {
+            
             try {
                 Tools.WriteLog(Toolpars, listDATA);
+                var test = _toolpars.FileMappingEntity;
 
                 Toolpars.GToIni = Toolpars.formEntity.txtToPath;
                 if ((Toolpars.formEntity.txtToPath == "")
@@ -344,6 +401,7 @@ namespace VSTool {
 
         private void btnCreateCS_Click(object sender, EventArgs e) //生成类
         {
+
             Toolpars.GToIni = Toolpars.formEntity.txtToPath;
             Tools.WriteLog(Toolpars, listDATA);
             if ((Toolpars.formEntity.txtToPath == "")
@@ -3051,7 +3109,7 @@ namespace VSTool {
 
         #region treeview 重组节点
 
-        private void paintTreeView(TreeView TreeView, string fullPath) {
+        private void paintTreeView(MyTreeView TreeView, string fullPath) {
             try {
                 TreeView.Nodes.Clear();
                 DirectoryInfo dirs = new DirectoryInfo(fullPath);
@@ -3059,14 +3117,18 @@ namespace VSTool {
                 FileInfo[] file = dirs.GetFiles();
                 int dircount = dir.Count();
                 int filecount = file.Count();
+
                 for (int i = 0; i < dircount; i++) {
-                    TreeView.Nodes.Add(dir[i].Name);
+                    MyTreeNode new_child = new MyTreeNode(dir[i].Name) {CheckBoxVisible = false};
                     string pathNode = fullPath + @"\" + dir[i].Name;
-                    GetMultNode(TreeView.Nodes[i], pathNode);
+                    GetMultNode(new_child, pathNode);
+                    setCheckBox(new_child);
+                    TreeView.Nodes.Add(new_child);
                 }
                 for (int j = 0; j < filecount; j++) {
                     if (file[j].Name.Substring(file[j].Name.LastIndexOf(".") + 1) == "cs") {
-                        TreeView.Nodes.Add(file[j].Name);
+                        MyTreeNode new_child = new MyTreeNode(file[j].Name);
+                        TreeView.Nodes.Add(new_child);
                     }
                 }
             }
@@ -3075,7 +3137,21 @@ namespace VSTool {
             }
         }
 
-        private bool GetMultNode(TreeNode treeNode, string path) {
+        void setCheckBox(MyTreeNode node) {
+            if (node.Nodes.Count == 0)
+            {
+                node.CheckBoxVisible = true;
+            }
+            else {
+               foreach(MyTreeNode subNode in node.Nodes)
+                {
+                    setCheckBox(subNode);
+                }
+               
+            }
+        }
+
+    private bool GetMultNode(MyTreeNode treeNode, string path) {
             if (Directory.Exists(path) == false) {
                 return false;
             }
@@ -3089,15 +3165,16 @@ namespace VSTool {
                 return false;
             }
             for (int j = 0; j < dircount; j++) {
-                treeNode.Nodes.Add(dir[j].Name);
-
+                MyTreeNode new_child = new MyTreeNode(dir[j].Name);
                 string pathNodeB = path + @"\" + dir[j].Name;
-                GetMultNode(treeNode.Nodes[j], pathNodeB);
+                GetMultNode(new_child, pathNodeB);
+                treeNode.Nodes.Add(new_child);
             }
             for (int i = 0; i < filecount; i++) {
                 if (file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "cs"
                     || file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "resx") {
-                    treeNode.Nodes.Add(file[i].Name);
+                    MyTreeNode new_child = new MyTreeNode(file[i].Name);
+                    treeNode.Nodes.Add(new_child);
                 }
             }
             return true;
@@ -3299,7 +3376,6 @@ namespace VSTool {
             Tools.killProcess(processNames);
         }
 
-     
 
         private void Industry_CheckedChanged(object sender, EventArgs e) {
             Toolpars.MIndustry = Industry.Checked;
@@ -3361,11 +3437,37 @@ namespace VSTool {
         private void myTreeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
             MyTreeNode node = e.Node as MyTreeNode;
             myTreeView1.SelectedNode = node;
-           
-            
-            createTree(node.buildeType.Id);
+            showTreeView(node);
         }
 
+        private void showTreeView(MyTreeNode node) {
+            if (node.buildeType.Id.Equals("Modi")) {
+                treeView1.Visible = true;
+                splitContainer3.Visible = false;
+                if (Toolpars.formEntity.txtToPath != ""
+                    && Toolpars.formEntity.txtNewTypeKey != "") {
+                    string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                                   + Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                    if (Directory.Exists(strb1)) {
+                        paintTreeView(treeView1, strb1); //mfroma
+                        listDATA.Items.Clear();
+                    }
+                    else {
+                        MessageBox.Show("标准代码" + strb1 + "不存在", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        treeView1.Nodes.Clear();
+                        listDATA.Items.Clear();
+                    }
+                }
+                else {
+                    treeView1.Nodes.Clear();
+                }
+            }
+            else {
+                treeView1.Visible = false;
+                splitContainer3.Visible = true;
+                createTree(node.buildeType.Id);
+            }
+        }
 
         private void VSTOOL_ClientSizeChanged(object sender, EventArgs e) {
             var clientSize = splitContainer2.Panel2.ClientSize;
@@ -3390,34 +3492,34 @@ namespace VSTool {
                 splitContainer3.Panel2Collapsed = true;
                 splitContainer4.Panel2Collapsed = true;
             }
-            if (myTreeView1.SelectedNode != null) {
-                MyTreeNode node = myTreeView1.SelectedNode as MyTreeNode;
-                createTree(node.buildeType.Id);
+            if (splitContainer3.Visible) {
+                if (myTreeView1.SelectedNode != null)
+                {
+                    MyTreeNode node = myTreeView1.SelectedNode as MyTreeNode;
+                    createTree(node.buildeType.Id);
+                }
             }
+          
         }
+
 
         private void myTreeView2_SetAutoScrollEvent(object sender, int upAndDown) {
             bool vscroll = scrollPanel.VerticalScroll.Visible;
-            if (vscroll)
-            {
+            if (vscroll) {
                 var Maxnum = scrollPanel.VerticalScroll.Maximum;
                 int growbase = myTreeView2.Nodes.Count / 20;
                 int growNum = growbase == 0 ? 40 : growbase * 40;
 
                 var minNum = scrollPanel.VerticalScroll.Minimum;
                 var cnum = scrollPanel.VerticalScroll.Value;
-                if (upAndDown == 1)
-                {
+                if (upAndDown == 1) {
                     scrollPanel.VerticalScroll.Value += growNum;
                 }
-                else
-                {
-                    if (cnum - growNum > minNum)
-                    {
+                else {
+                    if (cnum - growNum > minNum) {
                         scrollPanel.VerticalScroll.Value -= growNum;
                     }
-                    else
-                    {
+                    else {
                         scrollPanel.VerticalScroll.Value = minNum;
                     }
                 }
@@ -3432,49 +3534,67 @@ namespace VSTool {
         private void myTreeView2_AfterCheck(object sender, TreeViewEventArgs e) {
             Toolpars.MDistince = false;
             string StrA = "";
-            var node = e.Node  as MyTreeNode;
+            var node = e.Node as MyTreeNode;
+            List<FileInfos> fileInfos = new List<FileInfos>();
             if (e.Node.Checked) {
                 node.buildeType.Checked = "True";
-                ModiName MYForm = new ModiName(node.buildeType);
+                ModiName MYForm = new ModiName(node.buildeType, _toolpars);
                 if (!rbModi.Checked) {
-                    //int gLeft = MYForm.Width / 2 - MYForm.lblattention.Width / 2;
-                    //MYForm.lblattention.Location = new Point(gLeft, MYForm.lblattention.Top);
-                    MYForm.StartPosition = FormStartPosition.CenterParent;
-                    MYForm.ShowDialog();
 
-                    if (MYForm.txt01.Text != String.Empty
-                        || MYForm.txt02.Text != String.Empty) {
+                    MYForm.StartPosition = FormStartPosition.CenterParent;
+                
+                    if (MYForm.ShowDialog() == DialogResult.OK) {
+
                         StrA = MYForm.txt01.Text + ";" + MYForm.txt02.Text;
-                        //   listDATA.Items.Add(StrA);
-                        addListData(StrA);
+                        fileInfos = MYForm.FileInfos;
+                        //fileInfo.ActionNameFiled = "";
+                        //fileInfo.ClassNameFiled = MYForm.txt01.Text;
+                        //fileInfo.FileNameFiled = MYForm.txt01.Text;
+                        //fileInfo.FunctionNameFiled = MYForm.txt02.Text;
                     }
                     else {
                         node.buildeType.Checked = "False";
-
                         e.Node.Checked = false;
-                        
                     }
-                    if (myTreeView1.SelectedNode != null) {
-                         var par_node = myTreeView1.SelectedNode as MyTreeNode;
-                        var par_item = _toolpars.BuilderEntity.BuildeTypies.ToList()
-                            .Where(et => et.Id.Equals(par_node.buildeType.Id)).ToList();
-                        if (par_item.Count > 0) {
-                            var citem = par_item[0].BuildeItems
-                                .Where(et => et.Id.Equals((e.Node as MyTreeNode).buildeType.Id)).ToList();
-                            if (citem != null
-                                && citem.Count > 0) {
-                                if (e.Node.Checked)
-                                    citem.ForEach(ee => ee.Checked = "True");
-                                else {
-                                    citem.ForEach(ee => ee.Checked = "False");
+                   
+
+                }
+            }
+            else {
+                node.buildeType.Checked = "False";
+            }
+            if (myTreeView1.SelectedNode != null)
+            {
+                var par_node = myTreeView1.SelectedNode as MyTreeNode;
+                var par_item = _toolpars.BuilderEntity.BuildeTypies.ToList()
+                    .Where(et => et.Id.Equals(par_node.buildeType.Id)).ToList();
+                if (par_item.Count > 0)
+                {
+                    var citem = par_item[0].BuildeItems
+                        .Where(et => et.Id.Equals((e.Node as MyTreeNode).buildeType.Id)).ToList();
+                    if (citem != null
+                        && citem.Count > 0)
+                    {
+                        if (e.Node.Checked)
+                        {
+                            citem.ForEach(ee => {
+                                    ee.Checked = "True";
+                                    ee.FileInfosField = fileInfos;
                                 }
-                            }
+
+                            );
+                        }
+                        else
+                        {
+                            citem.ForEach(ee => {
+                                ee.Checked = "False";
+                                ee.FileInfosField = fileInfos;
+                            });
                         }
                     }
                 }
             }
+            CreateRightView();
         }
-
-        
     }
 }

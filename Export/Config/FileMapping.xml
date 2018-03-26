@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MappingEntity>
+<MappingItems>
+	<MappingItem>
+		<Id>Service</Id>
+		<Description>服务</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business\InterFace\ITestsService.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Implement\TestsService.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>Tools</Id>
+		<Description>工具类</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Tools\Tools.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>FreeBatchService</Id>
+		<Description>一般批次</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\XBatchService.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>GuideInterceptor</Id>
+		<Description>向导式批次</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Interceptor\QueryResultAction.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Interceptor\GConditionAction.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>SaveService</Id>
+		<Description>保存切片</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\SaveSInterceptor.cs</Path>
+
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>ConfirmService</Id>
+		<Description>审核切片</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\ApproveSInterceptor.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>DisconfirmService</Id>
+		<Description>撤审</Description>
+		<Paths>
+
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\IDisApproveSInterceptor.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>Validator</Id>
+		<Description>校验</Description>
+		<Paths>
+
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\testValidate.cs</Path>
+
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>DataEntityChanged</Id>
+		<Description>数据跟踪</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Interceptor\DefaultInterceptor.cs</Path>
+
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>SelectWindowDialogEx</Id>
+		<Description>功能开窗</Description>
+		<Paths>
+
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\FunctionWindowOpener\FWOpener.cs</Path>
+
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>EditControllerCommand</Id>
+		<Description>菜单</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\testCommand.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>ImportExcel</Id>
+		<Description>导入Excel</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ImportExcelCommand.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ImportExcelForm.Designer.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ImportExcelForm.resx</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ImportExcelForm.zh-CHT.resx</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ImportExcelForm.cs</Path>
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>ExportExcel</Id>
+		<Description>导入Excel</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelCommand.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.Designer.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.resx</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.zh-CHT.resx</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.cs</Path>
+
+		</Paths>
+	</MappingItem>
+	<MappingItem>
+		<Id>LowFill</Id>
+		<Description>向下填充</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools\Tools.cs</Path>
+		</Paths>
+	</MappingItem>
+</MappingItems>
+
+</MappingEntity>

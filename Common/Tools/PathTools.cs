@@ -62,6 +62,11 @@ namespace Common.Implement
             strs.ToList().ForEach(str => sb.Append((str ?? string.Empty).Trim()));
             return sb.ToString();
         }
-      
+
+
+        ///根据模板路径生成配置文件
+        public static void CreateTemplateSetting() {
+            
+        }
     }
 }

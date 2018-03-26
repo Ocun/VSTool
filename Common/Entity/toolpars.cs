@@ -18,7 +18,24 @@ namespace Common.Implement {
         private PathEntity _pathEntity;
         public SettingPathEntity _settingPathEntity;
         public BuildeEntity _builderEntity;
+        public MappingEntity _FileMappingEntity;
         
+        public MappingEntity FileMappingEntity
+        {
+            get
+            {
+                if (_FileMappingEntity == null) {
+                    string Path = MVSToolpath + @"Config\FileMapping.xml";
+                    if (ValidateTool.checkFile(Path)) {
+                        _FileMappingEntity = ReadToEntityTools.ReadToEntity<MappingEntity>(Path);
+                    }
+
+                }
+                return _FileMappingEntity;
+            }
+            set { _FileMappingEntity = value; }
+        }
+   
         public SettingPathEntity SettingPathEntity {
             get
             {

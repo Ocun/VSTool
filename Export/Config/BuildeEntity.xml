@@ -8,7 +8,6 @@
 			<BuildeItems>
 				<BuildeItem>
 					<Id>Service</Id>
-					<FileMapping></FileMapping>
 					<Name>搭建框架</Name>
 					<Description>搭建一个服务的框架</Description>
 				</BuildeItem>
@@ -32,21 +31,14 @@
 			<Description>干涉程序运行时，加入自定义功能</Description>
 			<BuildeItems>
 				<BuildeItem>
-					<Id>Batch</Id>
-					<Name>批次</Name>
+					<Id>FreeBatchService</Id>
+					<Name>普通批次</Name>
 					<Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
-					<BuildeItems>
-						<BuildeItem>
-							<Id>FreeBatchService</Id>
-							<Name>普通批次</Name>
-							<Description>涉及普通批次操作时</Description>
-						</BuildeItem>
-						<BuildeItem>
-							<Id>GuideInterceptor</Id>
-							<Name>向导式批次</Name>
-							<Description>涉及向导式批次操作时</Description>
-						</BuildeItem>
-					</BuildeItems>
+				</BuildeItem>
+				<BuildeItem>
+					<Id>GuideInterceptor</Id>
+					<Name>向导式批次</Name>
+					<Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
 				</BuildeItem>
 				<BuildeItem>
 					<Id>SaveService</Id>
@@ -92,12 +84,12 @@
 			<Description>提供完整的常用功能</Description>
 			<BuildeItems>
 				<BuildeItem>
-					<Id>Import</Id>
+					<Id>ImportExcel</Id>
 					<Name>导入Excel</Name>
 					<Description>故名思议</Description>
 				</BuildeItem>
 				<BuildeItem>
-					<Id>Export</Id>
+					<Id>ExportExcel</Id>
 					<Name>导出Excel</Name>
 					<Description>故名思议</Description>
 				</BuildeItem>

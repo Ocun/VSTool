@@ -13,5 +13,9 @@ namespace Common.Implement
            return true;
        }
 
+       public static bool isNullorEmpty(string str) {
+           return str == null || str.Trim().Equals(string.Empty);
+       }
+
    }
 }

@@ -45,6 +45,7 @@ namespace Common.Implement.Entity
         private string readOnlyField;
 
         private BuildeType[] buildeItemsField;
+        private List<FileInfos> fileInfosField;
 
         /// <remarks/>
         public string Id
@@ -108,8 +109,43 @@ namespace Common.Implement.Entity
             get { return readOnlyField; }
             set { readOnlyField = value; }
         }
+
+        public List<FileInfos> FileInfosField {
+            get { return fileInfosField; }
+            set { fileInfosField = value; }
+        }
     }
 
-   
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class FileInfos {
+
+        public string fileNameFiled;
+        public string classNameFiled;
+        public string functionNameFiled;
+        public string actionNameFiled;
+
+        public string ActionNameFiled {
+            get { return actionNameFiled; }
+            set { actionNameFiled = value; }
+        }
+
+        public string FunctionNameFiled {
+            get { return functionNameFiled; }
+            set { functionNameFiled = value; }
+        }
+
+        public string ClassNameFiled {
+            get { return classNameFiled; }
+            set { classNameFiled = value; }
+        }
+
+        public string FileNameFiled {
+            get { return fileNameFiled; }
+            set { fileNameFiled = value; }
+        }
+    }
+
+
 
 }

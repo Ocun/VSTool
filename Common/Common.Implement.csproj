@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\BuildeEntity.cs" />
+    <Compile Include="Entity\FileMappingEntity.cs" />
     <Compile Include="Entity\SettingEntity.cs" />
     <Compile Include="EventHandler\EventHelper.cs" />
     <Compile Include="Properties\Resource.Designer.cs">

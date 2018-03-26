@@ -149,6 +149,12 @@ namespace Common.Implement {
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mytree"></param>
+        /// <param name="BuildeEntity"></param>
+        /// <param name="showCheck"></param>
        public static void createTree(MyTreeView mytree, List<BuildeType> BuildeEntity,bool showCheck)
         {
             mytree.Nodes.Clear();
