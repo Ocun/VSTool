@@ -3510,7 +3510,6 @@ namespace VSTool {
                 if (!rbModi.Checked) {
 
                     MYForm.StartPosition = FormStartPosition.CenterParent;
-                
                     if (MYForm.ShowDialog() == DialogResult.OK) {
 
                         StrA = MYForm.txt01.Text + ";" + MYForm.txt02.Text;

@@ -360,7 +360,8 @@ namespace Common.Implement {
                     if (File.Exists(toPath))
                     {
                         f = true;
-                        msg += toPath + Environment.NewLine;
+                        var filename = Path.GetFileName(toPath);
+                        msg += filename + Environment.NewLine;
                     }
                 });
                 if (f)
@@ -385,14 +386,19 @@ namespace Common.Implement {
                     f = false;
                 };
             }
-            if (f)
-            {
-
+            if (f) {
+                CreateBaseItem(ToolPars);
+                bool sucess = false;
                 foreach (var kv in pathDic)
                 {
-                    kv.Value.ForEach(path =>
+                  foreach(var path in ) .ForEach(path =>
                     {
+
+                        if (!File.Exists(path.FromPath)) {     
+                            
+                        }
                         FileInfo fileinfo = new FileInfo(path.FromPath);
+                      
                         var toPath = path.ToPath;
                         var NewDir = Path.GetDirectoryName(toPath);
                         if (!Directory.Exists(NewDir))
@@ -404,6 +410,8 @@ namespace Common.Implement {
                             File.SetAttributes(toPath, FileAttributes.Normal);
                             //修改
                             try {
+
+                                sucess = true;
                                 //File.Delete(pFileName);
                                 //Application.DoEvents();
                             }
@@ -413,16 +421,59 @@ namespace Common.Implement {
                         }
                         else {
                            fileinfo.CopyTo(toPath);
+                            sucess = true;
                         }
-
                     });
                 }
-
+                if (sucess) {
+                    InitBuliderEntity(ToolPars.BuilderEntity.BuildeTypies);
+                    MessageBox.Show("生成成功");
+                }
+              
             }
 
         }
 
+        private static void InitBuliderEntity(BuildeType[] BuildeTypies) {
+            BuildeTypies.ToList().ForEach(item => {
+                item.FileInfos = new List<FileInfos>();
+                item.Checked = "False";
+                if (item.BuildeItems != null
+                    && item.BuildeItems.Length > 0) {
+                    InitBuliderEntity(item.BuildeItems);
+                }
+            });
+        }
 
+        /// <summary>
+        /// 一些必考项目,模板目录
+        /// </summary>
+        public static void CreateBaseItem(toolpars ToolPars) {
+            var TemplateType = ToolPars.SettingPathEntity.TemplateTypeKey;
+            var newTypeKey = ToolPars.formEntity.txtNewTypeKey;
+            var file_mapping = ToolPars.FileMappingEntity;
+            var fileInfo = file_mapping.MappingItems.ToList().FirstOrDefault(filmap =>
+                filmap.Id.Equals("BaseItem")
+            );
+            fileInfo.Paths.ToList().ForEach(path => {
+                var oldFileName = Path.GetFileNameWithoutExtension(path);
+                var fromPath = ToolPars.MVSToolpath + @"Template\" + path;
+
+                var newFilePath = path.Replace(TemplateType, newTypeKey);
+                newFilePath = ToolPars.GToIni + @"\" + newFilePath;
+
+                if (!File.Exists(newFilePath))
+                {
+                    var fileinfo = new FileInfo(fromPath);
+                    var NewDir = Path.GetDirectoryName(newFilePath);
+                    if (!Directory.Exists(NewDir))
+                    {
+                        Directory.CreateDirectory(NewDir);
+                    }
+                    fileinfo.CopyTo(newFilePath);
+                }
+            });
+        }
 
 
         /// <summary>

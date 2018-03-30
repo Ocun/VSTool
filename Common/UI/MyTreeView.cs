@@ -339,40 +339,41 @@ namespace Common.Implement.UI {
             const int WM_mouse_move_out = 0x02A3;
             const int WM_mouse_wheel= 0x020A;
             const int WM_MOUSE_DOWN = 0x0210;
+            const int WM_RBUTTONDOWN = 0x0204; //按下鼠标右键   
             #region 日后参考
             //if (m.Msg == WM_mouse_Click)//单击  
             //{
-                //int wparam = m.LParam.ToInt32();
-                //Point point = new Point(
-                //    LOWORD(wparam),
-                //    HIWORD(wparam));
-                ////point = PointToClient(point);  
-                //TreeNode tn = this.GetNodeAt(point);
-                //if (tn == null)
-                //{
-                //    base.WndProc(ref m);
-                //    return;
-                //}
-                //if (tn.Level == 0)
-                //{
-                //    if (tn.IsExpanded)
-                //    {
-                //        tn.Collapse();
-                //    }
-                //    else
-                //    {
-                //        tn.Expand();
-                //    }
-                //    this.SelectedNode = tn;
-                //    m.Result = IntPtr.Zero;
-                //    return;
-                //}
-                //else
-                //{
-                //    base.WndProc(ref m);
-                //    //tn.IsSelected = true;  
-                //    //this.SelectedNode = tn;  
-                //}
+            //int wparam = m.LParam.ToInt32();
+            //Point point = new Point(
+            //    LOWORD(wparam),
+            //    HIWORD(wparam));
+            ////point = PointToClient(point);  
+            //TreeNode tn = this.GetNodeAt(point);
+            //if (tn == null)
+            //{
+            //    base.WndProc(ref m);
+            //    return;
+            //}
+            //if (tn.Level == 0)
+            //{
+            //    if (tn.IsExpanded)
+            //    {
+            //        tn.Collapse();
+            //    }
+            //    else
+            //    {
+            //        tn.Expand();
+            //    }
+            //    this.SelectedNode = tn;
+            //    m.Result = IntPtr.Zero;
+            //    return;
+            //}
+            //else
+            //{
+            //    base.WndProc(ref m);
+            //    //tn.IsSelected = true;  
+            //    //this.SelectedNode = tn;  
+            //}
             //}
             //else if (m.Msg == WM_mouse_double_click)//双击  
             //{
@@ -425,6 +426,10 @@ namespace Common.Implement.UI {
             //    return;
             //} 
             #endregion
+
+            if (m.Msg == WM_RBUTTONDOWN) {
+               
+            }else
              if (m.Msg == WM_mouse_wheel) {
                 // TrackedTopNode = this.
                 int LParam = m.LParam.ToInt32();
