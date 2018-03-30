@@ -27,55 +27,9 @@ namespace VSTool {
 
         public void CreateRightView() {
             myTreeView5.Nodes.Clear();
-            var BuildeEntity =_toolpars.BuilderEntity.BuildeTypies;
-
-            if (BuildeEntity != null)
-            {
-                var item = BuildeEntity.ToList();
-                item.ForEach(buildeType => {
-                    var node = createTree(buildeType);
-                    if (node != null) {
-                        myTreeView5.Nodes.Add(node);
-                    }
-                });
-            }
+            paloTool.CreateRightView(_toolpars,myTreeView5.Nodes);
+            myTreeView5.ExpandAll();
         }
-
-        MyTreeNode createTree(BuildeType buildeType) {
-            string text = buildeType.Name ?? String.Empty;
-            MyTreeNode new_child = new MyTreeNode(text);
-            bool existedFile = true;
-            new_child.buildeType = buildeType;
-            if (new_child.buildeType.FileInfosField == null
-                || new_child.buildeType.FileInfosField.Count == 0) {
-                //读下层目录
-                if (buildeType.BuildeItems != null
-                    && buildeType.BuildeItems.Length > 0) {
-                    buildeType.BuildeItems.ToList().ForEach(BuildeItem => {
-                        var node = createTree(BuildeItem);
-                        if (node != null) {
-                            new_child.Nodes.Add(node);
-                        }
-                    });
-                }
-                else {
-                    existedFile = false;
-                }
-            }
-            else {
-                new_child.buildeType.FileInfosField.ToList().ForEach(createfile => {
-                    MyTreeNode file_child = new MyTreeNode(createfile.FileNameFiled);
-                    new_child.Nodes.Add(file_child);
-                });
-              
-            }
-            if (existedFile&& new_child.Nodes.Count>0)
-                return new_child;
-            else {
-                return null;
-            }
-        }
-
         private delegate void beginInvokeDelegate();
 
         public VSTOOL(string[] pToIni) {
@@ -252,7 +206,21 @@ namespace VSTool {
         #endregion
 
         private void btnCreate_Click(object sender, EventArgs e) {
-            
+            try {
+                Tools.WriteLog(Toolpars, listDATA);
+                var test = _toolpars.FileMappingEntity;
+                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
+                if ((Toolpars.formEntity.txtToPath == "")
+                    || (Toolpars.formEntity.txtNewTypeKey == "")) {
+                    MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                paloTool.CreateFile(myTreeView5,_toolpars);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+            return;
             try {
                 Tools.WriteLog(Toolpars, listDATA);
                 var test = _toolpars.FileMappingEntity;
@@ -3579,7 +3547,7 @@ namespace VSTool {
                         {
                             citem.ForEach(ee => {
                                     ee.Checked = "True";
-                                    ee.FileInfosField = fileInfos;
+                                    ee.FileInfos = fileInfos;
                                 }
 
                             );
@@ -3588,7 +3556,7 @@ namespace VSTool {
                         {
                             citem.ForEach(ee => {
                                 ee.Checked = "False";
-                                ee.FileInfosField = fileInfos;
+                                ee.FileInfos = fileInfos;
                             });
                         }
                     }
@@ -3596,5 +3564,7 @@ namespace VSTool {
             }
             CreateRightView();
         }
+
+
     }
 }

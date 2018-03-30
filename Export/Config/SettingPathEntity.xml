@@ -13,4 +13,5 @@
 	<DllExtention>.dll</DllExtention>
 	<PackageBaseName>Digiwin.ERP.</PackageBaseName>
 	<TemplateDir>Digiwin.ERP.XTEST</TemplateDir>
+	<TemplateTypeKey>XTEST</TemplateTypeKey>
 </SettingPathEntity>

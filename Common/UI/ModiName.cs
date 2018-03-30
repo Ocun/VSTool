@@ -49,9 +49,16 @@ namespace Common.Implement.UI
                     if (fileInfo.Paths.Length == 1) {
                         FileInfos fileinfo = new FileInfos();
                         fileinfo.actionNameFiled = "";
-                        fileinfo.ClassNameFiled = txt01.Text;
-                        fileinfo.FileNameFiled = txt01.Text;
-                        fileinfo.FunctionNameFiled = txt02.Text;
+                        fileinfo.ClassName = txt01.Text;
+                        fileinfo.FileName = txt01.Text;
+                        fileinfo.FunctionName = txt02.Text;
+                        var path = fileInfo.Paths[0];
+                        fileinfo.BasePath = fileInfo.Paths[0];
+                        var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
+                        fileinfo.FromPath = fromPath;
+                        var oldFilePath = Path.GetFileNameWithoutExtension(path);
+                        var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
+                        fileinfo.ToPath = _toolpars.GToIni+ @"\" + newFilePath;
                         FileInfos.Add(fileinfo);
                     }
                     else {
@@ -59,9 +66,17 @@ namespace Common.Implement.UI
                             string ClassNameFiled = Path.GetFileName(path);
                             FileInfos fileinfo = new FileInfos();
                             fileinfo.actionNameFiled = "";
-                            fileinfo.ClassNameFiled = ClassNameFiled;
-                            fileinfo.FileNameFiled = ClassNameFiled;
-                            fileinfo.FunctionNameFiled = "";
+                            fileinfo.ClassName = ClassNameFiled;
+                            fileinfo.FileName = ClassNameFiled;
+                            fileinfo.FunctionName = "";
+                            fileinfo.BasePath = path;
+                            var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
+                            fileinfo.FromPath = fromPath;
+                            var oldFilePath = Path.GetFileNameWithoutExtension(path);
+                            var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
+
+                            fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
+                            
                             FileInfos.Add(fileinfo);
                       
                         });

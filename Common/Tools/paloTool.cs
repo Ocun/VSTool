@@ -10,6 +10,7 @@ using Common.Implement.UI;
 namespace Common.Implement {
     public class paloTool {
 
+
         /// <summary>
         /// 把文件拷入指定的文件夹
         /// </summary>
@@ -149,6 +150,7 @@ namespace Common.Implement {
             }
         }
         
+
         /// <summary>
         /// 
         /// </summary>
@@ -269,5 +271,278 @@ namespace Common.Implement {
                 }
             }
         }
+
+
+
+
+        #region CreateRightView
+
+        public static void CreateRightView(toolpars ToolPar,TreeNodeCollection nodes)
+        {
+            var BuildeEntity = ToolPar.BuilderEntity.BuildeTypies;
+            if (BuildeEntity != null)
+            {
+                var item = BuildeEntity.ToList();
+                item.ForEach(buildeType =>
+                {
+                    var node = createTree(buildeType);
+                    if (node != null)
+                    {
+                        nodes.Add(node);
+                    }
+                });
+            }
+        }
+
+        public static MyTreeNode createTree(BuildeType buildeType)
+        {
+            string text = buildeType.Name ?? String.Empty;
+            MyTreeNode new_child = new MyTreeNode(text);
+            bool existedFile = true;
+            new_child.buildeType = buildeType;
+            if (new_child.buildeType.FileInfos == null
+                || new_child.buildeType.FileInfos.Count == 0)
+            {
+                //读下层目录
+                if (buildeType.BuildeItems != null
+                    && buildeType.BuildeItems.Length > 0)
+                {
+                    buildeType.BuildeItems.ToList().ForEach(BuildeItem =>
+                    {
+                        var node = createTree(BuildeItem);
+                        if (node != null)
+                        {
+                            new_child.Nodes.Add(node);
+                        }
+                    });
+                }
+                else
+                {
+                    existedFile = false;
+                }
+            }
+            else
+            {
+                new_child.buildeType.FileInfos.ToList().ForEach(createfile =>
+                {
+                    MyTreeNode file_child = new MyTreeNode(createfile.FileName);
+                    new_child.Nodes.Add(file_child);
+                });
+
+            }
+            if (existedFile && new_child.Nodes.Count > 0)
+                return new_child;
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Copy
+
+
+        /// <summary>
+        /// 查看文件是否生成
+        /// </summary>
+        /// <param name="treeView"></param>
+        /// <returns></returns>
+        public static List<string> getExistedMsg(Dictionary<string, List<FileInfos>> pathDic)
+        {
+            List<string> msgList = new List<string>();
+            foreach (var kv in pathDic)
+            {
+                var msg = kv.Key + ":" + Environment.NewLine;
+                var value = kv.Value;
+                var f = false;
+                value.ForEach(path => {
+                    var toPath = path.ToPath;
+                    if (File.Exists(toPath))
+                    {
+                        f = true;
+                        msg += toPath + Environment.NewLine;
+                    }
+                });
+                if (f)
+                    msgList.Add(msg);
+            }
+            return msgList;
+        }
+        public static void CreateFile(MyTreeView treeView, toolpars ToolPars)
+        {
+            var pathDic = GetTreeViewFilePath(treeView.Nodes, ToolPars);
+            var msgList = getExistedMsg(pathDic);
+            bool f = true;
+            if (msgList.Count > 0)
+            {
+                var msg = string.Empty;
+                msgList.ForEach(str =>
+                {
+                    msg += str + Environment.NewLine;
+                });
+                if (MessageBox.Show(msg + "是否覆盖？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    f = false;
+                };
+            }
+            if (f)
+            {
+
+                foreach (var kv in pathDic)
+                {
+                    kv.Value.ForEach(path =>
+                    {
+                        FileInfo fileinfo = new FileInfo(path.FromPath);
+                        var toPath = path.ToPath;
+                        var NewDir = Path.GetDirectoryName(toPath);
+                        if (!Directory.Exists(NewDir))
+                        {
+                            Directory.CreateDirectory(NewDir);
+                        }
+                        if (File.Exists(toPath)) {
+                            //將唯讀權限拿掉
+                            File.SetAttributes(toPath, FileAttributes.Normal);
+                            //修改
+                            try {
+                                //File.Delete(pFileName);
+                                //Application.DoEvents();
+                            }
+                            catch {
+                                return;
+                            }
+                        }
+                        else {
+                           fileinfo.CopyTo(toPath);
+                        }
+
+                    });
+                }
+
+            }
+
+        }
+
+
+
+
+        /// <summary>
+        /// 获取节点地址与文件地址
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
+        public static Dictionary<string, List<FileInfos>> GetTreeViewFilePath(TreeNodeCollection nodes ,toolpars ToolPars)
+        {
+            Dictionary<string, List<FileInfos>> paths = new Dictionary<string, List<FileInfos>>();
+          
+            foreach (MyTreeNode node in nodes)
+            {
+                var filesInfo = node.buildeType.FileInfos;
+                if (filesInfo == null
+                    || filesInfo.Count == 0)
+                {
+                    if (node.Nodes.Count > 0)
+                    {
+                        var cpaths = GetTreeViewFilePath(node.Nodes, ToolPars);
+                        foreach (var kv in cpaths)
+                        {
+                            var keys = paths.Keys;
+                            var key = kv.Key;
+                            var value = kv.Value;
+                            if (keys.Contains(key))
+                            {   var newV = paths[key];
+                                newV.AddRange(value);
+                                updatePath(newV, ToolPars);
+                                paths[key] = newV;
+                            }
+                            else
+                            {
+                                updatePath(value, ToolPars);
+                                paths.Add(kv.Key, value);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    string nodePath = node.FullPath;
+                    var keys = paths.Keys;
+                    if (keys.Contains(nodePath))
+                    {
+                        var newV = paths[nodePath];
+                        newV.AddRange(filesInfo);
+                        updatePath(newV, ToolPars);
+                        paths[nodePath] = newV;
+                    }
+                    else
+                    {
+                        updatePath(filesInfo, ToolPars);
+                        paths.Add(nodePath, filesInfo);
+                    }
+                }
+            }
+            return paths;
+
+        }
+
+       static void updatePath(List<FileInfos> FileInfos,toolpars ToolPars) {
+            var TemplateType = ToolPars.SettingPathEntity.TemplateTypeKey;
+            var newTypeKey = ToolPars.formEntity.txtNewTypeKey;
+            FileInfos.ForEach(fileinfo => {
+                    var BasePath = fileinfo.BasePath;
+                    var oldFilePath = Path.GetFileNameWithoutExtension(BasePath);
+                    var newFilePath = BasePath.Replace(TemplateType, newTypeKey)
+                        .Replace(oldFilePath, fileinfo.FileName);
+                    fileinfo.ToPath = ToolPars.GToIni + @"\" + newFilePath;
+                }
+            );
+        }
+
+        static List<FileInfos> createFileMappingInfo(toolpars _toolpars,string Id) {
+            List<FileInfos> FileInfos = new List<Entity.FileInfos>();
+            var fileMapping = _toolpars.FileMappingEntity;
+            var fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
+                filmap.Id.Equals(Id)
+            );
+            if (fileInfo?.Paths != null) {
+                FileInfos fileinfo = new FileInfos();
+                fileinfo.actionNameFiled = "";
+                fileinfo.ClassName = string.Format("Create{0}", Id); ;
+                fileinfo.FileName = string.Format("Create{0}", Id); ;
+                fileinfo.FunctionName = string.Format("Create{0}", Id); ;
+                var path = fileInfo.Paths[0];
+                fileinfo.BasePath = fileInfo.Paths[0];
+                var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
+                fileinfo.FromPath = fromPath;
+                var oldFilePath = Path.GetFileNameWithoutExtension(path);
+                var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
+                fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
+                FileInfos.Add(fileinfo);
+            }
+            else
+            {
+                fileInfo.Paths.ToList().ForEach(path => {
+                    string ClassNameFiled = Path.GetFileName(path);
+                    FileInfos fileinfo = new FileInfos();
+                    fileinfo.actionNameFiled = "";
+                    fileinfo.ClassName = ClassNameFiled;
+                    fileinfo.FileName = ClassNameFiled;
+                    fileinfo.FunctionName = "";
+                    fileinfo.BasePath = path;
+                    var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
+                    fileinfo.FromPath = fromPath;
+                    var oldFilePath = Path.GetFileNameWithoutExtension(path);
+                    var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
+
+                    fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
+
+                    FileInfos.Add(fileinfo);
+
+                });
+
+            }
+            return FileInfos;
+        }
+        
+        #endregion
     }
 }

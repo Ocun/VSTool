@@ -117,7 +117,16 @@
 		<Paths>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools\Tools.cs</Path>
 		</Paths>
+	</MappingItem>	
+	<MappingItem>
+		<Id>BaseItem</Id>
+		<Description>必拷项目</Description>
+		<Paths>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.sln</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business\Digiwin.ERP.XTEST.Business.csproj</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Digiwin.ERP.XTEST.Business.Implement.csproj</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Digiwin.ERP.XTEST.UI.Implement.csproj</Path>
+		</Paths>
 	</MappingItem>
 </MappingItems>
-
 </MappingEntity>

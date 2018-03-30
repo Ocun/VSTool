@@ -40,6 +40,9 @@ namespace Common.Implement
 
         private string templateDirField;
 
+        private string templateTypeKeyField;
+        
+
         /// <summary>
         /// 服务端部署路径
         /// </summary>
@@ -232,6 +235,11 @@ namespace Common.Implement
             {
                 this.templateDirField = value;
             }
+        }
+
+        public string TemplateTypeKey {
+            get { return templateTypeKeyField; }
+            set { templateTypeKeyField = value; }
         }
     }
 

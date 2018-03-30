@@ -110,7 +110,7 @@ namespace Common.Implement.Entity
             set { readOnlyField = value; }
         }
 
-        public List<FileInfos> FileInfosField {
+        public List<FileInfos> FileInfos {
             get { return fileInfosField; }
             set { fileInfosField = value; }
         }
@@ -124,25 +124,44 @@ namespace Common.Implement.Entity
         public string classNameFiled;
         public string functionNameFiled;
         public string actionNameFiled;
+        public string fromPathFiled;
+        public string toPathFiled;
+        public string basePathFiled;
 
-        public string ActionNameFiled {
+        public string ActionName{
             get { return actionNameFiled; }
             set { actionNameFiled = value; }
         }
 
-        public string FunctionNameFiled {
+        public string FunctionName{
             get { return functionNameFiled; }
             set { functionNameFiled = value; }
         }
 
-        public string ClassNameFiled {
+        public string ClassName {
             get { return classNameFiled; }
             set { classNameFiled = value; }
         }
 
-        public string FileNameFiled {
+        public string FileName {
             get { return fileNameFiled; }
             set { fileNameFiled = value; }
+        }
+
+        public string FromPath
+        {
+            get { return fromPathFiled; }
+            set { fromPathFiled = value; }
+        }
+        public string ToPath
+        {
+            get { return toPathFiled; }
+            set { toPathFiled = value; }
+        }
+
+        public string BasePath {
+            get { return basePathFiled; }
+            set { basePathFiled = value; }
         }
     }
 

@@ -154,7 +154,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "请输入";
+            this.Text = "v";
             this.Load += new System.EventHandler(this.ModiName_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
