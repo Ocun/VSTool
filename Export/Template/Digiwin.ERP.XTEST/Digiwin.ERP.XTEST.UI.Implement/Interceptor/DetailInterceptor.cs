@@ -11,7 +11,7 @@ using Digiwin.Common.UI;
 namespace Digiwin.ERP.XTEST.UI.Implement
 {
     [EventInterceptorClass]
-    internal sealed class DetailInterceptor : ServiceComponent
+    internal sealed class _DetailInterceptor_ : ServiceComponent
     {        
 		//ADD
     }

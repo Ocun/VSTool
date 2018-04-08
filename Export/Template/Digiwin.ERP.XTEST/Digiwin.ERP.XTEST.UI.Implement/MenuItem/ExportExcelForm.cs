@@ -30,12 +30,15 @@ namespace Digiwin.ERP.XTEST.UI.Implement {
 
         #region Implementation of IServiceComponentEvents
 
-        public override IResourceServiceProvider ResourceServiceProvider {
+        public  IResourceServiceProvider ResourceServiceProvider {
             get { return _resourceServiceProvider; }
+
+            set { _resourceServiceProvider = value; }
         }
 
         public ServiceCallContext ServiceCallContext {
             get { return _serviceCallContext; }
+            set { _serviceCallContext = value; }
         }
 
         public event ConnectionedEventHandler Connectioned;
@@ -60,15 +63,18 @@ namespace Digiwin.ERP.XTEST.UI.Implement {
             InitializeComponent();
         }
 
-        public ExportExcelForm(GridView gridControl, IResourceServiceProvider resourceServiceProvider,
-            ServiceCallContext serviceCallContext) {
+        public ExportExcelForm(GridView gridControl, IServiceComponentEvents Component) {
             InitializeComponent();
             _gridControl = gridControl;
-            _resourceServiceProvider = resourceServiceProvider;
-            _serviceCallContext = serviceCallContext;
+            this.ResourceServiceProvider = Component.ResourceServiceProvider;
+            this.ServiceCallContext = Component.ServiceCallContext;
         }
 
 
+        /// <summary>
+        /// 根據畫面導出
+        /// </summary>
+        /// <param name="path"></param>
         private void ExportByGD(string path) {
             if (File.Exists(path)) {
                 if (DigiwinMessageBox.Show(Properties.Resources.String12, MessageBoxButtons.OKCancel,

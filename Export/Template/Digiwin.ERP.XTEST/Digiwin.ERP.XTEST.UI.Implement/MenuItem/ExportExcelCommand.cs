@@ -60,7 +60,7 @@ namespace Digiwin.ERP.XTEST.UI.Implement
                     BindingSource bs = gridControl.DataSource as BindingSource;
                     DependencyObjectCollection entityDColl = ((DependencyObjectCollectionView<DependencyObjectView>)bs.List).DependencyObjectCollection;
 
-                    using (var form = new ExportExcelForm(gridControl.InnerGridView,this.ResourceServiceProvider, this.ServiceCallContext))
+                    using (var form = new ExportExcelForm(gridControl.InnerGridView, serControl))
                     {
                         DialogResult log = form.ShowDialog();
                         if (log == DialogResult.OK)

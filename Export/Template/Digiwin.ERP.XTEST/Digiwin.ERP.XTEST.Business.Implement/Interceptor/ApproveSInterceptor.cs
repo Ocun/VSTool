@@ -10,7 +10,7 @@ using Digiwin.ERP.Common.Utils;
 
 namespace Digiwin.ERP.XTEST.Business.Implement {
     [EventInterceptorClass]
-    internal sealed class ApproveSInterceptor : ServiceComponent {        
+    internal sealed class _ApproveSInterceptor_ : ServiceComponent {        
         //ADD
     }
 }

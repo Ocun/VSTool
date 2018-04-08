@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using Digiwin.Common;
+using Digiwin.Common.Advanced;
 using Digiwin.Common.UI;
 using Digiwin.Common.Torridity;
 

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text; 
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 using Common.Implement.Entity;
 using Common.Implement.UI;
 
@@ -135,19 +137,34 @@ namespace Common.Implement {
         /// <param name="toName"></param>
         private static void changeText(string path, string fromName, string toName) {
             string con = "";
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read)) {
-                using (StreamReader sr = new StreamReader(fs)) {
-                    con = sr.ReadToEnd();
-                    con = con.Replace(fromName, toName);
-                    sr.Close();
-                    fs.Close();
-                    FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Write);
-                    StreamWriter sw = new StreamWriter(fs2);
-                    sw.WriteLine(con);
-                    sw.Close();
-                    fs2.Close();
-                }
-            }
+
+            string text = File.ReadAllText(path);
+            text = text.Replace(fromName, toName);
+            File.SetAttributes(path, FileAttributes.Normal);
+            File.Delete(path);
+            File.WriteAllText(path, text, System.Text.UTF8Encoding.UTF8);
+
+
+            //using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            //{
+            //    using (StreamReader sr = new StreamReader(fs))
+            //    {
+            //        con = sr.ReadToEnd();
+            //        con = con.Replace(fromName, toName);
+            //        sr.Close();
+
+            //        FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Write);
+            //        StreamWriter sw = new StreamWriter(fs2, Encoding.UTF8);
+            //        sw.WriteLine(con);
+            //        sw.Flush();
+            //        sw.Close();
+            //        fs2.Close();
+
+            //    }
+
+
+
+            //}
         }
         
 
@@ -341,6 +358,25 @@ namespace Common.Implement {
 
         #region Copy
 
+        /// <summary>
+        /// 找到文件所属第一个CSproj
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        static string findCSproj(DirectoryInfo Dir) {
+            string csproj = string.Empty;
+            if (Dir.Exists) {
+               var fileInfo = Dir.GetFiles();
+               var fcs = fileInfo.FirstOrDefault(f => f.Extension.Equals(@".csproj"));
+                if (fcs == null) {
+                    csproj = findCSproj(Dir.Parent);
+                }
+                else {
+                    csproj = fcs.FullName;
+                }
+            }
+            return csproj;
+        } 
 
         /// <summary>
         /// 查看文件是否生成
@@ -359,9 +395,20 @@ namespace Common.Implement {
                     var toPath = path.ToPath;
                     if (File.Exists(toPath))
                     {
-                        f = true;
-                        var filename = Path.GetFileName(toPath);
-                        msg += filename + Environment.NewLine;
+                        ///模板内代码片段是否生成
+                        if (path.PartId != null
+                            && !path.PartId.Equals(string.Empty)
+                            && path.IsMerge !=null
+                            && !path.IsMerge.Equals(string.Empty)
+                            ) {
+
+                        }
+                        else {
+                            f = true;
+                            var filename = Path.GetFileName(toPath);
+                            msg += filename + Environment.NewLine;
+                        }
+                       
                     }
                 });
                 if (f)
@@ -369,11 +416,28 @@ namespace Common.Implement {
             }
             return msgList;
         }
-        public static void CreateFile(MyTreeView treeView, toolpars ToolPars)
-        {
+      
+
+        public static void testR(string path) {
+             string text = File.ReadAllText(path);
+            // string csName = @"(?<=[^\/\:]\s+class\s+)[^\n\:{]+(?=[:,{])";
+             string csName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\:{]+(?=[\n\:{])";
+            var test = Regex.Match(text,csName).Value;
+            //text = text.Replace("TestsService", csname.Substring(1));
+            //text = text.Replace("Digiwin.ERP." + Toolpars.OldTypekey,
+            //"Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+            //File.SetAttributes(f.FullName, FileAttributes.Normal);
+            //File.Delete(f.FullName);
+            //File.WriteAllText(f.FullName, text, System.Text.UTF8Encoding.UTF8);
+        }
+        public static bool CreateFile(MyTreeView treeView, toolpars ToolPars) {
+          // var test = Regex.Match("http://192.168.1.250:9595/", @"(?<=://)[a-zA-Z\.0-9-_]+(?=[:,\/])").Value;
+          
             var pathDic = GetTreeViewFilePath(treeView.Nodes, ToolPars);
             var msgList = getExistedMsg(pathDic);
             bool f = true;
+            bool success = true;
+            #region 检查覆盖
             if (msgList.Count > 0)
             {
                 var msg = string.Empty;
@@ -384,56 +448,174 @@ namespace Common.Implement {
                 if (MessageBox.Show(msg + "是否覆盖？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {
                     f = false;
+                    success = false;
                 };
-            }
+            } 
+            #endregion
+
             if (f) {
+                #region 从配置创建目录 及 基本的文件 
                 CreateBaseItem(ToolPars);
-                bool sucess = false;
-                foreach (var kv in pathDic)
-                {
-                  foreach(var path in ) .ForEach(path =>
-                    {
+               
+                #endregion
 
-                        if (!File.Exists(path.FromPath)) {     
-                            
-                        }
-                        FileInfo fileinfo = new FileInfo(path.FromPath);
-                      
-                        var toPath = path.ToPath;
-                        var NewDir = Path.GetDirectoryName(toPath);
-                        if (!Directory.Exists(NewDir))
-                        {
-                            Directory.CreateDirectory(NewDir);
-                        }
-                        if (File.Exists(toPath)) {
-                            //將唯讀權限拿掉
-                            File.SetAttributes(toPath, FileAttributes.Normal);
-                            //修改
-                            try {
+                #region Copy 并修改 csproj
 
-                                sucess = true;
-                                //File.Delete(pFileName);
-                                //Application.DoEvents();
+                try {
+                    foreach (var kv in pathDic) {
+                        foreach (var path in kv.Value) {
+
+                            if (!File.Exists(path.FromPath)) {
+                               MessageBox.Show(string.Format("{0}/{1}模板不存在，请检查", kv.Key, path.FileName), "Error",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                            catch {
-                                return;
+                            FileInfo fileinfo = new FileInfo(path.FromPath);
+
+                            var toPath = path.ToPath;
+                            var parentDir = Path.GetDirectoryName(toPath);
+                            if (!Directory.Exists(parentDir)) {
+                                Directory.CreateDirectory(parentDir);
                             }
+                            if (File.Exists(toPath)) {
+                                if (path.IsMerge != null
+                                    && !path.IsMerge.Equals(string.Empty)) {
+
+                                }
+                                else {
+                                    //將唯讀權限拿掉
+                                    File.SetAttributes(toPath, FileAttributes.Normal);
+                                    //修改
+                                    fileinfo.CopyTo(toPath, true);
+                                }
+                            }
+                            else {
+                                fileinfo.CopyTo(toPath);
+                            }
+
+                            testR(toPath);
+                            #region 修改csproj
+                            fileinfo = new FileInfo(toPath);
+                            var dirInfo = fileinfo.Directory;
+                            string csPath = findCSproj(dirInfo);
+                            string csDir = string.Format("{0}\\",  Path.GetDirectoryName(csPath));
+
+                            int index = toPath.IndexOf(csDir);
+
+                            if (index > -1)
+                            {
+                                ModiCS(csPath, toPath.Substring(index+ csDir.Length));
+                            } 
+                            #endregion
                         }
-                        else {
-                           fileinfo.CopyTo(toPath);
-                            sucess = true;
-                        }
-                    });
+                        ;
+                    }
                 }
-                if (sucess) {
+                catch (Exception ex){
+                    success = false;
+                }
+            
+                #endregion
+                if (success) {
                     InitBuliderEntity(ToolPars.BuilderEntity.BuildeTypies);
                     MessageBox.Show("生成成功");
                 }
               
             }
-
+            return success;
         }
 
+        #region  修改解决方案的csproj文件 添加类文件
+
+        public static void ModiCS(string xmlPath, string CSName)
+        {
+            if (CSName.Contains(".designer.cs"))
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(xmlPath);
+                XmlNode root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
+                XmlElement xe1 = xmlDoc.CreateElement("Compile", xmlDoc.DocumentElement.NamespaceURI); //创建一个<book>节点
+                xe1.SetAttribute("Include", CSName); //设置该节点genre属性 
+                var loc = xmlDoc.CreateElement("DependentUpon", xmlDoc.DocumentElement.NamespaceURI);
+                String msname = CSName.Substring(CSName.LastIndexOf("\\") + 1);
+                msname = msname.Substring(0, msname.IndexOf("."));
+                msname = msname + ".cs";
+                //loc.InnerText = model.loc;
+                loc.InnerText = msname;
+                xe1.AppendChild(loc);
+                //xe1.InnerText = "WPF";
+                var notExisted = checkXmlNode(root, CSName);
+                if (notExisted)
+                {
+                    root.AppendChild(xe1);
+                }
+
+                xmlDoc.Save(xmlPath);
+            }
+            else if (CSName.Contains(".resx"))
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(xmlPath);
+                XmlNode root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
+                XmlElement xe1 = xmlDoc.CreateElement("EmbeddedResource", xmlDoc.DocumentElement.NamespaceURI);
+                //创建一个<book>节点
+                xe1.SetAttribute("Include", CSName); //设置该节点genre属性 
+                var loc = xmlDoc.CreateElement("DependentUpon", xmlDoc.DocumentElement.NamespaceURI);
+                String msname = CSName.Substring(CSName.LastIndexOf("\\") + 1);
+                msname = msname.Substring(0, msname.IndexOf("."));
+                msname = msname + ".cs";
+                //loc.InnerText = model.loc;
+                loc.InnerText = msname;
+                xe1.AppendChild(loc);
+                //xe1.InnerText = "WPF";
+                var notExisted = checkXmlNode(root, CSName);
+                if (notExisted)
+                {
+                    root.AppendChild(xe1);
+                }
+
+                xmlDoc.Save(xmlPath);
+            }
+
+            else
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(xmlPath);
+                XmlNode root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
+                XmlElement xe1 = xmlDoc.CreateElement("Compile", xmlDoc.DocumentElement.NamespaceURI); //创建一个<book>节点
+                xe1.SetAttribute("Include", CSName); //设置该节点genre属性    
+                var notExisted = checkXmlNode(root, CSName);
+                if (notExisted)
+                {
+                    root.AppendChild(xe1);
+                }
+
+                xmlDoc.Save(xmlPath);
+            }
+        }
+
+        static bool checkXmlNode(XmlNode root,string name) {
+            #region 判断是否已经添加
+            bool notExisted = true;
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Attributes["Include"] != null)
+                {
+                    if (node.Attributes["Include"].Value.Equals(name))
+                    {
+                        notExisted = false;
+                        break;
+                    }
+                }
+
+            }
+          
+            #endregion
+
+            return notExisted;
+        }
+
+
+        #endregion
         private static void InitBuliderEntity(BuildeType[] BuildeTypies) {
             BuildeTypies.ToList().ForEach(item => {
                 item.FileInfos = new List<FileInfos>();
@@ -471,7 +653,12 @@ namespace Common.Implement {
                         Directory.CreateDirectory(NewDir);
                     }
                     fileinfo.CopyTo(newFilePath);
+                    string slnPath = Path.GetExtension(newFilePath);
+
+                    changeText(newFilePath, TemplateType, newTypeKey);
+                    
                 }
+              
             });
         }
 
@@ -548,49 +735,59 @@ namespace Common.Implement {
             );
         }
 
-        static List<FileInfos> createFileMappingInfo(toolpars _toolpars,string Id) {
+       public static List<FileInfos> createFileMappingInfo(toolpars _toolpars,BuildeType bt) {
             List<FileInfos> FileInfos = new List<Entity.FileInfos>();
             var fileMapping = _toolpars.FileMappingEntity;
+            string Id = bt.Id;
             var fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
                 filmap.Id.Equals(Id)
             );
             if (fileInfo?.Paths != null) {
-                FileInfos fileinfo = new FileInfos();
-                fileinfo.actionNameFiled = "";
-                fileinfo.ClassName = string.Format("Create{0}", Id); ;
-                fileinfo.FileName = string.Format("Create{0}", Id); ;
-                fileinfo.FunctionName = string.Format("Create{0}", Id); ;
-                var path = fileInfo.Paths[0];
-                fileinfo.BasePath = fileInfo.Paths[0];
-                var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
-                fileinfo.FromPath = fromPath;
-                var oldFilePath = Path.GetFileNameWithoutExtension(path);
-                var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-                fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
-                FileInfos.Add(fileinfo);
-            }
-            else
-            {
-                fileInfo.Paths.ToList().ForEach(path => {
-                    string ClassNameFiled = Path.GetFileName(path);
+                if (fileInfo.Paths.Count() == 1) {
                     FileInfos fileinfo = new FileInfos();
                     fileinfo.actionNameFiled = "";
-                    fileinfo.ClassName = ClassNameFiled;
-                    fileinfo.FileName = ClassNameFiled;
-                    fileinfo.FunctionName = "";
-                    fileinfo.BasePath = path;
+                    fileinfo.ClassName = string.Format("Create{0}", Id); ;
+                    fileinfo.FileName = string.Format("Create{0}", Id); ;
+                    fileinfo.FunctionName = string.Format("Create{0}", Id); ;
+                    var path = fileInfo.Paths[0];
+                    fileinfo.BasePath = fileInfo.Paths[0];
                     var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
                     fileinfo.FromPath = fromPath;
                     var oldFilePath = Path.GetFileNameWithoutExtension(path);
                     var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-
                     fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
+                    if (bt.PartId != null
+                        && !bt.PartId.Equals(string.Empty)) {
+                        fileinfo.PartId = bt.PartId;
+                        fileinfo.IsMerge = bt.IsMerge;
 
+                    }
                     FileInfos.Add(fileinfo);
+                }
+                else
+                {
+                    fileInfo.Paths.ToList().ForEach(path => {
+                        string ClassNameFiled = Path.GetFileName(path);
+                        FileInfos fileinfo = new FileInfos();
+                        fileinfo.actionNameFiled = "";
+                        fileinfo.ClassName = ClassNameFiled;
+                        fileinfo.FileName = ClassNameFiled;
+                        fileinfo.FunctionName = "";
+                        fileinfo.BasePath = path;
+                        var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
+                        fileinfo.FromPath = fromPath;
+                        var oldFilePath = Path.GetFileNameWithoutExtension(path);
+                        var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
 
-                });
+                        fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
 
+                        FileInfos.Add(fileinfo);
+
+                    });
+
+                }
             }
+          
             return FileInfos;
         }
         

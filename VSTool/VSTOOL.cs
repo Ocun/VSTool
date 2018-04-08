@@ -95,6 +95,9 @@ namespace VSTool {
             }
 
             Toolpars.OldTypekey = "XTEST";
+            Toolpars.formEntity.txtNewTypeKey = "1";
+            Toolpars.formEntity.txtToPath = @"C:\Users\zychu\Desktop\TEST";
+            Toolpars.OldTypekey = "XTEST";
         }
 
         private List<string> Mnotes = new List<string>();
@@ -215,7 +218,14 @@ namespace VSTool {
                     MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                paloTool.CreateFile(myTreeView5,_toolpars);
+                bool success =paloTool.CreateFile(myTreeView5,_toolpars);
+                if (success) {
+                    myTreeView2.Nodes.Clear();
+                    myTreeView3.Nodes.Clear();
+                    myTreeView4.Nodes.Clear();
+                    myTreeView5.Nodes.Clear();
+                }
+             
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message);
@@ -3506,25 +3516,33 @@ namespace VSTool {
             List<FileInfos> fileInfos = new List<FileInfos>();
             if (e.Node.Checked) {
                 node.buildeType.Checked = "True";
-                ModiName MYForm = new ModiName(node.buildeType, _toolpars);
+              
                 if (!rbModi.Checked) {
 
-                    MYForm.StartPosition = FormStartPosition.CenterParent;
-                    if (MYForm.ShowDialog() == DialogResult.OK) {
+                    if (node.buildeType.ShowParWindow != null
+                        && node.buildeType.ShowParWindow.Equals("False")) {
+                        fileInfos = paloTool.createFileMappingInfo(_toolpars,node.buildeType);
 
-                        StrA = MYForm.txt01.Text + ";" + MYForm.txt02.Text;
-                        fileInfos = MYForm.FileInfos;
-                        //fileInfo.ActionNameFiled = "";
-                        //fileInfo.ClassNameFiled = MYForm.txt01.Text;
-                        //fileInfo.FileNameFiled = MYForm.txt01.Text;
-                        //fileInfo.FunctionNameFiled = MYForm.txt02.Text;
                     }
                     else {
-                        node.buildeType.Checked = "False";
-                        e.Node.Checked = false;
-                    }
-                   
+                        ModiName MYForm = new ModiName(node.buildeType, _toolpars);
+                        MYForm.StartPosition = FormStartPosition.CenterParent;
+                        if (MYForm.ShowDialog() == DialogResult.OK)
+                        {
 
+                            StrA = MYForm.txt01.Text + ";" + MYForm.txt02.Text;
+                            fileInfos = MYForm.FileInfos;
+                            //fileInfo.ActionNameFiled = "";
+                            //fileInfo.ClassNameFiled = MYForm.txt01.Text;
+                            //fileInfo.FileNameFiled = MYForm.txt01.Text;
+                            //fileInfo.FunctionNameFiled = MYForm.txt02.Text;
+                        }
+                        else
+                        {
+                            node.buildeType.Checked = "False";
+                            e.Node.Checked = false;
+                        }
+                    }
                 }
             }
             else {

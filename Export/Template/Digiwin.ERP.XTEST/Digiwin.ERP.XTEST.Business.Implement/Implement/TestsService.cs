@@ -6,9 +6,9 @@ using Digiwin.Common;
 
 namespace Digiwin.ERP.XTEST.Business.Implement
 {
-    [ServiceClass(typeof(ITestsService))]
+    [ServiceClass(typeof(_ITestsService_))]
 	[SingleGetCreator]
-    sealed class TestsService : ServiceComponent, ITestsService
+    sealed class _TestsService_ : ServiceComponent, _ITestsService_
     {
     }
 }

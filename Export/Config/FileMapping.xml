@@ -37,7 +37,6 @@
 		<Description>保存切片</Description>
 		<Paths>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\SaveSInterceptor.cs</Path>
-
 		</Paths>
 	</MappingItem>
 	<MappingItem>
@@ -51,7 +50,6 @@
 		<Id>DisconfirmService</Id>
 		<Description>撤审</Description>
 		<Paths>
-
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\IDisApproveSInterceptor.cs</Path>
 		</Paths>
 	</MappingItem>
@@ -59,9 +57,7 @@
 		<Id>Validator</Id>
 		<Description>校验</Description>
 		<Paths>
-
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\testValidate.cs</Path>
-
 		</Paths>
 	</MappingItem>
 	<MappingItem>
@@ -69,16 +65,13 @@
 		<Description>数据跟踪</Description>
 		<Paths>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Interceptor\DefaultInterceptor.cs</Path>
-
 		</Paths>
 	</MappingItem>
 	<MappingItem>
 		<Id>SelectWindowDialogEx</Id>
 		<Description>功能开窗</Description>
 		<Paths>
-
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\FunctionWindowOpener\FWOpener.cs</Path>
-
 		</Paths>
 	</MappingItem>
 	<MappingItem>
@@ -108,7 +101,6 @@
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.resx</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.zh-CHT.resx</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.cs</Path>
-
 		</Paths>
 	</MappingItem>
 	<MappingItem>
@@ -123,9 +115,12 @@
 		<Description>必拷项目</Description>
 		<Paths>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.sln</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business\Properties\AssemblyInfo.cs</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business\Digiwin.ERP.XTEST.Business.csproj</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Properties\AssemblyInfo.cs</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Digiwin.ERP.XTEST.Business.Implement.csproj</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Digiwin.ERP.XTEST.UI.Implement.csproj</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Properties\AssemblyInfo.cs</Path>
 		</Paths>
 	</MappingItem>
 </MappingItems>

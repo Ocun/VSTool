@@ -30,5 +30,19 @@ namespace Digiwin.ERP.XTEST.UI.Implement
 
         #endregion
 
+
+        #region ISelectWindowDialog 成员
+
+        public void ConnectOpeningContext(string queryTypeKey, SelectWindowContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DialogResult ShowDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

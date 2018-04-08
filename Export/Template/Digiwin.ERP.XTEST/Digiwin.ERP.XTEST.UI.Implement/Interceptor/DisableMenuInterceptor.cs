@@ -9,11 +9,11 @@ using Digiwin.Common;
 using Digiwin.Common.UI;
 using Digiwin.Common.Torridity;
 
-namespace Digiwin.ERP.XSALES_ORDER_DOC.UI.Implement
+namespace Digiwin.ERP.XTEST.UI.Implement
 {
     [EventInterceptorClass]
     [Description("调度单撤销审核按钮灰显切片")]
-    public class DisableMenuInterceptor : ServiceComponent
+    public class _DisableMenuInterceptor_ : ServiceComponent
     {
         //#region 编辑界面__禁用撤销审核按钮
         //[EventInterceptor(typeof(IEditorView), "Load")]

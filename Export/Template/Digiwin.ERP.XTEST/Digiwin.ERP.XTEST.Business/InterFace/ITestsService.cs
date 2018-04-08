@@ -8,7 +8,7 @@ using Digiwin.Common.Torridity;
 namespace Digiwin.ERP.XTEST.Business
 {
     [TypeKeyOnly]	
-    public interface ITestsService
+    public interface _ITestsService_
     {
 
     }

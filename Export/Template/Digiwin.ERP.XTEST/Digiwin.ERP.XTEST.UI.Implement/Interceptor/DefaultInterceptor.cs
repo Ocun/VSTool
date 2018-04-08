@@ -9,7 +9,7 @@ namespace Digiwin.ERP.XTEST.UI.Implement
 {
 
     [EventInterceptorClass]
-    internal class DefaultInterceptor : ServiceComponent {
+    internal class _DefaultInterceptor_ : ServiceComponent {
         [DataEntityChangedInterceptorAttribute(Path = "", DependencyItems = "", IsRunAtInitialized = false)]
         private void Default001(IDataEntityBase[] activeObjs, DataChangedCallbackResponseContext context) {
            

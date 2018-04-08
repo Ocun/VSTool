@@ -21,6 +21,7 @@
 					<Name>工具类</Name>
 					<Checked>True</Checked>
 					<ReadOnly>True</ReadOnly>
+					<ShowParWindow>False</ShowParWindow>
 					<Description>提供常用的方法</Description>
 				</BuildeItem>
 			</BuildeItems>
@@ -42,26 +43,31 @@
 				</BuildeItem>
 				<BuildeItem>
 					<Id>SaveService</Id>
+					<PartID></PartID>
 					<Name>保存</Name>
 					<Description>涉及保存操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
 					<Id>ConfirmService</Id>
 					<Name>审核</Name>
+					<PartID></PartID>
 					<Description>涉及审核操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
 					<Id>DisconfirmService</Id>
+					<PartID></PartID>
 					<Name>撤销审核</Name>
 					<Description>涉及撤销审核操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
 					<Id>Validator</Id>
+					<PartID></PartID>
 					<Name>校验</Name>
 					<Description>涉及校验操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
 					<Id>DataEntityChanged</Id>
+					<PartID></PartID>
 					<Name>数据跟踪</Name>
 					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
 				</BuildeItem>

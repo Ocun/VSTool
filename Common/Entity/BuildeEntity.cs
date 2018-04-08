@@ -43,7 +43,17 @@ namespace Common.Implement.Entity
 
         private string checkedField;
         private string readOnlyField;
-
+        private string showParWindowField;
+        private string partIDField;
+        private string isMergeField;
+        /// <summary>
+        /// 来源自同一模板代码片段是否合并
+        /// </summary>
+        public string IsMerge
+        {
+            get { return isMergeField; }
+            set { isMergeField = value; }
+        }
         private BuildeType[] buildeItemsField;
         private List<FileInfos> fileInfosField;
 
@@ -110,9 +120,20 @@ namespace Common.Implement.Entity
             set { readOnlyField = value; }
         }
 
+
         public List<FileInfos> FileInfos {
             get { return fileInfosField; }
             set { fileInfosField = value; }
+        }
+
+        public string ShowParWindow {
+            get { return showParWindowField; }
+            set { showParWindowField = value; }
+        }
+
+        public string PartId {
+            get { return partIDField; }
+            set { partIDField = value; }
         }
     }
 
@@ -127,41 +148,77 @@ namespace Common.Implement.Entity
         public string fromPathFiled;
         public string toPathFiled;
         public string basePathFiled;
+        public string partIDField;
+        public string isMergeField;
 
+        /// <summary>
+        /// 实际点
+        /// </summary>
         public string ActionName{
             get { return actionNameFiled; }
             set { actionNameFiled = value; }
         }
 
+        /// <summary>
+        /// 方法名
+        /// </summary>
         public string FunctionName{
             get { return functionNameFiled; }
             set { functionNameFiled = value; }
         }
 
+        /// <summary>
+        /// 类名
+        /// </summary>
         public string ClassName {
             get { return classNameFiled; }
             set { classNameFiled = value; }
         }
 
+        /// <summary>
+        /// 文件名
+        /// </summary>
         public string FileName {
             get { return fileNameFiled; }
             set { fileNameFiled = value; }
         }
 
+        /// <summary>
+        /// 模板路径
+        /// </summary>
         public string FromPath
         {
             get { return fromPathFiled; }
             set { fromPathFiled = value; }
         }
+        /// <summary>
+        /// 个案路径
+        /// </summary>
         public string ToPath
         {
             get { return toPathFiled; }
             set { toPathFiled = value; }
         }
-
+        /// <summary>
+        /// 模板路径（相对路径）
+        /// </summary>
         public string BasePath {
             get { return basePathFiled; }
             set { basePathFiled = value; }
+        }
+        /// <summary>
+        /// 引用代码片段
+        /// </summary>
+        public string PartId {
+            get { return partIDField; }
+            set { partIDField = value; }
+        }
+        /// <summary>
+        /// 来源自同一模板代码片段是否合并
+        /// </summary>
+        public string IsMerge {
+            get { return isMergeField; }
+            set { isMergeField = value; }
         }
     }
 

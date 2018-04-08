@@ -14,7 +14,6 @@ namespace Digiwin.ERP.XTEST.UI.Implement
         [DataEntityChangedInterceptor(Path = "", DependencyItems = "", ActivePoints = new string[] { "" }, IsRunAtInitialized = false)]
         public void DataChanging(IDataEntityBase[] activeObjs, DataChangedCallbackResponseContext context)
         {
-
         }
     }
 }

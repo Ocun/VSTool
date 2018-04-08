@@ -59,9 +59,16 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Digiwin.ERP.XTEST.Business">
+      <HintPath>..\..\Export\Digiwin.ERP.XTEST.Business.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InterFace\ITestsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="testVali.cs" />
+    <Compile Include="123.cs" />
+    <Compile Include="Interface\123.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -71,4 +78,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup />
+  <ItemGroup />
 </Project>
