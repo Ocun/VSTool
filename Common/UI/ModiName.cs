@@ -44,6 +44,12 @@ namespace Common.Implement.UI
                 var fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
                     filmap.Id.Equals(BuildeType.Id)
                 );
+                if (BuildeType.PartId != null
+                    && !BuildeType.PartId.Equals(string.Empty)) {
+                    fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
+                        filmap.Id.Equals(BuildeType.PartId));
+                }
+               
                 if (fileInfo?.Paths != null )
                 {
                     if (fileInfo.Paths.Length == 1) {
@@ -59,6 +65,14 @@ namespace Common.Implement.UI
                         var oldFilePath = Path.GetFileNameWithoutExtension(path);
                         var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
                         fileinfo.ToPath = _toolpars.GToIni+ @"\" + newFilePath;
+                        if (BuildeType.PartId != null
+                            && !BuildeType.PartId.Equals(string.Empty))
+                        {
+                            fileinfo.PartId = BuildeType.PartId;
+                            fileinfo.Id = BuildeType.Id;
+                            fileinfo.IsMerge = BuildeType.IsMerge;
+
+                        }
                         FileInfos.Add(fileinfo);
                     }
                     else {

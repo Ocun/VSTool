@@ -14,6 +14,7 @@
 		<Description>工具类</Description>
 		<Paths>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Tools\Tools.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Tools\ServiceTools.cs</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools.cs</Path>
 		</Paths>
 	</MappingItem>
@@ -33,24 +34,10 @@
 		</Paths>
 	</MappingItem>
 	<MappingItem>
-		<Id>SaveService</Id>
-		<Description>保存切片</Description>
+		<Id>commonInterceptor</Id>
+		<Description>通用切片，审核/撤审/保存/删除/作废生失效</Description>
 		<Paths>
-			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\SaveSInterceptor.cs</Path>
-		</Paths>
-	</MappingItem>
-	<MappingItem>
-		<Id>ConfirmService</Id>
-		<Description>审核切片</Description>
-		<Paths>
-			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\ApproveSInterceptor.cs</Path>
-		</Paths>
-	</MappingItem>
-	<MappingItem>
-		<Id>DisconfirmService</Id>
-		<Description>撤审</Description>
-		<Paths>
-			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\IDisApproveSInterceptor.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\commonInterceptor.cs</Path>
 		</Paths>
 	</MappingItem>
 	<MappingItem>

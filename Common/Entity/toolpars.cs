@@ -14,6 +14,7 @@ namespace Common.Implement {
         private string _mplatform; //平台
         private string _mdesignPath;
         private string _mVersion;
+        private string _customerName;
         private FormEntity _formEntity;
         private PathEntity _pathEntity;
         public SettingPathEntity _settingPathEntity;
@@ -82,7 +83,7 @@ namespace Common.Implement {
         }
 
         /// <summary>
-        /// 
+        /// 全部参数信息，平台路径，设计器路径，个案路径，客户名，行业包
         /// </summary>
         public string MALL
         {
@@ -95,6 +96,12 @@ namespace Common.Implement {
             get { return _mcodepath; }
             set { _mcodepath = value; }
         }
+
+        public string CustomerName {
+            get { return _customerName; }
+            set { _customerName = value; }
+        }
+
         /// <summary>
         /// 個案目錄
         /// </summary>

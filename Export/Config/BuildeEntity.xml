@@ -42,32 +42,48 @@
 					<Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
 				</BuildeItem>
 				<BuildeItem>
-					<Id>SaveService</Id>
-					<PartID></PartID>
+					<Id>SaveInterceptor</Id>
+					<PartId>commonInterceptor</PartId>
+					<IsMerge>False</IsMerge>
 					<Name>保存</Name>
 					<Description>涉及保存操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
-					<Id>ConfirmService</Id>
+					<Id>ApproveInterceptor</Id>
 					<Name>审核</Name>
-					<PartID></PartID>
+					<PartId>commonInterceptor</PartId>
+					<IsMerge>False</IsMerge>
 					<Description>涉及审核操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
-					<Id>DisconfirmService</Id>
-					<PartID></PartID>
+					<Id>IDisconfirmInterceptor</Id>
+					<PartId>commonInterceptor</PartId>
+					<PartId>False</PartId>
 					<Name>撤销审核</Name>
 					<Description>涉及撤销审核操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
+					<Id>DeleteInterceptor</Id>
+					<PartId>commonInterceptor</PartId>
+					<PartId>False</PartId>
+					<Name>删除</Name>
+					<Description>涉及删除操作时</Description>
+				</BuildeItem>
+				<BuildeItem>
+					<Id>ApproveStatusInterceptor</Id>
+					<PartId>commonInterceptor</PartId>
+					<PartId>False</PartId>
+					<Name>作废/生失效</Name>
+					<Description>涉及作废/生失效操作时</Description>
+				</BuildeItem>
+				<BuildeItem>
 					<Id>Validator</Id>
-					<PartID></PartID>
 					<Name>校验</Name>
 					<Description>涉及校验操作时</Description>
 				</BuildeItem>
 				<BuildeItem>
 					<Id>DataEntityChanged</Id>
-					<PartID></PartID>
+					<PartId></PartId>
 					<Name>数据跟踪</Name>
 					<Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
 				</BuildeItem>

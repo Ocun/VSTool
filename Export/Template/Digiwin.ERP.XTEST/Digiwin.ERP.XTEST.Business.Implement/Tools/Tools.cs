@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*--------------------------------------------------------
+ * createDate 20180409
+ * createBy 08628
+ * version 0.0.0.1
+ * remark 注意 如果遇到错误,请自行修正并反馈给负责人员
+ *--------------------------------------------------------
+ */
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -17,35 +24,28 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
     public class Tools {
 
         #region 属性
-        private IResourceServiceProvider _resourceServiceProvider;
-        private ServiceCallContext _serviceCallContext;
 
-        public IResourceServiceProvider Provider
-        {
-            get { return _resourceServiceProvider; }
-            set { _resourceServiceProvider = value; }
+        private ServiceTools _myService;
+
+   
+
+        public ServiceTools MyService {
+           get {
+                return _myService;
+            }
         }
 
-        public ServiceCallContext CallContext
-        {
-            get { return _serviceCallContext; }
-            set { _serviceCallContext = value; }
-        }
-
-        public Tools(IResourceServiceProvider ResourceServiceProvider, ServiceCallContext ServiceCallContext)
-        {
-            this.Provider = ResourceServiceProvider;
-            this.CallContext = ServiceCallContext;
+        public Tools(IResourceServiceProvider ResourceServiceProvider, ServiceCallContext ServiceCallContext) {
+            _myService = new ServiceTools(ResourceServiceProvider, ServiceCallContext);
         } 
 
         public Tools(IServiceComponentEvents  Component)
         {
-            this.Provider =Component.ResourceServiceProvider;
-            this.CallContext = Component.ServiceCallContext;
+            _myService = new ServiceTools(Component);
         }
 
         public T GetService<T>(string typeKey) where T : class {
-            T ser = Provider.GetService(typeof (T), typeKey) as T;
+            T ser = MyService.GetService<T>(typeKey) as T;
             return ser;
         }
 
@@ -112,7 +112,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                     }
                 });
             }
-            IBusinessTypeService businessTypeSrv = GetService<IBusinessTypeService>(CallContext.TypeKey);
+            IBusinessTypeService businessTypeSrv = MyService.BusinessTypeSrv;
             targetType = RegiesterType(toType, targetType);
             if (isColls)
             {
@@ -235,7 +235,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <returns></returns>
         public DependencyObjectType RegiesterType(
             DependencyObjectType formType, DependencyObjectType targetType) {
-            IBusinessTypeService businessTypeSrv = GetService<IBusinessTypeService>(CallContext.TypeKey);
+            IBusinessTypeService businessTypeSrv = MyService.BusinessTypeSrv;
             SimplePropertyAttribute stringAttr = new SimplePropertyAttribute(GeneralDBType.String);
             SimplePropertyAttribute dtAttr = new SimplePropertyAttribute(GeneralDBType.DateTime);
             SimplePropertyAttribute IntAttr = new SimplePropertyAttribute(GeneralDBType.Int32);
@@ -482,7 +482,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 string tempTableName = "tmpYC_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
                 targetType = new DependencyObjectType(tempTableName, new Attribute[] { });
             }
-            IBusinessTypeService businessTypeSrv = GetService<IBusinessTypeService>(CallContext.TypeKey);
+            IBusinessTypeService businessTypeSrv = MyService.BusinessTypeSrv;
             SimplePropertyAttribute stringAttr = new SimplePropertyAttribute(GeneralDBType.String);
             SimplePropertyAttribute dtAttr = new SimplePropertyAttribute(GeneralDBType.DateTime);
             SimplePropertyAttribute IntAttr = new SimplePropertyAttribute(GeneralDBType.Int32);
@@ -654,22 +654,22 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         #endregion
 
         /// <summary>
-        /// 
+        /// 不指定单据日期时,调保存自动审核
         /// </summary>
         /// <param name="typekey"></param>
         /// <param name="id"></param>
-        /// <param name="type">1 通过保存 2根据工厂参数</param>
-        public void AutoApprove(string typekey, object id, int type)
+        /// <param name="type"></param>
+        public void AutoApprove(string typekey, object id, DateTime dt)
         {
             //保存单据,自動審核
 
             SetIgnoreWarningTag();
             try
             {
-                if (type == 1)
+                if (dt == null)
                 {
-                    IReadService readSrv = Provider.GetService(typeof(IReadService), typekey) as IReadService;
-                    ISaveService saveSrv = Provider.GetService(typeof(ISaveService), typekey) as ISaveService;
+                    IReadService readSrv = GetService<IReadService>(typekey) as IReadService;
+                    ISaveService saveSrv = GetService<ISaveService>(typekey) as ISaveService;
                     var entity = readSrv.Read(id);
                     if (entity != null
                         )
@@ -677,15 +677,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                         saveSrv.Save(entity);
                     }
                 }
-                else if (type == 2)
+                else
                 {
-                    DateTime dt = DateTime.Now.Date;
-                    //if (plant_approve_date_by.Equals("2"))
-                    //{
-                    //    dt = DocDate;
-                    //}
-                    IConfirmService confirmService = Provider.GetService(typeof(IConfirmService), typekey) as IConfirmService;
-                    ILogOnService logOnSer = Provider.GetService(typeof(ILogOnService), typekey) as ILogOnService;
+                   
+                    IConfirmService confirmService = GetService<IConfirmService>(typekey);
+                    ILogOnService logOnSer = MyService.LogOnSrv;
                     ConfirmContext context = new ConfirmContext(id, logOnSer.CurrentUserId, dt);
                     context.UseTransaction = false;
                     confirmService.Execute(context);
@@ -704,11 +700,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         #region 校驗 警告
         public void SetIgnoreWarningTag()
         {
-            DeliverContext deliver = System.Runtime.Remoting.Messaging.CallContext.GetData(DeliverContext.Name) as DeliverContext;
+            DeliverContext deliver = CallContext.GetData(DeliverContext.Name) as DeliverContext;
             if (deliver == null)
             {
                 deliver = new DeliverContext();
-                System.Runtime.Remoting.Messaging.CallContext.SetData(DeliverContext.Name, deliver);
+               CallContext.SetData(DeliverContext.Name, deliver);
             }
             if (deliver.ContainsKey("IgnoreWarning"))
             {
@@ -722,7 +718,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
 
         public void ResetIgnoreWarningTag()
         {
-            DeliverContext deliver = System.Runtime.Remoting.Messaging.CallContext.GetData(DeliverContext.Name) as DeliverContext;
+            DeliverContext deliver = CallContext.GetData(DeliverContext.Name) as DeliverContext;
             if (deliver != null && deliver.ContainsKey("IgnoreWarning"))
             {
                 deliver["IgnoreWarning"] = false;

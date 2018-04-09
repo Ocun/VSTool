@@ -149,6 +149,7 @@ namespace Common.Implement.Entity
         public string toPathFiled;
         public string basePathFiled;
         public string partIDField;
+        public string idField;
         public string isMergeField;
 
         /// <summary>
@@ -219,6 +220,11 @@ namespace Common.Implement.Entity
         public string IsMerge {
             get { return isMergeField; }
             set { isMergeField = value; }
+        }
+
+        public string Id {
+            get { return idField; }
+            set { idField = value; }
         }
     }
 

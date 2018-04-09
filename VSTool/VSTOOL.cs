@@ -11,6 +11,7 @@ using Common.Implement.UI;
 using Common.Implement.Entity;
 using Common.Implement.EventHandler;
 using VSTool.Properties;
+using System.Threading;
 
 namespace VSTool {
     public partial class VSTOOL : Form {
@@ -78,6 +79,8 @@ namespace VSTool {
                 Toolpars.MdesignPath = args[3]; //E:\平台\E202
                 Toolpars.MVersion = args[4]; //DF_E10_2.0.2
                 Toolpars.MIndustry = Convert.ToBoolean(args[5]);
+                Toolpars.CustomerName = args[6];
+
                 Toolpars.formEntity.txtToPath = Toolpars.Mpath;
                 if (Toolpars.MIndustry) {
                     Toolpars.formEntity.txtToPath = Toolpars.MInpath;
@@ -95,9 +98,8 @@ namespace VSTool {
             }
 
             Toolpars.OldTypekey = "XTEST";
-            Toolpars.formEntity.txtNewTypeKey = "1";
-            Toolpars.formEntity.txtToPath = @"C:\Users\zychu\Desktop\TEST";
-            Toolpars.OldTypekey = "XTEST";
+            //Toolpars.formEntity.txtNewTypeKey = "1";
+            //Toolpars.formEntity.txtToPath = @"C:\Users\zychu\Desktop\TEST";
         }
 
         private List<string> Mnotes = new List<string>();
@@ -210,7 +212,14 @@ namespace VSTool {
 
         private void btnCreate_Click(object sender, EventArgs e) {
             try {
-                Tools.WriteLog(Toolpars, listDATA);
+                var dicPath = paloTool.GetTreeViewFilePath(myTreeView5.Nodes,_toolpars);
+                new Thread(delegate () {
+                        this.Invoke(new Action(delegate() {
+                            paloTool.writeToServer(Toolpars, dicPath);
+                        }));
+                    }
+                ).Start();
+             
                 var test = _toolpars.FileMappingEntity;
                 Toolpars.GToIni = Toolpars.formEntity.txtToPath;
                 if ((Toolpars.formEntity.txtToPath == "")
@@ -220,9 +229,10 @@ namespace VSTool {
                 }
                 bool success =paloTool.CreateFile(myTreeView5,_toolpars);
                 if (success) {
-                    myTreeView2.Nodes.Clear();
-                    myTreeView3.Nodes.Clear();
-                    myTreeView4.Nodes.Clear();
+                    if (myTreeView1.SelectedNode != null) {
+                        var node = myTreeView1.SelectedNode as MyTreeNode;
+                        showTreeView(node);
+                    }
                     myTreeView5.Nodes.Clear();
                 }
              
