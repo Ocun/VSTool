@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using Common.Implement.Entity;
+using Common.Implement.UI;
 
 namespace Common.Implement {
     public class Tools {
@@ -557,5 +559,93 @@ namespace Common.Implement {
                 }
             }
         }
+
+        #region  treeview 重组节点
+
+        public static void paintTreeView(MyTreeView TreeView, string fullPath)
+        {
+            try
+            {
+                TreeView.Nodes.Clear();
+                DirectoryInfo dirs = new DirectoryInfo(fullPath);
+                DirectoryInfo[] dir = dirs.GetDirectories();
+                FileInfo[] file = dirs.GetFiles();
+                int dircount = dir.Count();
+                int filecount = file.Count();
+
+                for (int i = 0; i < dircount; i++)
+                {
+                    MyTreeNode new_child = new MyTreeNode(dir[i].Name) { CheckBoxVisible = false };
+                    string pathNode = fullPath + @"\" + dir[i].Name;
+                    GetMultNode(new_child, pathNode);
+                    setCheckBox(new_child);
+                    TreeView.Nodes.Add(new_child);
+                }
+                for (int j = 0; j < filecount; j++)
+                {
+                    if (file[j].Name.Substring(file[j].Name.LastIndexOf(".") + 1) == "cs")
+                    {
+                        MyTreeNode new_child = new MyTreeNode(file[j].Name);
+                        TreeView.Nodes.Add(new_child);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\r\n paintTreeview");
+            }
+        }
+       
+
+        public static void setCheckBox(MyTreeNode node)
+        {
+            if (node.Nodes.Count == 0)
+            {
+                node.CheckBoxVisible = true;
+            }
+            else
+            {
+                foreach (MyTreeNode subNode in node.Nodes)
+                {
+                    setCheckBox(subNode);
+                }
+
+            }
+        }
+        static bool GetMultNode(MyTreeNode treeNode, string path)
+        {
+            if (Directory.Exists(path) == false)
+            {
+                return false;
+            }
+            DirectoryInfo dirs = new DirectoryInfo(path);
+            DirectoryInfo[] dir = dirs.GetDirectories();
+            FileInfo[] file = dirs.GetFiles();
+            int dircount = dir.Count();
+            int filecount = file.Count();
+            int sumcount = dircount + filecount;
+            if (sumcount == 0)
+            {
+                return false;
+            }
+            for (int j = 0; j < dircount; j++)
+            {
+                MyTreeNode new_child = new MyTreeNode(dir[j].Name);
+                string pathNodeB = path + @"\" + dir[j].Name;
+                GetMultNode(new_child, pathNodeB);
+                treeNode.Nodes.Add(new_child);
+            }
+            for (int i = 0; i < filecount; i++)
+            {
+                if (file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "cs"
+                    || file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "resx")
+                {
+                    MyTreeNode new_child = new MyTreeNode(file[i].Name);
+                    treeNode.Nodes.Add(new_child);
+                }
+            }
+            return true;
+        } 
+        #endregion
     }
 }

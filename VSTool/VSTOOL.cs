@@ -94,7 +94,7 @@ namespace VSTool {
                 }
                 btncopydll.Visible = true;
                 btncopyUIdll.Visible = true;
-                btnKill.Visible = true;
+               // btnKill.Visible = true;
             }
 
             Toolpars.OldTypekey = "XTEST";
@@ -160,7 +160,7 @@ namespace VSTool {
 
             if (item.Count > 0) {
                 if (id.Equals("RootView")) {
-                    paloTool.createTree(myTreeView1, item, false);
+                    paloTool.createTree(_toolpars,myTreeView1, item, false);
                     return;
                 }
                 if (item[0].BuildeItems == null) return;
@@ -188,9 +188,9 @@ namespace VSTool {
                 var item2 = item[0].BuildeItems.Take(ftake).ToList();
                 var item3 = item[0].BuildeItems.Skip(ftake).Take(vnum).ToList();
                 var item4 = item[0].BuildeItems.Skip(ftake + vnum).Take(vnum).ToList();
-                paloTool.createTree(myTreeView2, item2, true);
-                paloTool.createTree(myTreeView3, item3, true);
-                paloTool.createTree(myTreeView4, item4, true);
+                paloTool.createTree(_toolpars,myTreeView2, item2, true);
+                paloTool.createTree(_toolpars,myTreeView3, item3, true);
+                paloTool.createTree(_toolpars,myTreeView4, item4, true);
                 int nodeCount = item2.Count;
                 int hight = nodeCount * myTreeView2.ItemHeight;
                 if (hight > splitContainer2.Panel2.ClientSize.Height) {
@@ -206,184 +206,189 @@ namespace VSTool {
 
         private List<string> msave = new List<string>();
 
-        #region insertToolInfo
-
-        #endregion
+   
 
         private void btnCreate_Click(object sender, EventArgs e) {
             try {
-                var dicPath = paloTool.GetTreeViewFilePath(myTreeView5.Nodes,_toolpars);
-                new Thread(delegate () {
-                        this.Invoke(new Action(delegate() {
-                            paloTool.writeToServer(Toolpars, dicPath);
-                        }));
+                if (!checkBox1.Checked) {
+                    var dicPath = paloTool.GetTreeViewFilePath(myTreeView5.Nodes, _toolpars);
+                    new Thread(delegate() {
+                            this.Invoke(new Action(delegate() {
+                                paloTool.writeToServer(Toolpars, dicPath);
+                            }));
+                        }
+                    ).Start();
+
+                    var test = _toolpars.FileMappingEntity;
+                    Toolpars.GToIni = Toolpars.formEntity.txtToPath;
+                    if ((Toolpars.formEntity.txtToPath == "")
+                        || (Toolpars.formEntity.txtNewTypeKey == "")) {
+                        MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
-                ).Start();
-             
-                var test = _toolpars.FileMappingEntity;
-                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-                if ((Toolpars.formEntity.txtToPath == "")
-                    || (Toolpars.formEntity.txtNewTypeKey == "")) {
-                    MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                bool success =paloTool.CreateFile(myTreeView5,_toolpars);
-                if (success) {
-                    if (myTreeView1.SelectedNode != null) {
-                        var node = myTreeView1.SelectedNode as MyTreeNode;
-                        showTreeView(node);
+                    bool success = paloTool.CreateFile(myTreeView5, _toolpars);
+
+                    if (success) {
+                        if (myTreeView1.SelectedNode != null) {
+                            var node = myTreeView1.SelectedNode as MyTreeNode;
+                            showTreeView(node);
+                        }
+                        myTreeView5.Nodes.Clear();
                     }
-                    myTreeView5.Nodes.Clear();
-                }
-             
-            }
-            catch (Exception ex) {
-                throw new Exception(ex.Message);
-            }
-            return;
-            try {
-                Tools.WriteLog(Toolpars, listDATA);
-                var test = _toolpars.FileMappingEntity;
 
-                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-                if ((Toolpars.formEntity.txtToPath == "")
-                    || (Toolpars.formEntity.txtNewTypeKey == "")) {
-                    MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
                 }
-                DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
-                if (Directory.Exists(Path.Combine(Toolpars.GToIni + @"\",
-                    "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
-                    btnCreateCS_Click(null, null);
-                    return;
-                    //DialogResult result =
-                    //    MessageBox.Show(
-                    //        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
-                    //        + "\r\n目錄已存在，是否覆蓋??",
-                    //        "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    //if (result == DialogResult.Yes) {
-                    //    object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
-                    //        "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
-                    //    Tools.DeleteAll(tArgsPath);
-                    //}
-                    //else {
-                    //    return;
-                    //}
-                }
+                else {
 
-                if (Directory.Exists(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey)) {
-                    Tools.CopyAll(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey,
-                        tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
-                }
 
-                #region 修改文件名
+                    Tools.WriteLog(Toolpars, listDATA);
+                    var test = _toolpars.FileMappingEntity;
 
-                DirectoryInfo tDes =
-                    new DirectoryInfo(
-                        Toolpars.GToIni + @"\" + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\");
-                List<string> tSearchPatternList = new List<string>();
-                tSearchPatternList.Add("*xml");
-                tSearchPatternList.Add("*.sln");
-                tSearchPatternList.Add("*.repx");
-                tSearchPatternList.Add("*proj");
-                tSearchPatternList.Add("*.complete");
-                tSearchPatternList.Add("*.cs");
-                foreach (System.IO.DirectoryInfo d in tDes.GetDirectories("*", SearchOption.AllDirectories)) {
-                    if (d.Name.IndexOf(Toolpars.formEntity.txtNewTypeKey) == -1) {
-                        if (d.Name.IndexOf(Toolpars.OldTypekey) != -1) {
-                            if (
-                                File.Exists(d.Parent.FullName + "\\"
-                                            + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey))) {
-                                File.SetAttributes(
-                                    d.Parent.FullName + "\\"
-                                    + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey),
-                                    FileAttributes.Normal);
-                                File.Delete(d.Parent.FullName + "\\"
-                                            + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey));
-                            }
-                            if (
-                                Directory.Exists(d.Parent.FullName + "\\" +
-                                                 d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey))
-                                == false) {
-                                d.MoveTo(d.Parent.FullName + "\\"
-                                         + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey));
-                            }
-                            Application.DoEvents();
+                    Toolpars.GToIni = Toolpars.formEntity.txtToPath;
+                    if ((Toolpars.formEntity.txtToPath == "")
+                        || (Toolpars.formEntity.txtNewTypeKey == "")) {
+                        MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
+                    if (Directory.Exists(Path.Combine(Toolpars.GToIni + @"\",
+                        "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
+
+                        DialogResult result =
+                            MessageBox.Show(
+                                Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                                + "\r\n目錄已存在，是否覆蓋??",
+                                "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result == DialogResult.Yes) {
+                            object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
+                                "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                            Tools.DeleteAll(tArgsPath);
+                        }
+                        else {
+                            return;
                         }
                     }
-                }
 
+                    if (Directory.Exists(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey)) {
+                        Tools.CopyAll(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey,
+                            tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                    }
 
-                foreach (System.IO.FileInfo f in tDes.GetFiles("*", SearchOption.AllDirectories)) {
-                    if (f.Name.IndexOf(Toolpars.formEntity.txtNewTypeKey) == -1) {
-                        if (f.Name.IndexOf(Toolpars.OldTypekey) != -1) {
-                            if (File.Exists(f.FullName)) {
+                    #region 修改文件名
+
+                    DirectoryInfo tDes =
+                        new DirectoryInfo(
+                            Toolpars.GToIni + @"\" + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\");
+                    List<string> tSearchPatternList = new List<string>();
+                    tSearchPatternList.Add("*xml");
+                    tSearchPatternList.Add("*.sln");
+                    tSearchPatternList.Add("*.repx");
+                    tSearchPatternList.Add("*proj");
+                    tSearchPatternList.Add("*.complete");
+                    tSearchPatternList.Add("*.cs");
+                    foreach (System.IO.DirectoryInfo d in tDes.GetDirectories("*", SearchOption.AllDirectories)) {
+                        if (d.Name.IndexOf(Toolpars.formEntity.txtNewTypeKey) == -1) {
+                            if (d.Name.IndexOf(Toolpars.OldTypekey) != -1) {
                                 if (
-                                    File.Exists(f.Directory.FullName + "\\" +
-                                                f.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey))
+                                    File.Exists(d.Parent.FullName + "\\"
+                                                + d.Name.Replace(Toolpars.OldTypekey,
+                                                    Toolpars.formEntity.txtNewTypeKey))) {
+                                    File.SetAttributes(
+                                        d.Parent.FullName + "\\"
+                                        + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey),
+                                        FileAttributes.Normal);
+                                    File.Delete(d.Parent.FullName + "\\"
+                                                + d.Name.Replace(Toolpars.OldTypekey,
+                                                    Toolpars.formEntity.txtNewTypeKey));
+                                }
+                                if (
+                                    Directory.Exists(d.Parent.FullName + "\\" +
+                                                     d.Name.Replace(Toolpars.OldTypekey,
+                                                         Toolpars.formEntity.txtNewTypeKey))
                                     == false) {
-                                    f.MoveTo(f.Directory.FullName + "\\" +
-                                             f.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey));
+                                    d.MoveTo(d.Parent.FullName + "\\"
+                                             + d.Name.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey));
                                 }
                                 Application.DoEvents();
                             }
                         }
                     }
-                }
 
 
-                for (int i = 0; i < tSearchPatternList.Count; i++) {
-                    foreach (System.IO.FileInfo f in tDes.GetFiles(tSearchPatternList[i], SearchOption.AllDirectories)
-                    ) {
-                        if (File.Exists(f.FullName)) {
-                            string text = File.ReadAllText(f.FullName);
-                            text = text.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey);
-                            File.SetAttributes(f.FullName, FileAttributes.Normal);
-                            File.Delete(f.FullName);
-                            File.WriteAllText(f.FullName, text, System.Text.UTF8Encoding.UTF8);
-                            //^_^ 20160802 by 05485 for 编码方式修改
+                    foreach (System.IO.FileInfo f in tDes.GetFiles("*", SearchOption.AllDirectories)) {
+                        if (f.Name.IndexOf(Toolpars.formEntity.txtNewTypeKey) == -1) {
+                            if (f.Name.IndexOf(Toolpars.OldTypekey) != -1) {
+                                if (File.Exists(f.FullName)) {
+                                    if (
+                                        File.Exists(f.Directory.FullName + "\\" +
+                                                    f.Name.Replace(Toolpars.OldTypekey,
+                                                        Toolpars.formEntity.txtNewTypeKey))
+                                        == false) {
+                                        f.MoveTo(f.Directory.FullName + "\\" +
+                                                 f.Name.Replace(Toolpars.OldTypekey,
+                                                     Toolpars.formEntity.txtNewTypeKey));
+                                    }
+                                    Application.DoEvents();
+                                }
+                            }
                         }
                     }
-                }
 
-                #endregion
 
-                if (RBBatch.Checked
-                    || RBReport.Checked) {
-                    string mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\" + "Digiwin.ERP."
-                                    +
-                                    Toolpars.formEntity.txtNewTypeKey + ".UI.Implement\\FunctionWindowOpener";
-                    if (Directory.Exists(mpatha)) {
-                        DirectoryInfo di = new DirectoryInfo(mpatha);
-                        di.Delete(true);
+                    for (int i = 0; i < tSearchPatternList.Count; i++) {
+                        foreach (System.IO.FileInfo f in tDes.GetFiles(tSearchPatternList[i],
+                            SearchOption.AllDirectories)
+                        ) {
+                            if (File.Exists(f.FullName)) {
+                                string text = File.ReadAllText(f.FullName);
+                                text = text.Replace(Toolpars.OldTypekey, Toolpars.formEntity.txtNewTypeKey);
+                                File.SetAttributes(f.FullName, FileAttributes.Normal);
+                                File.Delete(f.FullName);
+                                File.WriteAllText(f.FullName, text, System.Text.UTF8Encoding.UTF8);
+                                //^_^ 20160802 by 05485 for 编码方式修改
+                            }
+                        }
                     }
-                    mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\" + "Digiwin.ERP."
-                             + Toolpars.formEntity.txtNewTypeKey
-                             +
-                             ".UI.Implement\\MenuItem";
-                    if (Directory.Exists(mpatha)) {
-                        DirectoryInfo diS = new DirectoryInfo(mpatha);
-                        diS.Delete(true);
+
+                    #endregion
+
+                    if (RBBatch.Checked
+                        || RBReport.Checked) {
+                        string mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\"
+                                        + "Digiwin.ERP."
+                                        +
+                                        Toolpars.formEntity.txtNewTypeKey + ".UI.Implement\\FunctionWindowOpener";
+                        if (Directory.Exists(mpatha)) {
+                            DirectoryInfo di = new DirectoryInfo(mpatha);
+                            di.Delete(true);
+                        }
+                        mpatha = tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey + @"\" + "Digiwin.ERP."
+                                 + Toolpars.formEntity.txtNewTypeKey
+                                 +
+                                 ".UI.Implement\\MenuItem";
+                        if (Directory.Exists(mpatha)) {
+                            DirectoryInfo diS = new DirectoryInfo(mpatha);
+                            diS.Delete(true);
+                        }
                     }
-                }
-                if (listDATA.Items.Count != 0) {
-                    CopyFile(tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
-                    if (rbModi.Checked) {
-                        copyModi();
+                    if (listDATA.Items.Count != 0) {
+                        CopyFile(tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                        if (rbModi.Checked) {
+                            copyModi();
+                        }
                     }
+                    msave.Clear();
+                    listDATA.Items.Clear();
+                    foreach (TreeNode node in treeView1.Nodes) {
+                        SetCheckedChildNodes(node);
+                        node.Checked = false;
+                    }
+                    MessageBox.Show("生成成功 !!!");
                 }
-                msave.Clear();
-                listDATA.Items.Clear();
-                foreach (TreeNode node in treeView1.Nodes) {
-                    SetCheckedChildNodes(node);
-                    node.Checked = false;
-                }
-                MessageBox.Show("生成成功 !!!");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
             sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
         }
 
@@ -2745,6 +2750,9 @@ namespace VSTool {
         #region 勾选事件，生成切片种类          
 
         private void treeView1_AfterCheck(object sender, TreeViewEventArgs e) {
+
+            return;
+
             Toolpars.MDistince = false;
 
             string StrA = "";
@@ -3080,7 +3088,7 @@ namespace VSTool {
                     string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
                                    + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                     if (Directory.Exists(strb1)) {
-                        paintTreeView(treeView1, strb1); //mfroma
+                        Tools.paintTreeView(treeView1, strb1); //mfroma
                         listDATA.Items.Clear();
                     }
                     else {
@@ -3094,82 +3102,7 @@ namespace VSTool {
                 }
             }
         }
-
-        #region treeview 重组节点
-
-        private void paintTreeView(MyTreeView TreeView, string fullPath) {
-            try {
-                TreeView.Nodes.Clear();
-                DirectoryInfo dirs = new DirectoryInfo(fullPath);
-                DirectoryInfo[] dir = dirs.GetDirectories();
-                FileInfo[] file = dirs.GetFiles();
-                int dircount = dir.Count();
-                int filecount = file.Count();
-
-                for (int i = 0; i < dircount; i++) {
-                    MyTreeNode new_child = new MyTreeNode(dir[i].Name) {CheckBoxVisible = false};
-                    string pathNode = fullPath + @"\" + dir[i].Name;
-                    GetMultNode(new_child, pathNode);
-                    setCheckBox(new_child);
-                    TreeView.Nodes.Add(new_child);
-                }
-                for (int j = 0; j < filecount; j++) {
-                    if (file[j].Name.Substring(file[j].Name.LastIndexOf(".") + 1) == "cs") {
-                        MyTreeNode new_child = new MyTreeNode(file[j].Name);
-                        TreeView.Nodes.Add(new_child);
-                    }
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message + "\r\n paintTreeview");
-            }
-        }
-
-        void setCheckBox(MyTreeNode node) {
-            if (node.Nodes.Count == 0)
-            {
-                node.CheckBoxVisible = true;
-            }
-            else {
-               foreach(MyTreeNode subNode in node.Nodes)
-                {
-                    setCheckBox(subNode);
-                }
-               
-            }
-        }
-
-    private bool GetMultNode(MyTreeNode treeNode, string path) {
-            if (Directory.Exists(path) == false) {
-                return false;
-            }
-            DirectoryInfo dirs = new DirectoryInfo(path);
-            DirectoryInfo[] dir = dirs.GetDirectories();
-            FileInfo[] file = dirs.GetFiles();
-            int dircount = dir.Count();
-            int filecount = file.Count();
-            int sumcount = dircount + filecount;
-            if (sumcount == 0) {
-                return false;
-            }
-            for (int j = 0; j < dircount; j++) {
-                MyTreeNode new_child = new MyTreeNode(dir[j].Name);
-                string pathNodeB = path + @"\" + dir[j].Name;
-                GetMultNode(new_child, pathNodeB);
-                treeNode.Nodes.Add(new_child);
-            }
-            for (int i = 0; i < filecount; i++) {
-                if (file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "cs"
-                    || file[i].Name.Substring(file[i].Name.LastIndexOf(".") + 1) == "resx") {
-                    MyTreeNode new_child = new MyTreeNode(file[i].Name);
-                    treeNode.Nodes.Add(new_child);
-                }
-            }
-            return true;
-        }
-
-        #endregion
-
+        
         /// <summary>
         /// 修改方案
         /// </summary>
@@ -3245,7 +3178,7 @@ namespace VSTool {
                     string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
                                    + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                     if (Directory.Exists(strb1)) {
-                        paintTreeView(treeView1, strb1);
+                        Tools.paintTreeView(treeView1, strb1);
                         listDATA.Items.Clear();
                     }
                     else {
@@ -3263,18 +3196,32 @@ namespace VSTool {
 
         private void btncopydll_Click(object sender, EventArgs e) {
             try {
+            
+
                 paloTool.copyDll(Toolpars);
                 MessageBox.Show("复制成功 !!!");
             }
             catch (Exception ex) {
-                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string[] processNames = {
+                    "Digiwin.Mars.ClientStart", "Digiwin.Mars.ServerStart",
+                    "Digiwin.Mars.AccountSetStart"
+                };
+                bool f = checkCanCopyDll(processNames);
+                if (f)
+                {
+                    btncopydll_Click(null, null);
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
             }
             sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "btncopydll_Click");
         }
 
         private void btncopyUIdll_Click(object sender, EventArgs e) {
             try {
-                // Tools.getPathEntity(Toolpars);
                 string Export = Toolpars.PathEntity.ExportPath;
                 string toPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Customization\\Programs\\";
                 string filterStr = "*" + Toolpars.formEntity.txtNewTypeKey + ".UI.*";
@@ -3284,9 +3231,49 @@ namespace VSTool {
                 paloTool.FileCopyUIdll(Export, toPath, filterStr);
             }
             catch (Exception ex) {
-                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string[] processNames = {
+                    "Digiwin.Mars.ClientStart"
+                };
+                bool f = checkCanCopyDll(processNames);
+                if (f) {
+                    btncopyUIdll_Click(null,null);
+                }
+                else {
+                    MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "btncopyUIdll_Click");
+        }
+
+        bool checkCanCopyDll(string[] processNames) {
+            //string processNames = "Digiwin.Mars.ClientStart";
+            bool flag = true;
+            var infos = Process.GetProcesses();
+            if (infos != null)
+            {
+                foreach (var info in infos)
+                {
+                    if (processNames.Contains(info.ProcessName))
+                    {
+                        flag = false;
+                    }
+                }
+                if (!flag)
+                {
+                    if (MessageBox.Show("当前DLL被占用，是否结束进程以复制？", "警告", MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Warning)
+                        == DialogResult.OK) {
+                        flag = true;
+                        Tools.killProcess(processNames);
+                    }
+                    else
+                    {
+                        flag = false ;
+                    }
+                }
+            }
+
+            return flag;
         }
 
         #endregion
@@ -3294,48 +3281,58 @@ namespace VSTool {
         #region 复制pkg代码
 
         private void btncopypkg_Click(object sender, EventArgs e) {
-            try {
+            try
+            {
                 Toolpars.GToIni = Toolpars.formEntity.txtToPath;
                 if (Toolpars.formEntity.txtToPath != ""
-                    && Toolpars.formEntity.txtNewTypeKey != "") {
-                    if (Directory.Exists(Toolpars.formEntity.txtToPath)) {
+                    && Toolpars.formEntity.txtNewTypeKey != "")
+                {
+                    if (Directory.Exists(Toolpars.formEntity.txtToPath))
+                    {
                         DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
                         string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
                                        + Toolpars.formEntity.txtNewTypeKey.Substring(1);
-                        if (!Directory.Exists(strb1)) {
+                        if (!Directory.Exists(strb1))
+                        {
                             MessageBox.Show("文件夹" + strb1 + "不存在，请查看！！！", "Error", MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                             return;
                         }
-                        else {
+                        else
+                        {
                             if (
                                 Directory.Exists(Path.Combine(Toolpars.GToIni + @"\",
-                                    "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey))) {
+                                    "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey)))
+                            {
                                 DialogResult result =
                                     MessageBox.Show(
                                         Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
                                         + "\r\n目錄已存在，是否覆蓋??",
                                         "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                                if (result == DialogResult.Yes) {
+                                if (result == DialogResult.Yes)
+                                {
                                     object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
                                         "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
                                     Tools.DeleteAll(tArgsPath);
                                 }
-                                else {
+                                else
+                                {
                                     return;
                                 }
                             }
                             Tools.CopyAllPKG(strb1, tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
                         }
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "不存在，请查看！！！", "Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return;
                     }
                 }
-                else {
+                else
+                {
                     MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -3348,10 +3345,35 @@ namespace VSTool {
 
                 MessageBox.Show("生成成功 !!!");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "COPY PKG SOURCE");
+
+            return;
+
+            //Toolpars.GToIni = Toolpars.formEntity.txtToPath;
+            //if (Toolpars.formEntity.txtToPath != ""
+            //    && Toolpars.formEntity.txtNewTypeKey != "") {
+            //    if (Directory.Exists(Toolpars.formEntity.txtToPath)) {
+            //        DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
+            //        string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+            //                       + Toolpars.formEntity.txtNewTypeKey.Substring(1);
+            //        if (!Directory.Exists(strb1)) {
+            //            MessageBox.Show("文件夹" + strb1 + "不存在，请查看！！！", "Error", MessageBoxButtons.OK,
+            //                MessageBoxIcon.Error);
+            //            return;
+            //        }
+            //        else {
+            //            ModiPKG form1 = new ModiPKG(_toolpars);
+            //            form1.ShowDialog();
+            //        }
+            //    }
+            //}
+            //else {
+            //    MessageBox.Show("个案路径或标准路径不可为空");
+            //}
         }
 
         #endregion
@@ -3432,12 +3454,13 @@ namespace VSTool {
             if (node.buildeType.Id.Equals("Modi")) {
                 treeView1.Visible = true;
                 splitContainer3.Visible = false;
+                scrollPanel.Visible = false;
                 if (Toolpars.formEntity.txtToPath != ""
                     && Toolpars.formEntity.txtNewTypeKey != "") {
                     string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
                                    + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                     if (Directory.Exists(strb1)) {
-                        paintTreeView(treeView1, strb1); //mfroma
+                        Tools.paintTreeView(treeView1, strb1); //mfroma
                         listDATA.Items.Clear();
                     }
                     else {
@@ -3452,6 +3475,8 @@ namespace VSTool {
             }
             else {
                 treeView1.Visible = false;
+
+                scrollPanel.Visible = true;
                 splitContainer3.Visible = true;
                 createTree(node.buildeType.Id);
             }
@@ -3523,19 +3548,24 @@ namespace VSTool {
             Toolpars.MDistince = false;
             string StrA = "";
             var node = e.Node as MyTreeNode;
+            BuildeType builderType = node.buildeType;
+            if (builderType.ReadOnly != null
+                && builderType.ReadOnly.Equals("True")) {
+                return;
+            }
+
             List<FileInfos> fileInfos = new List<FileInfos>();
             if (e.Node.Checked) {
-                node.buildeType.Checked = "True";
-              
-                if (!rbModi.Checked) {
 
-                    if (node.buildeType.ShowParWindow != null
-                        && node.buildeType.ShowParWindow.Equals("False")) {
-                        fileInfos = paloTool.createFileMappingInfo(_toolpars,node.buildeType);
+                builderType.Checked = "True";
+                if (!rbModi.Checked) {
+                    if (builderType.ShowParWindow != null
+                        && builderType.ShowParWindow.Equals("False")) {
+                        fileInfos = paloTool.createFileMappingInfo(_toolpars, builderType);
 
                     }
                     else {
-                        ModiName MYForm = new ModiName(node.buildeType, _toolpars);
+                        ModiName MYForm = new ModiName(builderType, _toolpars);
                         MYForm.StartPosition = FormStartPosition.CenterParent;
                         if (MYForm.ShowDialog() == DialogResult.OK)
                         {
@@ -3549,14 +3579,14 @@ namespace VSTool {
                         }
                         else
                         {
-                            node.buildeType.Checked = "False";
+                            builderType.Checked = "False";
                             e.Node.Checked = false;
                         }
                     }
                 }
             }
             else {
-                node.buildeType.Checked = "False";
+                builderType.Checked = "False";
             }
             if (myTreeView1.SelectedNode != null)
             {
@@ -3592,6 +3622,49 @@ namespace VSTool {
             CreateRightView();
         }
 
-
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked) {
+                //rbModi.Checked = true;
+                treeView1.Visible = true;
+                splitContainer3.Visible = false;
+                scrollPanel.Visible = false;
+                //myTreeView5.Visible = false;
+                if (Toolpars.formEntity.txtToPath != ""
+                    && Toolpars.formEntity.txtNewTypeKey != "")
+                {
+                    string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                                   + Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                    if (Directory.Exists(strb1)) {
+                        myTreeView5.Nodes.Clear();
+                        treeView1.Nodes.Clear();
+                        treeView1.Nodes.Add(paloTool.myPaintTreeView(_toolpars, strb1)); //mfroma
+                    }
+                    else
+                    {
+                        MessageBox.Show("标准代码" + strb1 + "不存在", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        treeView1.Nodes.Clear();
+                        myTreeView5.Nodes.Clear();
+                      
+                    }
+                }
+                else
+                {
+                    treeView1.Nodes.Clear();
+                }
+            }
+            else
+            {
+               
+                treeView1.Visible = false;
+                scrollPanel.Visible = true;
+                splitContainer3.Visible = true;
+                if (myTreeView1.SelectedNode != null)
+                {
+                    MyTreeNode node = myTreeView1.SelectedNode as MyTreeNode;
+                    createTree(node.buildeType.Id);
+                }
+            }
+        }
     }
 }

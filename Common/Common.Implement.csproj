@@ -93,6 +93,12 @@
     <Compile Include="UI\ModiName.Designer.cs">
       <DependentUpon>ModiName.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ModiPKG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModiPKG.Designer.cs">
+      <DependentUpon>ModiPKG.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -104,6 +110,12 @@
     </Compile>
     <Compile Include="UI\ScrollerBar.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\setToolPath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\setToolPath.Designer.cs">
+      <DependentUpon>setToolPath.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +133,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ModiName.resx">
       <DependentUpon>ModiName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModiPKG.resx">
+      <DependentUpon>ModiPKG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\setToolPath.resx">
+      <DependentUpon>setToolPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

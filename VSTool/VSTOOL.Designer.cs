@@ -61,7 +61,6 @@ namespace VSTool
             this.btncopyUIdll = new System.Windows.Forms.Button();
             this.btnKill = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.myTreeView5 = new Common.Implement.UI.MyTreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.listDATA = new System.Windows.Forms.ListBox();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -73,11 +72,13 @@ namespace VSTool
             this.myTreeView1 = new Common.Implement.UI.MyTreeView();
             this.scrollPanel = new Common.Implement.UI.MyPanel();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new Common.Implement.UI.MyTreeView();
             this.myTreeView2 = new Common.Implement.UI.MyTreeView();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.myTreeView3 = new Common.Implement.UI.MyTreeView();
             this.myTreeView4 = new Common.Implement.UI.MyTreeView();
+            this.treeView1 = new Common.Implement.UI.MyTreeView();
+            this.myTreeView5 = new Common.Implement.UI.MyTreeView();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -104,7 +105,7 @@ namespace VSTool
             this.btnCreate.BackColor = System.Drawing.SystemColors.Window;
             this.btnCreate.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCreate.ForeColor = System.Drawing.Color.Black;
-            this.btnCreate.Location = new System.Drawing.Point(830, 26);
+            this.btnCreate.Location = new System.Drawing.Point(884, 26);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(75, 26);
             this.btnCreate.TabIndex = 6;
@@ -118,7 +119,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenTo.FlatAppearance.BorderSize = 0;
             this.btnOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenTo.Location = new System.Drawing.Point(716, 28);
+            this.btnOpenTo.Location = new System.Drawing.Point(770, 28);
             this.btnOpenTo.Name = "btnOpenTo";
             this.btnOpenTo.Size = new System.Drawing.Size(33, 23);
             this.btnOpenTo.TabIndex = 9;
@@ -133,7 +134,7 @@ namespace VSTool
             this.txtToPath.Enabled = false;
             this.txtToPath.Location = new System.Drawing.Point(29, 30);
             this.txtToPath.Name = "txtToPath";
-            this.txtToPath.Size = new System.Drawing.Size(681, 21);
+            this.txtToPath.Size = new System.Drawing.Size(735, 21);
             this.txtToPath.TabIndex = 10;
             // 
             // btnCreateCS
@@ -142,12 +143,13 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateCS.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCreateCS.ForeColor = System.Drawing.Color.Black;
-            this.btnCreateCS.Location = new System.Drawing.Point(830, 55);
+            this.btnCreateCS.Location = new System.Drawing.Point(884, 119);
             this.btnCreateCS.Name = "btnCreateCS";
             this.btnCreateCS.Size = new System.Drawing.Size(75, 26);
             this.btnCreateCS.TabIndex = 12;
             this.btnCreateCS.Text = "生成类";
             this.btnCreateCS.UseVisualStyleBackColor = true;
+            this.btnCreateCS.Visible = false;
             this.btnCreateCS.Click += new System.EventHandler(this.btnCreateCS_Click);
             // 
             // btnClear
@@ -156,7 +158,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClear.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnClear.ForeColor = System.Drawing.Color.Black;
-            this.btnClear.Location = new System.Drawing.Point(830, 113);
+            this.btnClear.Location = new System.Drawing.Point(884, 87);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 26);
             this.btnClear.TabIndex = 15;
@@ -170,7 +172,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpen.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnOpen.ForeColor = System.Drawing.Color.Black;
-            this.btnOpen.Location = new System.Drawing.Point(830, 84);
+            this.btnOpen.Location = new System.Drawing.Point(884, 58);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 26);
             this.btnOpen.TabIndex = 19;
@@ -184,13 +186,13 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btncopypkg.FlatAppearance.BorderSize = 0;
             this.btncopypkg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncopypkg.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btncopypkg.Font = new System.Drawing.Font("宋体", 9F);
             this.btncopypkg.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btncopypkg.Location = new System.Drawing.Point(716, 85);
+            this.btncopypkg.Location = new System.Drawing.Point(770, 85);
             this.btncopypkg.Name = "btncopypkg";
             this.btncopypkg.Size = new System.Drawing.Size(64, 23);
             this.btncopypkg.TabIndex = 24;
-            this.btncopypkg.Text = "复制PKG代码";
+            this.btncopypkg.Text = "借用标准";
             this.btncopypkg.UseVisualStyleBackColor = true;
             this.btncopypkg.Click += new System.EventHandler(this.btncopypkg_Click);
             // 
@@ -198,10 +200,9 @@ namespace VSTool
             // 
             this.txtPKGpath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPKGpath.Enabled = false;
             this.txtPKGpath.Location = new System.Drawing.Point(29, 84);
             this.txtPKGpath.Name = "txtPKGpath";
-            this.txtPKGpath.Size = new System.Drawing.Size(681, 21);
+            this.txtPKGpath.Size = new System.Drawing.Size(735, 21);
             this.txtPKGpath.TabIndex = 27;
             // 
             // btnP
@@ -213,7 +214,7 @@ namespace VSTool
             this.btnP.FlatAppearance.BorderSize = 0;
             this.btnP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnP.ForeColor = System.Drawing.Color.YellowGreen;
-            this.btnP.Location = new System.Drawing.Point(755, 28);
+            this.btnP.Location = new System.Drawing.Point(809, 28);
             this.btnP.Name = "btnP";
             this.btnP.Size = new System.Drawing.Size(25, 21);
             this.btnP.TabIndex = 30;
@@ -231,7 +232,7 @@ namespace VSTool
             this.btnG.FlatAppearance.BorderSize = 0;
             this.btnG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnG.ForeColor = System.Drawing.Color.YellowGreen;
-            this.btnG.Location = new System.Drawing.Point(786, 84);
+            this.btnG.Location = new System.Drawing.Point(840, 84);
             this.btnG.Name = "btnG";
             this.btnG.Size = new System.Drawing.Size(25, 21);
             this.btnG.TabIndex = 31;
@@ -244,6 +245,7 @@ namespace VSTool
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.lbl01);
             this.panel1.Controls.Add(this.rbModi);
             this.panel1.Controls.Add(this.RBBusiness);
@@ -257,7 +259,7 @@ namespace VSTool
             this.panel1.Controls.Add(this.btnKill);
             this.panel1.Location = new System.Drawing.Point(-6, -10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(922, 84);
+            this.panel1.Size = new System.Drawing.Size(976, 84);
             this.panel1.TabIndex = 32;
             // 
             // lbl01
@@ -277,7 +279,7 @@ namespace VSTool
             this.rbModi.BackColor = System.Drawing.Color.Transparent;
             this.rbModi.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rbModi.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.rbModi.Location = new System.Drawing.Point(420, 61);
+            this.rbModi.Location = new System.Drawing.Point(794, 9);
             this.rbModi.Name = "rbModi";
             this.rbModi.Size = new System.Drawing.Size(53, 18);
             this.rbModi.TabIndex = 21;
@@ -294,7 +296,7 @@ namespace VSTool
             this.RBBusiness.Checked = true;
             this.RBBusiness.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.RBBusiness.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.RBBusiness.Location = new System.Drawing.Point(180, 61);
+            this.RBBusiness.Location = new System.Drawing.Point(853, 32);
             this.RBBusiness.Name = "RBBusiness";
             this.RBBusiness.Size = new System.Drawing.Size(53, 18);
             this.RBBusiness.TabIndex = 16;
@@ -322,7 +324,7 @@ namespace VSTool
             this.RBBatch.BackColor = System.Drawing.Color.Transparent;
             this.RBBatch.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.RBBatch.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.RBBatch.Location = new System.Drawing.Point(270, 61);
+            this.RBBatch.Location = new System.Drawing.Point(853, 9);
             this.RBBatch.Name = "RBBatch";
             this.RBBatch.Size = new System.Drawing.Size(53, 18);
             this.RBBatch.TabIndex = 17;
@@ -333,10 +335,13 @@ namespace VSTool
             // 
             // txtNewTypeKey
             // 
+            this.txtNewTypeKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNewTypeKey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNewTypeKey.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNewTypeKey.Location = new System.Drawing.Point(188, 34);
             this.txtNewTypeKey.Name = "txtNewTypeKey";
-            this.txtNewTypeKey.Size = new System.Drawing.Size(446, 21);
+            this.txtNewTypeKey.Size = new System.Drawing.Size(500, 21);
             this.txtNewTypeKey.TabIndex = 2;
             this.txtNewTypeKey.TextChanged += new System.EventHandler(this.txtNewTypeKey_TextChanged);
             // 
@@ -346,7 +351,7 @@ namespace VSTool
             this.RBReport.BackColor = System.Drawing.Color.Transparent;
             this.RBReport.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.RBReport.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.RBReport.Location = new System.Drawing.Point(340, 61);
+            this.RBReport.Location = new System.Drawing.Point(853, 55);
             this.RBReport.Name = "RBReport";
             this.RBReport.Size = new System.Drawing.Size(53, 18);
             this.RBReport.TabIndex = 18;
@@ -357,8 +362,9 @@ namespace VSTool
             // 
             // Industry
             // 
+            this.Industry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Industry.AutoSize = true;
-            this.Industry.Location = new System.Drawing.Point(648, 36);
+            this.Industry.Location = new System.Drawing.Point(574, 59);
             this.Industry.Name = "Industry";
             this.Industry.Size = new System.Drawing.Size(60, 16);
             this.Industry.TabIndex = 28;
@@ -368,39 +374,45 @@ namespace VSTool
             // 
             // btncopydll
             // 
+            this.btncopydll.FlatAppearance.BorderSize = 0;
             this.btncopydll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncopydll.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btncopydll.Location = new System.Drawing.Point(764, 51);
+            this.btncopydll.ForeColor = System.Drawing.Color.DarkGreen;
+            this.btncopydll.Location = new System.Drawing.Point(290, 55);
             this.btncopydll.Name = "btncopydll";
-            this.btncopydll.Size = new System.Drawing.Size(75, 23);
+            this.btncopydll.Size = new System.Drawing.Size(58, 23);
             this.btncopydll.TabIndex = 22;
-            this.btncopydll.Text = "Copydll";
+            this.btncopydll.Text = "复制DLL";
+            this.btncopydll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btncopydll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btncopydll.UseVisualStyleBackColor = true;
             this.btncopydll.Visible = false;
             this.btncopydll.Click += new System.EventHandler(this.btncopydll_Click);
             // 
             // btncopyUIdll
             // 
+            this.btncopyUIdll.FlatAppearance.BorderSize = 0;
             this.btncopyUIdll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncopyUIdll.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btncopyUIdll.Location = new System.Drawing.Point(683, 51);
+            this.btncopyUIdll.ForeColor = System.Drawing.Color.DarkGreen;
+            this.btncopyUIdll.Location = new System.Drawing.Point(188, 55);
             this.btncopyUIdll.Name = "btncopyUIdll";
-            this.btncopyUIdll.Size = new System.Drawing.Size(75, 23);
+            this.btncopyUIdll.Size = new System.Drawing.Size(96, 23);
             this.btncopyUIdll.TabIndex = 23;
-            this.btncopyUIdll.Text = "CopyUIdll";
+            this.btncopyUIdll.Text = "复制客户端DLL";
+            this.btncopyUIdll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btncopyUIdll.UseVisualStyleBackColor = true;
             this.btncopyUIdll.Visible = false;
             this.btncopyUIdll.Click += new System.EventHandler(this.btncopyUIdll_Click);
             // 
             // btnKill
             // 
+            this.btnKill.FlatAppearance.BorderSize = 0;
             this.btnKill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKill.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btnKill.Location = new System.Drawing.Point(845, 52);
+            this.btnKill.Location = new System.Drawing.Point(354, 55);
             this.btnKill.Name = "btnKill";
             this.btnKill.Size = new System.Drawing.Size(75, 23);
             this.btnKill.TabIndex = 25;
-            this.btnKill.Text = "Kill";
+            this.btnKill.Text = "结束进程";
             this.btnKill.UseVisualStyleBackColor = true;
             this.btnKill.Visible = false;
             this.btnKill.Click += new System.EventHandler(this.button1_Click);
@@ -415,38 +427,9 @@ namespace VSTool
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(268, 467);
+            this.panel3.Size = new System.Drawing.Size(259, 467);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // myTreeView5
-            // 
-            this.myTreeView5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.myTreeView5.BackColor = System.Drawing.Color.White;
-            this.myTreeView5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.myTreeView5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.myTreeView5.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.myTreeView5.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.myTreeView5.ForeColor = System.Drawing.Color.Black;
-            this.myTreeView5.FullRowSelect = true;
-            this.myTreeView5.HotTracking = true;
-            this.myTreeView5.ImageHeight = 25;
-            this.myTreeView5.ImageWidth = 25;
-            this.myTreeView5.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.myTreeView5.IsCard = false;
-            this.myTreeView5.ItemHeight = 25;
-            this.myTreeView5.Location = new System.Drawing.Point(9, 27);
-            this.myTreeView5.Name = "myTreeView5";
-            this.myTreeView5.NodeFont = null;
-            this.myTreeView5.NodeImageSize = new System.Drawing.Size(20, 20);
-            this.myTreeView5.PaddingSetting = new System.Drawing.Point(0, 4);
-            this.myTreeView5.ShowDescription = false;
-            this.myTreeView5.ShowLines = false;
-            this.myTreeView5.ShowPlusMinus = false;
-            this.myTreeView5.Size = new System.Drawing.Size(256, 437);
-            this.myTreeView5.TabIndex = 15;
             // 
             // label1
             // 
@@ -474,7 +457,7 @@ namespace VSTool
             this.listDATA.Location = new System.Drawing.Point(9, 23);
             this.listDATA.Name = "listDATA";
             this.listDATA.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listDATA.Size = new System.Drawing.Size(259, 434);
+            this.listDATA.Size = new System.Drawing.Size(250, 506);
             this.listDATA.Sorted = true;
             this.listDATA.TabIndex = 14;
             this.listDATA.Visible = false;
@@ -500,7 +483,7 @@ namespace VSTool
             this.panel4.Controls.Add(this.btnClear);
             this.panel4.Location = new System.Drawing.Point(-6, 540);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(922, 158);
+            this.panel4.Size = new System.Drawing.Size(976, 158);
             this.panel4.TabIndex = 35;
             // 
             // label4
@@ -542,8 +525,8 @@ namespace VSTool
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
-            this.splitContainer1.Size = new System.Drawing.Size(928, 467);
-            this.splitContainer1.SplitterDistance = 659;
+            this.splitContainer1.Size = new System.Drawing.Size(982, 467);
+            this.splitContainer1.SplitterDistance = 722;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 36;
             // 
@@ -554,7 +537,7 @@ namespace VSTool
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(659, 467);
+            this.panel2.Size = new System.Drawing.Size(722, 467);
             this.panel2.TabIndex = 33;
             // 
             // splitContainer2
@@ -573,7 +556,8 @@ namespace VSTool
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.scrollPanel);
-            this.splitContainer2.Size = new System.Drawing.Size(659, 467);
+            this.splitContainer2.Panel2.Controls.Add(this.treeView1);
+            this.splitContainer2.Size = new System.Drawing.Size(722, 467);
             this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 14;
@@ -615,7 +599,7 @@ namespace VSTool
             this.scrollPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollPanel.Margin = new System.Windows.Forms.Padding(2);
             this.scrollPanel.Name = "scrollPanel";
-            this.scrollPanel.Size = new System.Drawing.Size(413, 467);
+            this.scrollPanel.Size = new System.Drawing.Size(476, 467);
             this.scrollPanel.TabIndex = 35;
             // 
             // splitContainer3
@@ -628,60 +612,16 @@ namespace VSTool
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.treeView1);
             this.splitContainer3.Panel1.Controls.Add(this.myTreeView2);
             // 
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(410, 467);
+            this.splitContainer3.Size = new System.Drawing.Size(490, 467);
             this.splitContainer3.SplitterDistance = 132;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 34;
-            // 
-            // treeView1
-            // 
-            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.treeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.treeView1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.HideSelection = false;
-            this.treeView1.HotTracking = true;
-            this.treeView1.ImageHeight = 25;
-            this.treeView1.ImageWidth = 25;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.treeView1.IsCard = false;
-            this.treeView1.ItemHeight = 25;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.NodeFont = null;
-            this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
-            treeNode1.Name = "节点3";
-            treeNode1.Text = "节点3";
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "节点0";
-            treeNode3.Name = "节点4";
-            treeNode3.Text = "节点4";
-            treeNode4.Name = "节点1";
-            treeNode4.Text = "节点1";
-            treeNode5.Name = "节点2";
-            treeNode5.Text = "节点2";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode5});
-            this.treeView1.PaddingSetting = new System.Drawing.Point(0, 0);
-            this.treeView1.ShowDescription = false;
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowPlusMinus = false;
-            this.treeView1.Size = new System.Drawing.Size(410, 467);
-            this.treeView1.TabIndex = 13;
-            this.treeView1.Visible = false;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             // 
             // myTreeView2
             // 
@@ -707,7 +647,7 @@ namespace VSTool
             this.myTreeView2.ShowDescription = true;
             this.myTreeView2.ShowLines = false;
             this.myTreeView2.ShowPlusMinus = false;
-            this.myTreeView2.Size = new System.Drawing.Size(410, 467);
+            this.myTreeView2.Size = new System.Drawing.Size(490, 467);
             this.myTreeView2.TabIndex = 33;
             this.myTreeView2.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.myTreeView2_SetAutoScrollEvent);
             this.myTreeView2.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.myTreeView2_AfterCheck);
@@ -789,13 +729,97 @@ namespace VSTool
             this.myTreeView4.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.myTreeView2_SetAutoScrollEvent);
             this.myTreeView4.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.myTreeView2_AfterCheck);
             // 
+            // treeView1
+            // 
+            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.treeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.treeView1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.treeView1.FullRowSelect = true;
+            this.treeView1.HideSelection = false;
+            this.treeView1.HotTracking = true;
+            this.treeView1.ImageHeight = 25;
+            this.treeView1.ImageWidth = 25;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.treeView1.IsCard = false;
+            this.treeView1.ItemHeight = 25;
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.NodeFont = null;
+            this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
+            treeNode1.Name = "节点3";
+            treeNode1.Text = "节点3";
+            treeNode2.Name = "节点0";
+            treeNode2.Text = "节点0";
+            treeNode3.Name = "节点4";
+            treeNode3.Text = "节点4";
+            treeNode4.Name = "节点1";
+            treeNode4.Text = "节点1";
+            treeNode5.Name = "节点2";
+            treeNode5.Text = "节点2";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode5});
+            this.treeView1.PaddingSetting = new System.Drawing.Point(0, 0);
+            this.treeView1.ShowDescription = false;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowPlusMinus = false;
+            this.treeView1.Size = new System.Drawing.Size(476, 467);
+            this.treeView1.TabIndex = 13;
+            this.treeView1.Visible = false;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
+            // 
+            // myTreeView5
+            // 
+            this.myTreeView5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.myTreeView5.BackColor = System.Drawing.Color.White;
+            this.myTreeView5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.myTreeView5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.myTreeView5.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.myTreeView5.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.myTreeView5.ForeColor = System.Drawing.Color.Black;
+            this.myTreeView5.FullRowSelect = true;
+            this.myTreeView5.HotTracking = true;
+            this.myTreeView5.ImageHeight = 25;
+            this.myTreeView5.ImageWidth = 25;
+            this.myTreeView5.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.myTreeView5.IsCard = false;
+            this.myTreeView5.ItemHeight = 25;
+            this.myTreeView5.Location = new System.Drawing.Point(9, 27);
+            this.myTreeView5.Name = "myTreeView5";
+            this.myTreeView5.NodeFont = null;
+            this.myTreeView5.NodeImageSize = new System.Drawing.Size(20, 20);
+            this.myTreeView5.PaddingSetting = new System.Drawing.Point(0, 4);
+            this.myTreeView5.ShowDescription = false;
+            this.myTreeView5.ShowLines = false;
+            this.myTreeView5.ShowPlusMinus = false;
+            this.myTreeView5.Size = new System.Drawing.Size(247, 509);
+            this.myTreeView5.TabIndex = 15;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(640, 58);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(48, 16);
+            this.checkBox1.TabIndex = 39;
+            this.checkBox1.Text = "修改";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // VSTOOL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(914, 694);
+            this.ClientSize = new System.Drawing.Size(968, 694);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
@@ -871,6 +895,7 @@ namespace VSTool
         private Common.Implement.UI.MyTreeView myTreeView4;
         private Common.Implement.UI.MyPanel scrollPanel;
         private Common.Implement.UI.MyTreeView myTreeView5;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

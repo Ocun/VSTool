@@ -46,6 +46,10 @@ namespace Common.Implement.Entity
         private string showParWindowField;
         private string partIDField;
         private string isMergeField;
+        private string showCheckedBoxField;
+        private string isTools;
+        private string url;
+
         /// <summary>
         /// 来源自同一模板代码片段是否合并
         /// </summary>
@@ -109,31 +113,59 @@ namespace Common.Implement.Entity
                 this.buildeItemsField = value;
             }
         }
-
+        /// <summary>
+        /// 是否选中
+        /// </summary>
         public string Checked {
             get { return checkedField; }
             set { checkedField = value; }
         }
-
+        /// <summary>
+        /// 是否可选
+        /// </summary>
         public string ReadOnly {
             get { return readOnlyField; }
             set { readOnlyField = value; }
         }
-
-
+        /// <summary>
+        /// 将要生成的文件信息
+        /// </summary>
         public List<FileInfos> FileInfos {
             get { return fileInfosField; }
             set { fileInfosField = value; }
         }
-
+        /// <summary>
+        /// 点击是否显示参数框
+        /// </summary>
         public string ShowParWindow {
             get { return showParWindowField; }
             set { showParWindowField = value; }
         }
 
+        /// <summary>
+        /// 指示所属代码片段
+        /// </summary>
         public string PartId {
             get { return partIDField; }
             set { partIDField = value; }
+        }
+
+        /// <summary>
+        /// 是否显示复选框
+        /// </summary>
+        public string ShowCheckedBox {
+            get { return showCheckedBoxField; }
+            set { showCheckedBoxField = value; }
+        }
+
+        public string IsTools {
+            get { return isTools; }
+            set { isTools = value; }
+        }
+
+        public string Url {
+            get { return url; }
+            set { url = value; }
         }
     }
 

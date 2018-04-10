@@ -330,6 +330,26 @@ namespace Common.Implement.UI {
 
         public event SetAutoScrollHandler SetAutoScrollEvent;
 
+        protected override void OnNodeMouseDoubleClick(TreeNodeMouseClickEventArgs e)
+        {
+            base.OnNodeMouseDoubleClick(e);
+            var node = e.Node as MyTreeNode;
+            var bt = node.buildeType;
+            if (bt.IsTools != null
+                && bt.IsTools.Equals("True")) {
+                if (bt.Url == null || bt.Url.Equals(string.Empty)) {
+                    setToolPath form = new setToolPath(bt.Url);
+                    if (form.ShowDialog() == DialogResult.OK) {
+                        bt.Url = form.path;
+                        paloTool.modiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
+                            bt.Id, bt.Url);
+                    }
+                }
+                else {
+                    paloTool.OpenTools(bt.Url);
+                }
+            }
+        }
         //自定义消息
         protected override void WndProc(ref Message m)
         {
@@ -343,17 +363,23 @@ namespace Common.Implement.UI {
             #region 日后参考
             //if (m.Msg == WM_mouse_Click)//单击  
             //{
-            //int wparam = m.LParam.ToInt32();
-            //Point point = new Point(
-            //    LOWORD(wparam),
-            //    HIWORD(wparam));
-            ////point = PointToClient(point);  
-            //TreeNode tn = this.GetNodeAt(point);
-            //if (tn == null)
-            //{
-            //    base.WndProc(ref m);
-            //    return;
-            //}
+            //    int wparam = m.LParam.ToInt32();
+            //    Point point = new Point(
+            //        LOWORD(wparam),
+            //        HIWORD(wparam));
+            //    //point = PointToClient(point);  
+            //    MyTreeNode tn = this.GetNodeAt(point) as MyTreeNode;
+            //    if (tn == null) {
+            //        base.WndProc(ref m);
+            //        return;
+            //    }
+            //    else if (tn.buildeType.ReadOnly != null && tn.buildeType.ReadOnly.Equals("True")) {
+            //        return;
+            //    }
+            //    else {
+            //        base.WndProc(ref m);
+            //        return;
+            //    }
             //if (tn.Level == 0)
             //{
             //    if (tn.IsExpanded)

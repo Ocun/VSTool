@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -164,13 +165,12 @@ namespace Common.Implement {
         /// <param name="mytree"></param>
         /// <param name="BuildeEntity"></param>
         /// <param name="showCheck"></param>
-        public static void createTree(MyTreeView mytree, List<BuildeType> BuildeEntity, bool showCheck) {
+        public static void createTree(toolpars Toolpars, MyTreeView mytree, List<BuildeType> BuildeEntity, bool showCheck) {
             mytree.Nodes.Clear();
             if (BuildeEntity != null
                 && BuildeEntity.Count > 0) {
                 var item = BuildeEntity.ToList();
-
-                item.ForEach(BuildeType => { mytree.Nodes.Add(CreateTree(BuildeType, showCheck, false)); });
+                item.ForEach(BuildeType => { mytree.Nodes.Add(CreateTree(Toolpars,BuildeType, showCheck, false)); });
             }
         }
 
@@ -180,17 +180,28 @@ namespace Common.Implement {
         /// <param name="buildeType"></param>
         /// <param name="type">是否读取子节点 </param>
         /// <returns></returns>
-        public static TreeNode CreateTree(BuildeType buildeType, bool showCheck, bool readSubView) {
+        public static TreeNode CreateTree(toolpars Toolpars,BuildeType buildeType, bool showCheck, bool readSubView) {
             string text = buildeType.Name ?? String.Empty;
             MyTreeNode new_child = new MyTreeNode(text);
             new_child.buildeType = buildeType;
             if (showCheck) {
-                new_child.CheckBoxVisible = true;
+                if (buildeType.ShowCheckedBox != null
+                    && buildeType.ShowCheckedBox.Equals("False")) {
+
+                }
+                else {
+                    if (buildeType.ReadOnly != null && 
+                        buildeType.ReadOnly.Equals("True")
+                        ) {
+                        new_child.buildeType.FileInfos = createFileMappingInfo(Toolpars, new_child.buildeType);
+                    }
+                        new_child.CheckBoxVisible = true;
+                }
             }
             //读下层目录
             else if (readSubView && buildeType.BuildeItems.Length > 0) {
                 buildeType.BuildeItems.ToList().ForEach(BuildeItem => {
-                    new_child.Nodes.Add(CreateTree(BuildeItem, showCheck, readSubView));
+                    new_child.Nodes.Add(CreateTree(Toolpars,BuildeItem, showCheck, readSubView));
                 });
             }
             return new_child;
@@ -849,5 +860,125 @@ namespace Common.Implement {
         }
 
         #endregion
+
+
+        public static void modiXml(string xmlPath,string Id,string value) {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlPath);
+            XmlNodeList xns = xmlDoc.SelectNodes("//BuildeItem");
+            foreach (XmlNode xn in xns) {
+                var childNodes = xn.ChildNodes;
+                bool f = true;
+                foreach (XmlNode node in childNodes) {
+                    if (node.Name == "Id"
+                        && node.InnerText.Equals(Id)) {
+                        f = false;
+                        break;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                if (!f) {
+                    foreach (XmlNode node in childNodes)
+                    {
+                        if (node.Name == "Url") {
+                            node.InnerText = value;
+                            break;
+                        }
+                     
+                    }
+                  
+                    break;
+                }
+
+            }
+             xmlDoc.Save(xmlPath);
+
+        }
+
+       public static void OpenTools(string path) {
+          
+            try
+            {
+                Process p = new Process();
+                var infos = Process.GetProcesses();
+                string exeName = Path.GetFileNameWithoutExtension(path);
+                bool f = true;
+                foreach (var info in infos) {
+                    if (info.ProcessName.ToUpper().Contains(exeName.ToUpper())) {
+                        f = false;
+                        break;
+                    }
+                }
+                if (f) {
+                    p.StartInfo.FileName = path;
+
+                    p.Start();
+                }
+                else {
+                    MessageBox.Show("已启动！");
+                }
+            }
+            catch (Exception e0)
+            {
+                MessageBox.Show("启动应用程序时出错！原因：" + e0.Message);
+            }
+        }
+
+        #region 修改
+        public static MyTreeNode myPaintTreeView(toolpars Toolpars,string fullPath) {
+
+            string DirName = Path.GetFileName(fullPath);
+            MyTreeNode Node = new MyTreeNode(DirName) { CheckBoxVisible = false };
+            DirectoryInfo dirs = new DirectoryInfo(fullPath);
+            DirectoryInfo[] dir = dirs.GetDirectories();
+            FileInfo[] file = dirs.GetFiles();
+            if (!dir.Any()
+                && file.Length == 0) {
+                Node.CheckBoxVisible = false;
+            }
+
+            int dircount = dir.Count();
+            int filecount = file.Count();
+            for (int i = 0; i < dircount; i++)
+            {
+           
+                string pathNode = fullPath + @"\" + dir[i].Name;
+                MyTreeNode new_child = myPaintTreeView(Toolpars,pathNode);
+
+                Node.Nodes.Add(new_child);
+            }
+
+            for (int j = 0; j < filecount; j++) {
+
+                string fullName = file[j].FullName;
+                string extensionName =  Path.GetExtension(fullName);
+                string[] extensionNames = {".cs",".resx" };
+
+                if (extensionNames.Contains(extensionName)) {
+                    MyTreeNode new_child = new MyTreeNode(file[j].Name);
+                    new_child.CheckBoxVisible = true;
+                    BuildeType bt = new BuildeType();
+                    List<FileInfos> infos = new List<FileInfos>();
+                    FileInfos info = new FileInfos();
+                    info.FromPath = fullName;
+
+                    string oldTypeKey = Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                    string toPath = info.FromPath.Replace(oldTypeKey, Toolpars.formEntity.txtNewTypeKey);
+                    info.ToPath = toPath;
+
+                    info.ToPath = fullName;
+                    infos.Add(info);
+                    bt.FileInfos = infos;
+                    new_child.buildeType = bt;
+                    Node.Nodes.Add(new_child);
+                }
+            }
+            return Node;
+        } 
+
+        #endregion
+
     }
 }
