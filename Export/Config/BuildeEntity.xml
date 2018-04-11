@@ -182,10 +182,6 @@
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
-    <BuildeType>
-      <Id>Modi</Id>
-      <Name>修改</Name>
-      <Description>Copy标准</Description>
-    </BuildeType>
+    
   </BuildeTypies>
 </BuildeEntity>

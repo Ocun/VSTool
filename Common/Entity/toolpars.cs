@@ -1,4 +1,6 @@
+using System;
 using Common.Implement.Entity;
+using Common.Implement.Tools;
 
 namespace Common.Implement {
     public class toolpars {
@@ -17,16 +19,15 @@ namespace Common.Implement {
         private string _customerName;
         private FormEntity _formEntity;
         private PathEntity _pathEntity;
-        public SettingPathEntity _settingPathEntity;
-        public BuildeEntity _builderEntity;
-        public MappingEntity _FileMappingEntity;
-        
+        private SettingPathEntity _settingPathEntity;
+        private BuildeEntity _builderEntity;
+        private MappingEntity _FileMappingEntity;
         public MappingEntity FileMappingEntity
         {
             get
             {
                 if (_FileMappingEntity == null) {
-                    string Path = MVSToolpath + @"Config\FileMapping.xml";
+                    string Path = string.Format(@"{0}Config\FileMapping.xml", MVSToolpath);
                     if (ValidateTool.checkFile(Path)) {
                         _FileMappingEntity = ReadToEntityTools.ReadToEntity<MappingEntity>(Path);
                     }
@@ -41,7 +42,7 @@ namespace Common.Implement {
             get
             {
                 if (_settingPathEntity == null) {
-                    string settingPath = MVSToolpath + @"Config\SettingPathEntity.xml";
+                    string settingPath = string.Format(@"{0}Config\SettingPathEntity.xml", MVSToolpath);
                     if (ValidateTool.checkFile(settingPath)) {
                         _settingPathEntity = ReadToEntityTools.ReadToEntity<SettingPathEntity>(settingPath);
                     }
@@ -56,7 +57,7 @@ namespace Common.Implement {
             get
             {
                 if (_builderEntity == null) {
-                    string  Path = MVSToolpath + @"Config\BuildeEntity.xml";
+                    string  Path = string.Format (@"{0}Config\BuildeEntity.xml", MVSToolpath) ;
                     if (ValidateTool.checkFile(Path)) {
                         _builderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
                     }

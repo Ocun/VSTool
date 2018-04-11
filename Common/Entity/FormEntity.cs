@@ -12,10 +12,12 @@ namespace Common.Implement
 
         private string txtToPathField = string.Empty;
         private string txtPKGpathField = string.Empty;
+       
         private string txtNewTypeKeyField = string.Empty;
         private bool IndustryField = false;
 
-        
+        private string copyTypekeyField = string.Empty;
+
         /// <summary>
         /// 個案路徑
         /// </summary>
@@ -43,6 +45,14 @@ namespace Common.Implement
         public bool Industry {
             get { return IndustryField; }
             set { IndustryField = value; }
+        }
+
+        /// <summary>
+        /// 要借用的TypeKey
+        /// </summary>
+        public string PkgTypekey {
+            get { return copyTypekeyField; }
+            set { copyTypekeyField = value; }
         }
     }
 }

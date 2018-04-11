@@ -7,7 +7,8 @@ using System.Net;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Common.Implement {
+namespace Common.Implement.Tools
+{
     public class CallUpdate {
         //Kill執行緒 
         public static void KillTask(string ExeFileName) {

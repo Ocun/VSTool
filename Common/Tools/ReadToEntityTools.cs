@@ -7,7 +7,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Common.Implement
+namespace Common.Implement.Tools
 {
     public class ReadToEntityTools
     {

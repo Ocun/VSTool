@@ -4,7 +4,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-namespace Common.Implement {
+namespace Common.Implement.Tools
+{
     public class sqlTools {
         private static string connectionString = "";
         private static SqlConnection connection ;

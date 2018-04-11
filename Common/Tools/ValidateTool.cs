@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Common.Implement
+namespace Common.Implement.Tools
 {
    public class ValidateTool {
        public static bool checkFile(string filePath) {

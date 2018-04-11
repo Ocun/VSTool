@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Common.Implement.Tools;
 
 namespace Common.Implement.UI {
     public partial class ModiPKG : Form {
@@ -64,7 +65,7 @@ namespace Common.Implement.UI {
                 return;
             }
             try { 
-            Tools.WriteLog(Toolpars, listDATA);
+            OldTools.WriteLog(Toolpars, listDATA);
 
             Toolpars.GToIni = Toolpars.formEntity.txtToPath;
             if ((Toolpars.formEntity.txtToPath == "")
@@ -87,7 +88,7 @@ namespace Common.Implement.UI {
                 {
                     object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
                         "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
-                    Tools.DeleteAll(tArgsPath);
+                    OldTools.DeleteAll(tArgsPath);
                 }
                 else
                 {
@@ -97,7 +98,7 @@ namespace Common.Implement.UI {
 
             if (Directory.Exists(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey))
             {
-                Tools.CopyAll(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey,
+                OldTools.CopyAll(Toolpars.MVSToolpath + "Digiwin.ERP." + Toolpars.OldTypekey,
                     tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
             }
 
@@ -283,10 +284,10 @@ namespace Common.Implement.UI {
                         string mfileN = mpan.Substring(mpan.LastIndexOf("\\") + 1);
                         mpan = mpan.Substring(0, mpan.LastIndexOf("\\"));
                         string mpans = mpan.Substring(mpan.LastIndexOf("\\") + 1);
-                        Tools.ModiCS(mpan + "\\" + mpans + ".csproj", mfileN + mtoa.Substring(mtoa.LastIndexOf("\\")));
+                        OldTools.ModiCS(mpan + "\\" + mpans + ".csproj", mfileN + mtoa.Substring(mtoa.LastIndexOf("\\")));
                         string[] strpath = mtoa.Split('\\');
 
-                        //Tools.ModiCS(mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY + ".Business.Implement.csproj", "Implement\\" + csname.Substring(1) + ".cs");
+                        //OldTools.ModiCS(mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY + ".Business.Implement.csproj", "Implement\\" + csname.Substring(1) + ".cs");
                     }
                 }
             }
@@ -327,14 +328,14 @@ namespace Common.Implement.UI {
                                 {
                                     object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
                                         "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
-                                    Tools.DeleteAll(tArgsPath);
+                                    OldTools.DeleteAll(tArgsPath);
                                 }
                                 else
                                 {
                                     return;
                                 }
                             }
-                            Tools.CopyAllPKG(strb1, tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                            OldTools.CopyAllPKG(strb1, tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
                         }
                     }
                     else
@@ -353,7 +354,7 @@ namespace Common.Implement.UI {
 
                 #region 修改命名
 
-                Tools.ModiName(Toolpars);
+                OldTools.ModiName(Toolpars);
 
                 #endregion
 
@@ -385,7 +386,7 @@ namespace Common.Implement.UI {
                 string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
                                + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                 if (Directory.Exists(strb1)) {
-                    Tools.paintTreeView(treeView1, strb1);
+                    OldTools.paintTreeView(treeView1, strb1);
                     listDATA.Items.Clear();
                 }
                 else

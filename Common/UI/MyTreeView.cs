@@ -4,6 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Common.Implement.Entity;
 using Common.Implement.Properties;
+using Common.Implement.Tools;
 
 namespace Common.Implement.UI {
     public partial class MyTreeView : TreeView {
@@ -341,12 +342,12 @@ namespace Common.Implement.UI {
                     setToolPath form = new setToolPath(bt.Url);
                     if (form.ShowDialog() == DialogResult.OK) {
                         bt.Url = form.path;
-                        paloTool.modiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
+                        MyTool.modiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
                             bt.Id, bt.Url);
                     }
                 }
                 else {
-                    paloTool.OpenTools(bt.Url);
+                    MyTool.OpenTools(bt.Url);
                 }
             }
         }

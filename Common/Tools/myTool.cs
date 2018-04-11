@@ -10,8 +10,9 @@ using System.Xml;
 using Common.Implement.Entity;
 using Common.Implement.UI;
 
-namespace Common.Implement {
-    public class paloTool {
+namespace Common.Implement.Tools
+{
+    public class MyTool {
         /// <summary>
         /// 把文件拷入指定的文件夹
         /// </summary>
@@ -46,7 +47,7 @@ namespace Common.Implement {
                 var dir = newfileinfo.Directory;
 
                 //dir.Parent
-                //Tools.ModiCS(mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY +
+                //OldTools.ModiCS(mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY +
                 //                            ".Business.Implement.csproj", "Interceptor\\DetailInterceptorS" + ra + ".cs");
             }
             ;
@@ -157,57 +158,7 @@ namespace Common.Implement {
 
             //}
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mytree"></param>
-        /// <param name="BuildeEntity"></param>
-        /// <param name="showCheck"></param>
-        public static void createTree(toolpars Toolpars, MyTreeView mytree, List<BuildeType> BuildeEntity, bool showCheck) {
-            mytree.Nodes.Clear();
-            if (BuildeEntity != null
-                && BuildeEntity.Count > 0) {
-                var item = BuildeEntity.ToList();
-                item.ForEach(BuildeType => { mytree.Nodes.Add(CreateTree(Toolpars,BuildeType, showCheck, false)); });
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="buildeType"></param>
-        /// <param name="type">是否读取子节点 </param>
-        /// <returns></returns>
-        public static TreeNode CreateTree(toolpars Toolpars,BuildeType buildeType, bool showCheck, bool readSubView) {
-            string text = buildeType.Name ?? String.Empty;
-            MyTreeNode new_child = new MyTreeNode(text);
-            new_child.buildeType = buildeType;
-            if (showCheck) {
-                if (buildeType.ShowCheckedBox != null
-                    && buildeType.ShowCheckedBox.Equals("False")) {
-
-                }
-                else {
-                    if (buildeType.ReadOnly != null && 
-                        buildeType.ReadOnly.Equals("True")
-                        ) {
-                        new_child.buildeType.FileInfos = createFileMappingInfo(Toolpars, new_child.buildeType);
-                    }
-                        new_child.CheckBoxVisible = true;
-                }
-            }
-            //读下层目录
-            else if (readSubView && buildeType.BuildeItems.Length > 0) {
-                buildeType.BuildeItems.ToList().ForEach(BuildeItem => {
-                    new_child.Nodes.Add(CreateTree(Toolpars,BuildeItem, showCheck, readSubView));
-                });
-            }
-            return new_child;
-        }
-
-
+        
         /// <summary>
         /// 將dll 考入平臺目錄
         /// </summary>
@@ -269,68 +220,11 @@ namespace Common.Implement {
                 }
             }
         }
-
-
-        #region CreateRightView
-
-        /// <summary>
-        /// 创建右面板
-        /// </summary>
-        /// <param name="ToolPar"></param>
-        /// <param name="nodes"></param>
-        public static void CreateRightView(toolpars ToolPar, TreeNodeCollection nodes) {
-            var BuildeEntity = ToolPar.BuilderEntity.BuildeTypies;
-            if (BuildeEntity != null) {
-                var item = BuildeEntity.ToList();
-                item.ForEach(buildeType => {
-                    var node = createTree(buildeType);
-                    if (node != null) {
-                        nodes.Add(node);
-                    }
-                });
-            }
-        }
-
-        public static MyTreeNode createTree(BuildeType buildeType) {
-            string text = buildeType.Name ?? String.Empty;
-            MyTreeNode new_child = new MyTreeNode(text);
-            bool existedFile = true;
-            new_child.buildeType = buildeType;
-            if (new_child.buildeType.FileInfos == null
-                || new_child.buildeType.FileInfos.Count == 0) {
-                //读下层目录
-                if (buildeType.BuildeItems != null
-                    && buildeType.BuildeItems.Length > 0) {
-                    buildeType.BuildeItems.ToList().ForEach(BuildeItem => {
-                        var node = createTree(BuildeItem);
-                        if (node != null) {
-                            new_child.Nodes.Add(node);
-                        }
-                    });
-                }
-                else {
-                    existedFile = false;
-                }
-            }
-            else {
-                new_child.buildeType.FileInfos.ToList().ForEach(createfile => {
-                    MyTreeNode file_child = new MyTreeNode(createfile.FileName);
-                    new_child.Nodes.Add(file_child);
-                });
-            }
-            if (existedFile && new_child.Nodes.Count > 0)
-                return new_child;
-            else {
-                return null;
-            }
-        }
-
-        #endregion
-
+        
         #region Copy
 
         /// <summary>
-        /// 找到文件所属第一个CSproj
+        /// 找到文件所属第一个CSproj,这有问题！！
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
@@ -467,7 +361,7 @@ namespace Common.Implement {
                                 }
                             }
 
-                            testR(toPath);
+                          //  testR(toPath);
 
                             #region 修改csproj
 
@@ -476,6 +370,7 @@ namespace Common.Implement {
                             string csPath = findCSproj(dirInfo);
                             string csDir = string.Format("{0}\\", Path.GetDirectoryName(csPath));
 
+                            //找到相对位置
                             int index = toPath.IndexOf(csDir);
 
                             if (index > -1) {
@@ -494,7 +389,7 @@ namespace Common.Implement {
                 #endregion
             }
             if (success) {
-                WriteLog(ToolPars, treeView);
+                LogTool.WriteLog(ToolPars, treeView);
                 InitBuliderEntity(ToolPars.BuilderEntity.BuildeTypies);
                 MessageBox.Show("生成成功");
             }
@@ -558,6 +453,59 @@ namespace Common.Implement {
 
         #region  修改解决方案的csproj文件 添加类文件
 
+     
+        /// <summary>  
+        /// 删除节点  
+        /// </summary>  
+        public static void XmlNodeByXPath(string xmlFileName,string xpath, List<string> pathList) {
+            string basePath = Path.GetDirectoryName(xmlFileName) + @"\";
+            List<string> abPathList = new List<string>();
+            pathList.ForEach(f => {
+                    string fpath = f;
+                    int index = fpath.IndexOf(basePath );
+                    if (index > -1)
+                    {
+                        abPathList.Add(fpath.Substring(index + basePath.Length));
+
+                    }
+                }
+            );
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlFileName);
+            XmlNamespaceManager mnamespce = new XmlNamespaceManager(xmlDoc.NameTable);
+            string NamespaceURI = xmlDoc.ChildNodes[1].NamespaceURI;
+            XmlNodeList xNodes = null;
+            if (NamespaceURI != null)
+            {
+                mnamespce.AddNamespace("nhb", NamespaceURI);
+                xpath = string.Format(@"//nhb:{0}", xpath);
+                xNodes = xmlDoc.SelectNodes(xpath, mnamespce);
+            }
+            else
+            {
+                xNodes = xmlDoc.SelectNodes(xpath);
+            }
+
+            if (xNodes != null)
+            {
+                for (int i = xNodes.Count - 1; i >= 0; i--)
+                {
+                    XmlElement xe = (XmlElement)xNodes[i];
+                    var xmlAttributeCollection = xNodes[i].Attributes;
+                    if (xmlAttributeCollection != null && xmlAttributeCollection["Include"] != null) {
+                      
+                        if (!abPathList.Contains(xmlAttributeCollection["Include"].Value))
+                        {
+                            xNodes[i].ParentNode.RemoveChild(xNodes[i]);
+                        }
+                    }
+                }
+                xmlDoc.Save(xmlFileName);
+            }
+        }
+
+        
+
         public static void ModiCS(string xmlPath, string CSName) {
             if (CSName.Contains(".designer.cs")) {
                 XmlDocument xmlDoc = new XmlDocument();
@@ -618,6 +566,12 @@ namespace Common.Implement {
             }
         }
 
+        /// <summary>
+        /// 判断节点是否存在
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         static bool checkXmlNode(XmlNode root, string name) {
             #region 判断是否已经添加
 
@@ -803,65 +757,6 @@ namespace Common.Implement {
         #endregion
 
 
-        #region 日志
-
-        /// <summary>
-        /// 日志
-        /// </summary>
-        public static void WriteLog(toolpars Toolpars, MyTreeView treeView) {
-            var pathDic = GetTreeViewFilePath(treeView.Nodes, Toolpars);
-            string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
-            string varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
-            if (!Directory.Exists(varAppPath)) {
-                Directory.CreateDirectory(varAppPath);
-            }
-            string logPath = string.Format(@"{0}\\{1}.log", varAppPath,
-                Toolpars.CustomerName == null || Toolpars.CustomerName.Equals(string.Empty)
-                    ? DateTime.Now.ToString("yyyyMMddhhmmss")
-                    : Toolpars.CustomerName);
-
-
-            StringBuilder logStr = new StringBuilder();
-            string headStr = string.Empty;
-            for (int i = 0; i <= 80; i++) {
-                headStr += "_";
-            }
-            logStr.AppendLine(headStr).AppendLine(string.Format("    # CREATEDATE   {0}",
-                    DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:fff")))
-                .AppendLine(string.Format("    # CREATEBY  {0}", Environment.MachineName))
-                .AppendLine(string.Format("    # TYPEKEY  {0}", txtNewTypeKey)).AppendLine();
-
-
-            string head = DateTime.Now.ToString("hh:mm:ss:fff");
-            foreach (var kv in pathDic) {
-                foreach (var fileinfo in kv.Value) {
-                    logStr.AppendLine(String.Format("    # {0} {1}", kv.Key, fileinfo.FunctionName));
-                }
-            }
-            logStr.AppendLine(headStr);
-            using (StreamWriter SW = new StreamWriter(logPath, true, Encoding.UTF8)) {
-                SW.WriteLine(logStr.ToString());
-                SW.Flush();
-                SW.Close();
-            }
-            ;
-        }
-
-        public static void writeToServer(toolpars Toolpars, Dictionary<string, List<FileInfos>> pathDic) {
-            foreach (var kv in pathDic) {
-                kv.Value.ForEach(fileinfo => {
-                    // sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
-                    string year = DateTime.Now.ToString("yyyyMMdd");
-                    string demandId = string.Format("S01231_{0}_01", year);
-                    sqlTools.insertToolInfo(demandId, year,
-                        Toolpars.formEntity.txtNewTypeKey + "_" + fileinfo.FunctionName);
-                });
-            }
-        }
-
-        #endregion
-
-
         public static void modiXml(string xmlPath,string Id,string value) {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(xmlPath);
@@ -927,6 +822,12 @@ namespace Common.Implement {
         }
 
         #region 修改
+        /// <summary>
+        /// 根据标准路径生成结点
+        /// </summary>
+        /// <param name="Toolpars"></param>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
         public static MyTreeNode myPaintTreeView(toolpars Toolpars,string fullPath) {
 
             string DirName = Path.GetFileName(fullPath);
@@ -938,7 +839,6 @@ namespace Common.Implement {
                 && file.Length == 0) {
                 Node.CheckBoxVisible = false;
             }
-
             int dircount = dir.Count();
             int filecount = file.Count();
             for (int i = 0; i < dircount; i++)
@@ -964,9 +864,9 @@ namespace Common.Implement {
                     FileInfos info = new FileInfos();
                     info.FromPath = fullName;
 
-                    string oldTypeKey = Toolpars.formEntity.txtNewTypeKey.Substring(1);
-                    string toPath = info.FromPath.Replace(oldTypeKey, Toolpars.formEntity.txtNewTypeKey);
-                    info.ToPath = toPath;
+                    //string oldTypeKey = Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                    //string toPath = info.FromPath.Replace(oldTypeKey, Toolpars.formEntity.txtNewTypeKey);
+                    //info.ToPath = toPath;
 
                     info.ToPath = fullName;
                     infos.Add(info);
@@ -976,8 +876,226 @@ namespace Common.Implement {
                 }
             }
             return Node;
-        } 
+        }
+        /// <summary>
+        /// 目录下的文件copy至另一目录 ,先copy 再替换 typekey
+        /// </summary>
+        /// <param name="pFileName"></param>
+        /// <param name="pDistFolder"></param>
+        public static void CopyPKG(string pFileName, string pDistFolder,List<FileInfos> filesinfo)
+        {
 
+            //文件夹替换，递归
+            if (Directory.Exists(pFileName))
+            {
+                // Folder
+                var di = new DirectoryInfo(pFileName);
+                //子文件夹
+                var diries = di.GetDirectories();
+                //文件
+                var files = di.GetFiles();
+                //if (!Directory.Exists(pDistFolder)) {
+                //    Directory.CreateDirectory(pDistFolder);
+                //}
+                foreach (DirectoryInfo d in diries)
+                {
+                    string tFolderPath = pDistFolder + @"\" + d.Name;
+                    //if (!Directory.Exists(tFolderPath))
+                    //{
+                    //    Directory.CreateDirectory(tFolderPath);
+                    //}
+                    CopyPKG(d.FullName, tFolderPath, filesinfo);
+                }
+                foreach (FileInfo f in files) {
+                    string[] filter = {
+                        ".sln",".csproj"
+                    };
+                    
+                    string frompath = f.FullName;
+                    var Selected = filesinfo.FirstOrDefault(file => file.FromPath.Equals(frompath));
+                    string extionName = Path.GetExtension(frompath);
+                    if (Selected != null 
+                        || filter.Contains(extionName)
+                        ) {
+                            CopyPKG(f.FullName, pDistFolder + @"\" + f.Name, filesinfo);
+                    }
+                }
+            }
+            else if (File.Exists(pFileName))
+            {
+                //文件夹
+                if (!Directory.Exists(pDistFolder.Remove(pDistFolder.LastIndexOf("\\"))))
+                {
+                    Directory.CreateDirectory(pDistFolder.Remove(pDistFolder.LastIndexOf("\\")));
+                }
+                if (File.Exists(pDistFolder))
+                {
+                    File.SetAttributes(pDistFolder, FileAttributes.Normal);
+                }
+                try
+                {
+                    File.Copy(pFileName, pDistFolder, true);
+                }
+                catch
+                {
+                    
+                }
+               
+            }
+        }
+        public static bool copyModi(TreeNodeCollection nodes,toolpars ToolPars ) {
+            bool sucess = true;
+            try {
+               
+                var fileInfos = GetTreeViewPath(nodes);
+
+                string formDir = ToolPars.formEntity.txtPKGpath + "Digiwin.ERP."
+                               + ToolPars.formEntity.PkgTypekey;
+                string toDir = ToolPars.formEntity.txtToPath + "\\Digiwin.ERP."
+                               + ToolPars.formEntity.txtNewTypeKey;
+
+                CopyPKG(formDir, toDir, fileInfos);
+                ModiName(ToolPars);
+            }
+            catch (Exception ex){
+                sucess = false;
+            }
+          
+            return sucess;
+
+
+        }
+        /// <summary>
+        /// 批量修改个案cs文件
+        /// </summary>
+        /// <param name="Toolpars"></param>
+        public static void ModiName(toolpars Toolpars)
+        {
+            string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
+            string PkgTypekey = Toolpars.formEntity.PkgTypekey;
+            //个案路径
+            string DirectoryPath = string.Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, txtNewTypeKey);
+            DirectoryInfo tDes = new DirectoryInfo(DirectoryPath);
+
+            
+
+
+            List<string> tSearchPatternList = new List<string>();
+            tSearchPatternList.AddRange(new[] {
+                "*xml",
+                "*.sln",
+                "*.repx",
+                "*proj",
+                "*.complete",
+                "*.cs"
+            });
+            foreach (DirectoryInfo d in tDes.GetDirectories("*", SearchOption.AllDirectories))
+            {
+                //查找不包含txtNewTypeKey的文件夹
+                if (d.Name.IndexOf(txtNewTypeKey) == -1)
+                {
+                    //查找txtPKGpath
+                    if (d.Name.IndexOf(PkgTypekey) != -1)
+                    {
+                        if (
+                            File.Exists(d.Parent.FullName + "\\" +
+                                        d.Name.Replace(PkgTypekey, txtNewTypeKey)))
+                        {
+                            File.SetAttributes(
+                                d.Parent.FullName + "\\" +
+                                d.Name.Replace(PkgTypekey, txtNewTypeKey),
+                                FileAttributes.Normal);
+                            File.Delete(d.Parent.FullName + "\\" +
+                                        d.Name.Replace(PkgTypekey, txtNewTypeKey));
+                        }
+                        if (
+                            Directory.Exists(d.Parent.FullName + "\\" +
+                                             d.Name.Replace(PkgTypekey, txtNewTypeKey)) ==
+                            false)
+                        {
+                            d.MoveTo(d.Parent.FullName + "\\" +
+                                     d.Name.Replace(PkgTypekey, txtNewTypeKey));
+                        }
+                        Application.DoEvents();
+                    }
+                }
+            }
+
+
+            foreach (System.IO.FileInfo f in tDes.GetFiles("*", SearchOption.AllDirectories))
+            {
+                if (f.Name.IndexOf(txtNewTypeKey) == -1)
+                {
+                    if (f.Name.IndexOf(PkgTypekey) != -1)
+                    {
+                        if (File.Exists(f.FullName))
+                        {
+                            if (
+                                File.Exists(f.Directory.FullName + "\\" +
+                                            f.Name.Replace("Digiwin.ERP." + PkgTypekey,
+                                                "Digiwin.ERP." + txtNewTypeKey)) == false)
+                            {
+                                f.MoveTo(f.Directory.FullName + "\\" +
+                                         f.Name.Replace("Digiwin.ERP." + PkgTypekey,
+                                             "Digiwin.ERP." + txtNewTypeKey));
+                            }
+                            Application.DoEvents();
+                        }
+                    }
+                }
+            }
+            List<string> patList = GetFilePath(DirectoryPath);
+            for (int i = 0; i < tSearchPatternList.Count; i++)
+            {
+                foreach (System.IO.FileInfo f in tDes.GetFiles(tSearchPatternList[i], SearchOption.AllDirectories)) {
+                    string filePath = f.FullName;
+                    if (File.Exists(filePath))
+                    {
+                        string text = File.ReadAllText(filePath);
+                        text = text.Replace("Digiwin.ERP." + PkgTypekey,
+                            "Digiwin.ERP." + txtNewTypeKey);
+                        text = text.Replace(@"<HintPath>..\..\", @"<HintPath>..\..\..\..\..\WD_PR\SRC\");
+                        File.SetAttributes(filePath, FileAttributes.Normal);
+                        File.Delete(filePath);
+                        File.WriteAllText(filePath, text, System.Text.UTF8Encoding.UTF8);
+
+                        string extionName= Path.GetExtension(filePath);
+                        if (extionName.Equals(".csproj")) {
+
+                            XmlNodeByXPath(filePath, @"Compile", patList);
+                            XmlNodeByXPath(filePath, @"EmbeddedResource", patList);
+                        }
+                        Application.DoEvents();
+                    }
+                }
+            }
+        }
+        public static List<FileInfos> GetTreeViewPath(TreeNodeCollection nodes)
+        {
+             List<FileInfos> paths = new  List<FileInfos>();
+
+            foreach (MyTreeNode node in nodes)
+            {
+                var filesInfo = node.buildeType.FileInfos;
+                if (filesInfo == null
+                    || filesInfo.Count == 0)
+                {
+                    if (node.Nodes.Count > 0)
+                    {
+                        var cpaths = GetTreeViewPath(node.Nodes);
+                        paths.AddRange(cpaths);
+                    }
+                }
+                else
+                {
+                    if (node.Checked) {
+                        var nodePath = node.buildeType.FileInfos;
+                        paths.AddRange(nodePath);
+                    }
+                }
+            }
+            return paths;
+        }
         #endregion
 
     }

@@ -77,15 +77,17 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Tools\CallUpdate.cs" />
-    <Compile Include="Tools\paloTool.cs" />
+    <Compile Include="Tools\LogTool.cs" />
+    <Compile Include="Tools\MyTool.cs" />
     <Compile Include="Tools\PathTools.cs" />
     <Compile Include="Tools\ReadToEntityTools.cs" />
+    <Compile Include="Tools\TreeViewTool.cs" />
     <Compile Include="Tools\ValidateTool.cs" />
     <Compile Include="Entity\FormEntity.cs" />
     <Compile Include="Entity\PathEntity.cs" />
     <Compile Include="Entity\toolpars.cs" />
     <Compile Include="Tools\sqlTools.cs" />
-    <Compile Include="Tools\Tools.cs" />
+    <Compile Include="Tools\OldTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ModiName.cs">
       <SubType>Form</SubType>
@@ -98,6 +100,12 @@
     </Compile>
     <Compile Include="UI\ModiPKG.Designer.cs">
       <DependentUpon>ModiPKG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModiPKGForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModiPKGForm.Designer.cs">
+      <DependentUpon>ModiPKGForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MyPanel.cs">
       <SubType>Component</SubType>
@@ -136,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ModiPKG.resx">
       <DependentUpon>ModiPKG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModiPKGForm.resx">
+      <DependentUpon>ModiPKGForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\setToolPath.resx">
       <DependentUpon>setToolPath.cs</DependentUpon>
