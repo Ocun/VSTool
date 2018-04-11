@@ -13,9 +13,9 @@
 		<Id>Tools</Id>
 		<Description>工具类</Description>
 		<Paths>
-			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Tools\Tools.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Tools\MyTools.cs</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Tools\ServiceTools.cs</Path>
-			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools\MyUITools.cs</Path>
 		</Paths>
 	</MappingItem>
 	<MappingItem>

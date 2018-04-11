@@ -29,19 +29,19 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         #region __InsertHere__
 
         #region MyRegion
-        private Tools _myTool;
+        private MyTools _myMyTool;
         private ServiceTools _myServiceTool;
 
         /// <summary>
         /// 这里提供一些辅助方法
         /// </summary>
-        public Tools MyTool
+        public MyTools MyMyTool
         {
             get
             {
-                if (_myTool == null
-                    ) _myTool = new Tools(this);
-                return _myTool;
+                if (_myMyTool == null
+                    ) _myMyTool = new MyTools(this);
+                return _myMyTool;
             }
         }
 
@@ -54,7 +54,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             {
                 if (_myServiceTool == null
                 )
-                    _myServiceTool = MyTool.MyService;
+                    _myServiceTool = MyMyTool.MyService;
                 return _myServiceTool;
             }
         } 
@@ -88,11 +88,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 // DateTime confirmDate = e.Context.ConfirmInfo.ConfirmDate;
                 // 获取服务
                 // 个案服务
-                // var iser = MyTool.GetService<ITESTService>(this.TypeKey);
+                // var iser = MyMyTool.GetService<ITESTService>(this.TypeKey);
                 // 系统服务
                 // var sysParameterSrv =   MyServiceTool.SysParameterSrv;
                 // 调自动审核
-                // MyTool.AutoApprove(this.TypeKey,entity.Oid,null);
+                // MyMyTool.AutoApprove(this.TypeKey,entity.Oid,null);
                 // 使用事务
                 //using (ITransactionService trans = this.GetService<ITransactionService>()) {
                 //trans.Complete();
@@ -123,11 +123,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 // DateTime confirmDate = e.Context.ConfirmInfo.ConfirmDate;
                 // 获取服务
                 // 个案服务
-                // var iser = MyTool.GetService<ITESTService>(this.TypeKey);
+                // var iser = MyMyTool.GetService<ITESTService>(this.TypeKey);
                 // 系统服务
                 // var sysParameterSrv =   MyServiceTool.SysParameterSrv;
                 // 调自动审核
-                // MyTool.AutoApprove(this.TypeKey,entity.Oid,null);
+                // MyMyTool.AutoApprove(this.TypeKey,entity.Oid,null);
                 // 使用事务
                 //using (ITransactionService trans = this.GetService<ITransactionService>()) {
                 //trans.Complete();

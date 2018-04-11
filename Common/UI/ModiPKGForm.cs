@@ -1,4 +1,5 @@
-﻿using System;
+﻿// create By 08628 20180411
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -51,8 +52,6 @@ namespace Common.Implement.UI
                 string path = Path.GetExtension(folderBrowserDialog1.SelectedPath);
 
                 this.TypeKeyText.Text = path;
-
-
 
             }
         }

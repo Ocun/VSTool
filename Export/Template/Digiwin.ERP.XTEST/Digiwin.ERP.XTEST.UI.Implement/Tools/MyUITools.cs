@@ -12,19 +12,19 @@ using Digiwin.ERP.FormBaseExtensions.UI.Implement;
 
 namespace Digiwin.ERP.XTEST.UI.Implement
 {
-    public class Tools
+    public class MyUITools
     {
         public IResourceServiceProvider _Provider { get; set; }
     
         public ServiceCallContext _Context{ get; set; }
 
 
-        public Tools(IResourceServiceProvider provider,ServiceCallContext serContext) {
+        public MyUITools(IResourceServiceProvider provider,ServiceCallContext serContext) {
             this._Provider = provider;
             this._Context = serContext;
         }
 
-        public Tools(IServiceComponentEvents Component)
+        public MyUITools(IServiceComponentEvents Component)
         {
             this._Provider = Component.ResourceServiceProvider;
             this._Context = Component.ServiceCallContext;

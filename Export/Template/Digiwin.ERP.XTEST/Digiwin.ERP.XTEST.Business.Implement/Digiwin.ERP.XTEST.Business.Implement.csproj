@@ -198,15 +198,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\TestsService.cs" />
-    <Compile Include="Interceptor\ApproveSInterceptor.cs" />
+    <Compile Include="Interceptor\commonInterceptor.cs" />
     <Compile Include="Interceptor\DetailInterceptorS.cs" />
     <Compile Include="Interceptor\SaveSInterceptor.cs" />
     <Compile Include="Interceptor\testValidate.cs" />
     <Compile Include="Interceptor\UpdateDataSourceInterceptor.cs" />
     <Compile Include="Interceptor\XBatchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\Tools.cs" />
-    <Compile Include="1234.cs" />
+    <Compile Include="Tools\MyTools.cs" />
+    <Compile Include="Tools\ServiceTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digiwin.ERP.XTEST.Business\Digiwin.ERP.XTEST.Business.csproj">

@@ -89,6 +89,7 @@
     <Compile Include="Tools\sqlTools.cs" />
     <Compile Include="Tools\OldTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\xmlTools.cs" />
     <Compile Include="UI\ModiName.cs">
       <SubType>Form</SubType>
     </Compile>

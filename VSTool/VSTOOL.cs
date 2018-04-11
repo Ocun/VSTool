@@ -1,16 +1,15 @@
-﻿using System;
+﻿// create By 08628 20180411
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
-using System.Xml;
 using System.Diagnostics;
 using Common.Implement;
 using Common.Implement.UI;
 using Common.Implement.Entity;
 using Common.Implement.EventHandler;
-using VSTool.Properties;
 using System.Threading;
 using Common.Implement.Tools;
 
@@ -30,7 +29,6 @@ namespace VSTool {
         public VSTOOL(string[] pToIni) {
             InitializeComponent();
             splitContainer2.Panel2.HorizontalScroll.Visible = false;
-
             //绑定类，当类或控件值改变时触发更新
             this.txtToPath.DataBindings.Add(new Binding("Text", Toolpars.formEntity, "txtToPath", true,
                 DataSourceUpdateMode.OnPropertyChanged));
@@ -43,7 +41,7 @@ namespace VSTool {
 
             #region 自動更新
 
-            //CallUpdate.autoUpgrade;
+            //CallUpdate.autoUpgrade();
 
             #endregion
 
@@ -92,8 +90,8 @@ namespace VSTool {
             }
 
             Toolpars.OldTypekey = "XTEST";
-            //Toolpars.formEntity.txtNewTypeKey = "1";
-            //Toolpars.formEntity.txtToPath = @"C:\Users\zychu\Desktop\TEST";
+            MyTool.InitBuilderEntity(Toolpars);
+            TreeViewTool.CreateRightView(myTreeView5, _toolpars);
         }
 
         private void addEventer() {
@@ -161,10 +159,11 @@ namespace VSTool {
             }
         }
 
-
-        private List<string> msave = new List<string>();
-        
-
+        /// <summary>
+        /// 包括修改与创建
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreate_Click(object sender, EventArgs e) {
             try {
                 if (!ModiCkb.Checked) {
@@ -175,8 +174,7 @@ namespace VSTool {
                             }));
                         }
                     ).Start();
-
-                    var test = _toolpars.FileMappingEntity;
+                    
                     Toolpars.GToIni = Toolpars.formEntity.txtToPath;
                     if ((Toolpars.formEntity.txtToPath == "")
                         || (Toolpars.formEntity.txtNewTypeKey == "")) {
@@ -190,7 +188,7 @@ namespace VSTool {
                             var node = myTreeView1.SelectedNode as MyTreeNode;
                             showTreeView(node);
                         }
-                        myTreeView5.Nodes.Clear();
+                        TreeViewTool.CreateRightView(myTreeView5,_toolpars);
                     }
 
                 }
@@ -209,7 +207,6 @@ namespace VSTool {
                     {
                         strb1 = Toolpars.formEntity.txtPKGpath + Toolpars.formEntity.PkgTypekey;
                     }
-                    
                     if (!Directory.Exists(strb1))
                     {
                         MessageBox.Show("文件夹" + strb1 + "不存在，请查看！！！", "Error", MessageBoxButtons.OK,
@@ -252,6 +249,11 @@ namespace VSTool {
             sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
         }
     
+        /// <summary>
+        /// 打开文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenTo_Click(object sender, EventArgs e) {
             var txtToPathStr = Toolpars.formEntity.txtToPath;
             if (txtToPathStr != null && txtToPathStr.Trim() != "") { 
@@ -267,45 +269,18 @@ namespace VSTool {
             }
         }
         
-        public void SetParentChecked(TreeNode childNode) {
-            TreeNode parentNode = childNode.Parent;
-            if (!parentNode.Checked
-                && childNode.Checked) {
-                int ichecks = 0;
-                for (int i = 0; i < parentNode.GetNodeCount(false); i++) {
-                    TreeNode node = parentNode.Nodes[i];
-                    if (node.Checked) {
-                        ichecks++;
-                    }
-                }
-                if (ichecks == parentNode.GetNodeCount(false)) {
-                    parentNode.Checked = true;
-                    if (parentNode.Parent != null) {
-                        SetParentChecked(parentNode);
-                    }
-                }
-            }
-            else if (parentNode.Checked
-                     && !childNode.Checked) {
-                parentNode.Checked = false;
-            }
-        }
-
-
         private void btnClear_Click(object sender, EventArgs e) {
-          
-            foreach (TreeNode node in treeView1.Nodes) {
-                SetCheckedChildNodes(node);
-                node.Checked = false;
+            MyTool.InitBuilderEntity(_toolpars);
+            if (myTreeView1.SelectedNode != null)
+            {
+                var node = myTreeView1.SelectedNode as MyTreeNode;
+                showTreeView(node);
             }
+            TreeViewTool.CreateRightView(myTreeView5, _toolpars);
+
         }
 
-        private void SetCheckedChildNodes(TreeNode node) {
-            for (int i = 0; i < node.Nodes.Count; i++) {
-                node.Nodes[i].Checked = false;
-                SetCheckedChildNodes(node.Nodes[i]);
-            }
-        }
+  
         
         private void btnOpen_Click(object sender, EventArgs e) //打开文件夹
         {
@@ -325,7 +300,7 @@ namespace VSTool {
                     string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
                                    + Toolpars.formEntity.txtNewTypeKey.Substring(1);
                     if (Directory.Exists(strb1)) {
-                        MyTool.myPaintTreeView(_toolpars, strb1);
+                        TreeViewTool.myPaintTreeView(_toolpars, strb1);
                     }
                     else {
                         treeView1.Nodes.Clear();
@@ -579,15 +554,20 @@ namespace VSTool {
             showTreeView(node);
         }
 
-        private void showTreeView(MyTreeNode node) {
-         
-                treeView1.Visible = false;
 
+        private void showTreeView(MyTreeNode node) {
+                treeView1.Visible = false;
                 scrollPanel.Visible = true;
                 splitContainer3.Visible = true;
                 createTree(node.buildeType.Id);
         }
 
+        /// <summary>
+        /// 设置流式布局，最大3列。
+        /// 因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VSTOOL_ClientSizeChanged(object sender, EventArgs e) {
             var clientSize = splitContainer2.Panel2.ClientSize;
             int currentWidth = clientSize.Width;
@@ -621,7 +601,11 @@ namespace VSTool {
           
         }
 
-
+        /// <summary>
+        /// 设置3个treeview外部panel  响应treeview滚动事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="upAndDown"></param>
         private void myTreeView2_SetAutoScrollEvent(object sender, int upAndDown) {
             bool vscroll = scrollPanel.VerticalScroll.Visible;
             if (vscroll) {
@@ -646,7 +630,8 @@ namespace VSTool {
         }
 
         /// <summary>
-        /// 单击选择
+        /// 单击选择,选择后将建立对应的文件信息，
+        /// 指示模版文件位置与将要创建的文件位置
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -668,7 +653,6 @@ namespace VSTool {
                     if (builderType.ShowParWindow != null
                         && builderType.ShowParWindow.Equals("False")) {
                         fileInfos = MyTool.createFileMappingInfo(_toolpars, builderType);
-
                     }
                     else {
                         ModiName MYForm = new ModiName(builderType, _toolpars);
@@ -727,20 +711,31 @@ namespace VSTool {
             }
             TreeViewTool.CreateRightView(myTreeView5,_toolpars);
         }
+        
+        #region 修改
 
+        /// <summary>
+        /// 修改按钮，点击弹出窗口，指示将借用的TYPEKEY与新的TypeKey
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (ModiCkb.Checked) {
+            if (ModiCkb.Checked)
+            {
                 ModiPKGForm form1 = new ModiPKGForm(_toolpars);
-                if (form1.ShowDialog() == DialogResult.OK) {
+                if (form1.ShowDialog() == DialogResult.OK)
+                {
                     treeView1.Visible = true;
                     splitContainer3.Visible = false;
                     scrollPanel.Visible = false;
                     if (Toolpars.formEntity.txtToPath != ""
                         && Toolpars.formEntity.txtNewTypeKey != ""
-                        && Toolpars.formEntity.PkgTypekey != "") {
+                        && Toolpars.formEntity.PkgTypekey != "")
+                    {
                         string txtPKGpath = Toolpars.formEntity.txtPKGpath;
-                        if (!txtPKGpath.EndsWith(@"\")) {
+                        if (!txtPKGpath.EndsWith(@"\"))
+                        {
                             txtPKGpath += @"\";
                         }
                         string strb1 = txtPKGpath + "Digiwin.ERP."
@@ -749,12 +744,12 @@ namespace VSTool {
                         {
                             strb1 = txtPKGpath + Toolpars.formEntity.PkgTypekey;
                         }
-                       
+
                         if (Directory.Exists(strb1))
                         {
                             myTreeView5.Nodes.Clear();
                             treeView1.Nodes.Clear();
-                            treeView1.Nodes.Add(MyTool.myPaintTreeView(_toolpars, strb1)); //mfroma
+                            treeView1.Nodes.Add(TreeViewTool.myPaintTreeView(_toolpars, strb1)); //mfroma
                             treeView1.ExpandAll();
                         }
                         else
@@ -765,16 +760,19 @@ namespace VSTool {
 
                         }
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("创建位置或typeKey不可为空");
                         ModiCkb.Checked = !ModiCkb.Checked;
                     }
                 }
-                else {
+                else
+                {
                     ModiCkb.Checked = !ModiCkb.Checked;
                 }
             }
-            else {
+            else
+            {
                 treeView1.Nodes.Clear();
                 treeView1.Visible = false;
                 scrollPanel.Visible = true;
@@ -785,6 +783,7 @@ namespace VSTool {
                     createTree(node.buildeType.Id);
                 }
             }
-        }
+        } 
+        #endregion
     }
 }

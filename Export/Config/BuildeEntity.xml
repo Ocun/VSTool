@@ -21,7 +21,6 @@
           <Name>工具类</Name>
           <ShowCheckedBox>True</ShowCheckedBox>
           <Checked>True</Checked>
-          <ReadOnly>True</ReadOnly>
           <ShowParWindow>False</ShowParWindow>
           <Description>提供常用的方法</Description>
         </BuildeItem>
@@ -108,36 +107,43 @@
       <BuildeItems>
         <BuildeItem>
           <Id>ImportExcel</Id>
+		 <ShowParWindow>False</ShowParWindow>
           <Name>导入Excel</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>ExportExcel</Id>
+		  <ShowParWindow>False</ShowParWindow>
           <Name>导出Excel</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>Insert</Id>
+		 <ShowParWindow>False</ShowParWindow>
           <Name>插单示例</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>LowFill</Id>
+		 <ShowParWindow>False</ShowParWindow>
           <Name>向下填充</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>PrintPreview</Id>
+		<ShowParWindow>False</ShowParWindow>
           <Name>打印预览</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>Print</Id>
+		 <ShowParWindow>False</ShowParWindow>
           <Name>打印</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>AllChoose</Id>
+		 <ShowParWindow>False</ShowParWindow>
           <Name>全选</Name>
           <Description>提供表格全选,撤销功能</Description>
         </BuildeItem>

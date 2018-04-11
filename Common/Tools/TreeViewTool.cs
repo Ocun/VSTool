@@ -1,5 +1,7 @@
-﻿using System;
+﻿// create By 08628 20180411
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -54,12 +56,14 @@ namespace Common.Implement.Tools
                 }
                 else
                 {
-                    if (buildeType.ReadOnly != null &&
-                        buildeType.ReadOnly.Equals("True")
-                    )
-                    {
-                        new_child.buildeType.FileInfos = MyTool.createFileMappingInfo(Toolpars, new_child.buildeType);
-                    }
+                    //if (buildeType.Checked != null &&
+                    //    buildeType.Checked.Equals("True") &&
+                    //    buildeType.ReadOnly != null &&
+                    //    buildeType.ReadOnly.Equals("True")
+                    //)
+                    //{
+                    //    new_child.buildeType.FileInfos = MyTool.createFileMappingInfo(Toolpars, new_child.buildeType);
+                    //}
                     new_child.CheckBoxVisible = true;
                 }
             }
@@ -139,6 +143,64 @@ namespace Common.Implement.Tools
         }
 
         #endregion
+        /// <summary>
+        /// 根据标准路径生成结点
+        /// </summary>
+        /// <param name="Toolpars"></param>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
+        public static MyTreeNode myPaintTreeView(toolpars Toolpars, string fullPath)
+        {
 
+            string DirName = Path.GetFileName(fullPath);
+            MyTreeNode Node = new MyTreeNode(DirName) { CheckBoxVisible = false };
+            DirectoryInfo dirs = new DirectoryInfo(fullPath);
+            DirectoryInfo[] dir = dirs.GetDirectories();
+            FileInfo[] file = dirs.GetFiles();
+            if (!dir.Any()
+                && file.Length == 0)
+            {
+                Node.CheckBoxVisible = false;
+            }
+            int dircount = dir.Count();
+            int filecount = file.Count();
+            for (int i = 0; i < dircount; i++)
+            {
+
+                string pathNode = fullPath + @"\" + dir[i].Name;
+                MyTreeNode new_child = myPaintTreeView(Toolpars, pathNode);
+
+                Node.Nodes.Add(new_child);
+            }
+
+            for (int j = 0; j < filecount; j++)
+            {
+
+                string fullName = file[j].FullName;
+                string extensionName = Path.GetExtension(fullName);
+                string[] extensionNames = { ".cs", ".resx" };
+
+                if (extensionNames.Contains(extensionName))
+                {
+                    MyTreeNode new_child = new MyTreeNode(file[j].Name);
+                    new_child.CheckBoxVisible = true;
+                    BuildeType bt = new BuildeType();
+                    List<FileInfos> infos = new List<FileInfos>();
+                    FileInfos info = new FileInfos();
+                    info.FromPath = fullName;
+
+                    //string oldTypeKey = Toolpars.formEntity.txtNewTypeKey.Substring(1);
+                    //string toPath = info.FromPath.Replace(oldTypeKey, Toolpars.formEntity.txtNewTypeKey);
+                    //info.ToPath = toPath;
+
+                    info.ToPath = fullName;
+                    infos.Add(info);
+                    bt.FileInfos = infos;
+                    new_child.buildeType = bt;
+                    Node.Nodes.Add(new_child);
+                }
+            }
+            return Node;
+        }
     }
 }

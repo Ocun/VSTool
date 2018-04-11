@@ -52,6 +52,5 @@ G:\my document\my project\VSTools\VSTool\VSTool.pdb
 G:\my document\my project\VSTools\VSTool\Export\VSTool.exe.config
 G:\my document\my project\VSTools\VSTool\Export\VSTool.exe
 G:\my document\my project\VSTools\VSTool\Export\VSTool.pdb
-E:\MyProject\VSTool\Export\VSTool.exe.config
 E:\MyProject\VSTool\Export\VSTool.exe
 E:\MyProject\VSTool\Export\VSTool.pdb

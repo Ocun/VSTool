@@ -1,4 +1,4 @@
-using System;
+// create By 08628 20180411
 using Common.Implement.Entity;
 using Common.Implement.Tools;
 
@@ -22,51 +22,46 @@ namespace Common.Implement {
         private SettingPathEntity _settingPathEntity;
         private BuildeEntity _builderEntity;
         private MappingEntity _FileMappingEntity;
-        public MappingEntity FileMappingEntity
-        {
-            get
-            {
+
+        public MappingEntity FileMappingEntity {
+            get {
                 if (_FileMappingEntity == null) {
                     string Path = string.Format(@"{0}Config\FileMapping.xml", MVSToolpath);
                     if (ValidateTool.checkFile(Path)) {
                         _FileMappingEntity = ReadToEntityTools.ReadToEntity<MappingEntity>(Path);
                     }
-
                 }
                 return _FileMappingEntity;
             }
             set { _FileMappingEntity = value; }
         }
-   
+
         public SettingPathEntity SettingPathEntity {
-            get
-            {
+            get {
                 if (_settingPathEntity == null) {
                     string settingPath = string.Format(@"{0}Config\SettingPathEntity.xml", MVSToolpath);
                     if (ValidateTool.checkFile(settingPath)) {
                         _settingPathEntity = ReadToEntityTools.ReadToEntity<SettingPathEntity>(settingPath);
                     }
-
                 }
                 return _settingPathEntity;
             }
             set { _settingPathEntity = value; }
         }
-   
+
         public BuildeEntity BuilderEntity {
-            get
-            {
+            get {
                 if (_builderEntity == null) {
-                    string  Path = string.Format (@"{0}Config\BuildeEntity.xml", MVSToolpath) ;
+                    string Path = string.Format(@"{0}Config\BuildeEntity.xml", MVSToolpath);
                     if (ValidateTool.checkFile(Path)) {
                         _builderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
                     }
-
                 }
                 return _builderEntity;
             }
             set { _builderEntity = value; }
         }
+
 
 
         public toolpars() {
@@ -77,8 +72,7 @@ namespace Common.Implement {
         /// <summary>
         /// 要复制的typekey
         /// </summary>
-        public string OldTypekey
-        {
+        public string OldTypekey {
             get { return _oldTypekey; }
             set { _oldTypekey = value; }
         }
@@ -86,14 +80,12 @@ namespace Common.Implement {
         /// <summary>
         /// 全部参数信息，平台路径，设计器路径，个案路径，客户名，行业包
         /// </summary>
-        public string MALL
-        {
+        public string MALL {
             get { return _mALL; }
             set { _mALL = value; }
         }
 
-        public string Mcodepath
-        {
+        public string Mcodepath {
             get { return _mcodepath; }
             set { _mcodepath = value; }
         }
@@ -106,11 +98,11 @@ namespace Common.Implement {
         /// <summary>
         /// 個案目錄
         /// </summary>
-        public string GToIni
-        {
+        public string GToIni {
             get { return _gToIni; }
             set { _gToIni = value; }
         }
+
         /// <summary>
         /// 行業包
         /// </summary>
@@ -118,11 +110,11 @@ namespace Common.Implement {
             get { return _mIndustry; }
             set { _mIndustry = value; }
         }
+
         /// <summary>
         /// VS当前路径
         /// </summary>
-        public string MVSToolpath
-        {
+        public string MVSToolpath {
             get { return _mVSToolpath; }
             set { _mVSToolpath = value; }
         }
@@ -151,6 +143,7 @@ namespace Common.Implement {
             get { return _mdesignPath; }
             set { _mdesignPath = value; }
         }
+
         /// <summary>
         /// 版本
         /// </summary>
@@ -158,21 +151,23 @@ namespace Common.Implement {
             get { return _mVersion; }
             set { _mVersion = value; }
         }
+
         /// <summary>
         /// 窗體參數
         /// </summary>
         public FormEntity formEntity {
-            get { 
+            get {
                 if (_formEntity == null) _formEntity = new FormEntity();
-                return _formEntity; }
+                return _formEntity;
+            }
             set { _formEntity = value; }
         }
+
         /// <summary>
         /// 各個路徑
         /// </summary>
         public PathEntity PathEntity {
-            get
-            {
+            get {
                 _pathEntity = PathTools.getPathEntity(this);
                 return _pathEntity;
             }

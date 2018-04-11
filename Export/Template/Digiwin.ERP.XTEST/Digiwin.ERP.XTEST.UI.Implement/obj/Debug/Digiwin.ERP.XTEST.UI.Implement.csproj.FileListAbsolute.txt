@@ -1,1 +1,6 @@
 C:\Users\lihui\Desktop\test\jeck\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\ResolveAssemblyReference.cache
+E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\ResolveAssemblyReference.cache
+E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.ExportExcelForm.resources
+E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.Properties.Resources.resources
+E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.ExportExcelForm.zh-CHT.resources
+E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.csproj.GenerateResource.Cache

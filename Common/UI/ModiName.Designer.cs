@@ -44,7 +44,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(25, 17);
+            this.label1.Location = new System.Drawing.Point(25, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 0;
@@ -54,15 +54,16 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(9, 44);
+            this.label2.Location = new System.Drawing.Point(12, 119);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "方法名";
+            this.label2.Visible = false;
             // 
             // txt01
             // 
-            this.txt01.Location = new System.Drawing.Point(72, 12);
+            this.txt01.Location = new System.Drawing.Point(72, 71);
             this.txt01.Name = "txt01";
             this.txt01.Size = new System.Drawing.Size(300, 21);
             this.txt01.TabIndex = 1;
@@ -70,10 +71,11 @@
             // 
             // txt02
             // 
-            this.txt02.Location = new System.Drawing.Point(72, 39);
+            this.txt02.Location = new System.Drawing.Point(75, 114);
             this.txt02.Name = "txt02";
             this.txt02.Size = new System.Drawing.Size(300, 21);
             this.txt02.TabIndex = 2;
+            this.txt02.Visible = false;
             this.txt02.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt01_KeyPress);
             // 
             // btnOK
@@ -117,21 +119,23 @@
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(72, 67);
+            this.comboBox2.Location = new System.Drawing.Point(75, 142);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(300, 20);
             this.comboBox2.TabIndex = 4;
+            this.comboBox2.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(9, 71);
+            this.label4.Location = new System.Drawing.Point(12, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 16);
             this.label4.TabIndex = 12;
             this.label4.Text = "时机点";
+            this.label4.Visible = false;
             // 
             // ModiName
             // 

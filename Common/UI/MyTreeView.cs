@@ -342,7 +342,7 @@ namespace Common.Implement.UI {
                     setToolPath form = new setToolPath(bt.Url);
                     if (form.ShowDialog() == DialogResult.OK) {
                         bt.Url = form.path;
-                        MyTool.modiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
+                        XMLTools.modiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
                             bt.Id, bt.Url);
                     }
                 }

@@ -1,18 +1,19 @@
-﻿using System;
+﻿// create By 08628 20180411
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml;
 using Common.Implement.Entity;
 using Common.Implement.UI;
 
 namespace Common.Implement.Tools
 {
     public class MyTool {
+
+        #region 作废
         /// <summary>
         /// 把文件拷入指定的文件夹
         /// </summary>
@@ -20,9 +21,11 @@ namespace Common.Implement.Tools
         /// <param name="toDir"></param>
         /// <param name="filterName"></param>
         public static void copyTo(toolpars Toolpars, string fromDir, string toDir, List<string> fileNames,
-            string fromTypeKey, string ToTypeKey) {
+            string fromTypeKey, string ToTypeKey)
+        {
             var formFiles = GetFilePath(fromDir);
-            foreach (var file in formFiles) {
+            foreach (var file in formFiles)
+            {
                 if (!File.Exists(file))
                     continue;
                 FileInfo fileinfo = new FileInfo(file);
@@ -32,12 +35,15 @@ namespace Common.Implement.Tools
                 string absolutePath = file.Replace(fromDir, String.Empty);
                 string newFilePath = Path.Combine(toDir, absolutePath);
                 string newFileDir = Path.Combine(toDir, absolutedir).Replace(fromTypeKey, ToTypeKey);
-                if (!Directory.Exists(newFileDir)) {
+                if (!Directory.Exists(newFileDir))
+                {
                     Directory.CreateDirectory(newFileDir);
                 }
-                if (File.Exists(newFilePath)) {
+                if (File.Exists(newFilePath))
+                {
                     if (MessageBox.Show("文件已存在，是否覆盖？", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        != DialogResult.OK) {
+                        != DialogResult.OK)
+                    {
                         return;
                     }
                 }
@@ -53,14 +59,7 @@ namespace Common.Implement.Tools
             ;
         }
 
-        /// <summary>
-        /// 获取项目配置路径
-        /// </summary>
-        /// <returns></returns>
-        private static string getcsproj(DirectoryInfo dir) {
-            //if(dir!=null)
-            return null;
-        }
+        #endregion
 
         /// <summary>
         /// 递归获取指定文件夹内所有文件全路径
@@ -257,7 +256,6 @@ namespace Common.Implement.Tools
                 value.ForEach(path => {
                     var toPath = path.ToPath;
                     if (File.Exists(toPath)) {
-                        ///模板内代码片段是否生成
                         if (path.PartId != null
                             && !path.PartId.Equals(string.Empty)
                             && path.IsMerge != null
@@ -304,7 +302,7 @@ namespace Common.Implement.Tools
             if (msgList.Count > 0) {
                 var msg = string.Empty;
                 msgList.ForEach(str => { msg += str + Environment.NewLine; });
-                if (MessageBox.Show(msg + "是否覆盖？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                if (MessageBox.Show(msg + "已存在是否覆盖？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                     != DialogResult.Yes) {
                     f = false;
                     success = false;
@@ -315,21 +313,33 @@ namespace Common.Implement.Tools
             #endregion
 
             if (f) {
-                #region 从配置创建目录 及 基本的文件 
-
-                CreateBaseItem(ToolPars);
-
-                #endregion
-
-                #region Copy 并修改 csproj
-
                 try {
+                    #region 从配置创建目录 及 基本的文件 
+
+                    CreateBaseItem(ToolPars);
+
+                    #endregion
+
+                    #region Copy 并修改 csproj
+                    bool checkTemplate = true;
                     foreach (var kv in pathDic) {
                         foreach (var path in kv.Value) {
                             if (!File.Exists(path.FromPath)) {
                                 MessageBox.Show(string.Format("{0}/{1}模板不存在，请检查", kv.Key, path.FileName), "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                checkTemplate = false;
+                                break;
                             }
+                        }
+                        if (!checkTemplate) {
+                            break;
+                        }
+                    }
+                    if (!checkTemplate) {
+                        return false;
+                    }
+                    foreach (var kv in pathDic) {
+                        foreach (var path in kv.Value) {
                             FileInfo fileinfo = new FileInfo(path.FromPath);
 
                             var toPath = path.ToPath;
@@ -360,10 +370,8 @@ namespace Common.Implement.Tools
                                     fileinfo.CopyTo(toPath);
                                 }
                             }
-
-                          //  testR(toPath);
-
-                            #region 修改csproj
+                            
+                            #region 修改解决方案
 
                             fileinfo = new FileInfo(toPath);
                             var dirInfo = fileinfo.Directory;
@@ -374,13 +382,14 @@ namespace Common.Implement.Tools
                             int index = toPath.IndexOf(csDir);
 
                             if (index > -1) {
-                                ModiCS(csPath, toPath.Substring(index + csDir.Length));
+                                XMLTools.ModiCS(csPath, toPath.Substring(index + csDir.Length));
                             }
 
                             #endregion
                         }
                         ;
                     }
+                    ModiFiles(ToolPars, ToolPars.OldTypekey, ToolPars.formEntity.txtNewTypeKey);
                 }
                 catch (Exception ex) {
                     success = false;
@@ -390,12 +399,42 @@ namespace Common.Implement.Tools
             }
             if (success) {
                 LogTool.WriteLog(ToolPars, treeView);
-                InitBuliderEntity(ToolPars.BuilderEntity.BuildeTypies);
+                InitBuilderEntity(ToolPars);
                 MessageBox.Show("生成成功");
             }
             return success;
         }
 
+        public static void InitBuilderEntity(toolpars ToolPars)
+        {
+            try
+            {
+                string Path = string.Format(@"{0}Config\BuildeEntity.xml", ToolPars.MVSToolpath);
+                ToolPars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
+                var BuildeTypies = ToolPars.BuilderEntity.BuildeTypies;
+                InitBuildeTypies(BuildeTypies, ToolPars);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private static void InitBuildeTypies(BuildeType[] BuildeTypies, toolpars ToolPars)
+        {
+            BuildeTypies.ToList().ForEach(item => {
+                if (item.Checked != null
+                    && item.Checked.Equals("True")
+                )
+                {
+                    item.FileInfos = createFileMappingInfo(ToolPars, item);
+                }
+                if (item.BuildeItems != null)
+                {
+                    InitBuildeTypies(item.BuildeItems, ToolPars);
+                }
+            });
+        }
         #region __insertPart__
 
         /// <summary>
@@ -450,159 +489,7 @@ namespace Common.Implement.Tools
         }
 
         #endregion __insertPart__
-
-        #region  修改解决方案的csproj文件 添加类文件
-
-     
-        /// <summary>  
-        /// 删除节点  
-        /// </summary>  
-        public static void XmlNodeByXPath(string xmlFileName,string xpath, List<string> pathList) {
-            string basePath = Path.GetDirectoryName(xmlFileName) + @"\";
-            List<string> abPathList = new List<string>();
-            pathList.ForEach(f => {
-                    string fpath = f;
-                    int index = fpath.IndexOf(basePath );
-                    if (index > -1)
-                    {
-                        abPathList.Add(fpath.Substring(index + basePath.Length));
-
-                    }
-                }
-            );
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlFileName);
-            XmlNamespaceManager mnamespce = new XmlNamespaceManager(xmlDoc.NameTable);
-            string NamespaceURI = xmlDoc.ChildNodes[1].NamespaceURI;
-            XmlNodeList xNodes = null;
-            if (NamespaceURI != null)
-            {
-                mnamespce.AddNamespace("nhb", NamespaceURI);
-                xpath = string.Format(@"//nhb:{0}", xpath);
-                xNodes = xmlDoc.SelectNodes(xpath, mnamespce);
-            }
-            else
-            {
-                xNodes = xmlDoc.SelectNodes(xpath);
-            }
-
-            if (xNodes != null)
-            {
-                for (int i = xNodes.Count - 1; i >= 0; i--)
-                {
-                    XmlElement xe = (XmlElement)xNodes[i];
-                    var xmlAttributeCollection = xNodes[i].Attributes;
-                    if (xmlAttributeCollection != null && xmlAttributeCollection["Include"] != null) {
-                      
-                        if (!abPathList.Contains(xmlAttributeCollection["Include"].Value))
-                        {
-                            xNodes[i].ParentNode.RemoveChild(xNodes[i]);
-                        }
-                    }
-                }
-                xmlDoc.Save(xmlFileName);
-            }
-        }
-
         
-
-        public static void ModiCS(string xmlPath, string CSName) {
-            if (CSName.Contains(".designer.cs")) {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlPath);
-                XmlNode root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
-                XmlElement xe1 = xmlDoc.CreateElement("Compile", xmlDoc.DocumentElement.NamespaceURI); //创建一个<book>节点
-                xe1.SetAttribute("Include", CSName); //设置该节点genre属性 
-                var loc = xmlDoc.CreateElement("DependentUpon", xmlDoc.DocumentElement.NamespaceURI);
-                String msname = CSName.Substring(CSName.LastIndexOf("\\") + 1);
-                msname = msname.Substring(0, msname.IndexOf("."));
-                msname = msname + ".cs";
-                //loc.InnerText = model.loc;
-                loc.InnerText = msname;
-                xe1.AppendChild(loc);
-                //xe1.InnerText = "WPF";
-                var notExisted = checkXmlNode(root, CSName);
-                if (notExisted) {
-                    root.AppendChild(xe1);
-                }
-
-                xmlDoc.Save(xmlPath);
-            }
-            else if (CSName.Contains(".resx")) {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlPath);
-                XmlNode root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
-                XmlElement xe1 = xmlDoc.CreateElement("EmbeddedResource", xmlDoc.DocumentElement.NamespaceURI);
-                //创建一个<book>节点
-                xe1.SetAttribute("Include", CSName); //设置该节点genre属性 
-                var loc = xmlDoc.CreateElement("DependentUpon", xmlDoc.DocumentElement.NamespaceURI);
-                String msname = CSName.Substring(CSName.LastIndexOf("\\") + 1);
-                msname = msname.Substring(0, msname.IndexOf("."));
-                msname = msname + ".cs";
-                //loc.InnerText = model.loc;
-                loc.InnerText = msname;
-                xe1.AppendChild(loc);
-                //xe1.InnerText = "WPF";
-                var notExisted = checkXmlNode(root, CSName);
-                if (notExisted) {
-                    root.AppendChild(xe1);
-                }
-
-                xmlDoc.Save(xmlPath);
-            }
-
-            else {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlPath);
-                XmlNode root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
-                XmlElement xe1 = xmlDoc.CreateElement("Compile", xmlDoc.DocumentElement.NamespaceURI); //创建一个<book>节点
-                xe1.SetAttribute("Include", CSName); //设置该节点genre属性    
-                var notExisted = checkXmlNode(root, CSName);
-                if (notExisted) {
-                    root.AppendChild(xe1);
-                }
-
-                xmlDoc.Save(xmlPath);
-            }
-        }
-
-        /// <summary>
-        /// 判断节点是否存在
-        /// </summary>
-        /// <param name="root"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        static bool checkXmlNode(XmlNode root, string name) {
-            #region 判断是否已经添加
-
-            bool notExisted = true;
-            foreach (XmlNode node in root.ChildNodes) {
-                if (node.Attributes["Include"] != null) {
-                    if (node.Attributes["Include"].Value.Equals(name)) {
-                        notExisted = false;
-                        break;
-                    }
-                }
-            }
-
-            #endregion
-
-            return notExisted;
-        }
-
-        #endregion
-
-        private static void InitBuliderEntity(BuildeType[] BuildeTypies) {
-            BuildeTypies.ToList().ForEach(item => {
-                item.FileInfos = new List<FileInfos>();
-                item.Checked = "False";
-                if (item.BuildeItems != null
-                    && item.BuildeItems.Length > 0) {
-                    InitBuliderEntity(item.BuildeItems);
-                }
-            });
-        }
-
         /// <summary>
         /// 一些必考项目,模板目录
         /// </summary>
@@ -614,7 +501,6 @@ namespace Common.Implement.Tools
                 filmap.Id.Equals("BaseItem")
             );
             fileInfo.Paths.ToList().ForEach(path => {
-                var oldFileName = Path.GetFileNameWithoutExtension(path);
                 var fromPath = ToolPars.MVSToolpath + @"Template\" + path;
 
                 var newFilePath = path.Replace(TemplateType, newTypeKey);
@@ -627,13 +513,40 @@ namespace Common.Implement.Tools
                         Directory.CreateDirectory(NewDir);
                     }
                     fileinfo.CopyTo(newFilePath);
-                    string slnPath = Path.GetExtension(newFilePath);
-
-                    changeText(newFilePath, TemplateType, newTypeKey);
                 }
             });
         }
 
+        static void ModiFiles(toolpars Toolpars, string oldKey, string newKey) {
+          
+            //个案路径
+            string DirectoryPath = string.Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, newKey);
+            DirectoryInfo tDes = new DirectoryInfo(DirectoryPath);
+
+            List<string> tSearchPatternList = new List<string>();
+            tSearchPatternList.AddRange(new[] {
+                "*xml",
+                "*.sln",
+                "*.repx",
+                "*proj",
+                "*.complete",
+                "*.cs"
+            });
+            for (int i = 0; i < tSearchPatternList.Count;  i++) {
+                foreach (FileInfo f in tDes.GetFiles(tSearchPatternList[i], SearchOption.AllDirectories)) {
+                    string filePath = f.FullName;
+                    if (File.Exists(filePath)) {
+                        string text = File.ReadAllText(filePath);
+                        text = text.Replace("Digiwin.ERP." + oldKey,
+                            "Digiwin.ERP." + newKey);
+                       // text = text.Replace(@"<HintPath>..\..\", @"<HintPath>..\..\..\..\..\WD_PR\SRC\");
+                        File.SetAttributes(filePath, FileAttributes.Normal);
+                        File.Delete(filePath);
+                        File.WriteAllText(filePath, text, System.Text.UTF8Encoding.UTF8);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// 获取节点地址与文件地址
@@ -699,7 +612,7 @@ namespace Common.Implement.Tools
         }
 
         public static List<FileInfos> createFileMappingInfo(toolpars _toolpars, BuildeType bt) {
-            List<FileInfos> FileInfos = new List<Entity.FileInfos>();
+            List<FileInfos> FileInfos = new List<FileInfos>();
             var fileMapping = _toolpars.FileMappingEntity;
             string Id = bt.Id;
             var fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
@@ -756,42 +669,6 @@ namespace Common.Implement.Tools
 
         #endregion
 
-
-        public static void modiXml(string xmlPath,string Id,string value) {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            XmlNodeList xns = xmlDoc.SelectNodes("//BuildeItem");
-            foreach (XmlNode xn in xns) {
-                var childNodes = xn.ChildNodes;
-                bool f = true;
-                foreach (XmlNode node in childNodes) {
-                    if (node.Name == "Id"
-                        && node.InnerText.Equals(Id)) {
-                        f = false;
-                        break;
-                    }
-                    else {
-                        break;
-                    }
-                }
-                if (!f) {
-                    foreach (XmlNode node in childNodes)
-                    {
-                        if (node.Name == "Url") {
-                            node.InnerText = value;
-                            break;
-                        }
-                     
-                    }
-                  
-                    break;
-                }
-
-            }
-             xmlDoc.Save(xmlPath);
-
-        }
-
        public static void OpenTools(string path) {
           
             try
@@ -822,61 +699,6 @@ namespace Common.Implement.Tools
         }
 
         #region 修改
-        /// <summary>
-        /// 根据标准路径生成结点
-        /// </summary>
-        /// <param name="Toolpars"></param>
-        /// <param name="fullPath"></param>
-        /// <returns></returns>
-        public static MyTreeNode myPaintTreeView(toolpars Toolpars,string fullPath) {
-
-            string DirName = Path.GetFileName(fullPath);
-            MyTreeNode Node = new MyTreeNode(DirName) { CheckBoxVisible = false };
-            DirectoryInfo dirs = new DirectoryInfo(fullPath);
-            DirectoryInfo[] dir = dirs.GetDirectories();
-            FileInfo[] file = dirs.GetFiles();
-            if (!dir.Any()
-                && file.Length == 0) {
-                Node.CheckBoxVisible = false;
-            }
-            int dircount = dir.Count();
-            int filecount = file.Count();
-            for (int i = 0; i < dircount; i++)
-            {
-           
-                string pathNode = fullPath + @"\" + dir[i].Name;
-                MyTreeNode new_child = myPaintTreeView(Toolpars,pathNode);
-
-                Node.Nodes.Add(new_child);
-            }
-
-            for (int j = 0; j < filecount; j++) {
-
-                string fullName = file[j].FullName;
-                string extensionName =  Path.GetExtension(fullName);
-                string[] extensionNames = {".cs",".resx" };
-
-                if (extensionNames.Contains(extensionName)) {
-                    MyTreeNode new_child = new MyTreeNode(file[j].Name);
-                    new_child.CheckBoxVisible = true;
-                    BuildeType bt = new BuildeType();
-                    List<FileInfos> infos = new List<FileInfos>();
-                    FileInfos info = new FileInfos();
-                    info.FromPath = fullName;
-
-                    //string oldTypeKey = Toolpars.formEntity.txtNewTypeKey.Substring(1);
-                    //string toPath = info.FromPath.Replace(oldTypeKey, Toolpars.formEntity.txtNewTypeKey);
-                    //info.ToPath = toPath;
-
-                    info.ToPath = fullName;
-                    infos.Add(info);
-                    bt.FileInfos = infos;
-                    new_child.buildeType = bt;
-                    Node.Nodes.Add(new_child);
-                }
-            }
-            return Node;
-        }
         /// <summary>
         /// 目录下的文件copy至另一目录 ,先copy 再替换 typekey
         /// </summary>
@@ -943,6 +765,7 @@ namespace Common.Implement.Tools
                
             }
         }
+
         public static bool copyModi(TreeNodeCollection nodes,toolpars ToolPars ) {
             bool sucess = true;
             try {
@@ -965,6 +788,7 @@ namespace Common.Implement.Tools
 
 
         }
+        
         /// <summary>
         /// 批量修改个案cs文件
         /// </summary>
@@ -976,10 +800,7 @@ namespace Common.Implement.Tools
             //个案路径
             string DirectoryPath = string.Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, txtNewTypeKey);
             DirectoryInfo tDes = new DirectoryInfo(DirectoryPath);
-
             
-
-
             List<string> tSearchPatternList = new List<string>();
             tSearchPatternList.AddRange(new[] {
                 "*xml",
@@ -1022,7 +843,7 @@ namespace Common.Implement.Tools
             }
 
 
-            foreach (System.IO.FileInfo f in tDes.GetFiles("*", SearchOption.AllDirectories))
+            foreach (FileInfo f in tDes.GetFiles("*", SearchOption.AllDirectories))
             {
                 if (f.Name.IndexOf(txtNewTypeKey) == -1)
                 {
@@ -1062,8 +883,8 @@ namespace Common.Implement.Tools
                         string extionName= Path.GetExtension(filePath);
                         if (extionName.Equals(".csproj")) {
 
-                            XmlNodeByXPath(filePath, @"Compile", patList);
-                            XmlNodeByXPath(filePath, @"EmbeddedResource", patList);
+                            XMLTools.XmlNodeByXPath(filePath, @"Compile", patList);
+                            XMLTools.XmlNodeByXPath(filePath, @"EmbeddedResource", patList);
                         }
                         Application.DoEvents();
                     }
