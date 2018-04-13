@@ -188,6 +188,7 @@ namespace VSTool
             this.btncopypkg.TabIndex = 24;
             this.btncopypkg.Text = "借用标准";
             this.btncopypkg.UseVisualStyleBackColor = true;
+            this.btncopypkg.Visible = false;
             this.btncopypkg.Click += new System.EventHandler(this.btncopypkg_Click);
             // 
             // txtPKGpath
@@ -232,6 +233,7 @@ namespace VSTool
             this.btnG.TabIndex = 31;
             this.btnG.Text = "◎";
             this.btnG.UseVisualStyleBackColor = true;
+            this.btnG.Visible = false;
             this.btnG.Click += new System.EventHandler(this.btnG_Click);
             // 
             // panel1
@@ -312,6 +314,7 @@ namespace VSTool
             // 
             // btncopydll
             // 
+            this.btncopydll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btncopydll.FlatAppearance.BorderSize = 0;
             this.btncopydll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btncopydll.ForeColor = System.Drawing.Color.DarkGreen;
@@ -328,6 +331,7 @@ namespace VSTool
             // 
             // btncopyUIdll
             // 
+            this.btncopyUIdll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btncopyUIdll.FlatAppearance.BorderSize = 0;
             this.btncopyUIdll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btncopyUIdll.ForeColor = System.Drawing.Color.DarkGreen;
@@ -364,7 +368,7 @@ namespace VSTool
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(247, 467);
+            this.panel3.Size = new System.Drawing.Size(244, 467);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
@@ -441,7 +445,7 @@ namespace VSTool
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Size = new System.Drawing.Size(982, 467);
-            this.splitContainer1.SplitterDistance = 734;
+            this.splitContainer1.SplitterDistance = 737;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 36;
             // 
@@ -452,7 +456,7 @@ namespace VSTool
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(734, 467);
+            this.panel2.Size = new System.Drawing.Size(737, 467);
             this.panel2.TabIndex = 33;
             // 
             // splitContainer2
@@ -472,7 +476,7 @@ namespace VSTool
             // 
             this.splitContainer2.Panel2.Controls.Add(this.scrollPanel);
             this.splitContainer2.Panel2.Controls.Add(this.treeView1);
-            this.splitContainer2.Size = new System.Drawing.Size(734, 467);
+            this.splitContainer2.Size = new System.Drawing.Size(737, 467);
             this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 14;
@@ -514,7 +518,7 @@ namespace VSTool
             this.scrollPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollPanel.Margin = new System.Windows.Forms.Padding(2);
             this.scrollPanel.Name = "scrollPanel";
-            this.scrollPanel.Size = new System.Drawing.Size(488, 467);
+            this.scrollPanel.Size = new System.Drawing.Size(491, 467);
             this.scrollPanel.TabIndex = 35;
             // 
             // splitContainer3
@@ -533,7 +537,7 @@ namespace VSTool
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(502, 467);
+            this.splitContainer3.Size = new System.Drawing.Size(505, 467);
             this.splitContainer3.SplitterDistance = 132;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 34;
@@ -562,7 +566,7 @@ namespace VSTool
             this.myTreeView2.ShowDescription = true;
             this.myTreeView2.ShowLines = false;
             this.myTreeView2.ShowPlusMinus = false;
-            this.myTreeView2.Size = new System.Drawing.Size(502, 467);
+            this.myTreeView2.Size = new System.Drawing.Size(505, 467);
             this.myTreeView2.TabIndex = 33;
             this.myTreeView2.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.myTreeView2_SetAutoScrollEvent);
             this.myTreeView2.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.myTreeView2_AfterCheck);
@@ -682,7 +686,7 @@ namespace VSTool
             this.treeView1.ShowDescription = false;
             this.treeView1.ShowLines = false;
             this.treeView1.ShowPlusMinus = false;
-            this.treeView1.Size = new System.Drawing.Size(488, 467);
+            this.treeView1.Size = new System.Drawing.Size(491, 467);
             this.treeView1.TabIndex = 13;
             this.treeView1.Visible = false;
             // 
@@ -712,7 +716,7 @@ namespace VSTool
             this.myTreeView5.ShowDescription = false;
             this.myTreeView5.ShowLines = false;
             this.myTreeView5.ShowPlusMinus = false;
-            this.myTreeView5.Size = new System.Drawing.Size(235, 513);
+            this.myTreeView5.Size = new System.Drawing.Size(232, 513);
             this.myTreeView5.TabIndex = 15;
             // 
             // VSTOOL

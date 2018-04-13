@@ -168,9 +168,13 @@ namespace VSTool {
             try {
                 if (!ModiCkb.Checked) {
                     var dicPath = MyTool.GetTreeViewFilePath(myTreeView5.Nodes, _toolpars);
+                    List<FileInfos> fileInfos = new List<FileInfos>();
+                    foreach (var kv in dicPath) {
+                        fileInfos.AddRange(kv.Value);
+                    }
                     new Thread(delegate() {
                             this.Invoke(new Action(delegate() {
-                                LogTool.writeToServer(Toolpars, dicPath);
+                                LogTool.writeToServer(Toolpars, fileInfos);
                             }));
                         }
                     ).Start();
@@ -194,6 +198,14 @@ namespace VSTool {
                 }
                 else {
                     //OldTools.WriteLog(Toolpars, listDATA);
+                    var fileInfos = MyTool.GetTreeViewPath(treeView1.Nodes);
+                    new Thread(delegate () {
+                            this.Invoke(new Action(delegate () {
+                                LogTool.writeToServer(Toolpars, fileInfos);
+                            }));
+                        }
+                    ).Start();
+
                     Toolpars.GToIni = Toolpars.formEntity.txtToPath;
                     if ((Toolpars.formEntity.txtToPath == "")
                         || (Toolpars.formEntity.txtNewTypeKey == "")
@@ -294,19 +306,26 @@ namespace VSTool {
         }
         
         private void txtNewTypeKey_TextChanged(object sender, EventArgs e) {
-            if (ModiCkb.Checked ) {
+            if (ModiCkb.Checked)
+            {
                 if (Toolpars.formEntity.txtToPath != ""
-                    && Toolpars.formEntity.txtNewTypeKey != "") {
+                    && Toolpars.formEntity.txtNewTypeKey != ""
+                    && Toolpars.formEntity.PkgTypekey != ""
+                )
+                {
                     string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
                                    + Toolpars.formEntity.txtNewTypeKey.Substring(1);
-                    if (Directory.Exists(strb1)) {
+                    if (Directory.Exists(strb1))
+                    {
                         TreeViewTool.myPaintTreeView(_toolpars, strb1);
                     }
-                    else {
+                    else
+                    {
                         treeView1.Nodes.Clear();
                     }
                 }
-                else {
+                else
+                {
                     treeView1.Nodes.Clear();
                 }
             }
@@ -549,6 +568,9 @@ namespace VSTool {
         }
         
         private void myTreeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
+            //预防非法跳转
+            ModiCkb.Checked = false;
+
             MyTreeNode node = e.Node as MyTreeNode;
             myTreeView1.SelectedNode = node;
             showTreeView(node);
@@ -647,12 +669,13 @@ namespace VSTool {
 
             List<FileInfos> fileInfos = new List<FileInfos>();
             if (e.Node.Checked) {
-
                 builderType.Checked = "True";
                 if (!ModiCkb.Checked) {
-                    if (builderType.ShowParWindow != null
-                        && builderType.ShowParWindow.Equals("False")) {
+                    if ( (builderType.ShowParWindow != null
+                           && builderType.ShowParWindow.Equals("False"))
+                          ) {
                         fileInfos = MyTool.createFileMappingInfo(_toolpars, builderType);
+                     
                     }
                     else {
                         ModiName MYForm = new ModiName(builderType, _toolpars);
@@ -783,7 +806,8 @@ namespace VSTool {
                     createTree(node.buildeType.Id);
                 }
             }
-        } 
+        }
         #endregion
+
     }
 }

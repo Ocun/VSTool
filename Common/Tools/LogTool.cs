@@ -62,18 +62,16 @@ namespace Common.Implement.Tools
             ;
         }
 
-        public static void writeToServer(toolpars Toolpars, Dictionary<string, List<FileInfos>> pathDic)
+        public static void writeToServer(toolpars Toolpars,IEnumerable<FileInfos> fileInfos)
         {
-            foreach (var kv in pathDic)
-            {
-                kv.Value.ForEach(fileinfo => {
+                fileInfos.ToList().ForEach(fileinfo => {
                     // sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
                     string year = DateTime.Now.ToString("yyyyMMdd");
                     string demandId = string.Format("S01231_{0}_01", year);
                     sqlTools.insertToolInfo(demandId, year,
-                        Toolpars.formEntity.txtNewTypeKey + "_" + fileinfo.FunctionName);
+                        Toolpars.formEntity.txtNewTypeKey + "_" + fileinfo.FileName);
                 });
-            }
+            
         }
 
         #endregion

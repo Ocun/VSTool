@@ -56,14 +56,14 @@ namespace Common.Implement.Tools
                 }
                 else
                 {
-                    //if (buildeType.Checked != null &&
-                    //    buildeType.Checked.Equals("True") &&
-                    //    buildeType.ReadOnly != null &&
-                    //    buildeType.ReadOnly.Equals("True")
-                    //)
-                    //{
-                    //    new_child.buildeType.FileInfos = MyTool.createFileMappingInfo(Toolpars, new_child.buildeType);
-                    //}
+                    if (buildeType.Checked != null &&
+                        buildeType.Checked.Equals("True") &&
+                        buildeType.ReadOnly != null &&
+                        buildeType.ReadOnly.Equals("True")
+                    )
+                    {
+                        new_child.buildeType.FileInfos = MyTool.createFileMappingInfo(Toolpars, new_child.buildeType);
+                    }
                     new_child.CheckBoxVisible = true;
                 }
             }

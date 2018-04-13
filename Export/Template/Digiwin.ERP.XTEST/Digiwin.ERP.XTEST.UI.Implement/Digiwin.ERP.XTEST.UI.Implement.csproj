@@ -79,13 +79,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.Common.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Digiwin.ERP.CommonFinance.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.Implement.dll</HintPath>
+    </Reference>
     <Reference Include="Digiwin.ERP.FormBaseExtensions.UI.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.FormBaseExtensions.UI.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.FormBaseExtensions.UI.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.ImagesPreviewWindowOpener.UI.Implement, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.ImagesPreviewWindowOpener.UI.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.ImagesPreviewWindowOpener.UI.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.ApplicationUtils.Common, Version=1.6.0.26, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -111,7 +115,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Common.Advanced.dll</HintPath>
     </Reference>
-    <Reference Include="Digiwin.Mars.Configuration, Version=1.6.0.6, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Digiwin.Mars.Configuration, Version=1.10.0.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Configuration.dll</HintPath>
     </Reference>
@@ -129,7 +133,7 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.UI.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonManufacture.UI.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonManufacture.UI.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonSupplyChain.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -178,15 +182,15 @@
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="NPOI, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\NPOI.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OOXML, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\NPOI.OOXML.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\NPOI.OOXML.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXmlFormats, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\NPOI.OpenXmlFormats.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -207,42 +211,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionWindowOpener\FWOpener.cs" />
-    <Compile Include="Interceptor\ChangeInterceptor.cs" />
-    <Compile Include="Interceptor\DefaultInterceptor.cs" />
-    <Compile Include="Interceptor\DetailInterceptor.cs" />
-    <Compile Include="Interceptor\DisableMenuInterceptor.cs" />
-    <Compile Include="Interceptor\DocumentConfirmInterceptor.cs" />
-    <Compile Include="Interceptor\GConditionAction.cs" />
-    <Compile Include="Interceptor\GuideInterceptor.cs" />
-    <Compile Include="Interceptor\QueryAddAction.cs" />
-    <Compile Include="Interceptor\QueryDeleteAction.cs" />
-    <Compile Include="Interceptor\QueryResultAction.cs" />
-    <Compile Include="Interceptor\SaveInterceptor.cs" />
-    <Compile Include="Interceptor\XBatchInterceptor.cs" />
-    <Compile Include="MenuItem\DigiwinGridInterceptor.cs" />
-    <Compile Include="MenuItem\ExportExcelCommand.cs" />
-    <Compile Include="MenuItem\ExportExcelForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MenuItem\ExportExcelForm.Designer.cs">
-      <DependentUpon>ExportExcelForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MenuItem\test2Command.cs" />
-    <Compile Include="MenuItem\testCommand.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs" />
-    <Compile Include="Tools\LowFill.cs" />
-    <Compile Include="Tools\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MenuItem\ExportExcelForm.resx">
-      <DependentUpon>ExportExcelForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MenuItem\ExportExcelForm.zh-CHT.resx">
-      <DependentUpon>ExportExcelForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

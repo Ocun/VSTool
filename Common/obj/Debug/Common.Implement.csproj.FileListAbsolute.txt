@@ -34,3 +34,4 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.cspro
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.setToolPath.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ModiPKG.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ModiPKGForm.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache

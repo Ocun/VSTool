@@ -36,6 +36,9 @@ namespace Digiwin.ERP.XTEST.UI.Implement
         {
 			ICurrentDocumentWindow window = this.GetServiceForThisTypeKey<ICurrentDocumentWindow>();
             DependencyObject entity = (DependencyObject)window.EditController.EditorView.DataSource;
+
+            object ROid = ((DependencyObject)entity["Owner_Org"])["ROid"];
+            //DependencyObjectCollection entityd = entity[""] as DependencyObjectCollection;
 			
         }
 
@@ -49,7 +52,7 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             protected override bool QueryEnabled(IResourceServiceProvider provider, ServiceCallContext callContext, IDataObject context)
             {
 
-                return false;
+                return true;
             }
         }
     }

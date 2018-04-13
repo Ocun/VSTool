@@ -22,7 +22,7 @@
 		<Id>FreeBatchService</Id>
 		<Description>一般批次</Description>
 		<Paths>
-			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\XBatchService.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\Interceptor\MyBatchService.cs</Path>
 		</Paths>
 	</MappingItem>
 	<MappingItem>
@@ -88,13 +88,15 @@
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.resx</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.zh-CHT.resx</Path>
 			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\MenuItem\ExportExcelForm.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Properties\Resources.Designer.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Properties\Resources.resx</Path>
 		</Paths>
 	</MappingItem>
 	<MappingItem>
 		<Id>LowFill</Id>
 		<Description>向下填充</Description>
 		<Paths>
-			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools\Tools.cs</Path>
+			<Path>Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\Tools\LowFill.cs</Path>
 		</Paths>
 	</MappingItem>	
 	<MappingItem>

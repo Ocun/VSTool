@@ -67,6 +67,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\DevExpress.XtraNavBar.v10.2.Design.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v10.2.Design, Version=10.2.5.0, Culture=neutral, PublicKeyToken=9fd16e9d2ca877f9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\DevExpress.XtraPivotGrid.v10.2.Design.dll</HintPath>
+    </Reference>
     <Reference Include="Digiwin.ERP.Common.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.Common.Business.dll</HintPath>
@@ -77,11 +81,11 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonFinance.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonFinance.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.ApplicationUtils.Common, Version=1.6.0.26, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -111,17 +115,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\WD_PR\SRC\bin\DevExpress.Data.v10.2.dll</HintPath>
     </Reference>
+    <Reference Include="Digiwin.Mars.Configuration, Version=1.10.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Digiwin.Mars.Query2, Version=1.10.0.17, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Query2.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Query2.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.Report, Version=1.7.1.25, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Report.dll</HintPath>
-    </Reference>
-    <Reference Include="Digiwin.Mars.Configuration, Version=1.6.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Query2.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.Mars.Report.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.Core, Version=1.6.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -129,11 +133,11 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonManufacture.Business.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonManufacture.Business.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonManufacture.Business.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonManufacture.Business.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.UI.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -141,11 +145,11 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonSupplyChain.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonSupplyChain.Business.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonSupplyChain.Business.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonSupplyChain.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonSupplyChain.Business.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonSupplyChain.Business.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.Integration, Version=1.9.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -197,22 +201,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implement\TestsService.cs" />
-    <Compile Include="Interceptor\commonInterceptor.cs" />
-    <Compile Include="Interceptor\DetailInterceptorS.cs" />
-    <Compile Include="Interceptor\SaveSInterceptor.cs" />
-    <Compile Include="Interceptor\testValidate.cs" />
-    <Compile Include="Interceptor\UpdateDataSourceInterceptor.cs" />
-    <Compile Include="Interceptor\XBatchService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\MyTools.cs" />
-    <Compile Include="Tools\ServiceTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digiwin.ERP.XTEST.Business\Digiwin.ERP.XTEST.Business.csproj">
       <Project>{7754BEE7-697F-4403-A43D-CDAF55B9B1F5}</Project>
       <Name>Digiwin.ERP.XTEST.Business</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

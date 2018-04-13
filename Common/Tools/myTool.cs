@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using Common.Implement.Entity;
 using Common.Implement.UI;
@@ -338,10 +340,12 @@ namespace Common.Implement.Tools
                     if (!checkTemplate) {
                         return false;
                     }
+
                     foreach (var kv in pathDic) {
                         foreach (var path in kv.Value) {
                             FileInfo fileinfo = new FileInfo(path.FromPath);
 
+                            var fileName = path.FileName;
                             var toPath = path.ToPath;
                             var parentDir = Path.GetDirectoryName(toPath);
                             if (!Directory.Exists(parentDir)) {
@@ -359,6 +363,7 @@ namespace Common.Implement.Tools
                                     File.SetAttributes(toPath, FileAttributes.Normal);
                                     //修改
                                     fileinfo.CopyTo(toPath, true);
+
                                 }
                             }
                             else {
@@ -370,7 +375,9 @@ namespace Common.Implement.Tools
                                     fileinfo.CopyTo(toPath);
                                 }
                             }
-                            
+                            //修改形如‘_ClassName_’类名为文件名，否则不管
+                            string csName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\:{]+(?=[\n\:{])";
+                            ReplaceByRegex(toPath, csName, fileName);
                             #region 修改解决方案
 
                             fileinfo = new FileInfo(toPath);
@@ -382,6 +389,7 @@ namespace Common.Implement.Tools
                             int index = toPath.IndexOf(csDir);
 
                             if (index > -1) {
+                                //添加编译项
                                 XMLTools.ModiCS(csPath, toPath.Substring(index + csDir.Length));
                             }
 
@@ -389,6 +397,7 @@ namespace Common.Implement.Tools
                         }
                         ;
                     }
+                    //修改文件内容，替换typekey
                     ModiFiles(ToolPars, ToolPars.OldTypekey, ToolPars.formEntity.txtNewTypeKey);
                 }
                 catch (Exception ex) {
@@ -405,14 +414,18 @@ namespace Common.Implement.Tools
             return success;
         }
 
+
+        /// <summary>
+        /// 初始化，创建完成之后 清空按钮 选择项
+        /// </summary>
+        /// <param name="ToolPars"></param>
         public static void InitBuilderEntity(toolpars ToolPars)
         {
             try
             {
                 string Path = string.Format(@"{0}Config\BuildeEntity.xml", ToolPars.MVSToolpath);
                 ToolPars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
-                var BuildeTypies = ToolPars.BuilderEntity.BuildeTypies;
-                InitBuildeTypies(BuildeTypies, ToolPars);
+                InitBuildeTypies(ToolPars.BuilderEntity.BuildeTypies,ToolPars);
             }
             catch (Exception ex)
             {
@@ -420,8 +433,7 @@ namespace Common.Implement.Tools
             }
         }
 
-        private static void InitBuildeTypies(BuildeType[] BuildeTypies, toolpars ToolPars)
-        {
+        public static void InitBuildeTypies(BuildeType[] BuildeTypies, toolpars ToolPars) {
             BuildeTypies.ToList().ForEach(item => {
                 if (item.Checked != null
                     && item.Checked.Equals("True")
@@ -436,6 +448,16 @@ namespace Common.Implement.Tools
             });
         }
         #region __insertPart__
+
+
+        static void ReplaceByRegex(string filePath,string matchStr,string toStr) {
+            if (!File.Exists(filePath))
+                return;
+            string text = File.ReadAllText(filePath);
+            Regex regex = new Regex(matchStr);
+            text = regex.Replace(text, toStr);
+            File.WriteAllText(filePath, text, Encoding.UTF8);
+        }
 
         /// <summary>
         /// 查找代码片段，插入指定文件内
@@ -484,7 +506,7 @@ namespace Common.Implement.Tools
                 target = regex.Replace(target, newInsertHere);
                 #endregion
                 
-                File.WriteAllText(toPath, target, System.Text.UTF8Encoding.UTF8);
+                File.WriteAllText(toPath, target, Encoding.UTF8);
             }
         }
 
@@ -517,6 +539,12 @@ namespace Common.Implement.Tools
             });
         }
 
+        /// <summary>
+        /// 修改个案文件的typeKey
+        /// </summary>
+        /// <param name="Toolpars"></param>
+        /// <param name="oldKey"></param>
+        /// <param name="newKey"></param>
         static void ModiFiles(toolpars Toolpars, string oldKey, string newKey) {
           
             //个案路径
@@ -558,45 +586,59 @@ namespace Common.Implement.Tools
             Dictionary<string, List<FileInfos>> paths = new Dictionary<string, List<FileInfos>>();
 
             foreach (MyTreeNode node in nodes) {
-                var filesInfo = node.buildeType.FileInfos;
-                if (filesInfo == null
-                    || filesInfo.Count == 0) {
-                    if (node.Nodes.Count > 0) {
-                        var cpaths = GetTreeViewFilePath(node.Nodes, ToolPars);
-                        foreach (var kv in cpaths) {
-                            var keys = paths.Keys;
-                            var key = kv.Key;
-                            var value = kv.Value;
-                            if (keys.Contains(key)) {
-                                var newV = paths[key];
-                                newV.AddRange(value);
-                                updatePath(newV, ToolPars);
-                                paths[key] = newV;
-                            }
-                            else {
-                                updatePath(value, ToolPars);
-                                paths.Add(kv.Key, value);
+               
+                    var filesInfo = node.buildeType.FileInfos;
+                    if (filesInfo == null
+                        || filesInfo.Count == 0)
+                    {
+                        if (node.Nodes.Count > 0)
+                        {
+                            var cpaths = GetTreeViewFilePath(node.Nodes, ToolPars);
+                            foreach (var kv in cpaths)
+                            {
+                                var keys = paths.Keys;
+                                var key = kv.Key;
+                                var value = kv.Value;
+                                if (keys.Contains(key))
+                                {
+                                    var newV = paths[key];
+                                    newV.AddRange(value);
+                                    updatePath(newV, ToolPars);
+                                    paths[key] = newV;
+                                }
+                                else
+                                {
+                                    updatePath(value, ToolPars);
+                                    paths.Add(kv.Key, value);
+                                }
                             }
                         }
                     }
-                }
-                else {
-                    string nodePath = node.FullPath;
-                    var keys = paths.Keys;
-                    if (keys.Contains(nodePath)) {
-                        var newV = paths[nodePath];
-                        newV.AddRange(filesInfo);
-                        updatePath(newV, ToolPars);
-                        paths[nodePath] = newV;
+                    else
+                    {
+                            string nodePath = node.FullPath;
+                            var keys = paths.Keys;
+                            if (keys.Contains(nodePath))
+                            {
+                                var newV = paths[nodePath];
+                                newV.AddRange(filesInfo);
+                                updatePath(newV, ToolPars);
+                                paths[nodePath] = newV;
+                            }
+                            else
+                            {
+                                updatePath(filesInfo, ToolPars);
+                                paths.Add(nodePath, filesInfo);
+                            }
+                        
+                    
                     }
-                    else {
-                        updatePath(filesInfo, ToolPars);
-                        paths.Add(nodePath, filesInfo);
-                    }
-                }
+                
             }
             return paths;
         }
+
+       
 
         static void updatePath(List<FileInfos> FileInfos, toolpars ToolPars) {
             var TemplateType = ToolPars.SettingPathEntity.TemplateTypeKey;
@@ -620,14 +662,13 @@ namespace Common.Implement.Tools
             );
             if (fileInfo?.Paths != null) {
                 if (fileInfo.Paths.Count() == 1) {
-                    FileInfos fileinfo = new FileInfos();
-                    fileinfo.actionNameFiled = "";
-                    fileinfo.ClassName = string.Format("Create{0}", Id);
-                    ;
-                    fileinfo.FileName = string.Format("Create{0}", Id);
-                    ;
-                    fileinfo.FunctionName = string.Format("Create{0}", Id);
-                    ;
+                    FileInfos fileinfo = new FileInfos {
+                        actionNameFiled = "",
+                        ClassName = string.Format("Create{0}", Id),
+                        FileName = string.Format("Create{0}", Id),
+                        FunctionName = string.Format("Create{0}", Id)
+                    };
+
                     var path = fileInfo.Paths[0];
                     fileinfo.BasePath = fileInfo.Paths[0];
                     var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
@@ -645,7 +686,7 @@ namespace Common.Implement.Tools
                 }
                 else {
                     fileInfo.Paths.ToList().ForEach(path => {
-                        string ClassNameFiled = Path.GetFileName(path);
+                        string ClassNameFiled = Path.GetFileNameWithoutExtension(path);
                         FileInfos fileinfo = new FileInfos();
                         fileinfo.actionNameFiled = "";
                         fileinfo.ClassName = ClassNameFiled;
@@ -778,7 +819,7 @@ namespace Common.Implement.Tools
                                + ToolPars.formEntity.txtNewTypeKey;
 
                 CopyPKG(formDir, toDir, fileInfos);
-                ModiName(ToolPars);
+                ModiName(ToolPars, ToolPars.formEntity.PkgTypekey);
             }
             catch (Exception ex){
                 sucess = false;
@@ -793,10 +834,10 @@ namespace Common.Implement.Tools
         /// 批量修改个案cs文件
         /// </summary>
         /// <param name="Toolpars"></param>
-        public static void ModiName(toolpars Toolpars)
+        public static void ModiName(toolpars Toolpars, string oldTypeKey)
         {
             string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
-            string PkgTypekey = Toolpars.formEntity.PkgTypekey;
+            string PkgTypekey = oldTypeKey;// Toolpars.formEntity.PkgTypekey;
             //个案路径
             string DirectoryPath = string.Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, txtNewTypeKey);
             DirectoryInfo tDes = new DirectoryInfo(DirectoryPath);
@@ -917,7 +958,96 @@ namespace Common.Implement.Tools
             }
             return paths;
         }
+
+        #region 一键借用
+
+        public static bool CopyAllPkG(toolpars Toolpars) {
+            bool success = true;
+            try
+            {
+
+                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
+                if (Toolpars.formEntity.txtToPath != ""
+                    && Toolpars.formEntity.txtNewTypeKey != "")
+                {
+                    if (Directory.Exists(Toolpars.formEntity.txtToPath))
+                    {
+
+                        DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
+                        string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
+                                       + Toolpars.formEntity.PkgTypekey;
+                        if (!Directory.Exists(strb1))
+                        {
+                            MessageBox.Show("文件夹" + strb1 + "不存在，请查看！！！", "Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            success =false;
+                        }
+                        else
+                        {
+                            if (
+                                Directory.Exists(Path.Combine(Toolpars.GToIni + @"\",
+                                    "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey)))
+                            {
+                                DialogResult result =
+                                    MessageBox.Show(
+                                        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                                        + "\r\n目錄已存在，是否覆蓋??",
+                                        "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                if (result == DialogResult.Yes)
+                                {
+                                    object tArgsPath = Path.Combine(Toolpars.GToIni + @"\",
+                                        "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                                    OldTools.DeleteAll(tArgsPath);
+                                }
+                                else
+                                {
+                                    success = false; 
+                                }
+                            }
+                            if(success)
+                                OldTools.CopyAllPKG(strb1, tCusSRC + "Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "不存在，请查看！！！", "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        success = false; 
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    success = false; 
+                }
+
+                #region 修改命名
+
+                if (success) {
+                    ModiName(Toolpars, Toolpars.formEntity.PkgTypekey);
+                    MessageBox.Show("生成成功 !!!");
+                }
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            new Thread(delegate () {
+                   sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "COPY PKG SOURCE");
+                }
+            ).Start();
+            return success;
+        }
+     
         #endregion
+
+        #endregion
+
+
 
     }
 }

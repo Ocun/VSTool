@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Common.Implement.Tools;
 
 namespace Common.Implement.UI
 {
@@ -49,7 +50,7 @@ namespace Common.Implement.UI
             }
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                string path = Path.GetExtension(folderBrowserDialog1.SelectedPath);
+                string path = Path.GetExtension(folderBrowserDialog1.SelectedPath).Substring(1);
 
                 this.TypeKeyText.Text = path;
 
@@ -64,6 +65,13 @@ namespace Common.Implement.UI
             }
 
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bool success = MyTool.CopyAllPkG(Toolpars);
+            if(success)
+               this.DialogResult = DialogResult.Yes;
         }
     }
 }

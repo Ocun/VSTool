@@ -10,5 +10,9 @@ namespace Digiwin.ERP.XTEST.Business.Implement
 	[SingleGetCreator]
     sealed class _TestsService_ : ServiceComponent, _ITestsService_
     {
+        void myFunc()
+        {
+
+        }
     }
 }
