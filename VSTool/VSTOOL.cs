@@ -137,9 +137,16 @@ namespace VSTool {
                     ftake = count - vnum;
                 }
                 else {
-                    vnum = count / 3;
-                    elseNum = count % 3;
-                    ftake = elseNum == 2 ? count - 2 * vnum - 1 : count - 2 * vnum;
+                    if (count < 3) {
+                        vnum = 1;
+                        ftake = 1;
+                    }
+                    else {
+                        vnum = count / 3;
+                        elseNum = count % 3;
+                        ftake = elseNum == 2 ? count - 2 * vnum - 1 : count - 2 * vnum;
+                    }
+                
                 }
                 var item2 = item[0].BuildeItems.Take(ftake).ToList();
                 var item3 = item[0].BuildeItems.Skip(ftake).Take(vnum).ToList();
