@@ -17,7 +17,7 @@ namespace Common.Implement.Tools
         /// <summary>
         /// 日志
         /// </summary>
-        public static void WriteLog(toolpars Toolpars, MyTreeView treeView)
+        public static void WriteLog(Toolpars Toolpars, MyTreeView treeView)
         {
             var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes, Toolpars);
             string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
@@ -49,7 +49,7 @@ namespace Common.Implement.Tools
             {
                 foreach (var fileinfo in kv.Value)
                 {
-                    logStr.AppendLine(String.Format("    # {0} {1}", kv.Key, fileinfo.FunctionName));
+                    logStr.AppendLine(String.Format("    # {0} {1}", kv.Key, fileinfo.FileName));
                 }
             }
             logStr.AppendLine(headStr);
@@ -62,16 +62,19 @@ namespace Common.Implement.Tools
             ;
         }
 
-        public static void writeToServer(toolpars Toolpars,IEnumerable<FileInfos> fileInfos)
-        {
-                fileInfos.ToList().ForEach(fileinfo => {
-                    // sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
-                    string year = DateTime.Now.ToString("yyyyMMdd");
-                    string demandId = string.Format("S01231_{0}_01", year);
-                    sqlTools.insertToolInfo(demandId, year,
-                        Toolpars.formEntity.txtNewTypeKey + "_" + fileinfo.FileName);
-                });
-            
+        public static void writeToServer(Toolpars Toolpars,IEnumerable<FileInfos> fileInfos) {
+             sqlTools.insertToolInfo(Toolpars.formEntity.txtNewTypeKey, fileInfos);
+            //int count = 0;
+            //foreach (var fileinfo in fileInfos)
+            //{
+            //    // sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
+            //    string year = DateTime.Now.ToString("yyyyMMdd");
+            //    string demandId = string.Format("S01231_{0}_01", year);
+            //    string useDate = DateTime.Now.AddMilliseconds(count++).ToString("yyyyMMddHHmmssfff");
+            //    sqlTools.insertToolInfo(useDate, demandId, year,
+            //        Toolpars.formEntity.txtNewTypeKey + "_" + fileinfo.FileName);
+            //};
+
         }
 
         #endregion

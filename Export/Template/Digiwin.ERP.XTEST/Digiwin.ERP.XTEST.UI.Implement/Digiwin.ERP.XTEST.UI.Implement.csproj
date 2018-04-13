@@ -219,6 +219,12 @@
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Digiwin.ERP.XTEST.Business\Digiwin.ERP.XTEST.Business.csproj">
+      <Project>{7754BEE7-697F-4403-A43D-CDAF55B9B1F5}</Project>
+      <Name>Digiwin.ERP.XTEST.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

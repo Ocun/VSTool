@@ -12,7 +12,7 @@ namespace Common.Implement.Tools
 {
     public static class TreeViewTool
     {
-        public static void CreateRightView(MyTreeView myTreeView5,toolpars Toolpars)
+        public static void CreateRightView(MyTreeView myTreeView5,Toolpars Toolpars)
         {
             myTreeView5.Nodes.Clear();
             CreateRightView(Toolpars, myTreeView5.Nodes);
@@ -25,7 +25,7 @@ namespace Common.Implement.Tools
         /// <param name="mytree"></param>
         /// <param name="BuildeEntity"></param>
         /// <param name="showCheck"></param>
-        public static void createTree(toolpars Toolpars, MyTreeView mytree, List<BuildeType> BuildeEntity, bool showCheck)
+        public static void createTree(Toolpars Toolpars, MyTreeView mytree, List<BuildeType> BuildeEntity, bool showCheck)
         {
             mytree.Nodes.Clear();
             if (BuildeEntity != null
@@ -42,7 +42,7 @@ namespace Common.Implement.Tools
         /// <param name="buildeType"></param>
         /// <param name="type">是否读取子节点 </param>
         /// <returns></returns>
-        public static TreeNode CreateTree(toolpars Toolpars, BuildeType buildeType, bool showCheck, bool readSubView)
+        public static TreeNode CreateTree(Toolpars Toolpars, BuildeType buildeType, bool showCheck, bool readSubView)
         {
             string text = buildeType.Name ?? String.Empty;
             MyTreeNode new_child = new MyTreeNode(text);
@@ -85,7 +85,7 @@ namespace Common.Implement.Tools
         /// </summary>
         /// <param name="ToolPar"></param>
         /// <param name="nodes"></param>
-        public static void CreateRightView(toolpars ToolPar, TreeNodeCollection nodes)
+        public static void CreateRightView(Toolpars ToolPar, TreeNodeCollection nodes)
         {
             var BuildeEntity = ToolPar.BuilderEntity.BuildeTypies;
             if (BuildeEntity != null)
@@ -149,7 +149,7 @@ namespace Common.Implement.Tools
         /// <param name="Toolpars"></param>
         /// <param name="fullPath"></param>
         /// <returns></returns>
-        public static MyTreeNode myPaintTreeView(toolpars Toolpars, string fullPath)
+        public static MyTreeNode myPaintTreeView(Toolpars Toolpars, string fullPath)
         {
 
             string DirName = Path.GetFileName(fullPath);

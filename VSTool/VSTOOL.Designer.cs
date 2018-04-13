@@ -262,7 +262,7 @@ namespace VSTool
             this.ModiCkb.Name = "ModiCkb";
             this.ModiCkb.Size = new System.Drawing.Size(48, 16);
             this.ModiCkb.TabIndex = 39;
-            this.ModiCkb.Text = "修改";
+            this.ModiCkb.Text = "借用";
             this.ModiCkb.UseVisualStyleBackColor = true;
             this.ModiCkb.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 

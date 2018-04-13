@@ -17,9 +17,9 @@ namespace VSTool {
     public partial class VSTOOL : Form {
         #region 屬性
 
-        private toolpars _toolpars = new toolpars();
+        private Toolpars _toolpars = new Toolpars();
 
-        public toolpars Toolpars {
+        public Toolpars Toolpars {
             get { return _toolpars; }
         }
 
@@ -57,7 +57,7 @@ namespace VSTool {
             #endregion
 
             if (pToIni == null) {
-                Toolpars.formEntity.txtToPath = "";
+                Toolpars.formEntity.TxtToPath = "";
                 //btncopydll.Visible = false;
                 //btncopyUIdll.Visible = false;
                 //btnKill.Visible = false;
@@ -73,16 +73,16 @@ namespace VSTool {
                 Toolpars.MIndustry = Convert.ToBoolean(args[5]);
                 Toolpars.CustomerName = args[6];
 
-                Toolpars.formEntity.txtToPath = Toolpars.Mpath;
+                Toolpars.formEntity.TxtToPath = Toolpars.Mpath;
                 if (Toolpars.MIndustry) {
-                    Toolpars.formEntity.txtToPath = Toolpars.MInpath;
+                    Toolpars.formEntity.TxtToPath = Toolpars.MInpath;
                 }
 
                 Toolpars.formEntity.txtPKGpath = Toolpars.MdesignPath + @"\WD_PR\SRC\";
                 Toolpars.formEntity.Industry = Toolpars.MIndustry;
                 if (Toolpars.Mpath.Contains("PKG")
                     && !Toolpars.MIndustry) {
-                    Toolpars.formEntity.txtToPath = Toolpars.MdesignPath + @"\WD_PR\SRC\";
+                    Toolpars.formEntity.TxtToPath = Toolpars.MdesignPath + @"\WD_PR\SRC\";
                 }
                 btncopydll.Visible = true;
                 btncopyUIdll.Visible = true;
@@ -179,13 +179,13 @@ namespace VSTool {
                         }
                     ).Start();
                     
-                    Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-                    if ((Toolpars.formEntity.txtToPath == "")
+                    Toolpars.GToIni = Toolpars.formEntity.TxtToPath;
+                    if ((Toolpars.formEntity.TxtToPath == "")
                         || (Toolpars.formEntity.txtNewTypeKey == "")) {
                         MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    bool success = MyTool.CreateFile(myTreeView5, _toolpars);
+                    var success = MyTool.CreateFile(myTreeView5, _toolpars);
 
                     if (success) {
                         if (myTreeView1.SelectedNode != null) {
@@ -206,8 +206,8 @@ namespace VSTool {
                         }
                     ).Start();
 
-                    Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-                    if ((Toolpars.formEntity.txtToPath == "")
+                    Toolpars.GToIni = Toolpars.formEntity.TxtToPath;
+                    if ((Toolpars.formEntity.TxtToPath == "")
                         || (Toolpars.formEntity.txtNewTypeKey == "")
                         ) {
                         MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -232,7 +232,7 @@ namespace VSTool {
 
                         DialogResult result =
                             MessageBox.Show(
-                                Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                                Path.Combine(Toolpars.formEntity.TxtToPath, Toolpars.formEntity.txtNewTypeKey)
                                 + "\r\n目錄已存在，是否覆蓋??",
                                 "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         if (result == DialogResult.Yes) {
@@ -267,17 +267,17 @@ namespace VSTool {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnOpenTo_Click(object sender, EventArgs e) {
-            var txtToPathStr = Toolpars.formEntity.txtToPath;
+            var txtToPathStr = Toolpars.formEntity.TxtToPath;
             if (txtToPathStr != null && txtToPathStr.Trim() != "") { 
-                folderBrowserDialog1.SelectedPath = Toolpars.formEntity.txtToPath.Trim();
+                folderBrowserDialog1.SelectedPath = Toolpars.formEntity.TxtToPath.Trim();
             }
             else {
                 folderBrowserDialog1.SelectedPath = Toolpars.GToIni;
             }
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) {
-                Toolpars.formEntity.txtToPath = folderBrowserDialog1.SelectedPath;
+                Toolpars.formEntity.TxtToPath = folderBrowserDialog1.SelectedPath;
                 txtToPath.Text = folderBrowserDialog1.SelectedPath;
-                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
+                Toolpars.GToIni = Toolpars.formEntity.TxtToPath;
             }
         }
         
@@ -296,9 +296,9 @@ namespace VSTool {
         
         private void btnOpen_Click(object sender, EventArgs e) //打开文件夹
         {
-            if (Directory.Exists(Toolpars.formEntity.txtToPath + @"\Digiwin.ERP."
+            if (Directory.Exists(Toolpars.formEntity.TxtToPath + @"\Digiwin.ERP."
                                  + Toolpars.formEntity.txtNewTypeKey)) {
-                Process.Start(Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                Process.Start(Toolpars.formEntity.TxtToPath + @"\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
             }
             else {
                 MessageBox.Show("文件夹不存在~", "注意!!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -308,7 +308,7 @@ namespace VSTool {
         private void txtNewTypeKey_TextChanged(object sender, EventArgs e) {
             if (ModiCkb.Checked)
             {
-                if (Toolpars.formEntity.txtToPath != ""
+                if (Toolpars.formEntity.TxtToPath != ""
                     && Toolpars.formEntity.txtNewTypeKey != ""
                     && Toolpars.formEntity.PkgTypekey != ""
                 )
@@ -337,7 +337,7 @@ namespace VSTool {
             try {
             
 
-                MyTool.copyDll(Toolpars);
+                MyTool.CopyDll(Toolpars);
                 MessageBox.Show("复制成功 !!!");
             }
             catch (Exception ex) {
@@ -422,11 +422,11 @@ namespace VSTool {
         private void btncopypkg_Click(object sender, EventArgs e) {
             try
             {
-                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-                if (Toolpars.formEntity.txtToPath != ""
+                Toolpars.GToIni = Toolpars.formEntity.TxtToPath;
+                if (Toolpars.formEntity.TxtToPath != ""
                     && Toolpars.formEntity.txtNewTypeKey != "")
                 {
-                    if (Directory.Exists(Toolpars.formEntity.txtToPath))
+                    if (Directory.Exists(Toolpars.formEntity.TxtToPath))
                     {
                         DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
                         string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
@@ -445,7 +445,7 @@ namespace VSTool {
                             {
                                 DialogResult result =
                                     MessageBox.Show(
-                                        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                                        Path.Combine(Toolpars.formEntity.TxtToPath, Toolpars.formEntity.txtNewTypeKey)
                                         + "\r\n目錄已存在，是否覆蓋??",
                                         "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                                 if (result == DialogResult.Yes)
@@ -464,7 +464,7 @@ namespace VSTool {
                     }
                     else
                     {
-                        MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "不存在，请查看！！！", "Error",
+                        MessageBox.Show("文件夹" + Toolpars.formEntity.TxtToPath + "不存在，请查看！！！", "Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return;
@@ -528,9 +528,9 @@ namespace VSTool {
 
         private void Industry_CheckedChanged(object sender, EventArgs e) {
             Toolpars.MIndustry = Industry.Checked;
-            Toolpars.formEntity.txtToPath = Toolpars.Mpath;
+            Toolpars.formEntity.TxtToPath = Toolpars.Mpath;
             if (Toolpars.MIndustry) {
-                Toolpars.formEntity.txtToPath = Toolpars.MInpath;
+                Toolpars.formEntity.TxtToPath = Toolpars.MInpath;
             }
         }
 
@@ -752,7 +752,7 @@ namespace VSTool {
                     treeView1.Visible = true;
                     splitContainer3.Visible = false;
                     scrollPanel.Visible = false;
-                    if (Toolpars.formEntity.txtToPath != ""
+                    if (Toolpars.formEntity.TxtToPath != ""
                         && Toolpars.formEntity.txtNewTypeKey != ""
                         && Toolpars.formEntity.PkgTypekey != "")
                     {

@@ -4,56 +4,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Common.Implement
+namespace Common.Implement.Entity
 {
     /// <summary>
     /// 界面參數
     /// </summary>
     public class FormEntity {
 
-        private string txtToPathField = string.Empty;
-        private string txtPKGpathField = string.Empty;
+        private string _txtToPathField = string.Empty;
+        private string _txtPkGpathField = string.Empty;
        
-        private string txtNewTypeKeyField = string.Empty;
+        private string _txtNewTypeKeyField = string.Empty;
         private bool IndustryField = false;
 
-        private string copyTypekeyField = string.Empty;
+        private string _copyTypekeyField = string.Empty;
 
         /// <summary>
         /// 個案路徑
         /// </summary>
-        public string txtToPath {
-            get { return txtToPathField; }
-            set { txtToPathField = value; }
+        public string TxtToPath {
+            get => _txtToPathField;
+            set => _txtToPathField = value;
         }
         /// <summary>
         /// 標準版路徑
         /// </summary>
         public string txtPKGpath {
-            get { return txtPKGpathField; }
-            set { txtPKGpathField = value; }
+            get => _txtPkGpathField;
+            set => _txtPkGpathField = value;
         }
         /// <summary>
         /// 個案typekey
         /// </summary>
         public string txtNewTypeKey {
-            get { return txtNewTypeKeyField; }
-            set { txtNewTypeKeyField = value; }
+            get => _txtNewTypeKeyField;
+            set => _txtNewTypeKeyField = value;
         }
         /// <summary>
         /// 行業包
         /// </summary>
         public bool Industry {
-            get { return IndustryField; }
-            set { IndustryField = value; }
+            get => IndustryField;
+            set => IndustryField = value;
         }
 
         /// <summary>
         /// 要借用的TypeKey
         /// </summary>
         public string PkgTypekey {
-            get { return copyTypekeyField; }
-            set { copyTypekeyField = value; }
+            get => _copyTypekeyField;
+            set => _copyTypekeyField = value;
         }
     }
 }

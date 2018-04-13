@@ -20,7 +20,8 @@
           <Id>Tools</Id>
           <Name>工具类</Name>
           <ShowCheckedBox>True</ShowCheckedBox>
-          <Checked>True</Checked>
+          <Checked>False</Checked>
+          <ReadOnly>False</ReadOnly>
           <ShowParWindow>False</ShowParWindow>
           <Description>提供常用的方法</Description>
         </BuildeItem>
@@ -38,6 +39,7 @@
         </BuildeItem>
         <BuildeItem>
           <Id>GuideInterceptor</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>向导式批次</Name>
           <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
         </BuildeItem>

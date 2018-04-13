@@ -19,7 +19,7 @@ namespace Common.Implement.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.OldTools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resource {
@@ -61,12 +61,75 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 复制成功 !!! 的本地化字符串。
+        /// </summary>
+        internal static string CopySucess {
+            get {
+                return ResourceManager.GetString("CopySucess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 目录已存在，是否覆盖?? 的本地化字符串。
+        /// </summary>
+        internal static string DirExisted {
+            get {
+                return ResourceManager.GetString("DirExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap down_arrow {
             get {
                 object obj = ResourceManager.GetObject("down_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        internal static string ErrorMsg {
+            get {
+                return ResourceManager.GetString("ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已启动！ 的本地化字符串。
+        /// </summary>
+        internal static string ExeAlreadyExe {
+            get {
+                return ResourceManager.GetString("ExeAlreadyExe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动应用程序时出错！原因： 的本地化字符串。
+        /// </summary>
+        internal static string ExeExeError {
+            get {
+                return ResourceManager.GetString("ExeExeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件已存在是否覆盖？ 的本地化字符串。
+        /// </summary>
+        internal static string FileExisted {
+            get {
+                return ResourceManager.GetString("FileExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 生成成功 的本地化字符串。
+        /// </summary>
+        internal static string GenerateSucess {
+            get {
+                return ResourceManager.GetString("GenerateSucess", resourceCulture);
             }
         }
         
@@ -97,6 +160,24 @@ namespace Common.Implement.Properties {
             get {
                 object obj = ResourceManager.GetObject("TreeNodeUnchecked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入创建地址及名称 的本地化字符串。
+        /// </summary>
+        internal static string TypekeyNotExisted {
+            get {
+                return ResourceManager.GetString("TypekeyNotExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        internal static string WarningMsg {
+            get {
+                return ResourceManager.GetString("WarningMsg", resourceCulture);
             }
         }
     }

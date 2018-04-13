@@ -29,20 +29,15 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         #region __InsertHere__
 
         #region MyRegion
-        private MyTools _myMyTool;
+        private MyTools _myTool;
         private ServiceTools _myServiceTool;
 
         /// <summary>
         /// 这里提供一些辅助方法
         /// </summary>
-        public MyTools MyMyTool
+        public MyTools MyTool
         {
-            get
-            {
-                if (_myMyTool == null
-                    ) _myMyTool = new MyTools(this);
-                return _myMyTool;
-            }
+            get { return _myTool ?? (_myTool = new MyTools(this)); }
         }
 
         /// <summary>
@@ -50,13 +45,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// </summary>
         public ServiceTools MyServiceTool
         {
-            get
-            {
-                if (_myServiceTool == null
-                )
-                    _myServiceTool = MyMyTool.MyService;
-                return _myServiceTool;
-            }
+            get { return _myServiceTool ?? (_myServiceTool = MyTool.MyService); }
         } 
         #endregion
 
@@ -80,6 +69,8 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             {
                 // 单头
                 DependencyObject entity = e.ActiveObject as DependencyObject;
+                
+
                 // 单身
                 // var entityD = entity[""] as DependencyObjectCollection;
                 // 工厂
@@ -88,11 +79,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 // DateTime confirmDate = e.Context.ConfirmInfo.ConfirmDate;
                 // 获取服务
                 // 个案服务
-                // var iser = MyMyTool.GetService<ITESTService>(this.TypeKey);
+                // var iser = MyTool.GetService<ITESTService>(this.TypeKey);
                 // 系统服务
                 // var sysParameterSrv =   MyServiceTool.SysParameterSrv;
                 // 调自动审核
-                // MyMyTool.AutoApprove(this.TypeKey,entity.Oid,null);
+                // MyTool.AutoApprove(this.TypeKey,entity.Oid,null);
                 // 使用事务
                 //using (ITransactionService trans = this.GetService<ITransactionService>()) {
                 //trans.Complete();
@@ -123,11 +114,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 // DateTime confirmDate = e.Context.ConfirmInfo.ConfirmDate;
                 // 获取服务
                 // 个案服务
-                // var iser = MyMyTool.GetService<ITESTService>(this.TypeKey);
+                // var iser = MyTool.GetService<ITESTService>(this.TypeKey);
                 // 系统服务
                 // var sysParameterSrv =   MyServiceTool.SysParameterSrv;
                 // 调自动审核
-                // MyMyTool.AutoApprove(this.TypeKey,entity.Oid,null);
+                // MyTool.AutoApprove(this.TypeKey,entity.Oid,null);
                 // 使用事务
                 //using (ITransactionService trans = this.GetService<ITransactionService>()) {
                 //trans.Complete();

@@ -16,7 +16,7 @@ namespace Common.Implement.Tools {
         /// <summary>
         /// 日志
         /// </summary>
-        public static void WriteLog(toolpars Toolpars, ListBox listDATA) {
+        public static void WriteLog(Toolpars Toolpars, ListBox listDATA) {
             string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
             string LogStr = txtNewTypeKey + Environment.NewLine;
             string varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
@@ -42,7 +42,7 @@ namespace Common.Implement.Tools {
         /// 批量修改cs文件
         /// </summary>
         /// <param name="Toolpars"></param>
-        public static void ModiName(toolpars Toolpars) {
+        public static void ModiName(Toolpars Toolpars) {
             string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
             string DirectoryPath = string.Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, txtNewTypeKey);
             DirectoryInfo tDes = new DirectoryInfo(DirectoryPath);

@@ -44,15 +44,15 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             ICurrentDocumentWindow win = this.GetServiceForThisTypeKey<ICurrentDocumentWindow>();
             ServiceControl serControl = win.EditController.EditorView as ServiceControl;
             DependencyObject entity = win.EditController.EditorView.DataSource as DependencyObject;
-            DependencyObjectCollection XMO_AA_D2 = entity["XMO_AA_D2"] as DependencyObjectCollection;
+            DependencyObjectCollection entityD = entity[""] as DependencyObjectCollection;
             IFindControlService findSer = serControl.GetService<IFindControlService>();
-            if (XMO_AA_D2.Count == 0)
+            if (entityD.Count == 0)
             {
                 DigiwinMessageBox.ShowInfo("无导出数据！");
                 return;
             }
             Control control;
-            if (findSer.TryGet("XdesignerGrid1XMO_AA_D1", out control))
+            if (findSer.TryGet("", out control))
             {
                 DigiwinGrid gridControl = control as DigiwinGrid;
                 if (gridControl != null)
@@ -72,12 +72,6 @@ namespace Digiwin.ERP.XTEST.UI.Implement
                 }
 
             }
-
-
-
-
-
-           
         
             return;
             using (var form = new ExportExcelForm(entity, this.ResourceServiceProvider, this.ServiceCallContext))

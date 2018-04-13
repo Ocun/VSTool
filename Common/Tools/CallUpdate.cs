@@ -32,23 +32,23 @@ namespace Common.Implement.Tools
         public static string GetLocation() {
             string IP = GetIPAddress();
 
-            if (IP.IndexOf("10.20.87") != -1) //台北 VM
+            if (IP.IndexOf("10.20.87", StringComparison.Ordinal) != -1) //台北 VM
             {
                 return "TWVM";
             }
-            else if (IP.IndexOf("10.20") != -1) //台北
+            else if (IP.IndexOf("10.20", StringComparison.Ordinal) != -1) //台北
             {
                 return "TW";
             }
-            else if (IP.IndexOf("10.40") != -1) //台中
+            else if (IP.IndexOf("10.40", StringComparison.Ordinal) != -1) //台中
             {
                 return "TH";
             }
-            else if (IP.IndexOf("192.168.168") != -1) //南京VM
+            else if (IP.IndexOf("192.168.168", StringComparison.Ordinal) != -1) //南京VM
             {
                 return "NJVM";
             }
-            else if (IP.IndexOf("192.168") != -1) //南京
+            else if (IP.IndexOf("192.168", StringComparison.Ordinal) != -1) //南京
             {
                 return "NJ";
             }
@@ -59,14 +59,14 @@ namespace Common.Implement.Tools
 
         //取得執行檔執行資料夾路徑
         public static string GetExeFolder(string FullFilePath) {
-            string ExeFolder = FullFilePath.Substring(0, FullFilePath.LastIndexOf("\\"));
+            string ExeFolder = FullFilePath.Substring(0, FullFilePath.LastIndexOf("\\", StringComparison.Ordinal));
             return ExeFolder;
         }
 
         //取得執行檔名稱
         public static string GetExeName(string FullFilePath) {
-            string ExeFolder = FullFilePath.Substring(0, FullFilePath.LastIndexOf("\\"));
-            FullFilePath = FullFilePath.Substring(FullFilePath.LastIndexOf("\\") + 1,
+            string ExeFolder = FullFilePath.Substring(0, FullFilePath.LastIndexOf("\\", StringComparison.Ordinal));
+            FullFilePath = FullFilePath.Substring(FullFilePath.LastIndexOf("\\", StringComparison.Ordinal) + 1,
                 FullFilePath.Length - ExeFolder.Length - 1);
             return FullFilePath;
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Common.Implement.Entity;
 
 namespace Common.Implement.Tools
 {
@@ -12,16 +13,16 @@ namespace Common.Implement.Tools
         /// <summary>
         /// 獲取各種路徑
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="toolpars"></param>
         /// <returns></returns>
-        public static PathEntity getPathEntity(toolpars Toolpars) {
-            var SettingPathEntity = Toolpars.SettingPathEntity;
-            string serverProgramsPath = CombineStr(new[]{Toolpars.Mplatform , SettingPathEntity.ServerDir,
+        public static PathEntity getPathEntity(Toolpars toolpars) {
+            var SettingPathEntity = toolpars.SettingPathEntity;
+            string serverProgramsPath = CombineStr(new[]{toolpars.Mplatform , SettingPathEntity.ServerDir,
                                 SettingPathEntity.Programs});//\\Server\\Application\\Customization\\Programs\\
-            string clientProgramsPath = CombineStr(new[]{Toolpars.Mplatform, SettingPathEntity.DeployServerDir,
+            string clientProgramsPath = CombineStr(new[]{toolpars.Mplatform, SettingPathEntity.DeployServerDir,
                                 SettingPathEntity.Programs});//\\DeployServer\\Shared\\Customization\\Programs\\
-            string ExportPath = CombineStr(new[]{Toolpars.formEntity.txtToPath , SettingPathEntity.ExportDir});//..\\Export\\
-            string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
+            string ExportPath = CombineStr(new[]{toolpars.formEntity.TxtToPath , SettingPathEntity.ExportDir});//..\\Export\\
+            string txtNewTypeKey = toolpars.formEntity.txtNewTypeKey;
             string rootDir = CombineStr(new[] {SettingPathEntity.PackageBaseName, txtNewTypeKey});//..\\Digiwin.ERP.typekey
             string businessDir = CombineStr(new[]{rootDir, SettingPathEntity.BusinessDirExtention});//..\\Digiwin.ERP.typekey.Business\\
             string ImplementDir = CombineStr(new[]{ businessDir , SettingPathEntity.ImplementDirExtention });//..\\Digiwin.ERP.typekey.Business.Implement\\
@@ -33,10 +34,10 @@ namespace Common.Implement.Tools
             string UIImplementDllName = CombineStr(new[] { UIImplementDir, SettingPathEntity.DllExtention });//..\\Digiwin.ERP.typekey.UI.Implement.dll\\
 
 
-            if (Toolpars.MIndustry)
+            if (toolpars.MIndustry)
             {
-                serverProgramsPath = CombineStr(new[]{Toolpars.Mplatform , SettingPathEntity.IndustryServerDir, SettingPathEntity.Programs });
-                clientProgramsPath = CombineStr(new[] { Toolpars.Mplatform, SettingPathEntity.IndustryDeployDir, SettingPathEntity.Programs});
+                serverProgramsPath = CombineStr(new[]{toolpars.Mplatform , SettingPathEntity.IndustryServerDir, SettingPathEntity.Programs });
+                clientProgramsPath = CombineStr(new[] { toolpars.Mplatform, SettingPathEntity.IndustryDeployDir, SettingPathEntity.Programs});
 
             }
             PathEntity pathEntity = new PathEntity()

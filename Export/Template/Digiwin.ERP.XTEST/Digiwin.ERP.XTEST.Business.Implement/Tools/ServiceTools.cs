@@ -65,7 +65,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement
         private IPrimaryKeyService _primaryKeySrv;
         private IAccountingPeriodService _accountingPeriodSrv;
         private IEnhancedValidateService _enhancedvalidatorSrv;
-        private IApproveStatusService _approveStatusSrv; 
+        private IApproveStatusService _approveStatusSrv;
+        private IItemQuantityCalculateService _itemQuantityCalculateSrv;
+        private IItemQtyConversionService _itemQtyConversionSrv;
+        private ICurrencyPrecisionService _currencyPrecisionSrv; 
+
         /// <summary>
         /// 登陆服务
         /// </summary>
@@ -196,6 +200,40 @@ namespace Digiwin.ERP.XTEST.Business.Implement
                 if (_approveStatusSrv == null)
                     _approveStatusSrv = this.GetService<IApproveStatusService>(CallContext.TypeKey);
                 return _approveStatusSrv; 
+            }
+        }
+        /// <summary>
+        /// 数量推算服务
+        /// </summary>
+        public IItemQuantityCalculateService ItemQuantityCalculateSrv
+        {
+            get { 
+                  if (_itemQuantityCalculateSrv == null)
+                    _itemQuantityCalculateSrv = this.GetService<IItemQuantityCalculateService>(CallContext.TypeKey);
+                return _itemQuantityCalculateSrv; }
+        }
+         /// <summary>
+        /// 数量推算服务
+        /// </summary>
+        public IItemQtyConversionService ItemQtyConversionSrv
+        {
+            get
+            {
+                if (_itemQtyConversionSrv == null)
+                    _itemQtyConversionSrv = this.GetService<IItemQtyConversionService>(CallContext.TypeKey);
+                return _itemQtyConversionSrv;
+            }
+        }
+        /// <summary>
+        /// 金额取位服务
+        /// </summary>
+        public ICurrencyPrecisionService CurrencyPrecisionSrv
+        {
+            get
+            {
+                if (_currencyPrecisionSrv == null)
+                    _currencyPrecisionSrv = this.GetService<ICurrencyPrecisionService>(CallContext.TypeKey);
+                return _currencyPrecisionSrv;
             }
         }
         #endregion

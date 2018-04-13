@@ -9,19 +9,21 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Common.Implement.Entity;
+using Common.Implement.Properties;
 using Common.Implement.Tools;
 
 namespace Common.Implement.UI {
     public partial class ModiPKG : Form {
-        public toolpars Toolpars { get; set; }
+        public Toolpars Toolpars { get; set; }
 
         public ModiPKG() {
             InitializeComponent();
         }
 
-        public ModiPKG(toolpars Toolpars) {
+        public ModiPKG(Toolpars toolpars) {
             InitializeComponent();
-            this.Toolpars = Toolpars;
+            this.Toolpars = toolpars;
         }
 
 
@@ -51,7 +53,7 @@ namespace Common.Implement.UI {
                 }
                 for (int i = 0; i < listDATA.Items.Count; i++) {
                     string s = listDATA.Items[i].ToString();
-                    if (s.Substring(0, s.IndexOf(";")) == e.Node.FullPath) {
+                    if (s.Substring(0, s.IndexOf(";", StringComparison.Ordinal)) == e.Node.FullPath) {
                         listDATA.Items.Remove(s);
                     }
                 }
@@ -68,11 +70,11 @@ namespace Common.Implement.UI {
             try { 
             OldTools.WriteLog(Toolpars, listDATA);
 
-            Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-            if ((Toolpars.formEntity.txtToPath == "")
+            Toolpars.GToIni = Toolpars.formEntity.TxtToPath;
+            if ((Toolpars.formEntity.TxtToPath == "")
                 || (Toolpars.formEntity.txtNewTypeKey == ""))
             {
-                MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resource.TypekeyNotExisted, Resource.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
@@ -82,7 +84,7 @@ namespace Common.Implement.UI {
 
                 DialogResult result =
                     MessageBox.Show(
-                        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                        Path.Combine(Toolpars.formEntity.TxtToPath, Toolpars.formEntity.txtNewTypeKey)
                         + "\r\n目錄已存在，是否覆蓋??",
                         "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
@@ -222,8 +224,8 @@ namespace Common.Implement.UI {
         private void copyModi()
         {
             string typeKN = Toolpars.formEntity.txtNewTypeKey;
-            string stra = Toolpars.formEntity.txtToPath.Substring(0, Toolpars.formEntity.txtToPath.IndexOf("\\"));
-            string strb = Toolpars.formEntity.txtToPath.Substring(Toolpars.formEntity.txtToPath.IndexOf("\\") + 1);
+            string stra = Toolpars.formEntity.TxtToPath.Substring(0, Toolpars.formEntity.TxtToPath.IndexOf("\\"));
+            string strb = Toolpars.formEntity.TxtToPath.Substring(Toolpars.formEntity.TxtToPath.IndexOf("\\") + 1);
             strb = strb.Substring(0, strb.IndexOf("\\"));
             for (int i = 0; i < listDATA.Items.Count; i++)
             {
@@ -257,7 +259,7 @@ namespace Common.Implement.UI {
                     mstrins = ".Business";
                 }
                 string mfroma = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP." + typeKN.Substring(1) + "\\" + ITEM;
-                string mtoa = Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + typeKN + "\\" + "Digiwin.ERP." + typeKN
+                string mtoa = Toolpars.formEntity.TxtToPath + @"\Digiwin.ERP." + typeKN + "\\" + "Digiwin.ERP." + typeKN
                               + mstrins +
                               MPKG;
                 string mpatha = mtoa.Substring(0, mtoa.LastIndexOf("\\"));
@@ -299,11 +301,11 @@ namespace Common.Implement.UI {
         {
             try
             {
-                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-                if (Toolpars.formEntity.txtToPath != ""
+                Toolpars.GToIni = Toolpars.formEntity.TxtToPath;
+                if (Toolpars.formEntity.TxtToPath != ""
                     && Toolpars.formEntity.txtNewTypeKey != "")
                 {
-                    if (Directory.Exists(Toolpars.formEntity.txtToPath))
+                    if (Directory.Exists(Toolpars.formEntity.TxtToPath))
                     {
                         DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
                         string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
@@ -322,7 +324,7 @@ namespace Common.Implement.UI {
                             {
                                 DialogResult result =
                                     MessageBox.Show(
-                                        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
+                                        Path.Combine(Toolpars.formEntity.TxtToPath, Toolpars.formEntity.txtNewTypeKey)
                                         + "\r\n目錄已存在，是否覆蓋??",
                                         "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                                 if (result == DialogResult.Yes)
@@ -341,7 +343,7 @@ namespace Common.Implement.UI {
                     }
                     else
                     {
-                        MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "不存在，请查看！！！", "Error",
+                        MessageBox.Show("文件夹" + Toolpars.formEntity.TxtToPath + "不存在，请查看！！！", "Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return;
@@ -349,7 +351,7 @@ namespace Common.Implement.UI {
                 }
                 else
                 {
-                    MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resource.TypekeyNotExisted, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -381,7 +383,7 @@ namespace Common.Implement.UI {
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Toolpars.formEntity.txtToPath != ""
+            if (Toolpars.formEntity.TxtToPath != ""
                 && Toolpars.formEntity.txtNewTypeKey != "")
             {
                 string strb1 = Toolpars.formEntity.txtPKGpath + "Digiwin.ERP."
@@ -405,10 +407,10 @@ namespace Common.Implement.UI {
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(Toolpars.formEntity.txtToPath + @"\Digiwin.ERP."
+            if (Directory.Exists(Toolpars.formEntity.TxtToPath + @"\Digiwin.ERP."
                                  + Toolpars.formEntity.txtNewTypeKey))
             {
-                Process.Start(Toolpars.formEntity.txtToPath + @"\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
+                Process.Start(Toolpars.formEntity.TxtToPath + @"\Digiwin.ERP." + Toolpars.formEntity.txtNewTypeKey);
             }
             else
             {

@@ -9,7 +9,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Common.Implement.Entity;
+using Common.Implement.Properties;
 using Common.Implement.UI;
+using static System.String;
 
 namespace Common.Implement.Tools
 {
@@ -22,7 +24,7 @@ namespace Common.Implement.Tools
         /// <param name="fromDir"></param>
         /// <param name="toDir"></param>
         /// <param name="filterName"></param>
-        public static void copyTo(toolpars Toolpars, string fromDir, string toDir, List<string> fileNames,
+        public static void copyTo(Toolpars Toolpars, string fromDir, string toDir, List<string> fileNames,
             string fromTypeKey, string ToTypeKey)
         {
             var formFiles = GetFilePath(fromDir);
@@ -33,8 +35,8 @@ namespace Common.Implement.Tools
                 FileInfo fileinfo = new FileInfo(file);
                 string file_name = Path.GetFileNameWithoutExtension(file);
                 if (!fileNames.Contains(file_name)) continue;
-                string absolutedir = fileinfo.Directory.FullName.Replace(fromDir, String.Empty);
-                string absolutePath = file.Replace(fromDir, String.Empty);
+                string absolutedir = fileinfo.Directory.FullName.Replace(fromDir, Empty);
+                string absolutePath = file.Replace(fromDir, Empty);
                 string newFilePath = Path.Combine(toDir, absolutePath);
                 string newFileDir = Path.Combine(toDir, absolutedir).Replace(fromTypeKey, ToTypeKey);
                 if (!Directory.Exists(newFileDir))
@@ -50,7 +52,7 @@ namespace Common.Implement.Tools
                     }
                 }
                 fileinfo.CopyTo(newFilePath);
-                changeText(newFilePath, fromTypeKey, ToTypeKey);
+                ChangeText(newFilePath, fromTypeKey, ToTypeKey);
                 FileInfo newfileinfo = new FileInfo(newFilePath);
                 var dir = newfileinfo.Directory;
 
@@ -99,7 +101,7 @@ namespace Common.Implement.Tools
         /// <param name="filterName"></param>
         /// <returns></returns>
         private static string SearchFile(string dirpath, string searchFile, bool containerSub) {
-            string filePath = String.Empty;
+            string filePath = Empty;
             if (Directory.Exists(dirpath)) {
                 DirectoryInfo dirinfo = new DirectoryInfo(dirpath);
                 FileInfo[] filepaths = dirinfo.GetFiles();
@@ -112,7 +114,7 @@ namespace Common.Implement.Tools
                     if (childDirList.Length > 0) {
                         childDirList.ToList().ForEach(a => {
                                 var res = SearchFile(a.FullName, searchFile, containerSub);
-                                if (!res.Equals(String.Empty)) {
+                                if (!res.Equals(Empty)) {
                                     filePath = res;
                                 }
                             }
@@ -129,15 +131,12 @@ namespace Common.Implement.Tools
         /// <param name="path"></param>
         /// <param name="fromName"></param>
         /// <param name="toName"></param>
-        private static void changeText(string path, string fromName, string toName) {
-            string con = "";
-
-            string text = File.ReadAllText(path);
+        private static void ChangeText(string path, string fromName, string toName) {
+            var text = File.ReadAllText(path);
             text = text.Replace(fromName, toName);
             File.SetAttributes(path, FileAttributes.Normal);
             File.Delete(path);
-            File.WriteAllText(path, text, System.Text.UTF8Encoding.UTF8);
-
+            File.WriteAllText(path, text, Encoding.UTF8);
 
             //using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             //{
@@ -168,55 +167,55 @@ namespace Common.Implement.Tools
         /// <param name="filterStr"></param>
         public static void FileCopyUIdll(string fromPath, string toPath, string filterStr) {
             try {
-                string[] filedir = Directory.GetFiles(fromPath, filterStr,
+                var filedir = Directory.GetFiles(fromPath, filterStr,
                     SearchOption.AllDirectories);
                 foreach (var mfile in filedir) {
                     File.Copy(mfile, mfile.Replace(fromPath, toPath), true);
                 }
-                MessageBox.Show("复制成功 !!!");
+                MessageBox.Show(Resource.CopySucess);
             }
             catch (Exception ex) {
-                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message.ToString(), Resource.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public static void copyDll(toolpars Toolpars) {
-            var PathEntity = Toolpars.PathEntity;
-            if (PathEntity != null) {
-                string serverPath = PathEntity.ServerProgramsPath;
-                string clientPath = PathEntity.DeployProgramsPath;
-                string businessDllFullPath = PathEntity.ExportPath + PathEntity.BusinessDllName;
-                string ImplementDllFullPath = PathEntity.ExportPath + PathEntity.ImplementDllName;
-                string UIDllFullPath = PathEntity.ExportPath + PathEntity.UIDllName;
-                string UIImplementDllFullPath = PathEntity.ExportPath + PathEntity.UIImplementDllName;
+        public static void CopyDll(Toolpars toolpars) {
+            var pathEntity = toolpars.PathEntity;
+            if (pathEntity != null) {
+                string serverPath = pathEntity.ServerProgramsPath;
+                string clientPath = pathEntity.DeployProgramsPath;
+                string businessDllFullPath = pathEntity.ExportPath + pathEntity.BusinessDllName;
+                string implementDllFullPath = pathEntity.ExportPath + pathEntity.ImplementDllName;
+                string UIDllFullPath = pathEntity.ExportPath + pathEntity.UIDllName;
+                string UIImplementDllFullPath = pathEntity.ExportPath + pathEntity.UIImplementDllName;
                 //Path.GetDirectoryName()
-                string toPath = String.Empty;
+                string toPath = Empty;
                 if (File.Exists(businessDllFullPath)) {
                     if (Directory.Exists(serverPath)) {
-                        toPath = serverPath + PathEntity.BusinessDllName;
+                        toPath = serverPath + pathEntity.BusinessDllName;
                         File.Copy(businessDllFullPath, toPath, true);
                     }
                     if (Directory.Exists(clientPath)) {
-                        toPath = clientPath + PathEntity.BusinessDllName;
+                        toPath = clientPath + pathEntity.BusinessDllName;
                         File.Copy(businessDllFullPath, toPath, true);
                     }
                 }
-                if (File.Exists(ImplementDllFullPath)) {
+                if (File.Exists(implementDllFullPath)) {
                     if (Directory.Exists(serverPath)) {
-                        File.Copy(ImplementDllFullPath,
-                            serverPath + PathEntity.ImplementDllName, true);
+                        File.Copy(implementDllFullPath,
+                            serverPath + pathEntity.ImplementDllName, true);
                     }
                 }
                 if (File.Exists(UIDllFullPath)) {
                     if (Directory.Exists(clientPath)) {
                         File.Copy(UIDllFullPath,
-                            clientPath + PathEntity.UIDllName, true);
+                            clientPath + pathEntity.UIDllName, true);
                     }
                 }
                 if (File.Exists(UIImplementDllFullPath)) {
                     if (Directory.Exists(clientPath)) {
                         File.Copy(UIImplementDllFullPath,
-                            clientPath + PathEntity.UIImplementDllName, true);
+                            clientPath + pathEntity.UIImplementDllName, true);
                     }
                 }
             }
@@ -229,28 +228,22 @@ namespace Common.Implement.Tools
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        static string findCSproj(DirectoryInfo Dir) {
-            string csproj = string.Empty;
-            if (Dir.Exists) {
-                var fileInfo = Dir.GetFiles();
-                var fcs = fileInfo.FirstOrDefault(f => f.Extension.Equals(@".csproj"));
-                if (fcs == null) {
-                    csproj = findCSproj(Dir.Parent);
-                }
-                else {
-                    csproj = fcs.FullName;
-                }
-            }
+        public static string FindCSproj(DirectoryInfo Dir) {
+            var csproj = Empty;
+            if (!Dir.Exists) return csproj;
+            var fileInfo = Dir.GetFiles();
+            var fcs = fileInfo.FirstOrDefault(f => f.Extension.Equals(@".csproj"));
+            csproj = fcs?.FullName ?? FindCSproj(Dir.Parent);
             return csproj;
         }
 
         /// <summary>
         /// 查看文件是否生成
         /// </summary>
-        /// <param name="treeView"></param>
+        /// <param name="pathDic"></param>
         /// <returns></returns>
-        public static List<string> getExistedMsg(Dictionary<string, List<FileInfos>> pathDic) {
-            List<string> msgList = new List<string>();
+        public static List<string> GetExistedMsg(Dictionary<string, List<FileInfos>> pathDic) {
+            var msgList = new List<string>();
             foreach (var kv in pathDic) {
                 var msg = kv.Key + ":" + Environment.NewLine;
                 var value = kv.Value;
@@ -259,9 +252,9 @@ namespace Common.Implement.Tools
                     var toPath = path.ToPath;
                     if (File.Exists(toPath)) {
                         if (path.PartId != null
-                            && !path.PartId.Equals(string.Empty)
+                            && !path.PartId.Equals(Empty)
                             && path.IsMerge != null
-                            && !path.IsMerge.Equals(string.Empty)
+                            && !path.IsMerge.Equals(Empty)
                         ) {
                         }
                         else {
@@ -291,20 +284,20 @@ namespace Common.Implement.Tools
             //File.WriteAllText(f.FullName, text, System.Text.UTF8Encoding.UTF8);
         }
 
-        public static bool CreateFile(MyTreeView treeView, toolpars ToolPars) {
+        public static bool CreateFile(MyTreeView treeView, Toolpars toolPars) {
             // var test = Regex.Match("http://192.168.1.250:9595/", @"(?<=://)[a-zA-Z\.0-9-_]+(?=[:,\/])").Value;
 
-            var pathDic = GetTreeViewFilePath(treeView.Nodes, ToolPars);
-            var msgList = getExistedMsg(pathDic);
-            bool f = true;
-            bool success = true;
+            var pathDic = GetTreeViewFilePath(treeView.Nodes, toolPars);
+            var msgList = GetExistedMsg(pathDic);
+            var f = true;
+            var success = true;
 
             #region 检查覆盖
 
             if (msgList.Count > 0) {
-                var msg = string.Empty;
+                var msg = Empty;
                 msgList.ForEach(str => { msg += str + Environment.NewLine; });
-                if (MessageBox.Show(msg + "已存在是否覆盖？", "警告！", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                if (MessageBox.Show(msg + Resource.FileExisted, Resource.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                     != DialogResult.Yes) {
                     f = false;
                     success = false;
@@ -318,7 +311,7 @@ namespace Common.Implement.Tools
                 try {
                     #region 从配置创建目录 及 基本的文件 
 
-                    CreateBaseItem(ToolPars);
+                    CreateBaseItem(toolPars);
 
                     #endregion
 
@@ -327,7 +320,7 @@ namespace Common.Implement.Tools
                     foreach (var kv in pathDic) {
                         foreach (var path in kv.Value) {
                             if (!File.Exists(path.FromPath)) {
-                                MessageBox.Show(string.Format("{0}/{1}模板不存在，请检查", kv.Key, path.FileName), "Error",
+                                MessageBox.Show(Format("{0}/{1}模板不存在，请检查", kv.Key, path.FileName), Resource.ErrorMsg,
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 checkTemplate = false;
                                 break;
@@ -353,7 +346,7 @@ namespace Common.Implement.Tools
                             }
                             if (File.Exists(toPath)) {
                                 if (path.IsMerge != null
-                                    && !path.IsMerge.Equals(string.Empty)) {
+                                    && !path.IsMerge.Equals(Empty)) {
                                     //將唯讀權限拿掉
                                     File.SetAttributes(toPath, FileAttributes.Normal);
                                     FindPartAndInsert(path);
@@ -368,7 +361,7 @@ namespace Common.Implement.Tools
                             }
                             else {
                                 if (path.PartId != null
-                                    && !path.PartId.Equals(string.Empty)) {
+                                    && !path.PartId.Equals(Empty)) {
                                     FindPartAndInsert(path);
                                 }
                                 else {
@@ -382,8 +375,8 @@ namespace Common.Implement.Tools
 
                             fileinfo = new FileInfo(toPath);
                             var dirInfo = fileinfo.Directory;
-                            string csPath = findCSproj(dirInfo);
-                            string csDir = string.Format("{0}\\", Path.GetDirectoryName(csPath));
+                            string csPath = FindCSproj(dirInfo);
+                            string csDir = Format("{0}\\", Path.GetDirectoryName(csPath));
 
                             //找到相对位置
                             int index = toPath.IndexOf(csDir);
@@ -398,7 +391,7 @@ namespace Common.Implement.Tools
                         ;
                     }
                     //修改文件内容，替换typekey
-                    ModiFiles(ToolPars, ToolPars.OldTypekey, ToolPars.formEntity.txtNewTypeKey);
+                    ModiFiles(toolPars, toolPars.OldTypekey, toolPars.formEntity.txtNewTypeKey);
                 }
                 catch (Exception ex) {
                     success = false;
@@ -407,9 +400,9 @@ namespace Common.Implement.Tools
                 #endregion
             }
             if (success) {
-                LogTool.WriteLog(ToolPars, treeView);
-                InitBuilderEntity(ToolPars);
-                MessageBox.Show("生成成功");
+                LogTool.WriteLog(toolPars, treeView);
+                InitBuilderEntity(toolPars);
+                MessageBox.Show(Resource.GenerateSucess);
             }
             return success;
         }
@@ -419,11 +412,11 @@ namespace Common.Implement.Tools
         /// 初始化，创建完成之后 清空按钮 选择项
         /// </summary>
         /// <param name="ToolPars"></param>
-        public static void InitBuilderEntity(toolpars ToolPars)
+        public static void InitBuilderEntity(Toolpars ToolPars)
         {
             try
             {
-                string Path = string.Format(@"{0}Config\BuildeEntity.xml", ToolPars.MVSToolpath);
+                string Path = Format(@"{0}Config\BuildeEntity.xml", ToolPars.MVSToolpath);
                 ToolPars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(Path);
                 InitBuildeTypies(ToolPars.BuilderEntity.BuildeTypies,ToolPars);
             }
@@ -433,7 +426,7 @@ namespace Common.Implement.Tools
             }
         }
 
-        public static void InitBuildeTypies(BuildeType[] BuildeTypies, toolpars ToolPars) {
+        public static void InitBuildeTypies(BuildeType[] BuildeTypies, Toolpars ToolPars) {
             BuildeTypies.ToList().ForEach(item => {
                 if (item.Checked != null
                     && item.Checked.Equals("True")
@@ -464,20 +457,20 @@ namespace Common.Implement.Tools
         /// </summary>
         static void FindPartAndInsert(FileInfos fileinfo) {
             if (fileinfo.PartId != null
-                && !fileinfo.PartId.Equals(string.Empty)
+                && !fileinfo.PartId.Equals(Empty)
             ) {
                 var fromPath = fileinfo.FromPath;
                 var toPath = fileinfo.ToPath;
                 string text = File.ReadAllText(fromPath);
                 string inserthere = @"__InsertHere__";
                 string fromMatch =
-                    string.Format(@"(?<=(\#region\s+{0}))[\s\S\w\r\n]*(?=(\#endregion\s+{1}))",
+                    Format(@"(?<=(\#region\s+{0}))[\s\S\w\r\n]*(?=(\#endregion\s+{1}))",
                         fileinfo.Id, fileinfo.Id);
                 string toMatch =
-                    string.Format(@"(?<=(\#region\s+{0}))[\s\S\w\r\n]*(?=(\#endregion\s+{1}))",
+                    Format(@"(?<=(\#region\s+{0}))[\s\S\w\r\n]*(?=(\#endregion\s+{1}))",
                         inserthere, inserthere);
                 string fromTest = Regex.Match(text, fromMatch).Value;
-                string target = string.Empty;
+                string target = Empty;
 
 
                 if (!File.Exists(toPath)) {
@@ -493,13 +486,13 @@ namespace Common.Implement.Tools
 
                 #region 替换插入位置
 
-                regex = new Regex(string.Format(@"\#region\s+{0}", inserthere));
-                target = regex.Replace(target, string.Format(@"#region {0}", fileinfo.Id));
-                regex = new Regex(string.Format(@"\#endregion\s+{0}", inserthere));
+                regex = new Regex(Format(@"\#region\s+{0}", inserthere));
+                target = regex.Replace(target, Format(@"#region {0}", fileinfo.Id));
+                regex = new Regex(Format(@"\#endregion\s+{0}", inserthere));
 
 
                 string newInsertHere =
-                    string.Format(
+                    Format(
                         "#endregion {0}\r\n        #region __InsertHere__ \r\n        #endregion __InsertHere__",
                         fileinfo.Id);
 
@@ -515,7 +508,7 @@ namespace Common.Implement.Tools
         /// <summary>
         /// 一些必考项目,模板目录
         /// </summary>
-        public static void CreateBaseItem(toolpars ToolPars) {
+        public static void CreateBaseItem(Toolpars ToolPars) {
             var TemplateType = ToolPars.SettingPathEntity.TemplateTypeKey;
             var newTypeKey = ToolPars.formEntity.txtNewTypeKey;
             var file_mapping = ToolPars.FileMappingEntity;
@@ -545,10 +538,10 @@ namespace Common.Implement.Tools
         /// <param name="Toolpars"></param>
         /// <param name="oldKey"></param>
         /// <param name="newKey"></param>
-        static void ModiFiles(toolpars Toolpars, string oldKey, string newKey) {
+        public static void ModiFiles(Toolpars Toolpars, string oldKey, string newKey) {
           
             //个案路径
-            string DirectoryPath = string.Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, newKey);
+            string DirectoryPath = Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, newKey);
             DirectoryInfo tDes = new DirectoryInfo(DirectoryPath);
 
             List<string> tSearchPatternList = new List<string>();
@@ -582,7 +575,7 @@ namespace Common.Implement.Tools
         /// <param name="nodes"></param>
         /// <returns></returns>
         public static Dictionary<string, List<FileInfos>> GetTreeViewFilePath(TreeNodeCollection nodes,
-            toolpars ToolPars) {
+            Toolpars ToolPars) {
             Dictionary<string, List<FileInfos>> paths = new Dictionary<string, List<FileInfos>>();
 
             foreach (MyTreeNode node in nodes) {
@@ -640,7 +633,7 @@ namespace Common.Implement.Tools
 
        
 
-        static void updatePath(List<FileInfos> FileInfos, toolpars ToolPars) {
+        static void updatePath(List<FileInfos> FileInfos, Toolpars ToolPars) {
             var TemplateType = ToolPars.SettingPathEntity.TemplateTypeKey;
             var newTypeKey = ToolPars.formEntity.txtNewTypeKey;
             FileInfos.ForEach(fileinfo => {
@@ -653,7 +646,7 @@ namespace Common.Implement.Tools
             );
         }
 
-        public static List<FileInfos> createFileMappingInfo(toolpars _toolpars, BuildeType bt) {
+        public static List<FileInfos> createFileMappingInfo(Toolpars _toolpars, BuildeType bt) {
             List<FileInfos> FileInfos = new List<FileInfos>();
             var fileMapping = _toolpars.FileMappingEntity;
             string Id = bt.Id;
@@ -664,9 +657,9 @@ namespace Common.Implement.Tools
                 if (fileInfo.Paths.Count() == 1) {
                     FileInfos fileinfo = new FileInfos {
                         actionNameFiled = "",
-                        ClassName = string.Format("Create{0}", Id),
-                        FileName = string.Format("Create{0}", Id),
-                        FunctionName = string.Format("Create{0}", Id)
+                        ClassName = Format("Create{0}", Id),
+                        FileName = Format("Create{0}", Id),
+                        FunctionName = Format("Create{0}", Id)
                     };
 
                     var path = fileInfo.Paths[0];
@@ -677,7 +670,7 @@ namespace Common.Implement.Tools
                     var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
                     fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
                     if (bt.PartId != null
-                        && !bt.PartId.Equals(string.Empty)) {
+                        && !bt.PartId.Equals(Empty)) {
                         fileinfo.PartId = bt.PartId;
                         fileinfo.PartId = bt.Id;
                         fileinfo.IsMerge = bt.IsMerge;
@@ -730,12 +723,12 @@ namespace Common.Implement.Tools
                     p.Start();
                 }
                 else {
-                    MessageBox.Show("已启动！");
+                    MessageBox.Show(Resource.ExeAlreadyExe);
                 }
             }
             catch (Exception e0)
             {
-                MessageBox.Show("启动应用程序时出错！原因：" + e0.Message);
+                MessageBox.Show(Resource.ExeExeError + e0.Message);
             }
         }
 
@@ -807,7 +800,7 @@ namespace Common.Implement.Tools
             }
         }
 
-        public static bool copyModi(TreeNodeCollection nodes,toolpars ToolPars ) {
+        public static bool copyModi(TreeNodeCollection nodes,Toolpars ToolPars ) {
             bool sucess = true;
             try {
                
@@ -815,7 +808,7 @@ namespace Common.Implement.Tools
 
                 string formDir = ToolPars.formEntity.txtPKGpath + "Digiwin.ERP."
                                + ToolPars.formEntity.PkgTypekey;
-                string toDir = ToolPars.formEntity.txtToPath + "\\Digiwin.ERP."
+                string toDir = ToolPars.formEntity.TxtToPath + "\\Digiwin.ERP."
                                + ToolPars.formEntity.txtNewTypeKey;
 
                 CopyPKG(formDir, toDir, fileInfos);
@@ -834,12 +827,12 @@ namespace Common.Implement.Tools
         /// 批量修改个案cs文件
         /// </summary>
         /// <param name="Toolpars"></param>
-        public static void ModiName(toolpars Toolpars, string oldTypeKey)
+        public static void ModiName(Toolpars Toolpars, string oldTypeKey)
         {
             string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
             string PkgTypekey = oldTypeKey;// Toolpars.formEntity.PkgTypekey;
             //个案路径
-            string DirectoryPath = string.Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, txtNewTypeKey);
+            string DirectoryPath = Format(@"{0}\Digiwin.ERP.{1}\", Toolpars.GToIni, txtNewTypeKey);
             DirectoryInfo tDes = new DirectoryInfo(DirectoryPath);
             
             List<string> tSearchPatternList = new List<string>();
@@ -961,16 +954,16 @@ namespace Common.Implement.Tools
 
         #region 一键借用
 
-        public static bool CopyAllPkG(toolpars Toolpars) {
+        public static bool CopyAllPkG(Toolpars Toolpars) {
             bool success = true;
             try
             {
 
-                Toolpars.GToIni = Toolpars.formEntity.txtToPath;
-                if (Toolpars.formEntity.txtToPath != ""
+                Toolpars.GToIni = Toolpars.formEntity.TxtToPath;
+                if (Toolpars.formEntity.TxtToPath != ""
                     && Toolpars.formEntity.txtNewTypeKey != "")
                 {
-                    if (Directory.Exists(Toolpars.formEntity.txtToPath))
+                    if (Directory.Exists(Toolpars.formEntity.TxtToPath))
                     {
 
                         DirectoryInfo tCusSRC = new DirectoryInfo(Toolpars.GToIni + @"\");
@@ -978,7 +971,7 @@ namespace Common.Implement.Tools
                                        + Toolpars.formEntity.PkgTypekey;
                         if (!Directory.Exists(strb1))
                         {
-                            MessageBox.Show("文件夹" + strb1 + "不存在，请查看！！！", "Error", MessageBoxButtons.OK,
+                            MessageBox.Show("文件夹" + strb1 + "不存在，请查看！！！", Resource.ErrorMsg, MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                             success =false;
                         }
@@ -990,8 +983,8 @@ namespace Common.Implement.Tools
                             {
                                 DialogResult result =
                                     MessageBox.Show(
-                                        Path.Combine(Toolpars.formEntity.txtToPath, Toolpars.formEntity.txtNewTypeKey)
-                                        + "\r\n目錄已存在，是否覆蓋??",
+                                        Path.Combine(Toolpars.formEntity.TxtToPath, Toolpars.formEntity.txtNewTypeKey)
+                                        + Environment.NewLine+Resource.DirExisted,
                                         "Warnning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                                 if (result == DialogResult.Yes)
                                 {
@@ -1010,7 +1003,7 @@ namespace Common.Implement.Tools
                     }
                     else
                     {
-                        MessageBox.Show("文件夹" + Toolpars.formEntity.txtToPath + "不存在，请查看！！！", "Error",
+                        MessageBox.Show("文件夹" + Toolpars.formEntity.TxtToPath + "不存在，请查看！！！", Resource.ErrorMsg,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         success = false; 
@@ -1018,7 +1011,7 @@ namespace Common.Implement.Tools
                 }
                 else
                 {
-                    MessageBox.Show("请输入创建地址及名称", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resource.TypekeyNotExisted, Resource.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     success = false; 
                 }
 
@@ -1034,7 +1027,7 @@ namespace Common.Implement.Tools
             catch (Exception ex)
             {
                 success = false;
-                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message.ToString(), Resource.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             new Thread(delegate () {
                    sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "COPY PKG SOURCE");

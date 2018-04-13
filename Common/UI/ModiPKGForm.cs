@@ -8,21 +8,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Common.Implement.Entity;
 using Common.Implement.Tools;
 
 namespace Common.Implement.UI
 {
     public partial class ModiPKGForm : Form
     {
-        public toolpars Toolpars { get; set; }
+        public Toolpars Toolpars { get; set; }
         public ModiPKGForm()
         {
             InitializeComponent();
         }
-        public ModiPKGForm(toolpars Toolpars)
+        public ModiPKGForm(Toolpars toolpars)
         {
             InitializeComponent();
-            this.Toolpars = Toolpars;
+            this.Toolpars = toolpars;
         }
 
         private void ModiPKGForm_Load(object sender, EventArgs e)

@@ -22,7 +22,7 @@ namespace Common.Implement.UI
         }
 
         public BuildeType BuildeType { get; set; }
-        public ModiName(BuildeType itemBuildeType, toolpars toolpars) {
+        public ModiName(BuildeType itemBuildeType, Toolpars toolpars) {
             InitializeComponent();
             this.BuildeType = itemBuildeType;
             this.Text = BuildeType.Name;
@@ -30,7 +30,7 @@ namespace Common.Implement.UI
             FileInfos = new List<Entity.FileInfos>();
         }
 
-        private toolpars _toolpars;
+        private Toolpars _toolpars;
         public List<FileInfos> FileInfos { get; set; }
 
         private void btnOK_Click(object sender, EventArgs e)
