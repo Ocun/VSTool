@@ -14,22 +14,39 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Common.Implement.UI {
     public class ScrollerBar : UserControl {
-        //标志性变量*****************************************************************
+        //窗体设计器所添加或重写的变量******************************************************
         //
-        protected bool MouseDownSliderFlag = false; //鼠标按下滑块标志
 
-        protected bool MouseOverSliderFlag = false; //鼠标在滑块上方标志
-        protected bool MouseDownOverSliderFlag = false; //鼠标按下滑块并在滑块上方移动标志
+        /*设计器变量和内部变量使用规则：读数据使用内部变量（变量名带_的）
+         * 写数据使用设计器变量*/
+        /*直接给这些内部变量赋值相当于给了控件属性的初始值*/
+        private Color _bottomColor = Color.FromArgb(62, 62, 66);
 
         //小范围使用的全局变量*******************************************************
         //
         protected int DIstance; //鼠标按下的位置与滑块顶端的距离
 
         protected int LastSliderPointY; //SliderPointY刷新之前的值 每次在刷新SliderPointY之前都要刷新该值
+        protected bool MouseDownOverSliderFlag; //鼠标按下滑块并在滑块上方移动标志
+        protected Point MouseDownPoint;
+
+        private Color _mouseDownSliderColor = Color.FromArgb(239, 235, 239);
+
+        //标志性变量*****************************************************************
+        //
+        protected bool MouseDownSliderFlag; //鼠标按下滑块标志
+
+        private Color _mouseOverSliderColor = Color.FromArgb(158, 158, 158);
+
+        protected bool MouseOverSliderFlag; //鼠标在滑块上方标志
+        protected Point MousePoint;
+        private Color _sliderColor = Color.FromArgb(104, 104, 104);
+        private int _sliderHeight = 100;
 
         //大范围使用的全局变量********************************************************
         //
@@ -40,19 +57,217 @@ namespace Common.Implement.UI {
         protected int SliderPointX; //Width  SliderWidthPercent_
         protected int SliderPointY; //Value  Heigth  SliderHeight_
         protected int SliderWidth; //Width   SliderWidthPercent_
-        protected Point MouseDownPoint;
-        protected Point MousePoint;
+
+        private double _sliderWidthPercent = 0.5;
+        private int _smallChange = 1;
+        private int _value;
+
+
+        public ScrollerBar() {
+            SetStyle(ControlStyles.ResizeRedraw, true); //当控件大小改变时自动重绘           
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer,
+                true); //开启双缓冲  防止重绘发生的闪烁
+            Size = new Size(21, 150); //这个大小设置是为了能够在工具箱添加控件的时候让控件重绘一次 显示正确
+        }
+
+        /*让变量显示在设计器中 连接设计器变量和内部变量  更改这两个变量的任
+         * 何一个另一个都会被更改并触发Set中的代码  */
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("外观")]
+        [Description("滑道颜色")]
+        public Color BottomColor {
+            set /*在内部变量被赋值之前设计器变量还没有被更改*/ {
+/*无论更改设计器变量 还是更改内部变量 都是先将要更改值的传递给value*/
+
+                //输入安全性效验代码 对value的值进行操作
+
+                _bottomColor = value; //把value值赋给BottomColor_ 
+
+                //对组成变量含有该变量的关联变量进行值的更新
+
+                Invalidate(); //重绘控件
+
+                //处理与该变量相关的事件
+            }
+            get => _bottomColor;
+//把BottomColor_值赋给BottomColor
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("外观")]
+        [Description("滑块宽度相对于控件宽度的百分比 范围0-1")]
+        public double SliderWidthPercent {
+            set {
+                if (value > 1)
+                    _sliderWidthPercent = 1;
+                else if (value < 0)
+                    _sliderWidthPercent = 0;
+                else
+                    _sliderWidthPercent = value;
+                //处理关联变量SliderPointX
+                GetSliderPointX();
+                //处理关联变量SliderWidth
+                GetSliderWidth();
+
+                Invalidate();
+            }
+            get => _sliderWidthPercent;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("外观")]
+        [Description("滑块的颜色")]
+        public Color SliderColor {
+            set {
+                _sliderColor = value;
+                Invalidate();
+            }
+            get => _sliderColor;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("外观")]
+        [Description("当指针按下滑块时滑块的颜色")]
+        public Color MouseDownSliderColor {
+            set {
+                _mouseDownSliderColor = value;
+                Invalidate();
+            }
+            get => _mouseDownSliderColor;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("外观")]
+        [Description("当指针悬浮于滑块上时滑块的颜色")]
+        public Color MouseOverSliderColor {
+            set {
+                _mouseOverSliderColor = value;
+                Invalidate();
+            }
+            get => _mouseOverSliderColor;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("行为")]
+        [Description("滚动条当前值  范围0-100")]
+        public int Value {
+            set {
+                // 传入值合法性效验
+                if (value > 100)
+                    value = 100;
+                else if (value < 0)
+                    value = 0;
+                //赋值
+                _value = value;
+                //处理关联变量SliderPointY
+                GetSliderPointY();
+                //重绘控件
+                /*重绘控件必须要注意重绘控件所需的时间 只重绘改变的区域 不改变的不重绘*/
+                if (SliderPointY - LastSliderPointY > 0)
+                    Invalidate(new Region(new RectangleF(new Point(SliderPointX, LastSliderPointY),
+                        new Size(SliderWidth, SliderPointY + _sliderHeight - LastSliderPointY + 2))));
+                else if (SliderPointY - LastSliderPointY < 0)
+                    Invalidate(new Region(new RectangleF(new Point(SliderPointX, 0),
+                        new Size(SliderWidth, LastSliderPointY + _sliderHeight))));
+                //处理事件ValueChanged
+                ValueChanged?.Invoke(this, new EventArgs());
+                //处理事件Scroll
+                OnScroll(new ScrollEventArgs(ScrollEventType.ThumbPosition, _value));
+            }
+            get => _value;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("外观")]
+        [Description("滚动条长度 ")]
+        public int SliderHeight {
+            set {
+                // 输入合法性效验
+                if (value <= Width)
+                    value = Width;
+                if (Height - value < 100)
+                    Height = value + 100;
+
+                _sliderHeight = value;
+                //处理关联变量SliderPointY
+                GetSliderPointY();
+
+                Invalidate();
+            }
+            get => _sliderHeight;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("行为")]
+        [Description("滑轮滚动时的Value的改变值 ")]
+        public int SmallChange {
+            set {
+                if (value < 0)
+                    value = SmallChange;
+                _smallChange = value;
+            }
+            get => _smallChange;
+        }
+
+        //窗体设计器所废除的变量******************************************************
+        //
+
+        /*重写继承类中的变量或函数要用override关键字 并且这个变量或函数应当允许被重写*/
+        /*设置Browsable(false) 设计器中将不再显示该变量 由于重写了变量改变时所运行的代码
+         * 与该变量任何相关的事件都将消失*/
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        public override bool AutoScroll { set; get; }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        public override bool AutoSize { set; get; }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        public override Size MaximumSize { set; get; }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        public override Size MinimumSize { set; get; }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        public override Color BackColor { set; get; }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        public override Font Font //这里好像必须要给个返回值 否则会提示该控件没有实例化
+            => new Font("微软雅黑", 1);
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        public override Color ForeColor { set; get; }
 
         //大范围使用的方法*******************************************************
         //一些变量的值的更新方法
         protected void GetSliderPointX() //作为更新SliderPointX的值的方法
         {
-            if (SliderWidthPercent_ == 1) {
+            if (_sliderWidthPercent == 1)
                 SliderPointX = 0;
-            }
-            else {
-                SliderPointX = (int) (Width * (1 - SliderWidthPercent_) / 2) + 1;
-            }
+            else
+                SliderPointX = (int) (Width * (1 - _sliderWidthPercent) / 2) + 1;
         }
 
         protected void GetSliderPointY() //作为更新SliderPointY的值的方法
@@ -61,57 +276,45 @@ namespace Common.Implement.UI {
             {
                 LastSliderPointY = SliderPointY;
                 //计算出准确位置的浮点数
-                float WantSliberPointY = Value_ * ((float) (Height - SliderHeight_) / 100);
+                var wantSliberPointY = _value * ((float) (Height - _sliderHeight) / 100);
                 //取这个浮点数的左右整数
-                int WantSliberPointY_Up = (int) WantSliberPointY;
-                int WantSliberPointY_Down = WantSliberPointY_Up + 1;
+                var wantSliberPointYUp = (int) wantSliberPointY;
+                var wantSliberPointYDown = wantSliberPointYUp + 1;
                 //用这两个整数假设作为当前滑块位置Y坐标，分别进行反计算出Value
-                float WantSliberPointY_Up_FloatValue = WantSliberPointY_Up / ((float) (Height - SliderHeight_) / 100);
-                float WantSliberPointY_Down_FloatValue =
-                    WantSliberPointY_Down / ((float) (Height - SliderHeight_) / 100);
+                var wantSliberPointYUpFloatValue = wantSliberPointYUp / ((float) (Height - _sliderHeight) / 100);
+                var wantSliberPointYDownFloatValue =
+                    wantSliberPointYDown / ((float) (Height - _sliderHeight) / 100);
 
-                int WantSliberPointY_Up_IntValue = (int) WantSliberPointY_Up_FloatValue;
-                int WantSliberPointY_Down_IntValue = (int) WantSliberPointY_Down_FloatValue;
+                var wantSliberPointYUpIntValue = (int) wantSliberPointYUpFloatValue;
+                var wantSliberPointYDownIntValue = (int) wantSliberPointYDownFloatValue;
 
-                if (WantSliberPointY_Up_FloatValue > WantSliberPointY_Up_IntValue) {
-                    WantSliberPointY_Up_IntValue++;
-                }
-                if (WantSliberPointY_Down_FloatValue > WantSliberPointY_Down_IntValue) {
-                    WantSliberPointY_Down_IntValue++;
+                if (wantSliberPointYUpFloatValue > wantSliberPointYUpIntValue)
+                    wantSliberPointYUpIntValue++;
+                if (wantSliberPointYDownFloatValue > wantSliberPointYDownIntValue) {
                 }
 
                 //判断两个假设Value值哪个是Value，给SliderPointY赋值
 
-                if (Value_ == WantSliberPointY_Up_IntValue) {
-                    SliderPointY = WantSliberPointY_Up;
-                }
-                else {
-                    SliderPointY = WantSliberPointY_Down;
-                }
+                SliderPointY = _value == wantSliberPointYUpIntValue ? wantSliberPointYUp : wantSliberPointYDown;
             }
         }
 
         protected void GetSliderWidth() //作为更新SliderWidth的值的方法
         {
-            if (SliderWidthPercent_ == 1) //由于浮点数计算的误差 对于SliderWidthPercent=1的情况进行特殊处理
-            {
+            if (_sliderWidthPercent == 1) //由于浮点数计算的误差 对于SliderWidthPercent=1的情况进行特殊处理
                 SliderWidth = Width;
-            }
             else //普通情况的浮点数计算
-            {
-                SliderWidth = (int) (Width * SliderWidthPercent_) - 1;
-            }
+                SliderWidth = (int) (Width * _sliderWidthPercent) - 1;
         }
 
         protected void GetValue() //作为更新Value的值的方法
         {
-            float SliderPointY_FloatValue = SliderPointY / ((float) (Height - SliderHeight_) / 100);
+            var sliderPointYFloatValue = SliderPointY / ((float) (Height - _sliderHeight) / 100);
 
-            int SliderPointY_IntValue = (int) SliderPointY_FloatValue;
-            if (SliderPointY_FloatValue > SliderPointY_IntValue) {
-                SliderPointY_IntValue++;
-            }
-            Value = SliderPointY_IntValue;
+            var sliderPointYIntValue = (int) sliderPointYFloatValue;
+            if (sliderPointYFloatValue > sliderPointYIntValue)
+                sliderPointYIntValue++;
+            Value = sliderPointYIntValue;
         }
 
         protected void GetMousePoint() //作为更新MousePoint的值的方法
@@ -128,35 +331,20 @@ namespace Common.Implement.UI {
         protected bool IsMouseOverSlider() //判断鼠标是否在滑块上方
         {
             GetMousePoint();
-            if (MousePoint.Y >= SliderPointY && MousePoint.Y <= SliderPointY + SliderHeight_ &&
-                MousePoint.X >= SliderPointX && MousePoint.X <= SliderPointX + SliderWidth) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return MousePoint.Y >= SliderPointY && MousePoint.Y <= SliderPointY + _sliderHeight &&
+                   MousePoint.X >= SliderPointX && MousePoint.X <= SliderPointX + SliderWidth;
         }
 
         protected bool IsMouseOverBottom() //判断鼠标是否在滑道上
         {
             GetMousePoint();
-            if (MousePoint.Y < SliderPointY || MousePoint.Y > SliderPointY + SliderHeight_) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return MousePoint.Y < SliderPointY || MousePoint.Y > SliderPointY + _sliderHeight;
         }
 
         protected bool IsMouseOverControlEdge() //判断鼠标是否处于控件边缘部分
         {
             GetMousePoint();
-            if (MousePoint.X == 0 || MousePoint.X == Width - 1 || MousePoint.Y == 0 || MousePoint.Y == Height - 1) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return MousePoint.X == 0 || MousePoint.X == Width - 1 || MousePoint.Y == 0 || MousePoint.Y == Height - 1;
         }
 
         //小范围使用的方法*************************************************************
@@ -164,233 +352,30 @@ namespace Common.Implement.UI {
 
         protected void OnMouseOverSliderEvent() //鼠标在滑块上方悬浮时的事件
         {
-            if (IsMouseOverSlider()) {
-                MouseOverSliderFlag = true;
-            }
-            else {
+            MouseOverSliderFlag = IsMouseOverSlider();
+            if (IsMouseOverControlEdge())
                 MouseOverSliderFlag = false;
-            }
-            if (IsMouseOverControlEdge()) {
-                MouseOverSliderFlag = false;
-            }
             Invalidate(new Region(new RectangleF(new Point(SliderPointX, SliderPointY),
-                new Size(SliderWidth, SliderHeight_))));
+                new Size(SliderWidth, _sliderHeight))));
         }
-
-        //窗体设计器所添加或重写的变量******************************************************
-        //
-
-        /*设计器变量和内部变量使用规则：读数据使用内部变量（变量名带_的）
-         * 写数据使用设计器变量*/
-        /*直接给这些内部变量赋值相当于给了控件属性的初始值*/
-        protected Color BottomColor_ = Color.FromArgb(62, 62, 66);
-
-        protected double SliderWidthPercent_ = 0.5;
-        protected Color SliderColor_ = Color.FromArgb(104, 104, 104);
-        protected int SliderHeight_ = 100;
-        protected Color MouseDownSliderColor_ = Color.FromArgb(239, 235, 239);
-        protected Color MouseOverSliderColor_ = Color.FromArgb(158, 158, 158);
-        protected int Value_ = 0;
-        protected int SmallChange_ = 1;
-
-        /*让变量显示在设计器中 连接设计器变量和内部变量  更改这两个变量的任
-         * 何一个另一个都会被更改并触发Set中的代码  */
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("外观"),
-         Description("滑道颜色")]
-        public Color BottomColor {
-            set /*在内部变量被赋值之前设计器变量还没有被更改*/ {
-/*无论更改设计器变量 还是更改内部变量 都是先将要更改值的传递给value*/
-
-                //输入安全性效验代码 对value的值进行操作
-
-                BottomColor_ = value; //把value值赋给BottomColor_ 
-
-                //对组成变量含有该变量的关联变量进行值的更新
-
-                Invalidate(); //重绘控件
-
-                //处理与该变量相关的事件
-            }
-            get { return BottomColor_; } //把BottomColor_值赋给BottomColor
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("外观"),
-         Description("滑块宽度相对于控件宽度的百分比 范围0-1")]
-        public double SliderWidthPercent {
-            set {
-                if (value > 1) {
-                    SliderWidthPercent_ = 1;
-                }
-                else if (value < 0) {
-                    SliderWidthPercent_ = 0;
-                }
-                else {
-                    SliderWidthPercent_ = value;
-                }
-                //处理关联变量SliderPointX
-                GetSliderPointX();
-                //处理关联变量SliderWidth
-                GetSliderWidth();
-
-                Invalidate();
-            }
-            get { return SliderWidthPercent_; }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("外观"),
-         Description("滑块的颜色")]
-        public Color SliderColor {
-            set {
-                SliderColor_ = value;
-                Invalidate();
-            }
-            get { return SliderColor_; }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("外观"),
-         Description("当指针按下滑块时滑块的颜色")]
-        public Color MouseDownSliderColor {
-            set {
-                MouseDownSliderColor_ = value;
-                Invalidate();
-            }
-            get { return MouseDownSliderColor_; }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("外观"),
-         Description("当指针悬浮于滑块上时滑块的颜色")]
-        public Color MouseOverSliderColor {
-            set {
-                MouseOverSliderColor_ = value;
-                Invalidate();
-            }
-            get { return MouseOverSliderColor_; }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("行为"),
-         Description("滚动条当前值  范围0-100")]
-        public int Value {
-            set {
-                // 传入值合法性效验
-                if (value > 100) {
-                    value = 100;
-                }
-                else if (value < 0) {
-                    value = 0;
-                }
-                //赋值
-                Value_ = value;
-                //处理关联变量SliderPointY
-                GetSliderPointY();
-                //重绘控件
-                /*重绘控件必须要注意重绘控件所需的时间 只重绘改变的区域 不改变的不重绘*/
-                if (SliderPointY - LastSliderPointY > 0) {
-                    Invalidate(new Region(new RectangleF(new Point(SliderPointX, LastSliderPointY),
-                        new Size(SliderWidth, SliderPointY + SliderHeight_ - LastSliderPointY + 2))));
-                }
-                else if (SliderPointY - LastSliderPointY < 0) {
-                    //由于存在向上滑动时滑块的上半圆会先消失一次的BUG 所以我改成了从顶部 到上一次滑块底边位置全部重画 如果发生卡顿 请更改绘制区域 减小重绘时间
-                    Invalidate(new Region(new RectangleF(new Point(SliderPointX, 0),
-                        new Size(SliderWidth, LastSliderPointY + SliderHeight_))));
-                }
-                //处理事件ValueChanged
-                ValueChanged?.Invoke(this, new EventArgs());
-                //处理事件Scroll
-                base.OnScroll(new ScrollEventArgs(ScrollEventType.ThumbPosition, Value_));
-            }
-            get { return Value_; }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("外观"),
-         Description("滚动条长度 ")]
-        public int SliderHeight {
-            set {
-                // 输入合法性效验
-                if (value <= Width) {
-                    value = Width;
-                }
-                if (Height - value < 100) {
-                    Height = value + 100;
-                }
-
-                SliderHeight_ = value;
-                //处理关联变量SliderPointY
-                GetSliderPointY();
-
-                Invalidate();
-            }
-            get { return SliderHeight_; }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("行为"),
-         Description("滑轮滚动时的Value的改变值 ")]
-        public int SmallChange {
-            set {
-                if (value < 0) {
-                    value = SmallChange;
-                }
-                SmallChange_ = value;
-            }
-            get { return SmallChange_; }
-        }
-
-        //窗体设计器所废除的变量******************************************************
-        //
-
-        /*重写继承类中的变量或函数要用override关键字 并且这个变量或函数应当允许被重写*/
-        /*设置Browsable(false) 设计器中将不再显示该变量 由于重写了变量改变时所运行的代码
-         * 与该变量任何相关的事件都将消失*/
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(false)]
-        public override bool AutoScroll { set; get; }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(false)]
-        public override bool AutoSize { set; get; }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(false)]
-        public override Size MaximumSize { set; get; }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(false)]
-        public override Size MinimumSize { set; get; }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(false)]
-        public override Color BackColor { set; get; }
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(false)]
-        public override Font Font {
-            get { return new Font("微软雅黑", 1); }
-        } //这里好像必须要给个返回值 否则会提示该控件没有实例化
-
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(false)]
-        public override Color ForeColor { set; get; }
 
         //窗体设计器所添加或重写的事件*******************************
         //
 
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("操作"),
-         Description("当Value值改变时发生")]
-        public event System.EventHandler ValueChanged = null;
-
-
-        public ScrollerBar() {
-            SetStyle(ControlStyles.ResizeRedraw, true); //当控件大小改变时自动重绘           
-            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer,
-                true); //开启双缓冲  防止重绘发生的闪烁
-            this.Size = new System.Drawing.Size(21, 150); //这个大小设置是为了能够在工具箱添加控件的时候让控件重绘一次 显示正确
-        }
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [Category("操作")]
+        [Description("当Value值改变时发生")]
+        public event System.EventHandler ValueChanged;
 
         protected override void OnSizeChanged(EventArgs e) {
-            if (Size.Height - SliderHeight_ < 100) //要求滑块可滑动部分像素长度不得小于100
-            {
-                Height = SliderHeight_ + 100;
-            }
+            if (Size.Height - _sliderHeight < 100) //要求滑块可滑动部分像素长度不得小于100
+                Height = _sliderHeight + 100;
             if (Size.Width > 100) //限制最大宽度为100
-            {
                 Width = 100;
-            }
             if (Size.Width < 2) //限制最小宽度为2
-            {
                 Width = 2;
-            }
             //处理关联变量SliderPointY
             GetSliderPointY();
             //处理关联变量SliderWidth
@@ -404,42 +389,41 @@ namespace Common.Implement.UI {
         protected override void OnPaint(PaintEventArgs e) {
             //设置绘制质量为最低 为了保证滑块在滑动时显示流畅
 
-            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            e.Graphics.InterpolationMode = InterpolationMode.Default;
 
             //绘制底色 * *****************************************************************************
 
-            SolidBrush Bottom_SolidBrush = new SolidBrush(BottomColor_);
-            Rectangle Bottom_Rc = new Rectangle(0, 0, Width, Height);
-            e.Graphics.FillRectangle(Bottom_SolidBrush, Bottom_Rc);
-            Bottom_SolidBrush.Dispose();
+            var bottomSolidBrush = new SolidBrush(_bottomColor);
+            var bottomRc = new Rectangle(0, 0, Width, Height);
+            e.Graphics.FillRectangle(bottomSolidBrush, bottomRc);
+            bottomSolidBrush.Dispose();
 
             //绘制滑块******************************************************************************
-            SolidBrush Slider_SolidBrush = new SolidBrush(SliderColor_);
+            var sliderSolidBrush = new SolidBrush(_sliderColor);
             if (MouseDownSliderFlag) //选择画笔颜色时被按下的优先级比悬浮于上的优先级高
             {
-                Slider_SolidBrush = new SolidBrush(MouseDownSliderColor_);
+                sliderSolidBrush = new SolidBrush(_mouseDownSliderColor);
             }
             else {
-                if (MouseOverSliderFlag) {
-                    Slider_SolidBrush = new SolidBrush(MouseOverSliderColor_);
-                }
+                if (MouseOverSliderFlag)
+                    sliderSolidBrush = new SolidBrush(_mouseOverSliderColor);
             }
             //绘制滑块的上半圆部分
 
-            Rectangle Slider_Rc = new Rectangle(SliderPointX - 1, SliderPointY - 1, SliderWidth + 1, SliderWidth + 1);
-            e.Graphics.FillPie(Slider_SolidBrush, Slider_Rc, 0, -180);
+            var sliderRc = new Rectangle(SliderPointX - 1, SliderPointY - 1, SliderWidth + 1, SliderWidth + 1);
+            e.Graphics.FillPie(sliderSolidBrush, sliderRc, 0, -180);
 
             //绘制滑块的矩形长条部分
-            e.Graphics.FillRectangle(Slider_SolidBrush, SliderPointX, SliderPointY + (float) SliderWidth / 2 - 1,
-                SliderWidth, SliderHeight_ - SliderWidth + 1);
+            e.Graphics.FillRectangle(sliderSolidBrush, SliderPointX, SliderPointY + (float) SliderWidth / 2 - 1,
+                SliderWidth, _sliderHeight - SliderWidth + 1);
 
             //绘制滑块的下半圆部分
-            Slider_Rc = new Rectangle(SliderPointX - 1, SliderPointY + SliderHeight_ - SliderWidth - 1, SliderWidth + 1,
+            sliderRc = new Rectangle(SliderPointX - 1, SliderPointY + _sliderHeight - SliderWidth - 1, SliderWidth + 1,
                 SliderWidth + 1);
-            e.Graphics.FillPie(Slider_SolidBrush, Slider_Rc, 0, 179);
+            e.Graphics.FillPie(sliderSolidBrush, sliderRc, 0, 179);
 
             //释放画笔资源
-            Slider_SolidBrush.Dispose();
+            sliderSolidBrush.Dispose();
         }
 
         protected override void OnMouseDown(MouseEventArgs e) {
@@ -453,21 +437,19 @@ namespace Common.Implement.UI {
                     MouseDownSliderFlag = true; //滑块被按下标志使能
                     //更改滑块颜色为高亮 重绘控件
                     Invalidate(new Region(new RectangleF(new Point(SliderPointX, SliderPointY),
-                        new Size(SliderWidth, SliderHeight_))));
+                        new Size(SliderWidth, _sliderHeight))));
                 }
 
                 //判断是否单击在了滑道上
                 else if (IsMouseOverBottom()) {
                     GetMouseDownPoint();
-                    int WantSliderPointY = MouseDownPoint.Y - SliderHeight_ / 2;
-                    if (WantSliderPointY < 0) {
-                        WantSliderPointY = 0;
-                    }
-                    else if (WantSliderPointY + SliderHeight_ - SliderHeight_ / 2 > Height) {
-                        WantSliderPointY = Height - (SliderHeight_ - SliderHeight_ / 2);
-                    }
+                    var wantSliderPointY = MouseDownPoint.Y - _sliderHeight / 2;
+                    if (wantSliderPointY < 0)
+                        wantSliderPointY = 0;
+                    else if (wantSliderPointY + _sliderHeight - _sliderHeight / 2 > Height)
+                        wantSliderPointY = Height - (_sliderHeight - _sliderHeight / 2);
                     LastSliderPointY = SliderPointY;
-                    SliderPointY = WantSliderPointY;
+                    SliderPointY = wantSliderPointY;
                     GetValue();
                     Invalidate(); //再刷一下 不然不会变
                 }
@@ -485,12 +467,10 @@ namespace Common.Implement.UI {
                 GetMousePoint();
                 LastSliderPointY = SliderPointY;
                 SliderPointY = MousePoint.Y - DIstance;
-                if (SliderPointY < 0) {
+                if (SliderPointY < 0)
                     SliderPointY = 0;
-                }
-                else if (SliderPointY > Height - SliderHeight_) {
-                    SliderPointY = Height - SliderHeight_;
-                }
+                else if (SliderPointY > Height - _sliderHeight)
+                    SliderPointY = Height - _sliderHeight;
                 //处理关联变量Vlaue
                 GetValue();
 
@@ -510,27 +490,23 @@ namespace Common.Implement.UI {
                 MouseDownOverSliderFlag = false;
             }
             Invalidate(new Region(new RectangleF(new Point(SliderPointX, SliderPointY),
-                new Size(SliderWidth, SliderHeight_))));
+                new Size(SliderWidth, _sliderHeight))));
             base.OnMouseUp(e);
         }
 
         protected override void OnMouseWheel(MouseEventArgs e) {
             //计算Value值
             if (e.Delta > 0) {
-                if (Value - SmallChange_ < 0) {
+                if (Value - _smallChange < 0)
                     Value = 0;
-                }
-                else {
-                    Value = Value - SmallChange_;
-                }
+                else
+                    Value = Value - _smallChange;
             }
             else {
-                if (Value + SmallChange_ > 100) {
+                if (Value + _smallChange > 100)
                     Value = 100;
-                }
-                else {
-                    Value = Value + SmallChange_;
-                }
+                else
+                    Value = Value + _smallChange;
             }
             //处理当鼠标位于滑块上时的事件
             OnMouseOverSliderEvent();

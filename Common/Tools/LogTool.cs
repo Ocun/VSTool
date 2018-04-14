@@ -1,69 +1,55 @@
 ﻿// create By 08628 20180411
+
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Common.Implement.Entity;
 using Common.Implement.UI;
 
-namespace Common.Implement.Tools
-{
-    public static class LogTool
-    {
-
+namespace Common.Implement.Tools {
+    public static class LogTool {
         #region 日志
 
         /// <summary>
-        /// 日志
+        ///     日志
         /// </summary>
-        public static void WriteLog(Toolpars Toolpars, MyTreeView treeView)
-        {
-            var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes, Toolpars);
-            string txtNewTypeKey = Toolpars.formEntity.txtNewTypeKey;
-            string varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
+        public static void WriteLog(Toolpars toolpars, MyTreeView treeView) {
+            var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes, toolpars);
+            var txtNewTypeKey = toolpars.FormEntity.txtNewTypeKey;
+            var varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
             if (!Directory.Exists(varAppPath))
-            {
                 Directory.CreateDirectory(varAppPath);
-            }
-            string logPath = string.Format(@"{0}\\{1}.log", varAppPath,
-                Toolpars.CustomerName == null || Toolpars.CustomerName.Equals(string.Empty)
-                    ? DateTime.Now.ToString("yyyyMMddhhmmss")
-                    : Toolpars.CustomerName);
+            var logPath = $@"{varAppPath}\\{
+                    (toolpars.CustomerName == null || toolpars.CustomerName.Equals(string.Empty)
+                        ? DateTime.Now.ToString("yyyyMMddhhmmss")
+                        : toolpars.CustomerName)
+                }.log";
 
 
-            StringBuilder logStr = new StringBuilder();
-            string headStr = string.Empty;
-            for (int i = 0; i <= 80; i++)
-            {
+            var logStr = new StringBuilder();
+            var headStr = string.Empty;
+            for (var i = 0; i <= 80; i++)
                 headStr += "_";
-            }
-            logStr.AppendLine(headStr).AppendLine(string.Format("    # CREATEDATE   {0}",
-                    DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:fff")))
-                .AppendLine(string.Format("    # CREATEBY  {0}", Environment.MachineName))
-                .AppendLine(string.Format("    # TYPEKEY  {0}", txtNewTypeKey)).AppendLine();
+            logStr.AppendLine(headStr).AppendLine(
+                    $"    # CREATEDATE   {DateTime.Now:yyyy-MM-dd hh:mm:ss:fff}")
+                .AppendLine($"    # CREATEBY  {Environment.MachineName}")
+                .AppendLine($"    # TYPEKEY  {txtNewTypeKey}").AppendLine();
 
-
-            string head = DateTime.Now.ToString("hh:mm:ss:fff");
+            
             foreach (var kv in pathDic)
-            {
-                foreach (var fileinfo in kv.Value)
-                {
-                    logStr.AppendLine(String.Format("    # {0} {1}", kv.Key, fileinfo.FileName));
-                }
-            }
+            foreach (var fileinfo in kv.Value)
+                logStr.AppendLine($"    # {kv.Key} {fileinfo.FileName}");
             logStr.AppendLine(headStr);
-            using (StreamWriter SW = new StreamWriter(logPath, true, Encoding.UTF8))
-            {
-                SW.WriteLine(logStr.ToString());
-                SW.Flush();
-                SW.Close();
+            using (var sw = new StreamWriter(logPath, true, Encoding.UTF8)) {
+                sw.WriteLine(logStr.ToString());
+                sw.Flush();
+                sw.Close();
             }
-            ;
         }
 
-        public static void writeToServer(Toolpars Toolpars,IEnumerable<FileInfos> fileInfos) {
-             sqlTools.insertToolInfo(Toolpars.formEntity.txtNewTypeKey, fileInfos);
+        public static void WriteToServer(Toolpars toolpars, IEnumerable<FileInfos> fileInfos) {
+            SqlTools.InsertToolInfo(toolpars.FormEntity.txtNewTypeKey, fileInfos);
             //int count = 0;
             //foreach (var fileinfo in fileInfos)
             //{
@@ -74,11 +60,8 @@ namespace Common.Implement.Tools
             //    sqlTools.insertToolInfo(useDate, demandId, year,
             //        Toolpars.formEntity.txtNewTypeKey + "_" + fileinfo.FileName);
             //};
-
         }
 
         #endregion
-
-
     }
 }

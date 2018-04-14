@@ -15,7 +15,7 @@ namespace Common.Implement.Entity
         private string _txtPkGpathField = string.Empty;
        
         private string _txtNewTypeKeyField = string.Empty;
-        private bool IndustryField = false;
+        private bool _industryField = false;
 
         private string _copyTypekeyField = string.Empty;
 
@@ -44,8 +44,8 @@ namespace Common.Implement.Entity
         /// 行業包
         /// </summary>
         public bool Industry {
-            get => IndustryField;
-            set => IndustryField = value;
+            get => _industryField;
+            set => _industryField = value;
         }
 
         /// <summary>

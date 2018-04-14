@@ -1,6 +1,6 @@
 ﻿namespace Common.Implement.UI
 {
-    partial class ModiPKGForm
+    partial class ModiPkgForm
     {
         /// <summary>
         /// Required designer variable.
@@ -61,7 +61,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "整支借用";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // btnOK
             // 
@@ -72,7 +72,7 @@
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // TypeKeyText
             // 
@@ -106,7 +106,7 @@
             this.btnOpenTo.TabIndex = 12;
             this.btnOpenTo.Text = "...";
             this.btnOpenTo.UseVisualStyleBackColor = true;
-            this.btnOpenTo.Click += new System.EventHandler(this.btnOpenTo_Click);
+            this.btnOpenTo.Click += new System.EventHandler(this.BtnOpenTo_Click);
             // 
             // folderBrowserDialog1
             // 
@@ -147,7 +147,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ModiPKGForm";
+            this.Name = "ModiPkgForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "借用TypeKey（代码）";

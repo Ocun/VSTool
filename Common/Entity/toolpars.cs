@@ -27,7 +27,7 @@ namespace Common.Implement.Entity {
             get {
                 if (_fileMappingEntity != null) return _fileMappingEntity;
                 var path = $@"{MVSToolpath}Config\FileMapping.xml";
-                if (ValidateTool.checkFile(path)) {
+                if (ValidateTool.CheckFile(path)) {
                     _fileMappingEntity = ReadToEntityTools.ReadToEntity<MappingEntity>(path);
                 }
                 return _fileMappingEntity;
@@ -39,7 +39,7 @@ namespace Common.Implement.Entity {
             get {
                 if (_settingPathEntity != null) return _settingPathEntity;
                 var settingPath = $@"{MVSToolpath}Config\SettingPathEntity.xml";
-                if (ValidateTool.checkFile(settingPath)) {
+                if (ValidateTool.CheckFile(settingPath)) {
                     _settingPathEntity = ReadToEntityTools.ReadToEntity<SettingPathEntity>(settingPath);
                 }
                 return _settingPathEntity;
@@ -51,7 +51,7 @@ namespace Common.Implement.Entity {
             get {
                 if (_builderEntity != null) return _builderEntity;
                 var path = $@"{MVSToolpath}Config\BuildeEntity.xml";
-                if (ValidateTool.checkFile(path)) {
+                if (ValidateTool.CheckFile(path)) {
                     _builderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path);
                 }
                 return _builderEntity;
@@ -152,7 +152,7 @@ namespace Common.Implement.Entity {
         /// <summary>
         /// ´°ów…¢”µ
         /// </summary>
-        public FormEntity formEntity {
+        public FormEntity FormEntity {
             get => _formEntity ?? (_formEntity = new FormEntity());
             set => _formEntity = value;
         }
@@ -162,7 +162,7 @@ namespace Common.Implement.Entity {
         /// </summary>
         public PathEntity PathEntity {
             get {
-                _pathEntity = PathTools.getPathEntity(this);
+                _pathEntity = PathTools.GetPathEntity(this);
                 return _pathEntity;
             }
             set => _pathEntity = value;

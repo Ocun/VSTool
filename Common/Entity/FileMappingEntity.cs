@@ -13,20 +13,14 @@ namespace Common.Implement.Entity {
     public partial class MappingEntity
     {
 
-        private MappingItem[] mappingItemsField;
+        private MappingItem[] _mappingItemsField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("MappingItem", IsNullable = false)]
         public MappingItem[] MappingItems
         {
-            get
-            {
-                return this.mappingItemsField;
-            }
-            set
-            {
-                this.mappingItemsField = value;
-            }
+            get => this._mappingItemsField;
+            set => this._mappingItemsField = value;
         }
     }
 
@@ -35,50 +29,32 @@ namespace Common.Implement.Entity {
     public partial class MappingItem
     {
 
-        private string idField;
+        private string _idField;
 
-        private string descriptionField;
+        private string _descriptionField;
 
-        private string[] pathsField;
+        private string[] _pathsField;
 
         /// <remarks/>
         public string Id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get => this._idField;
+            set => this._idField = value;
         }
 
         /// <remarks/>
         public string Description
         {
-            get
-            {
-                return this.descriptionField;
-            }
-            set
-            {
-                this.descriptionField = value;
-            }
+            get => this._descriptionField;
+            set => this._descriptionField = value;
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Path", IsNullable = false)]
         public string[] Paths
         {
-            get
-            {
-                return this.pathsField;
-            }
-            set
-            {
-                this.pathsField = value;
-            }
+            get => this._pathsField;
+            set => this._pathsField = value;
         }
     }
 

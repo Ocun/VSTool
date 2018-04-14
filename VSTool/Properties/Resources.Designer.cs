@@ -19,11 +19,10 @@ namespace VSTool.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.OldTools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -71,11 +70,92 @@ namespace VSTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 复制成功 !!! 的本地化字符串。
+        /// </summary>
+        internal static string CopySucess {
+            get {
+                return ResourceManager.GetString("CopySucess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 目錄已存在，是否覆蓋?? 的本地化字符串。
+        /// </summary>
+        internal static string DirExisted {
+            get {
+                return ResourceManager.GetString("DirExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件夹{0}不存在，请查看！！！ 的本地化字符串。
+        /// </summary>
+        internal static string DirNotExist {
+            get {
+                return ResourceManager.GetString("DirNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前DLL被占用，是否结束进程以复制？ 的本地化字符串。
+        /// </summary>
+        internal static string DllUsedMsg {
+            get {
+                return ResourceManager.GetString("DllUsedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        internal static string ErrorMsg {
+            get {
+                return ResourceManager.GetString("ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 生成成功 !!! 的本地化字符串。
+        /// </summary>
+        internal static string GenerateSucess {
+            get {
+                return ResourceManager.GetString("GenerateSucess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 标准代码{0}不存在 的本地化字符串。
+        /// </summary>
+        internal static string PKGNotExisted {
+            get {
+                return ResourceManager.GetString("PKGNotExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入创建地址及名称 的本地化字符串。
+        /// </summary>
+        internal static string TypeKeyNotExisted {
+            get {
+                return ResourceManager.GetString("TypeKeyNotExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 警告 的本地化字符串。
         /// </summary>
         internal static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warnning 的本地化字符串。
+        /// </summary>
+        internal static string WarnningMsg {
+            get {
+                return ResourceManager.GetString("WarnningMsg", resourceCulture);
             }
         }
     }

@@ -61,6 +61,15 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 复制失败 的本地化字符串。
+        /// </summary>
+        internal static string CopyFailed {
+            get {
+                return ResourceManager.GetString("CopyFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 复制成功 !!! 的本地化字符串。
         /// </summary>
         internal static string CopySucess {
@@ -70,11 +79,29 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Create{0} 的本地化字符串。
+        /// </summary>
+        internal static string CreateFileName {
+            get {
+                return ResourceManager.GetString("CreateFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 目录已存在，是否覆盖?? 的本地化字符串。
         /// </summary>
         internal static string DirExisted {
             get {
                 return ResourceManager.GetString("DirExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件夹{0}不存在，请查看！！！ 的本地化字符串。
+        /// </summary>
+        internal static string DirNotExisted {
+            get {
+                return ResourceManager.GetString("DirNotExisted", resourceCulture);
             }
         }
         
@@ -134,12 +161,39 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 不可为空 的本地化字符串。
+        /// </summary>
+        internal static string notNull {
+            get {
+                return ResourceManager.GetString("notNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 借用TypeKey不可为空 的本地化字符串。
+        /// </summary>
+        internal static string pkgNotNull {
+            get {
+                return ResourceManager.GetString("pkgNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap right_arrow {
             get {
                 object obj = ResourceManager.GetObject("right_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0}/{1}模板不存在，请检查 的本地化字符串。
+        /// </summary>
+        internal static string TemplateNotExisted {
+            get {
+                return ResourceManager.GetString("TemplateNotExisted", resourceCulture);
             }
         }
         

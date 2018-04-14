@@ -16,10 +16,10 @@ namespace Common.Implement.EventHandler
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void myTreeView_Leave(object sender, EventArgs e)
-        {
-            MyTreeView mytreeView = (sender as MyTreeView);
-            mytreeView.SelectedNode = null;
+        public static void myTreeView_Leave(object sender, EventArgs e) {
+            var mytreeView = (sender as MyTreeView);
+            if (mytreeView != null)
+                mytreeView.SelectedNode = null;
         }
      
         

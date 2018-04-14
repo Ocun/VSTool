@@ -1,6 +1,6 @@
 ﻿namespace Common.Implement.UI
 {
-    partial class setToolPath
+    partial class SetToolPath
     {
         /// <summary>
         /// Required designer variable.
@@ -107,7 +107,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "setToolPath";
+            this.Name = "SetToolPath";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设置路径";
             this.panel1.ResumeLayout(false);

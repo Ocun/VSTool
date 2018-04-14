@@ -1,6 +1,6 @@
 ﻿namespace Common.Implement.UI
 {
-    partial class ModiName
+    sealed partial class ModiName
     {
         /// <summary>
         /// Required designer variable.

@@ -16,14 +16,14 @@ namespace Common.Implement.Entity
         private string _exportPath = string.Empty;
         private string _businessDllName = string.Empty;
         private string _implementDllName = string.Empty;
-        private string _UIDllName = string.Empty;
-        private string _UIImplementDllName = string.Empty;
+        private string _uiDllName = string.Empty;
+        private string _uiImplementDllName = string.Empty;
 
 
         private string _businessDir = string.Empty;
         private string _implementDir = string.Empty;
-        private string _UIDir= string.Empty;
-        private string _UIImplementDir = string.Empty;
+        private string _uiDir= string.Empty;
+        private string _uiImplementDir = string.Empty;
 
 
         private string _serverProgramsPath = string.Empty;
@@ -36,88 +36,88 @@ namespace Common.Implement.Entity
         /// 產生接口dll名稱
         /// </summary>
         public string BusinessDllName {
-            get { return _businessDllName; }
-            set { _businessDllName = value; }
+            get => _businessDllName;
+            set => _businessDllName = value;
         }
         /// <summary>
         /// 產生實現dll名稱
         /// </summary>
         public string ImplementDllName {
-            get { return _implementDllName; }
-            set { _implementDllName = value; }
+            get => _implementDllName;
+            set => _implementDllName = value;
         }
         /// <summary>
         /// UI端接口dll名稱
         /// </summary>
         public string UIDllName {
-            get { return _UIDllName; }
-            set { _UIDllName = value; }
+            get => _uiDllName;
+            set => _uiDllName = value;
         }
         /// <summary>
         /// ui端實現dll名稱
         /// </summary>
         public string UIImplementDllName {
-            get { return _UIImplementDllName; }
-            set { _UIImplementDllName = value; }
+            get => _uiImplementDllName;
+            set => _uiImplementDllName = value;
         }
         /// <summary>
         /// 導出目錄
         /// </summary>
         public string ExportPath {
-            get { return _exportPath; }
-            set { _exportPath = value; }
+            get => _exportPath;
+            set => _exportPath = value;
         }
         /// <summary>
         /// 个案源码之接口目录
         /// </summary>
         public string BusinessDir {
-            get { return _businessDir; }
-            set { _businessDir = value; }
+            get => _businessDir;
+            set => _businessDir = value;
         }
         /// <summary>
         /// 个案源码之接口实现目录
         /// </summary>
         public string ImplementDir {
-            get { return _implementDir; }
-            set { _implementDir = value; }
+            get => _implementDir;
+            set => _implementDir = value;
         }
         /// <summary>
         /// 个案源码之接口目录
         /// </summary>
         public string UIDir {
-            get { return _UIDir; }
-            set { _UIDir = value; }
+            get => _uiDir;
+            set => _uiDir = value;
         }
         /// <summary>
         /// 个案源码之客户端目录
         /// </summary>
         public string UIImplementDir {
-            get { return _UIImplementDir; }
-            set { _UIImplementDir = value; }
+            get => _uiImplementDir;
+            set => _uiImplementDir = value;
         }
         /// <summary>
         /// dll部署路径
         /// </summary>
         public string ServerProgramsPath
         {
-            get { return _serverProgramsPath; }
-            set { _serverProgramsPath = value; }
+            get => _serverProgramsPath;
+            set => _serverProgramsPath = value;
         }
         /// <summary>
         /// dll部署路径
         /// </summary>
         public string DeployProgramsPath
         {
-            get { return _clientProgramsPath; }
-            set { _clientProgramsPath = value; }
+            get => _clientProgramsPath;
+            set => _clientProgramsPath = value;
         }
         /// <summary>
         /// 代码根目录
         /// </summary>
         public string RootDir
         {
-            get { return _rootDir; }
-            set { _rootDir = value; }
+            get => _rootDir;
+            set => _rootDir = value;
         }
     }
 }

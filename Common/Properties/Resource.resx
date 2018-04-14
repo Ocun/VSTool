@@ -157,4 +157,22 @@
   <data name="FileExisted" xml:space="preserve">
     <value>文件已存在是否覆盖？</value>
   </data>
+  <data name="TemplateNotExisted" xml:space="preserve">
+    <value>{0}/{1}模板不存在，请检查</value>
+  </data>
+  <data name="DirNotExisted" xml:space="preserve">
+    <value>文件夹{0}不存在，请查看！！！</value>
+  </data>
+  <data name="CopyFailed" xml:space="preserve">
+    <value>复制失败</value>
+  </data>
+  <data name="notNull" xml:space="preserve">
+    <value>不可为空</value>
+  </data>
+  <data name="CreateFileName" xml:space="preserve">
+    <value>Create{0}</value>
+  </data>
+  <data name="pkgNotNull" xml:space="preserve">
+    <value>借用TypeKey不可为空</value>
+  </data>
 </root>

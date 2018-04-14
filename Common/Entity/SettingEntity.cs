@@ -15,33 +15,33 @@ namespace Common.Implement.Entity
     public partial class SettingPathEntity
     {
 
-        private string serverDirField;
+        private string _serverDirField;
 
-        private string deployServerDirField;
+        private string _deployServerDirField;
 
-        private string industryServerDirField;
+        private string _industryServerDirField;
 
-        private string industryDeployDirField;
+        private string _industryDeployDirField;
 
-        private string programsField;
+        private string _programsField;
 
-        private object basicDirField;
+        private object _basicDirField;
 
-        private string exportDirField;
+        private string _exportDirField;
 
-        private string businessDirExtentionField;
+        private string _businessDirExtentionField;
 
-        private string implementDirExtentionField;
+        private string _implementDirExtentionField;
 
-        private string uIDirExtentionField;
+        private string _uIDirExtentionField;
 
-        private string dllExtentionField;
+        private string _dllExtentionField;
 
-        private string packageBaseNameField;
+        private string _packageBaseNameField;
 
-        private string templateDirField;
+        private string _templateDirField;
 
-        private string templateTypeKeyField;
+        private string _templateTypeKeyField;
         
 
         /// <summary>
@@ -49,28 +49,16 @@ namespace Common.Implement.Entity
         /// </summary>
         public string ServerDir
         {
-            get
-            {
-                return this.serverDirField;
-            }
-            set
-            {
-                this.serverDirField = value;
-            }
+            get => this._serverDirField;
+            set => this._serverDirField = value;
         }
         /// <summary>
         /// 客户端部署路径
         /// </summary>
         public string DeployServerDir
         {
-            get
-            {
-                return this.deployServerDirField;
-            }
-            set
-            {
-                this.deployServerDirField = value;
-            }
+            get => this._deployServerDirField;
+            set => this._deployServerDirField = value;
         }
 
        /// <summary>
@@ -78,29 +66,17 @@ namespace Common.Implement.Entity
        /// </summary>
         public string IndustryServerDir
         {
-            get
-            {
-                return this.industryServerDirField;
-            }
-            set
-            {
-                this.industryServerDirField = value;
-            }
-        }
+            get => this._industryServerDirField;
+           set => this._industryServerDirField = value;
+       }
 
         /// <summary>
         /// 行业包客户端部署路径
         /// </summary>
         public string IndustryDeployDir
         {
-            get
-            {
-                return this.industryDeployDirField;
-            }
-            set
-            {
-                this.industryDeployDirField = value;
-            }
+            get => this._industryDeployDirField;
+            set => this._industryDeployDirField = value;
         }
 
         /// <summary>
@@ -108,14 +84,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public string Programs
         {
-            get
-            {
-                return this.programsField;
-            }
-            set
-            {
-                this.programsField = value;
-            }
+            get => this._programsField;
+            set => this._programsField = value;
         }
 
         /// <summary>
@@ -123,14 +93,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public object BasicDir
         {
-            get
-            {
-                return this.basicDirField;
-            }
-            set
-            {
-                this.basicDirField = value;
-            }
+            get => this._basicDirField;
+            set => this._basicDirField = value;
         }
 
         /// <summary>
@@ -138,14 +102,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public string ExportDir
         {
-            get
-            {
-                return this.exportDirField;
-            }
-            set
-            {
-                this.exportDirField = value;
-            }
+            get => this._exportDirField;
+            set => this._exportDirField = value;
         }
 
         /// <summary>
@@ -153,14 +111,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public string BusinessDirExtention
         {
-            get
-            {
-                return this.businessDirExtentionField;
-            }
-            set
-            {
-                this.businessDirExtentionField = value;
-            }
+            get => this._businessDirExtentionField;
+            set => this._businessDirExtentionField = value;
         }
 
         /// <summary>
@@ -168,14 +120,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public string ImplementDirExtention
         {
-            get
-            {
-                return this.implementDirExtentionField;
-            }
-            set
-            {
-                this.implementDirExtentionField = value;
-            }
+            get => this._implementDirExtentionField;
+            set => this._implementDirExtentionField = value;
         }
 
         /// <summary>
@@ -183,14 +129,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public string UIDirExtention
         {
-            get
-            {
-                return this.uIDirExtentionField;
-            }
-            set
-            {
-                this.uIDirExtentionField = value;
-            }
+            get => this._uIDirExtentionField;
+            set => this._uIDirExtentionField = value;
         }
 
         /// <summary>
@@ -198,14 +138,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public string DllExtention
         {
-            get
-            {
-                return this.dllExtentionField;
-            }
-            set
-            {
-                this.dllExtentionField = value;
-            }
+            get => this._dllExtentionField;
+            set => this._dllExtentionField = value;
         }
 
         /// <summary>
@@ -213,14 +147,8 @@ namespace Common.Implement.Entity
         /// </summary>
         public string PackageBaseName
         {
-            get
-            {
-                return this.packageBaseNameField;
-            }
-            set
-            {
-                this.packageBaseNameField = value;
-            }
+            get => this._packageBaseNameField;
+            set => this._packageBaseNameField = value;
         }
 
        /// <summary>
@@ -228,19 +156,18 @@ namespace Common.Implement.Entity
        /// </summary>
         public string TemplateDir
         {
-            get
-            {
-                return this.templateDirField;
-            }
-            set
-            {
-                this.templateDirField = value;
-            }
-        }
+            get => this.TemplateDirField;
+           set => this.TemplateDirField = value;
+       }
 
         public string TemplateTypeKey {
-            get { return templateTypeKeyField; }
-            set { templateTypeKeyField = value; }
+            get => _templateTypeKeyField;
+            set => _templateTypeKeyField = value;
+        }
+
+        public string TemplateDirField {
+            get => _templateDirField;
+            set => _templateDirField = value;
         }
     }
 
