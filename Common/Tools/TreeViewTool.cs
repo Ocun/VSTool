@@ -27,7 +27,11 @@ namespace Common.Implement.Tools {
             if (buildeEntity == null || buildeEntity.Count <= 0)
                 return;
             var item = buildeEntity.ToList();
-            item.ForEach(buildeType => { mytree.Nodes.Add(CreateTree(toolpars, buildeType, showCheck, false)); });
+            item.ForEach(buildeType => {
+                var node = CreateTree(toolpars, buildeType, showCheck, false);
+                if(node != null)
+                mytree.Nodes.Add(node);
+            });
         }
 
         /// <summary>
@@ -39,6 +43,9 @@ namespace Common.Implement.Tools {
         /// <returns></returns>
         public static TreeNode CreateTree(Toolpars toolpars, BuildeType buildeType, bool showCheck, bool readSubView) {
             var text = buildeType.Name ?? string.Empty;
+            if (buildeType.Visiable !=null && buildeType.Visiable.Equals("False") && buildeType.BuildeItems == null) {
+                return null;
+            }
             var newChild = new MyTreeNode(text) {BuildeType = buildeType};
             if (showCheck)
                 if (buildeType.ShowCheckedBox != null
@@ -54,7 +61,7 @@ namespace Common.Implement.Tools {
                     newChild.CheckBoxVisible = true;
                 }
             //读下层目录
-            else if (readSubView && buildeType.BuildeItems.Length > 0)
+            else if (readSubView && buildeType.BuildeItems  != null&& buildeType.BuildeItems.Length > 0)
                 buildeType.BuildeItems.ToList().ForEach(buildeItem => {
                     newChild.Nodes.Add(CreateTree(toolpars, buildeItem, false, true));
                 });

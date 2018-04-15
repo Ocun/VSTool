@@ -45,7 +45,7 @@ namespace Common.Implement.UI {
                 if (fileInfo?.Paths != null)
                     if (fileInfo.Paths.Length == 1) {
                         var path = fileInfo.Paths[0];
-                        var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
+                        var fromPath = $@"{_toolpars.MVSToolpath}\Template\{path}";
                         var fileinfo = new FileInfos {
                             ActionName = "",
                             ClassName = txt01.Text,
@@ -57,7 +57,7 @@ namespace Common.Implement.UI {
                         var oldFilePath = Path.GetFileNameWithoutExtension(path);
                         if (oldFilePath != null) {
                             var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-                            fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
+                            fileinfo.ToPath = $@"{_toolpars.GToIni}\{newFilePath}";
                         }
                         if (BuildeType.PartId != null
                             && !BuildeType.PartId.Equals(string.Empty)) {
@@ -70,7 +70,8 @@ namespace Common.Implement.UI {
                     else {
                         fileInfo.Paths.ToList().ForEach(path => {
                             var classNameFiled = Path.GetFileName(path);
-                            var fromPath = _toolpars.MVSToolpath + @"\Template\" + path;
+                            var fromPath = $@"{_toolpars.MVSToolpath}\Template\{path}";
+                           
                             var fileinfo = new FileInfos {
                                 ActionName = "",
                                 ClassName = classNameFiled,
@@ -80,11 +81,25 @@ namespace Common.Implement.UI {
                                 FromPath = fromPath
                             };
                             var oldFilePath = Path.GetFileNameWithoutExtension(path);
+                            //针对服务，这种解决方法，我认为非常蠢
+                            if (BuildeType.Id.Equals("Service")) {
+                                if (classNameFiled != null && classNameFiled.StartsWith(@"I")) {
+                                    fileinfo.ClassName = txt01.Text;
+                                    fileinfo.FileName = txt01.Text;
+                                }
+                                else {
+                                    fileinfo.ClassName = txt01.Text.Substring(1);
+                                    fileinfo.FileName = txt01.Text.Substring(1);
+                                }
+                              
+                            }
                             if (oldFilePath != null) {
                                 var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
 
                                 fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
                             }
+
+                          
 
                             FileInfos.Add(fileinfo);
                         });
@@ -94,9 +109,15 @@ namespace Common.Implement.UI {
         }
 
         private void ModiName_Load(object sender, EventArgs e) {
-            try {
+            try
+            {
                 txt01.Text = string.Format(Resource.CreateFileName, BuildeType.Id);
                 txt02.Text = string.Format(Resource.CreateFileName, BuildeType.Id);
+                if (BuildeType.Id.Equals("Service")) {
+                    txt01.Text = "ICreateService";
+                    txt02.Text = "ICreateService";
+                }
+             
 
                 btnOK.Focus();
             }

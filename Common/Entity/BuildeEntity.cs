@@ -44,6 +44,7 @@ namespace Common.Implement.Entity
         private string _showCheckedBoxField;
         private string _isTools;
         private string _url;
+        private string _visiable;
 
         /// <summary>
         /// 来源自同一模板代码片段是否合并
@@ -129,14 +130,27 @@ namespace Common.Implement.Entity
             set => _showCheckedBoxField = value;
         }
 
+        /// <summary>
+        /// 是否时外部工具
+        /// </summary>
         public string IsTools {
             get => _isTools;
             set => _isTools = value;
         }
 
+        /// <summary>
+        /// 外部应用程序地址
+        /// </summary>
         public string Url {
             get => _url;
             set => _url = value;
+        }
+        /// <summary>
+        /// 项目是否可见，仅在无子项时生效
+        /// </summary>
+        public string Visiable {
+            get => _visiable;
+            set => _visiable = value;
         }
     }
 

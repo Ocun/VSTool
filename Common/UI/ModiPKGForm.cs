@@ -64,11 +64,11 @@ namespace Common.Implement.UI {
             }
             DirectoryInfo fromDir = new DirectoryInfo(str);
             string pkgMatch= $@"Digiwn.ERP.{Toolpars.FormEntity.PkgTypekey}";
-            var TypeKeyDir = fromDir.GetDirectories(Toolpars.FormEntity.PkgTypekey, SearchOption.AllDirectories);
+            var typeKeyDir = fromDir.GetDirectories(Toolpars.FormEntity.PkgTypekey, SearchOption.AllDirectories);
             var pkgDir= fromDir.GetDirectories(pkgMatch, SearchOption.AllDirectories);
 
             //typeKey
-            if (TypeKeyDir.Length>1) {
+            if (typeKeyDir.Length>1) {
                 
             }
             //源码

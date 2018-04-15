@@ -719,5 +719,17 @@ namespace VSTool {
         }
         #endregion
 
+      
+
+       
+        private void myTreeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
+            var node = e.Node as MyTreeNode;
+            if (node != null) {
+                var bt = node?.BuildeType;
+                if (bt?.IsTools == null || !bt.IsTools.Equals("True"))
+                    node.Checked = !node.Checked;
+            }
+         
+        }
     }
 }

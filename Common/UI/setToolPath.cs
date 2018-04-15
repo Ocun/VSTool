@@ -13,7 +13,9 @@ namespace Common.Implement.UI {
         public SetToolPath(string path) {
             InitializeComponent();
             textBox1.Text = (path??string.Empty).Trim();
-            Path = path;
+            Path = (path ?? string.Empty).Trim();
+            textBox1.DataBindings.Add(new Binding("Text", Path, "", true,
+                DataSourceUpdateMode.OnPropertyChanged));
         }
 
         public string Path { get; set; }
@@ -32,6 +34,10 @@ namespace Common.Implement.UI {
 
         private void btnOK_Click(object sender, EventArgs e) {
             DialogResult = DialogResult.OK;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e) {
+            Path = textBox1.Text;
         }
     }
 }

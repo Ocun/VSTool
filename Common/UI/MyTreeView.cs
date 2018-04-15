@@ -43,6 +43,7 @@ namespace Common.Implement.UI {
 
             //设置默认BackgroundPen  
             BackgroundPen = new Pen(Color.FromArgb(130, 249, 252), 1);
+
             //this.ItemHeight = 50;
             //NodeImageSize = new Size(ImageWidth, ImageHeight);
             _imgUnchecked = Resource.TreeNodeUnchecked;
@@ -66,8 +67,8 @@ namespace Common.Implement.UI {
 
             //设置Image绘制Rectangle  
             var checkboxImgRect = new Rectangle(node.Bounds.X + PaddingSetting.X, node.Bounds.Y + PaddingSetting.Y + 3,
-                NodeImageSize.Width, NodeImageSize.Height ); //节点区域  
-             
+                NodeImageSize.Width, NodeImageSize.Height); //节点区域  
+
 
             // 如果点击的是checkbox图片  
             if (!checkboxImgRect.Contains(e.X, e.Y))
@@ -154,8 +155,8 @@ namespace Common.Implement.UI {
                 textRec.Y += 25;
                 var subNode = new Font("宋体", 10F, FontStyle.Regular,
                     GraphicsUnit.Point, 134);
-                
-                graphics.DrawString(node.BuildeType.Description, subNode, new SolidBrush(ForeColor),
+
+                graphics.DrawString(node.BuildeType.Description, subNode, new SolidBrush(DescriptionColor),
                     Rectangle.Inflate(textRec, 2, -2));
             }
             if (IsCard)
@@ -333,23 +334,40 @@ namespace Common.Implement.UI {
 
         #region 屬性
 
-        //显示字体  
 
+        /// <summary>
+        /// 显示字体
+        /// </summary>
         public Font NodeFont { get; set; }
 
-        //选择TreeView TreeNode时的背景色  
-
+        /// <summary>
+        /// 选择TreeView TreeNode时的背景色 
+        /// </summary>
         public Brush BackgroundBrush { get; set; }
 
-        //选择TreeView TreeNode时背景色的边框画笔  
-
+        /// <summary>
+        /// 选择TreeView TreeNode时背景色的边框画笔  
+        /// </summary>
         public Pen BackgroundPen { get; set; }
 
-        //TreeView中TreeNode的节点显示图标的大小  
-
+        /// <summary>
+        /// TreeView中TreeNode的节点显示图标的大小 
+        /// </summary>
         public Size NodeImageSize { get; set; }
 
 
+        public Color DescriptionColor {
+            get{
+            if (_desColor == null)
+            {
+                _desColor = ForeColor;
+            }
+            return _desColor;
+            }
+
+
+            set => _desColor= value;
+        }
 
         /// <summary>
         ///     是否以卡片形式绘制
@@ -369,6 +387,7 @@ namespace Common.Implement.UI {
         private Image _imgRbUnchecked;
         private Image _imgLeft;
         private Image _imaDown;
+        private Color _desColor;
 
         #endregion
     }
