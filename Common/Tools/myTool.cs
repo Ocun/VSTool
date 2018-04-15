@@ -950,7 +950,7 @@ namespace Common.Implement.Tools {
             //第五步：保存图标
             foreach (var image in images) {
                 using (var fs =
-                    new FileStream($"{Application.StartupPath}\\images\\{exeName}.png", FileMode.OpenOrCreate)) {
+                    new FileStream($"{Application.StartupPath}\\Images\\{exeName}.png", FileMode.OpenOrCreate)) {
                     image.Save(fs, System.Drawing.Imaging.ImageFormat.Png);
                 }
             }

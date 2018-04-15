@@ -160,7 +160,8 @@
           <Id>DesignTool</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
-          <Url></Url>
+          <Url>
+          </Url>
           <Name>设计器</Name>
           <Description>就是设计器</Description>
         </BuildeItem>
@@ -168,14 +169,15 @@
           <Id>OOQLDesign</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
-          <Url></Url>
+          <Url>D:\Program Files\Tencent\QQ\Bin\QQ.exe</Url>
           <Name>OOQL转换工具</Name>
           <Description>将OOQL转换为SQL</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>GUIDSHOW</Id>
           <IsTools>True</IsTools>
-          <Url></Url>
+          <Url>
+          </Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>GUID_SHOW</Name>
           <Description>跟踪当前客户SQL</Description>
@@ -183,7 +185,8 @@
         <BuildeItem>
           <Id>colligateQuery</Id>
           <IsTools>True</IsTools>
-          <Url></Url>
+          <Url>
+          </Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>综合查询工具</Name>
           <Description>查询</Description>
@@ -191,7 +194,8 @@
         <BuildeItem>
           <Id>E10Search</Id>
           <IsTools>True</IsTools>
-          <Url></Url>
+          <Url>
+          </Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>E10Search</Name>
           <Description>常用服务方法查询</Description>

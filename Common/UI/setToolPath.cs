@@ -12,7 +12,7 @@ namespace Common.Implement.UI {
 
         public SetToolPath(string path) {
             InitializeComponent();
-            textBox1.Text = path;
+            textBox1.Text = (path??string.Empty).Trim();
             Path = path;
         }
 
