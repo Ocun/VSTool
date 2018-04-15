@@ -38,3 +38,4 @@ E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.pdb
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.InsertForm.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.ModiPkgForm.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.SetToolPath.resources
+G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache

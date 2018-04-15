@@ -109,43 +109,43 @@
       <BuildeItems>
         <BuildeItem>
           <Id>ImportExcel</Id>
-		 <ShowParWindow>False</ShowParWindow>
+          <ShowParWindow>False</ShowParWindow>
           <Name>导入Excel</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>ExportExcel</Id>
-		  <ShowParWindow>False</ShowParWindow>
+          <ShowParWindow>False</ShowParWindow>
           <Name>导出Excel</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>Insert</Id>
-		 <ShowParWindow>False</ShowParWindow>
+          <ShowParWindow>False</ShowParWindow>
           <Name>插单示例</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>LowFill</Id>
-		 <ShowParWindow>False</ShowParWindow>
+          <ShowParWindow>False</ShowParWindow>
           <Name>向下填充</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>PrintPreview</Id>
-		<ShowParWindow>False</ShowParWindow>
+          <ShowParWindow>False</ShowParWindow>
           <Name>打印预览</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>Print</Id>
-		 <ShowParWindow>False</ShowParWindow>
+          <ShowParWindow>False</ShowParWindow>
           <Name>打印</Name>
           <Description>故名思议</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>AllChoose</Id>
-		 <ShowParWindow>False</ShowParWindow>
+          <ShowParWindow>False</ShowParWindow>
           <Name>全选</Name>
           <Description>提供表格全选,撤销功能</Description>
         </BuildeItem>
@@ -168,14 +168,14 @@
           <Id>OOQLDesign</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
-          <Url>D:\Program Files\OOQLDesigner\OOQLDesigner.exe</Url>
+          <Url></Url>
           <Name>OOQL转换工具</Name>
           <Description>将OOQL转换为SQL</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>GUIDSHOW</Id>
           <IsTools>True</IsTools>
-          <Url>D:\Program Files\GUID_SHOW\GUID_SHOW.exe</Url>
+          <Url></Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>GUID_SHOW</Name>
           <Description>跟踪当前客户SQL</Description>
@@ -183,7 +183,7 @@
         <BuildeItem>
           <Id>colligateQuery</Id>
           <IsTools>True</IsTools>
-          <Url>D:\Program Files\综合查询工具\综合查询工具\综合查询工具.exe</Url>
+          <Url></Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>综合查询工具</Name>
           <Description>查询</Description>
@@ -191,13 +191,12 @@
         <BuildeItem>
           <Id>E10Search</Id>
           <IsTools>True</IsTools>
-          <Url>E:\E10_SearchSource\E10_SearchSource.exe</Url>
+          <Url></Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>E10Search</Name>
           <Description>常用服务方法查询</Description>
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
-    
   </BuildeTypies>
 </BuildeEntity>

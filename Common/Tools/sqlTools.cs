@@ -23,6 +23,9 @@ namespace Common.Implement.Tools
             set => _connection = value;
         }
 
+        // ReSharper disable once ConvertToAutoProperty
+        public static StringBuilder Builder { get => _builder; set => _builder = value; }
+
         public static SqlConnection GetConnectionStr()
         {
             _address = CallUpdate.GetLocation();
@@ -39,8 +42,8 @@ namespace Common.Implement.Tools
             try
             {
                 Connection.Open();
-                _builder.Length = 0;
-                _builder.AppendFormat(
+                Builder.Length = 0;
+                Builder.AppendFormat(
                     "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1}',{2},'{3}','{4}',{5},'{6}','{7}',{8})",
                     new object[] {
                         "VSTool", DateTime.Now.ToString("yyyyMMddHHmmss"),
@@ -49,7 +52,7 @@ namespace Common.Implement.Tools
                         Environment.MachineName,
                         "N", 1, pTheMemo, pDemandId, pUseYear
                     });
-                new SqlCommand(_builder.ToString(), Connection).ExecuteNonQuery();
+                new SqlCommand(Builder.ToString(), Connection).ExecuteNonQuery();
                 Connection.Close();
             }
             catch

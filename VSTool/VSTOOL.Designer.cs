@@ -59,6 +59,7 @@ namespace VSTool
             this.myTreeView5 = new Common.Implement.UI.MyTreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.PkgOpenTo = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -75,17 +76,21 @@ namespace VSTool
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.scrollPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
@@ -99,7 +104,7 @@ namespace VSTool
             this.btnCreate.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCreate.ForeColor = System.Drawing.Color.Black;
             this.btnCreate.Location = new System.Drawing.Point(1179, 32);
-            this.btnCreate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCreate.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(100, 32);
             this.btnCreate.TabIndex = 6;
@@ -114,7 +119,7 @@ namespace VSTool
             this.btnOpenTo.FlatAppearance.BorderSize = 0;
             this.btnOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenTo.Location = new System.Drawing.Point(1027, 35);
-            this.btnOpenTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpenTo.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenTo.Name = "btnOpenTo";
             this.btnOpenTo.Size = new System.Drawing.Size(44, 29);
             this.btnOpenTo.TabIndex = 9;
@@ -126,12 +131,15 @@ namespace VSTool
             // 
             this.txtToPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtToPath.Enabled = false;
             this.txtToPath.Location = new System.Drawing.Point(39, 38);
-            this.txtToPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtToPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtToPath.Name = "txtToPath";
             this.txtToPath.Size = new System.Drawing.Size(979, 25);
             this.txtToPath.TabIndex = 10;
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.Description = "请选择所在目录";
             // 
             // btnCreateCS
             // 
@@ -140,7 +148,7 @@ namespace VSTool
             this.btnCreateCS.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCreateCS.ForeColor = System.Drawing.Color.Black;
             this.btnCreateCS.Location = new System.Drawing.Point(1179, 149);
-            this.btnCreateCS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCreateCS.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreateCS.Name = "btnCreateCS";
             this.btnCreateCS.Size = new System.Drawing.Size(100, 32);
             this.btnCreateCS.TabIndex = 12;
@@ -155,7 +163,7 @@ namespace VSTool
             this.btnClear.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnClear.ForeColor = System.Drawing.Color.Black;
             this.btnClear.Location = new System.Drawing.Point(1179, 109);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(4);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(100, 32);
             this.btnClear.TabIndex = 15;
@@ -170,7 +178,7 @@ namespace VSTool
             this.btnOpen.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnOpen.ForeColor = System.Drawing.Color.Black;
             this.btnOpen.Location = new System.Drawing.Point(1179, 72);
-            this.btnOpen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(100, 32);
             this.btnOpen.TabIndex = 19;
@@ -183,7 +191,7 @@ namespace VSTool
             this.txtPKGpath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPKGpath.Location = new System.Drawing.Point(39, 105);
-            this.txtPKGpath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPKGpath.Margin = new System.Windows.Forms.Padding(4);
             this.txtPKGpath.Name = "txtPKGpath";
             this.txtPKGpath.Size = new System.Drawing.Size(979, 25);
             this.txtPKGpath.TabIndex = 27;
@@ -198,7 +206,7 @@ namespace VSTool
             this.btnP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnP.ForeColor = System.Drawing.Color.YellowGreen;
             this.btnP.Location = new System.Drawing.Point(1079, 35);
-            this.btnP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnP.Margin = new System.Windows.Forms.Padding(4);
             this.btnP.Name = "btnP";
             this.btnP.Size = new System.Drawing.Size(33, 26);
             this.btnP.TabIndex = 30;
@@ -216,8 +224,8 @@ namespace VSTool
             this.btnG.FlatAppearance.BorderSize = 0;
             this.btnG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnG.ForeColor = System.Drawing.Color.YellowGreen;
-            this.btnG.Location = new System.Drawing.Point(1120, 105);
-            this.btnG.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnG.Location = new System.Drawing.Point(1079, 102);
+            this.btnG.Margin = new System.Windows.Forms.Padding(4);
             this.btnG.Name = "btnG";
             this.btnG.Size = new System.Drawing.Size(33, 26);
             this.btnG.TabIndex = 31;
@@ -239,7 +247,7 @@ namespace VSTool
             this.panel1.Controls.Add(this.btncopydll);
             this.panel1.Controls.Add(this.btncopyUIdll);
             this.panel1.Location = new System.Drawing.Point(-8, -12);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1300, 104);
             this.panel1.TabIndex = 32;
@@ -249,7 +257,7 @@ namespace VSTool
             this.ModiCkb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ModiCkb.AutoSize = true;
             this.ModiCkb.Location = new System.Drawing.Point(1063, 74);
-            this.ModiCkb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ModiCkb.Margin = new System.Windows.Forms.Padding(4);
             this.ModiCkb.Name = "ModiCkb";
             this.ModiCkb.Size = new System.Drawing.Size(59, 19);
             this.ModiCkb.TabIndex = 39;
@@ -288,7 +296,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNewTypeKey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNewTypeKey.Location = new System.Drawing.Point(251, 42);
-            this.txtNewTypeKey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNewTypeKey.Margin = new System.Windows.Forms.Padding(4);
             this.txtNewTypeKey.Name = "txtNewTypeKey";
             this.txtNewTypeKey.Size = new System.Drawing.Size(858, 25);
             this.txtNewTypeKey.TabIndex = 2;
@@ -299,7 +307,7 @@ namespace VSTool
             this.Industry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Industry.AutoSize = true;
             this.Industry.Location = new System.Drawing.Point(976, 74);
-            this.Industry.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Industry.Margin = new System.Windows.Forms.Padding(4);
             this.Industry.Name = "Industry";
             this.Industry.Size = new System.Drawing.Size(74, 19);
             this.Industry.TabIndex = 28;
@@ -314,7 +322,7 @@ namespace VSTool
             this.btncopydll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btncopydll.ForeColor = System.Drawing.Color.DarkGreen;
             this.btncopydll.Location = new System.Drawing.Point(1148, 61);
-            this.btncopydll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btncopydll.Margin = new System.Windows.Forms.Padding(4);
             this.btncopydll.Name = "btncopydll";
             this.btncopydll.Size = new System.Drawing.Size(77, 29);
             this.btncopydll.TabIndex = 22;
@@ -332,7 +340,7 @@ namespace VSTool
             this.btncopyUIdll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btncopyUIdll.ForeColor = System.Drawing.Color.DarkGreen;
             this.btncopyUIdll.Location = new System.Drawing.Point(1148, 25);
-            this.btncopyUIdll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btncopyUIdll.Margin = new System.Windows.Forms.Padding(4);
             this.btncopyUIdll.Name = "btncopyUIdll";
             this.btncopyUIdll.Size = new System.Drawing.Size(128, 29);
             this.btncopyUIdll.TabIndex = 23;
@@ -350,9 +358,9 @@ namespace VSTool
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(241, 584);
+            this.panel3.Size = new System.Drawing.Size(272, 584);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3_Paint);
             // 
@@ -369,13 +377,11 @@ namespace VSTool
             this.myTreeView5.ForeColor = System.Drawing.Color.Black;
             this.myTreeView5.FullRowSelect = true;
             this.myTreeView5.HotTracking = true;
-            this.myTreeView5.ImageHeight = 25;
-            this.myTreeView5.ImageWidth = 25;
             this.myTreeView5.ImeMode = System.Windows.Forms.ImeMode.On;
             this.myTreeView5.IsCard = false;
             this.myTreeView5.ItemHeight = 25;
             this.myTreeView5.Location = new System.Drawing.Point(12, 29);
-            this.myTreeView5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myTreeView5.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView5.Name = "myTreeView5";
             this.myTreeView5.NodeFont = null;
             this.myTreeView5.NodeImageSize = new System.Drawing.Size(20, 20);
@@ -383,7 +389,7 @@ namespace VSTool
             this.myTreeView5.ShowDescription = false;
             this.myTreeView5.ShowLines = false;
             this.myTreeView5.ShowPlusMinus = false;
-            this.myTreeView5.Size = new System.Drawing.Size(225, 641);
+            this.myTreeView5.Size = new System.Drawing.Size(256, 641);
             this.myTreeView5.TabIndex = 15;
             // 
             // label1
@@ -403,6 +409,7 @@ namespace VSTool
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.SystemColors.Menu;
+            this.panel4.Controls.Add(this.PkgOpenTo);
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.txtToPath);
             this.panel4.Controls.Add(this.btnG);
@@ -415,10 +422,25 @@ namespace VSTool
             this.panel4.Controls.Add(this.btnOpen);
             this.panel4.Controls.Add(this.btnClear);
             this.panel4.Location = new System.Drawing.Point(-8, 675);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1301, 198);
             this.panel4.TabIndex = 35;
+            // 
+            // PkgOpenTo
+            // 
+            this.PkgOpenTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PkgOpenTo.FlatAppearance.BorderSize = 0;
+            this.PkgOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PkgOpenTo.Location = new System.Drawing.Point(1026, 101);
+            this.PkgOpenTo.Margin = new System.Windows.Forms.Padding(4);
+            this.PkgOpenTo.Name = "PkgOpenTo";
+            this.PkgOpenTo.Size = new System.Drawing.Size(44, 29);
+            this.PkgOpenTo.TabIndex = 33;
+            this.PkgOpenTo.Text = "...";
+            this.PkgOpenTo.UseVisualStyleBackColor = true;
+            this.PkgOpenTo.Click += new System.EventHandler(this.BtnOpenTo_Click);
             // 
             // label4
             // 
@@ -462,7 +484,7 @@ namespace VSTool
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Size = new System.Drawing.Size(1309, 584);
-            this.splitContainer1.SplitterDistance = 1067;
+            this.splitContainer1.SplitterDistance = 1036;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 36;
             // 
@@ -472,9 +494,9 @@ namespace VSTool
             this.panel2.Controls.Add(this.splitContainer2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1067, 584);
+            this.panel2.Size = new System.Drawing.Size(1036, 584);
             this.panel2.TabIndex = 33;
             // 
             // splitContainer2
@@ -484,7 +506,7 @@ namespace VSTool
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -495,7 +517,7 @@ namespace VSTool
             // 
             this.splitContainer2.Panel2.Controls.Add(this.scrollPanel);
             this.splitContainer2.Panel2.Controls.Add(this.treeView1);
-            this.splitContainer2.Size = new System.Drawing.Size(1067, 584);
+            this.splitContainer2.Size = new System.Drawing.Size(1036, 584);
             this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 14;
@@ -512,13 +534,11 @@ namespace VSTool
             this.myTreeView1.FullRowSelect = true;
             this.myTreeView1.HideSelection = false;
             this.myTreeView1.HotTracking = true;
-            this.myTreeView1.ImageHeight = 25;
-            this.myTreeView1.ImageWidth = 25;
             this.myTreeView1.ImeMode = System.Windows.Forms.ImeMode.On;
             this.myTreeView1.IsCard = false;
             this.myTreeView1.ItemHeight = 50;
             this.myTreeView1.Location = new System.Drawing.Point(0, 0);
-            this.myTreeView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myTreeView1.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView1.Name = "myTreeView1";
             this.myTreeView1.NodeFont = null;
             this.myTreeView1.NodeImageSize = new System.Drawing.Size(20, 20);
@@ -538,7 +558,7 @@ namespace VSTool
             this.scrollPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.scrollPanel.Name = "scrollPanel";
-            this.scrollPanel.Size = new System.Drawing.Size(821, 584);
+            this.scrollPanel.Size = new System.Drawing.Size(790, 584);
             this.scrollPanel.TabIndex = 35;
             // 
             // splitContainer3
@@ -547,7 +567,7 @@ namespace VSTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -558,7 +578,7 @@ namespace VSTool
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer3.Panel2Collapsed = true;
-            this.splitContainer3.Size = new System.Drawing.Size(839, 584);
+            this.splitContainer3.Size = new System.Drawing.Size(808, 584);
             this.splitContainer3.SplitterDistance = 132;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 34;
@@ -573,13 +593,11 @@ namespace VSTool
             this.myTreeView2.ForeColor = System.Drawing.Color.Black;
             this.myTreeView2.FullRowSelect = true;
             this.myTreeView2.HotTracking = true;
-            this.myTreeView2.ImageHeight = 25;
-            this.myTreeView2.ImageWidth = 25;
             this.myTreeView2.ImeMode = System.Windows.Forms.ImeMode.On;
             this.myTreeView2.IsCard = false;
             this.myTreeView2.ItemHeight = 85;
             this.myTreeView2.Location = new System.Drawing.Point(0, 0);
-            this.myTreeView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myTreeView2.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView2.Name = "myTreeView2";
             this.myTreeView2.NodeFont = null;
             this.myTreeView2.NodeImageSize = new System.Drawing.Size(20, 20);
@@ -588,7 +606,7 @@ namespace VSTool
             this.myTreeView2.ShowDescription = true;
             this.myTreeView2.ShowLines = false;
             this.myTreeView2.ShowPlusMinus = false;
-            this.myTreeView2.Size = new System.Drawing.Size(839, 584);
+            this.myTreeView2.Size = new System.Drawing.Size(808, 584);
             this.myTreeView2.TabIndex = 33;
             this.myTreeView2.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.MyTreeView2_SetAutoScrollEvent);
             this.myTreeView2.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.MyTreeView2_AfterCheck);
@@ -598,7 +616,7 @@ namespace VSTool
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer4.IsSplitterFixed = true;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer4.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer4.Name = "splitContainer4";
             // 
             // splitContainer4.Panel1
@@ -608,8 +626,8 @@ namespace VSTool
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.myTreeView4);
-            this.splitContainer4.Size = new System.Drawing.Size(128, 125);
-            this.splitContainer4.SplitterDistance = 58;
+            this.splitContainer4.Size = new System.Drawing.Size(96, 100);
+            this.splitContainer4.SplitterDistance = 43;
             this.splitContainer4.SplitterWidth = 1;
             this.splitContainer4.TabIndex = 0;
             // 
@@ -623,13 +641,11 @@ namespace VSTool
             this.myTreeView3.ForeColor = System.Drawing.Color.Black;
             this.myTreeView3.FullRowSelect = true;
             this.myTreeView3.HotTracking = true;
-            this.myTreeView3.ImageHeight = 25;
-            this.myTreeView3.ImageWidth = 25;
             this.myTreeView3.ImeMode = System.Windows.Forms.ImeMode.On;
             this.myTreeView3.IsCard = false;
             this.myTreeView3.ItemHeight = 85;
             this.myTreeView3.Location = new System.Drawing.Point(0, 0);
-            this.myTreeView3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myTreeView3.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView3.Name = "myTreeView3";
             this.myTreeView3.NodeFont = null;
             this.myTreeView3.NodeImageSize = new System.Drawing.Size(20, 20);
@@ -638,7 +654,7 @@ namespace VSTool
             this.myTreeView3.ShowDescription = true;
             this.myTreeView3.ShowLines = false;
             this.myTreeView3.ShowPlusMinus = false;
-            this.myTreeView3.Size = new System.Drawing.Size(58, 125);
+            this.myTreeView3.Size = new System.Drawing.Size(43, 100);
             this.myTreeView3.TabIndex = 34;
             this.myTreeView3.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.MyTreeView2_SetAutoScrollEvent);
             this.myTreeView3.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.MyTreeView2_AfterCheck);
@@ -653,13 +669,11 @@ namespace VSTool
             this.myTreeView4.ForeColor = System.Drawing.Color.Black;
             this.myTreeView4.FullRowSelect = true;
             this.myTreeView4.HotTracking = true;
-            this.myTreeView4.ImageHeight = 25;
-            this.myTreeView4.ImageWidth = 25;
             this.myTreeView4.ImeMode = System.Windows.Forms.ImeMode.On;
             this.myTreeView4.IsCard = false;
             this.myTreeView4.ItemHeight = 85;
             this.myTreeView4.Location = new System.Drawing.Point(0, 0);
-            this.myTreeView4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myTreeView4.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView4.Name = "myTreeView4";
             this.myTreeView4.NodeFont = null;
             this.myTreeView4.NodeImageSize = new System.Drawing.Size(20, 20);
@@ -668,7 +682,7 @@ namespace VSTool
             this.myTreeView4.ShowDescription = true;
             this.myTreeView4.ShowLines = false;
             this.myTreeView4.ShowPlusMinus = false;
-            this.myTreeView4.Size = new System.Drawing.Size(69, 125);
+            this.myTreeView4.Size = new System.Drawing.Size(52, 100);
             this.myTreeView4.TabIndex = 35;
             this.myTreeView4.SetAutoScrollEvent += new Common.Implement.UI.MyTreeView.SetAutoScrollHandler(this.MyTreeView2_SetAutoScrollEvent);
             this.myTreeView4.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.MyTreeView2_AfterCheck);
@@ -684,13 +698,11 @@ namespace VSTool
             this.treeView1.FullRowSelect = true;
             this.treeView1.HideSelection = false;
             this.treeView1.HotTracking = true;
-            this.treeView1.ImageHeight = 25;
-            this.treeView1.ImageWidth = 25;
             this.treeView1.ImeMode = System.Windows.Forms.ImeMode.On;
             this.treeView1.IsCard = false;
             this.treeView1.ItemHeight = 25;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
             this.treeView1.NodeFont = null;
             this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
@@ -712,7 +724,7 @@ namespace VSTool
             this.treeView1.ShowDescription = false;
             this.treeView1.ShowLines = false;
             this.treeView1.ShowPlusMinus = false;
-            this.treeView1.Size = new System.Drawing.Size(821, 584);
+            this.treeView1.Size = new System.Drawing.Size(790, 584);
             this.treeView1.TabIndex = 13;
             this.treeView1.Visible = false;
             // 
@@ -727,7 +739,7 @@ namespace VSTool
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1234, 815);
             this.Name = "VSTOOL";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -741,17 +753,21 @@ namespace VSTool
             this.panel4.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.scrollPanel.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -794,6 +810,7 @@ namespace VSTool
         private Common.Implement.UI.MyPanel scrollPanel;
         private Common.Implement.UI.MyTreeView myTreeView5;
         private System.Windows.Forms.CheckBox ModiCkb;
+        private System.Windows.Forms.Button PkgOpenTo;
     }
 }
 

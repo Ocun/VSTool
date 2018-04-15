@@ -44,7 +44,7 @@ namespace Common.Implement.UI {
             //设置默认BackgroundPen  
             BackgroundPen = new Pen(Color.FromArgb(130, 249, 252), 1);
             //this.ItemHeight = 50;
-            NodeImageSize = new Size(ImageWidth, ImageHeight);
+            //NodeImageSize = new Size(ImageWidth, ImageHeight);
             _imgUnchecked = Resource.TreeNodeUnchecked;
             _imgChecked = Resource.TreeNodeChecked;
             _imgRbUnchecked = Resource.TreeNodeUnchecked;
@@ -66,8 +66,8 @@ namespace Common.Implement.UI {
 
             //设置Image绘制Rectangle  
             var checkboxImgRect = new Rectangle(node.Bounds.X + PaddingSetting.X, node.Bounds.Y + PaddingSetting.Y + 3,
-                ImageWidth, ImageHeight); //节点区域  
-
+                NodeImageSize.Width, NodeImageSize.Height ); //节点区域  
+             
 
             // 如果点击的是checkbox图片  
             if (!checkboxImgRect.Contains(e.X, e.Y))
@@ -189,15 +189,10 @@ namespace Common.Implement.UI {
             if (bt?.IsTools == null || !bt.IsTools.Equals("True"))
                 return;
             if (bt.Url == null || bt.Url.Equals(string.Empty)) {
-                var form = new SetToolPath(bt.Url);
-                if (form.ShowDialog() != DialogResult.OK)
-                    return;
-                bt.Url = form.Path;
-                XmlTools.ModiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
-                    bt.Id, bt.Url);
+                MyTool.SetToolsPath(bt);
             }
             else {
-                MyTool.OpenTools(bt.Url);
+                MyTool.OpenTools(bt);
             }
         }
 
@@ -355,9 +350,6 @@ namespace Common.Implement.UI {
         public Size NodeImageSize { get; set; }
 
 
-        public int ImageWidth { get; set; } = 25;
-
-        public int ImageHeight { get; set; } = 25;
 
         /// <summary>
         ///     是否以卡片形式绘制

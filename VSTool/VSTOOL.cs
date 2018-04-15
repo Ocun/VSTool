@@ -178,9 +178,7 @@ namespace VSTool {
                     foreach (var kv in dicPath) {
                         fileInfos.AddRange(kv.Value);
                     }
-                    new Thread(()=> {
-                            Invoke(new Action(() => LogTool.WriteToServer(Toolpars, fileInfos)));
-                        }
+                    new Thread(()=>  LogTool.WriteToServer(Toolpars, fileInfos)
                     ).Start();
                     
                     Toolpars.GToIni = Toolpars.FormEntity.TxtToPath;
@@ -203,11 +201,14 @@ namespace VSTool {
                 else {
                     //OldTools.WriteLog(Toolpars, listDATA);
                     var fileInfos = MyTool.GetTreeViewPath(treeView1.Nodes);
-                    new Thread( ()=> {
-                            Invoke(new Action(()=>{
-                                LogTool.WriteToServer(Toolpars, fileInfos);
-                            }));
-                        }
+                    //new Thread( ()=> {
+                    //        Invoke(new Action(()=>{
+                    //            LogTool.WriteToServer(Toolpars, fileInfos);
+                    //        }));
+                    //    }
+                    //).Start();
+                    new Thread( ()=>  LogTool.WriteToServer(Toolpars, fileInfos)
+                          
                     ).Start();
 
                     Toolpars.GToIni = Toolpars.FormEntity.TxtToPath;
@@ -257,7 +258,7 @@ namespace VSTool {
             {
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.FormEntity.txtNewTypeKey);
+            //SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.FormEntity.txtNewTypeKey);
         }
     
         /// <summary>
@@ -266,18 +267,41 @@ namespace VSTool {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnOpenTo_Click(object sender, EventArgs e) {
-            var txtToPathStr = Toolpars.FormEntity.TxtToPath;
-            if (txtToPathStr != null && !string.Equals(txtToPathStr.Trim(),string.Empty, StringComparison.Ordinal)) { 
-                folderBrowserDialog1.SelectedPath = Toolpars.FormEntity.TxtToPath.Trim();
-            }
-            else {
-                folderBrowserDialog1.SelectedPath = Toolpars.GToIni;
-            }
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) {
+            var btn = sender as Button;
+            var name = btn.Name;
+            if (name.Equals(btnOpenTo.Name)) {
+                var txtToPathStr = Toolpars.FormEntity.TxtToPath;
+                if (txtToPathStr != null && !string.Equals(txtToPathStr.Trim(), string.Empty, StringComparison.Ordinal))
+                {
+                    folderBrowserDialog1.SelectedPath = Toolpars.FormEntity.TxtToPath.Trim();
+                }
+                else
+                {
+                    folderBrowserDialog1.SelectedPath = Toolpars.GToIni;
+                }
+                if (folderBrowserDialog1.ShowDialog() != DialogResult.OK)
+                    return;
                 Toolpars.FormEntity.TxtToPath = folderBrowserDialog1.SelectedPath;
                 txtToPath.Text = folderBrowserDialog1.SelectedPath;
                 Toolpars.GToIni = Toolpars.FormEntity.TxtToPath;
+            }else if (name.Equals(PkgOpenTo.Name)) {
+                var pkgPath = Toolpars.FormEntity.txtPKGpath;
+                if (pkgPath != null && !string.Equals(pkgPath.Trim(), string.Empty, StringComparison.Ordinal))
+                {
+                    folderBrowserDialog1.SelectedPath = pkgPath.Trim();
+                }
+                else
+                {
+                    folderBrowserDialog1.SelectedPath = Toolpars.GToIni;
+                }
+                if (folderBrowserDialog1.ShowDialog() != DialogResult.OK)
+                    return;
+                //Toolpars.FormEntity.txtPKGpath = folderBrowserDialog1.SelectedPath;
+                txtPKGpath.Text = folderBrowserDialog1.SelectedPath;
+                Toolpars.GToIni = Toolpars.FormEntity.txtPKGpath;
             }
+
+          
         }
         
         private void BtnClear_Click(object sender, EventArgs e) {
@@ -539,13 +563,13 @@ namespace VSTool {
         /// <param name="e"></param>
         private void MyTreeView2_AfterCheck(object sender, TreeViewEventArgs e) {
             Toolpars.MDistince = false;
-            string TrueStr = "True";
-            string FalseStr = "False";
+            var trueStr = "True";
+            var falseStr = "False";
             if (e.Node is MyTreeNode node)
             {
                 var builderType = node.BuildeType;
                 if (builderType.ReadOnly != null
-                    && builderType.ReadOnly.Equals(TrueStr))
+                    && builderType.ReadOnly.Equals(trueStr))
                 {
                     return;
                 }
@@ -553,11 +577,11 @@ namespace VSTool {
                 var fileInfos = new List<FileInfos>();
                 if (e.Node.Checked)
                 {
-                    builderType.Checked = TrueStr;
+                    builderType.Checked = trueStr;
                     if (!ModiCkb.Checked)
                     {
                         if ((builderType.ShowParWindow != null
-                              && builderType.ShowParWindow.Equals(FalseStr))
+                              && builderType.ShowParWindow.Equals(falseStr))
                         )
                         {
                             fileInfos = MyTool.CreateFileMappingInfo(_toolpars, builderType);
@@ -574,7 +598,7 @@ namespace VSTool {
                             }
                             else
                             {
-                                builderType.Checked = FalseStr;
+                                builderType.Checked = falseStr;
                                 e.Node.Checked = false;
                             }
                         }
@@ -582,7 +606,7 @@ namespace VSTool {
                 }
                 else
                 {
-                    builderType.Checked = FalseStr;
+                    builderType.Checked = falseStr;
                 }
                 if (myTreeView1.SelectedNode != null)
                 {
@@ -603,7 +627,7 @@ namespace VSTool {
                             {
                                 citem.ForEach(ee =>
                                 {
-                                    ee.Checked = TrueStr;
+                                    ee.Checked = trueStr;
                                     ee.FileInfos = fileInfos;
                                 }
 
@@ -613,7 +637,7 @@ namespace VSTool {
                             {
                                 citem.ForEach(ee =>
                                 {
-                                    ee.Checked = FalseStr;
+                                    ee.Checked = falseStr;
                                     ee.FileInfos = fileInfos;
                                 });
                             }

@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Common.Implement.Entity;
 using Common.Implement.Properties;
@@ -56,10 +57,26 @@ namespace Common.Implement.UI {
             DialogResult = DialogResult.OK;
         }
 
+        private string str = @"\\192.168.31.2\XiaoMi-usb1\Test\";
         private void Button1_Click(object sender, EventArgs e) {
-            var success = MyTool.CopyAllPkG(Toolpars);
-            if (success)
-                DialogResult = DialogResult.Yes;
+            if (!Directory.Exists(str)) {
+                return;
+            }
+            DirectoryInfo fromDir = new DirectoryInfo(str);
+            string pkgMatch= $@"Digiwn.ERP.{Toolpars.FormEntity.PkgTypekey}";
+            var TypeKeyDir = fromDir.GetDirectories(Toolpars.FormEntity.PkgTypekey, SearchOption.AllDirectories);
+            var pkgDir= fromDir.GetDirectories(pkgMatch, SearchOption.AllDirectories);
+
+            //typeKey
+            if (TypeKeyDir.Length>1) {
+                
+            }
+            //源码
+            if (pkgDir.Length>0) {
+                var success = MyTool.CopyAllPkG(Toolpars);
+                if (success)
+                    DialogResult = DialogResult.Yes;
+            }
         }
     }
 }
