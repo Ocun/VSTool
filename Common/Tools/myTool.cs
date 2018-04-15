@@ -391,8 +391,6 @@ namespace Common.Implement.Tools {
                         }
                         //修改形如‘_ClassName_’类名为文件名，否则不管
                         var csName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\:{]+(?=[\n\:{])";
-                      
-
                         ReplaceByRegex(toPath, csName, fileName);
 
                         #region 修改解决方案
@@ -462,14 +460,17 @@ namespace Common.Implement.Tools {
             var text = File.ReadAllText(filePath);
             var regex = new Regex(matchStr);
             text = regex.Replace(text, toStr);
-            //修改接口名
-            var interfaceName = @"(?<= ServiceComponent\s*,)[^\n\r\{]+(?=[\r\n\:{])";
-            var interfaceNameText= (Regex.Match(text, interfaceName).Value).Trim();
+            //修改接口名 b
+            var interfaceName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\r\{]+(?=[\r\n\{])";
+            var csRow = (Regex.Match(text, interfaceName).Value ?? string.Empty).Trim();
+            interfaceName = @"(?<=\s*,)[^\n\r\{]+";
+            var interfaceNameText= (Regex.Match(csRow, interfaceName).Value?? string.Empty).Trim();
 
             if (interfaceNameText.StartsWith(@"_") && interfaceNameText.EndsWith(@"_")) {
-                regex = new Regex(interfaceName);
-                text = regex.Replace(text, "I"+toStr);
+               
+                text = text.Replace(interfaceNameText, "I"+toStr);
             }
+            //修改接口名 e
             File.WriteAllText(filePath, text, Encoding.UTF8);
         }
 
@@ -896,7 +897,7 @@ namespace Common.Implement.Tools {
 
         #region 一键借用
 
-        public static bool CopyAllPkG(Toolpars toolpars) {
+        public static bool CopyAllPkG(Toolpars toolpars,string pkgPath) {
             var success = true;
             try {
                 toolpars.GToIni = toolpars.FormEntity.TxtToPath;
@@ -904,10 +905,9 @@ namespace Common.Implement.Tools {
                     && toolpars.FormEntity.txtNewTypeKey != "") {
                     if (Directory.Exists(toolpars.FormEntity.TxtToPath)) {
                         var tCusSrc = new DirectoryInfo(toolpars.GToIni + @"\");
-                        var strb1 = toolpars.FormEntity.txtPKGpath + "Digiwin.ERP."
-                                    + toolpars.FormEntity.PkgTypekey;
-                        if (!Directory.Exists(strb1)) {
-                            MessageBox.Show(string.Format(Resource.DirNotExisted, strb1), Resource.ErrorMsg,
+                        //toolpars.FormEntity.txtPKGpath + "Digiwin.ERP."+ toolpars.FormEntity.PkgTypekey;
+                        if (!Directory.Exists(pkgPath)) {
+                            MessageBox.Show(string.Format(Resource.DirNotExisted, pkgPath), Resource.ErrorMsg,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                             success = false;
@@ -931,7 +931,7 @@ namespace Common.Implement.Tools {
                                 }
                             }
                             if (success)
-                                OldTools.CopyAllPkg(strb1,
+                                OldTools.CopyAllPkg(pkgPath,
                                     tCusSrc + "Digiwin.ERP." + toolpars.FormEntity.txtNewTypeKey);
                         }
                     }

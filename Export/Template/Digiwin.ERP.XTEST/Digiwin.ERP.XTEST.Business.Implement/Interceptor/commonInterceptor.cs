@@ -26,9 +26,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
     [EventInterceptorClass]
     internal sealed class _Interceptor_: ServiceComponent
     {
-        #region __InsertHere__
-
-        #region MyRegion
+		#region MyRegion
         private MyTools _myTool;
         private ServiceTools _myServiceTool;
 
@@ -48,7 +46,8 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             get { return _myServiceTool ?? (_myServiceTool = MyTool.MyService); }
         } 
         #endregion
-
+		
+        #region __InsertHere__
         #region  ApproveInterceptor
 
         /// <summary>

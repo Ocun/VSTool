@@ -56,14 +56,18 @@ namespace Common.Implement.UI {
 
             DialogResult = DialogResult.OK;
         }
-
-        private string str = @"\\192.168.31.2\XiaoMi-usb1\Test\";
+        
         private void Button1_Click(object sender, EventArgs e) {
-            if (!Directory.Exists(str)) {
+
+            string pkgPath = Toolpars.FormEntity.PkgTypekey;
+            if (FromServer.Checked) {
+                pkgPath = @"\\192.168.168.15\E10_Shadow\";
+            }
+            if (!Directory.Exists(pkgPath)) {
                 return;
             }
-            DirectoryInfo fromDir = new DirectoryInfo(str);
-            string pkgMatch= $@"Digiwn.ERP.{Toolpars.FormEntity.PkgTypekey}";
+            var fromDir = new DirectoryInfo(pkgPath);
+            var pkgMatch= $@"Digiwn.ERP.{Toolpars.FormEntity.PkgTypekey}";
             var typeKeyDir = fromDir.GetDirectories(Toolpars.FormEntity.PkgTypekey, SearchOption.AllDirectories);
             var pkgDir= fromDir.GetDirectories(pkgMatch, SearchOption.AllDirectories);
 
@@ -73,7 +77,8 @@ namespace Common.Implement.UI {
             }
             //源码
             if (pkgDir.Length>0) {
-                var success = MyTool.CopyAllPkG(Toolpars);
+                var pkgTypeKeyPath = $"{Toolpars.FormEntity.txtPKGpath}Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                var success = MyTool.CopyAllPkG(Toolpars, pkgTypeKeyPath);
                 if (success)
                     DialogResult = DialogResult.Yes;
             }

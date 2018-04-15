@@ -54,14 +54,14 @@
             this.panel1.Location = new System.Drawing.Point(0, 110);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(575, 56);
+            this.panel1.Size = new System.Drawing.Size(813, 56);
             this.panel1.TabIndex = 9;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(385, 12);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(623, 12);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 29);
             this.button1.TabIndex = 1;
@@ -72,8 +72,8 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(478, 12);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOK.Location = new System.Drawing.Point(716, 12);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(85, 29);
             this.btnOK.TabIndex = 0;
@@ -83,13 +83,12 @@
             // 
             // TypeKeyText
             // 
-            this.TypeKeyText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TypeKeyText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.TypeKeyText.Location = new System.Drawing.Point(150, 47);
-            this.TypeKeyText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TypeKeyText.Margin = new System.Windows.Forms.Padding(4);
             this.TypeKeyText.Name = "TypeKeyText";
-            this.TypeKeyText.Size = new System.Drawing.Size(355, 25);
+            this.TypeKeyText.Size = new System.Drawing.Size(593, 25);
             this.TypeKeyText.TabIndex = 11;
             // 
             // label1
@@ -105,11 +104,10 @@
             // 
             // btnOpenTo
             // 
-            this.btnOpenTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenTo.FlatAppearance.BorderSize = 0;
             this.btnOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenTo.Location = new System.Drawing.Point(513, 47);
-            this.btnOpenTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpenTo.Location = new System.Drawing.Point(751, 47);
+            this.btnOpenTo.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenTo.Name = "btnOpenTo";
             this.btnOpenTo.Size = new System.Drawing.Size(44, 25);
             this.btnOpenTo.TabIndex = 12;
@@ -134,13 +132,12 @@
             // 
             // txtNewTypeKey
             // 
-            this.txtNewTypeKey.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNewTypeKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.txtNewTypeKey.Location = new System.Drawing.Point(150, 13);
-            this.txtNewTypeKey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNewTypeKey.Margin = new System.Windows.Forms.Padding(4);
             this.txtNewTypeKey.Name = "txtNewTypeKey";
-            this.txtNewTypeKey.Size = new System.Drawing.Size(355, 25);
+            this.txtNewTypeKey.Size = new System.Drawing.Size(593, 25);
             this.txtNewTypeKey.TabIndex = 14;
             // 
             // FromServer
@@ -171,8 +168,8 @@
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.btnOpenTo);
             this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(575, 110);
-            this.splitContainer1.SplitterDistance = 101;
+            this.splitContainer1.Size = new System.Drawing.Size(813, 110);
+            this.splitContainer1.SplitterDistance = 85;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 16;
             // 
@@ -181,11 +178,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(575, 166);
+            this.ClientSize = new System.Drawing.Size(813, 166);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModiPkgForm";
