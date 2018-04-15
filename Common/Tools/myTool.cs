@@ -291,12 +291,10 @@ namespace Common.Implement.Tools {
                 value.ForEach(path => {
                     var toPath = path.ToPath;
                     if (File.Exists(toPath))
-                        if (path.PartId != null
-                            && !path.PartId.Equals(Empty)
-                            && path.IsMerge != null
+                        if (path.IsMerge != null
                             && path.IsMerge.Equals("True")
                         ) {
-                            //合并文件
+                            //合并文件不报错
                         }
                         else {
                             f = true;

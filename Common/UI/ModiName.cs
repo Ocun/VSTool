@@ -53,6 +53,7 @@ namespace Common.Implement.UI {
                             FunctionName = txt02.Text,
                             BasePath = fileInfo.Paths[0],
                             FromPath = fromPath
+                            
                         };
                         var oldFilePath = Path.GetFileNameWithoutExtension(path);
                         if (oldFilePath != null) {
@@ -64,6 +65,9 @@ namespace Common.Implement.UI {
                             fileinfo.PartId = BuildeType.PartId;
                             fileinfo.Id = BuildeType.Id;
                             fileinfo.IsMerge = BuildeType.IsMerge;
+                        }
+                        if (MergeBox.Checked) {
+                            fileinfo.IsMerge = "True";
                         }
                         FileInfos.Add(fileinfo);
                     }
@@ -93,14 +97,20 @@ namespace Common.Implement.UI {
                                 }
                               
                             }
+                            
+
                             if (oldFilePath != null) {
                                 var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
 
                                 fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
                             }
 
-                          
 
+
+                            if (MergeBox.Checked)
+                            {
+                                fileinfo.IsMerge = "True";
+                            }
                             FileInfos.Add(fileinfo);
                         });
                     }
@@ -130,6 +140,11 @@ namespace Common.Implement.UI {
         private void txt01_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char) Keys.Enter)
                 SendKeys.Send("{tab}");
+        }
+
+        private void MergeBox_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -37,6 +37,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.MergeBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,9 +45,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(10, 76);
+            this.label1.Location = new System.Drawing.Point(13, 95);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 16);
+            this.label1.Size = new System.Drawing.Size(69, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "文件名";
             // 
@@ -54,26 +56,29 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(12, 119);
+            this.label2.Location = new System.Drawing.Point(17, 167);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 16);
+            this.label2.Size = new System.Drawing.Size(69, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "方法名";
             this.label2.Visible = false;
             // 
             // txt01
             // 
-            this.txt01.Location = new System.Drawing.Point(72, 71);
+            this.txt01.Location = new System.Drawing.Point(96, 89);
+            this.txt01.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txt01.Name = "txt01";
-            this.txt01.Size = new System.Drawing.Size(300, 21);
+            this.txt01.Size = new System.Drawing.Size(399, 25);
             this.txt01.TabIndex = 1;
             this.txt01.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt01_KeyPress);
             // 
             // txt02
             // 
-            this.txt02.Location = new System.Drawing.Point(75, 114);
+            this.txt02.Location = new System.Drawing.Point(101, 160);
+            this.txt02.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txt02.Name = "txt02";
-            this.txt02.Size = new System.Drawing.Size(300, 21);
+            this.txt02.Size = new System.Drawing.Size(399, 25);
             this.txt02.TabIndex = 2;
             this.txt02.Visible = false;
             this.txt02.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt01_KeyPress);
@@ -81,9 +86,10 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(311, 10);
+            this.btnOK.Location = new System.Drawing.Point(415, 12);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(64, 23);
+            this.btnOK.Size = new System.Drawing.Size(85, 29);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -97,9 +103,10 @@
             this.lblattention.AutoSize = true;
             this.lblattention.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblattention.ForeColor = System.Drawing.Color.Red;
-            this.lblattention.Location = new System.Drawing.Point(125, 2);
+            this.lblattention.Location = new System.Drawing.Point(167, 2);
+            this.lblattention.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblattention.Name = "lblattention";
-            this.lblattention.Size = new System.Drawing.Size(0, 14);
+            this.lblattention.Size = new System.Drawing.Size(0, 18);
             this.lblattention.TabIndex = 7;
             this.lblattention.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -108,10 +115,10 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Menu;
             this.panel1.Controls.Add(this.btnOK);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 175);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(0, 219);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(384, 45);
+            this.panel1.Size = new System.Drawing.Size(512, 56);
             this.panel1.TabIndex = 8;
             // 
             // comboBox2
@@ -119,10 +126,10 @@
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(75, 142);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox2.Location = new System.Drawing.Point(101, 196);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(300, 20);
+            this.comboBox2.Size = new System.Drawing.Size(399, 23);
             this.comboBox2.TabIndex = 4;
             this.comboBox2.Visible = false;
             // 
@@ -130,19 +137,32 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(12, 146);
+            this.label4.Location = new System.Drawing.Point(17, 200);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 16);
+            this.label4.Size = new System.Drawing.Size(69, 20);
             this.label4.TabIndex = 12;
             this.label4.Text = "时机点";
             this.label4.Visible = false;
             // 
+            // MergeBox
+            // 
+            this.MergeBox.AutoSize = true;
+            this.MergeBox.Location = new System.Drawing.Point(96, 121);
+            this.MergeBox.Name = "MergeBox";
+            this.MergeBox.Size = new System.Drawing.Size(59, 19);
+            this.MergeBox.TabIndex = 13;
+            this.MergeBox.Text = "合并";
+            this.MergeBox.UseVisualStyleBackColor = true;
+            this.MergeBox.CheckedChanged += new System.EventHandler(this.MergeBox_CheckedChanged);
+            // 
             // ModiName
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(384, 220);
+            this.ClientSize = new System.Drawing.Size(512, 275);
+            this.Controls.Add(this.MergeBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.panel1);
@@ -152,6 +172,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModiName";
@@ -177,5 +198,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox comboBox2;
         public System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox MergeBox;
     }
 }

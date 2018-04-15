@@ -499,7 +499,7 @@ namespace VSTool
             this.myTreeView1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.myTreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.myTreeView1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.myTreeView1.DescriptionColor = System.Drawing.SystemColors.ButtonShadow;
+            this.myTreeView1.DescriptionColor = System.Drawing.Color.DimGray;
             this.myTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView1.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -560,7 +560,7 @@ namespace VSTool
             // 
             this.myTreeView2.BackColor = System.Drawing.SystemColors.Window;
             this.myTreeView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.myTreeView2.DescriptionColor = System.Drawing.Color.Gray;
+            this.myTreeView2.DescriptionColor = System.Drawing.Color.DimGray;
             this.myTreeView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView2.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView2.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -610,7 +610,7 @@ namespace VSTool
             // 
             this.myTreeView3.BackColor = System.Drawing.SystemColors.Window;
             this.myTreeView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.myTreeView3.DescriptionColor = System.Drawing.Color.Gray;
+            this.myTreeView3.DescriptionColor = System.Drawing.Color.DimGray;
             this.myTreeView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView3.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView3.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -640,7 +640,7 @@ namespace VSTool
             // 
             this.myTreeView4.BackColor = System.Drawing.SystemColors.Window;
             this.myTreeView4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.myTreeView4.DescriptionColor = System.Drawing.Color.Gray;
+            this.myTreeView4.DescriptionColor = System.Drawing.Color.DimGray;
             this.myTreeView4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTreeView4.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.myTreeView4.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));

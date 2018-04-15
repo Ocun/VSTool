@@ -1,0 +1,11 @@
+﻿_________________________________________________________________________________
+    # CREATEDATE   2018-04-15 10:39:42:262
+    # CREATEBY  CHUN
+    # TYPEKEY  1
+
+    # 常用切片\保存 CreateSaveInterceptor
+    # 常用切片\审核 CreateSaveInterceptor
+    # 常用切片\撤销审核 CreateSaveInterceptor
+    # 常用切片\功能开窗 CreateSaveInterceptor
+_________________________________________________________________________________
+
