@@ -763,7 +763,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
 
     }
 
-    public  class RegiesterTypeParameter {
+    public partial class RegiesterTypeParameter {
         private List<string> _propertiesFiled = new List<string>();
         private Dictionary<string, Type> _nameTypeFiled = new Dictionary<string, Type>();
 
