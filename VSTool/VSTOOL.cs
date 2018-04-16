@@ -100,6 +100,8 @@ namespace VSTool {
             CreateTree("RootView");
             SpiltWidth = 200;
             CreateMainView();
+            
+            VSTOOL_ClientSizeChanged(null, null);
         }
 
        
@@ -533,7 +535,7 @@ namespace VSTool {
             }
             var splitContainerList =MySplitContainers;
             var splitContainer3 = scrollPanel.Controls[0];
-            splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, splitContainer2.Panel2.ClientSize.Height);
+            splitContainer3.Size = new Size(clientSize.Width, clientSize.Height);
             var count = GetSplitCount(); //显示的个数
             width /= count;
             for (var i = 0; i < count; i++) {
@@ -786,7 +788,7 @@ namespace VSTool {
                 if (i == 0) {
                     mySplitContainer.Anchor = AnchorStyles.Top | AnchorStyles.Left
                                               | AnchorStyles.Right;
-                    mySplitContainer.Size = new Size(splitContainer2.Panel2.ClientSize.Width, splitContainer2.Panel2.ClientSize.Height);
+                    mySplitContainer.Size = new Size(scrollPanel.ClientSize.Width, scrollPanel.ClientSize.Height);
                 }
                 else if(i<= count - 1){
                     mySplitContainer.Dock = DockStyle.Fill;
@@ -897,6 +899,11 @@ namespace VSTool {
                 splitContainerList.AddRange(GetSplitContainerList(panel2Control));
             }
             return splitContainerList;
+        }
+
+        private void splitContainer2_Panel2_SizeChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
