@@ -22,7 +22,6 @@ namespace Common.Implement.Tools {
             using (var sw = new StringWriter()) {
                 var serializer = new XmlSerializer(obj.GetType());
                 serializer.Serialize(sw, obj);
-                sw.Close();
                 return sw.ToString();
             }
         }

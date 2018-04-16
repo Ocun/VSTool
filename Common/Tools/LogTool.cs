@@ -51,7 +51,6 @@ namespace Common.Implement.Tools {
             {
                 sw.WriteLine(fileStr);
                 sw.Flush();
-                sw.Close();
             }
         }
 
