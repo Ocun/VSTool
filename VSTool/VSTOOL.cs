@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Reflection;
 using Common.Implement.UI;
 using Common.Implement.Entity;
 using Common.Implement.EventHandler;
@@ -64,7 +65,7 @@ namespace VSTool {
             }
             else {
                 Toolpars.MALL = pToIni[0];
-                string[] args = Toolpars.MALL.Split('&');
+                var args = Toolpars.MALL.Split('&');
                 Toolpars.Mpath = args[0]; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
                 Toolpars.MInpath = args[1]; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
                 Toolpars.Mplatform = args[2]; //C:\DF_E10_2.0.2
@@ -78,7 +79,7 @@ namespace VSTool {
                     Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
                 }
 
-                Toolpars.FormEntity.txtPKGpath = $@"{Toolpars.MdesignPath}\WD_PR\SRC\";
+                Toolpars.FormEntity.txtPKGpath = $@"{Toolpars.MdesignPath}\WD_PR\SRC";
                 Toolpars.FormEntity.Industry = Toolpars.MIndustry;
                 if (Toolpars.Mpath.Contains("PKG")
                     && !Toolpars.MIndustry) {
@@ -199,7 +200,7 @@ namespace VSTool {
 
                 }
                 else {
-                    //OldTools.WriteLog(Toolpars, listDATA);
+                    //OldTools.WriteLogByTreeView(Toolpars, listDATA);
                     var fileInfos = MyTool.GetTreeViewPath(treeView1.Nodes);
                     //new Thread( ()=> {
                     //        Invoke(new Action(()=>{
@@ -218,10 +219,10 @@ namespace VSTool {
                         MessageBox.Show(Resources.TypeKeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    string pkgDir = $"{Toolpars.FormEntity.txtPKGpath}Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                    string pkgDir = $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
                     if (Toolpars.FormEntity.PkgTypekey.StartsWith("Digiwin.ERP."))
                     {
-                        pkgDir = Toolpars.FormEntity.txtPKGpath + Toolpars.FormEntity.PkgTypekey;
+                        pkgDir = $@"{Toolpars.FormEntity.txtPKGpath}\{Toolpars.FormEntity.PkgTypekey}";
                     }
                     if (!Directory.Exists(pkgDir))
                     {
@@ -337,11 +338,11 @@ namespace VSTool {
                     && !string.Equals(Toolpars.FormEntity.PkgTypekey, string.Empty, StringComparison.Ordinal)
                 )
                 {
-                    string strb1 =
-                        $"{Toolpars.FormEntity.txtPKGpath}Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
-                    if (Directory.Exists(strb1))
+                    var pkgDir =
+                        $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                    if (Directory.Exists(pkgDir))
                     {
-                        TreeViewTool.MyPaintTreeView(_toolpars, strb1);
+                        TreeViewTool.MyPaintTreeView(_toolpars, pkgDir);
                     }
                     else
                     {
@@ -451,8 +452,7 @@ namespace VSTool {
         private void BtnG_Click(object sender, EventArgs e) {
             if (Toolpars.FormEntity.PkgTypekey == "")
                 return;
-            var targetDir = Toolpars.FormEntity.txtPKGpath + "Digiwin.ERP."
-                            + Toolpars.FormEntity.PkgTypekey;
+            var targetDir = $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
             if (Directory.Exists(targetDir))
             {
                 Process.Start(targetDir);
@@ -670,15 +670,11 @@ namespace VSTool {
                         && !string.Equals(Toolpars.FormEntity.PkgTypekey, empStr, StringComparison.Ordinal))
                     {
                         var txtPkGpath = Toolpars.FormEntity.txtPKGpath;
-                        if (!@"\".EndsWith(txtPkGpath))
-                        {
-                            txtPkGpath += $@"\";
-                        }
-                        var pkgDir = txtPkGpath + "Digiwin.ERP."
-                                + Toolpars.FormEntity.PkgTypekey;
+
+                        var pkgDir = $@"{txtPkGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
                         if (Toolpars.FormEntity.PkgTypekey.StartsWith("Digiwin.ERP."))
                         {
-                            pkgDir = txtPkGpath + Toolpars.FormEntity.PkgTypekey;
+                            pkgDir = $@"{txtPkGpath}\{Toolpars.FormEntity.PkgTypekey}";
                         }
 
                         if (Directory.Exists(pkgDir))
@@ -719,17 +715,38 @@ namespace VSTool {
         }
         #endregion
 
-      
 
-       
+
+
         private void myTreeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
             var node = e.Node as MyTreeNode;
-            if (node != null) {
-                var bt = node?.BuildeType;
-                if (bt?.IsTools == null || !bt.IsTools.Equals("True"))
-                    node.Checked = !node.Checked;
+            if (node == null) return;
+            var bt = node?.BuildeType;
+            if (bt?.IsPlug != null  &&
+                bt.IsPlug.Equals("True")
+                ) {
+                MyTool.CallModule(bt,Toolpars);
             }
-         
+            else if (bt?.IsTools == null
+                     || !bt.IsTools.Equals("True")) {
+                if (bt.Checked != null
+                    && bt.Checked.Equals("True")) {
+                    node.Checked = false;
+                }
+                else {
+                    node.Checked = true;
+                }
+            
+
+
+            }
+                
+
+            
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+           new Thread(MyTool.OpenWord).Start();
         }
     }
 }

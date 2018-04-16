@@ -175,4 +175,19 @@
   <data name="pkgNotNull" xml:space="preserve">
     <value>借用TypeKey不可为空</value>
   </data>
+  <data name="CustomerNameNotNull" xml:space="preserve">
+    <value>客户名称不可为空</value>
+  </data>
+  <data name="PkgDirNotExisted" xml:space="preserve">
+    <value>借用目录不存在！</value>
+  </data>
+  <data name="ModuleNotExisted" xml:space="preserve">
+    <value>未指定模块信息或模块名</value>
+  </data>
+  <data name="HelpDocNotExiested" xml:space="preserve">
+    <value>帮助文档不存在！</value>
+  </data>
+  <data name="OpenDocError" xml:space="preserve">
+    <value>打开Word文档出错</value>
+  </data>
 </root>

@@ -77,7 +77,33 @@ namespace Common.Implement.Tools {
             xmlDoc.Save(xmlFileName);
         }
 
+        public static IEnumerable<string> GetPkgPath(string xmlFileName,string xpath) {
+            var pathList = new List<string>();
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlFileName);
+            var mnamespce = new XmlNamespaceManager(xmlDoc.NameTable);
+            if (!xmlDoc.HasChildNodes) return pathList;
+            var namespaceUri = xmlDoc.ChildNodes[1].NamespaceURI;
+            if (!namespaceUri.Equals(string.Empty)) {
+                mnamespce.AddNamespace("nhb", namespaceUri);
+                xpath = $@"//nhb:{xpath}";
+                var xNodes = xmlDoc.SelectNodes(xpath, mnamespce);
+                if (xNodes != null) {
+                    pathList.AddRange(from XmlNode node in xNodes select node.InnerText);
+                }
+                   
+            }
+            else {
+                var xNodes = xmlDoc.SelectNodes(xpath);
+                if (xNodes != null)
+                {
+                    pathList.AddRange(from XmlNode node in xNodes select node.InnerText);
+                }
+            }
+            return pathList;
 
+
+        }
         /// <summary>
         ///     修改解决方案
         /// </summary>

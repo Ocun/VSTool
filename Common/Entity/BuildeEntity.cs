@@ -39,12 +39,22 @@ namespace Common.Implement.Entity
         private string _checkedField;
         private string _readOnlyField;
         private string _showParWindowField;
+        //合并项
         private string _partIdField;
         private string _isMergeField;
         private string _showCheckedBoxField;
+
+        //工具提供路径
         private string _isTools;
         private string _url;
+
+        //是否可见
         private string _visiable;
+
+        //插件
+        private string _isPlug;
+        private string _plugPath;
+        private string _moduleName;
 
         /// <summary>
         /// 来源自同一模板代码片段是否合并
@@ -151,6 +161,21 @@ namespace Common.Implement.Entity
         public string Visiable {
             get => _visiable;
             set => _visiable = value;
+        }
+
+        public string IsPlug {
+            get => _isPlug;
+            set => _isPlug = value;
+        }
+
+        public string PlugPath {
+            get => _plugPath;
+            set => _plugPath = value;
+        }
+
+        public string ModuleName {
+            get => _moduleName;
+            set => _moduleName = value;
         }
     }
 

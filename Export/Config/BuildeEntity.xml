@@ -8,7 +8,7 @@
       <BuildeItems>
         <BuildeItem>
           <Id>IService</Id>
-		  <Visiable>False</Visiable>
+          <Visiable>False</Visiable>
           <Name>接口</Name>
           <Description>搭建一个服务的框架</Description>
         </BuildeItem>
@@ -18,14 +18,9 @@
           <Description>搭建一个服务的框架</Description>
         </BuildeItem>
         <BuildeItem>
-          <Id>Insert</Id>
-          <Name>插单</Name>
-          <Description>提供查单实例</Description>
-        </BuildeItem>
-        <BuildeItem>
           <Id>Tools</Id>
           <Name>工具类</Name>
-		  <Visiable>True</Visiable>
+          <Visiable>True</Visiable>
           <ShowCheckedBox>True</ShowCheckedBox>
           <Checked>False</Checked>
           <ReadOnly>False</ReadOnly>
@@ -164,6 +159,15 @@
       <Description>提供常用工具</Description>
       <BuildeItems>
         <BuildeItem>
+          <Id>Insert</Id>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsPlug>True</IsPlug>
+          <PlugPath>Common.Implement.dll</PlugPath>
+          <ModuleName>Common.Implement.UI.InsertForm</ModuleName>
+          <Name>插单</Name>
+          <Description>提供查单实例</Description>
+        </BuildeItem>
+        <BuildeItem>
           <Id>DesignTool</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
@@ -176,7 +180,8 @@
           <Id>OOQLDesign</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
-          <Url>D:\Program Files\Tencent\QQ\Bin\QQ.exe</Url>
+          <Url>
+          </Url>
           <Name>OOQL转换工具</Name>
           <Description>将OOQL转换为SQL</Description>
         </BuildeItem>
@@ -190,9 +195,10 @@
           <Description>跟踪当前客户SQL</Description>
         </BuildeItem>
         <BuildeItem>
-          <Id>colligateQuery</Id>
+          <Id>ColligateQuery</Id>
           <IsTools>True</IsTools>
-          <Url>C:\Users\a2863\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Url>
+          <Url>
+          </Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>综合查询工具</Name>
           <Description>查询</Description>
@@ -200,7 +206,8 @@
         <BuildeItem>
           <Id>E10Search</Id>
           <IsTools>True</IsTools>
-          <Url>C:\Users\a2863\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Url>
+          <Url>
+          </Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>E10Search</Name>
           <Description>常用服务方法查询</Description>

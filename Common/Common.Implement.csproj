@@ -54,6 +54,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -72,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Entity\BuildeEntity.cs" />
     <Compile Include="Entity\FileMappingEntity.cs" />
+    <Compile Include="Entity\MetadataContainer.cs" />
     <Compile Include="Entity\SettingEntity.cs" />
     <Compile Include="EventHandler\EventHelper.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
@@ -123,11 +127,11 @@
     <Compile Include="UI\ScrollerBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\setToolPath.cs">
+    <Compile Include="UI\SetToolPath.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\setToolPath.Designer.cs">
-      <DependentUpon>setToolPath.cs</DependentUpon>
+    <Compile Include="UI\SetToolPath.Designer.cs">
+      <DependentUpon>SetToolPath.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -152,8 +156,8 @@
     <EmbeddedResource Include="UI\ModiPKGForm.resx">
       <DependentUpon>ModiPKGForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\setToolPath.resx">
-      <DependentUpon>setToolPath.cs</DependentUpon>
+    <EmbeddedResource Include="UI\SetToolPath.resx">
+      <DependentUpon>SetToolPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

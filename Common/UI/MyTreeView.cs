@@ -73,20 +73,28 @@ namespace Common.Implement.UI {
             // 如果点击的是checkbox图片  
             if (!checkboxImgRect.Contains(e.X, e.Y))
                 return;
-            node.Checked = !node.Checked;
+            var bt = node.BuildeType;
+            if (bt.Checked != null
+                && bt.Checked.Equals("True")) {
+                node.Checked = false;
+            }
+            else {
+                node.Checked = true;
+            }
+            //node.Checked = !node.Checked;
 
             // 如果是单选，则设置同级别的其它单选项为unchecked.  
-            if (node.Parent != null
-                && node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton)
-                foreach (TreeNode siblingNode in node.Parent.Nodes) {
-                    var siblingGNode = siblingNode as MyTreeNode;
-                    if (siblingGNode == null)
-                        continue;
-                    if (siblingGNode.Name != node.Name
-                        && siblingGNode.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton
-                        && siblingGNode.Checked)
-                        siblingGNode.Checked = false;
-                }
+            //if (node.Parent != null
+            //    && node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton)
+            //    foreach (TreeNode siblingNode in node.Parent.Nodes) {
+            //        var siblingGNode = siblingNode as MyTreeNode;
+            //        if (siblingGNode == null)
+            //            continue;
+            //        if (siblingGNode.Name != node.Name
+            //            && siblingGNode.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.RadioButton
+            //            && siblingGNode.Checked)
+            //            siblingGNode.Checked = false;
+            //    }
         }
 
         private void TreeView_DrawNode(object sender, DrawTreeNodeEventArgs e) {
@@ -189,7 +197,7 @@ namespace Common.Implement.UI {
             var bt = node?.BuildeType;
             if (bt?.IsTools == null || !bt.IsTools.Equals("True"))
                 return;
-            if (bt.Url == null || bt.Url.Equals(string.Empty)) {
+            if (bt.Url == null || bt.Url.Trim().Equals(string.Empty)) {
                 MyTool.SetToolsPath(bt);
             }
             else {

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,6 +17,7 @@ using Common.Implement.Entity;
 using Common.Implement.Properties;
 using Common.Implement.UI;
 using static System.String;
+using MSWord = Microsoft.Office.Interop.Word;
 
 namespace Common.Implement.Tools {
     public class MyTool 
@@ -419,7 +421,7 @@ namespace Common.Implement.Tools {
             }
             if (!success)
                 return false;
-            LogTool.WriteLog(toolPars, treeView);
+            LogTool.WriteLogByTreeView(toolPars, treeView);
             InitBuilderEntity(toolPars);
             MessageBox.Show(Resource.GenerateSucess);
             return true;
@@ -441,8 +443,9 @@ namespace Common.Implement.Tools {
             }
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public static void InitBuildeTypies(BuildeType[] buildeTypies, Toolpars toolPars) {
-            buildeTypies.ToList().ForEach(item => {
+            buildeTypies?.ToList().ForEach(item => {
                 if (item.Checked != null
                     && item.Checked.Equals("True")
                 )
@@ -462,9 +465,9 @@ namespace Common.Implement.Tools {
             text = regex.Replace(text, toStr);
             //修改接口名 b
             var interfaceName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\r\{]+(?=[\r\n\{])";
-            var csRow = (Regex.Match(text, interfaceName).Value ?? string.Empty).Trim();
+            var csRow = (Regex.Match(text, interfaceName).Value).Trim();
             interfaceName = @"(?<=\s*,)[^\n\r\{]+";
-            var interfaceNameText= (Regex.Match(csRow, interfaceName).Value?? string.Empty).Trim();
+            var interfaceNameText= (Regex.Match(csRow, interfaceName).Value).Trim();
 
             if (interfaceNameText.StartsWith(@"_") && interfaceNameText.EndsWith(@"_")) {
                
@@ -773,8 +776,8 @@ namespace Common.Implement.Tools {
             try {
                 var fileInfos = GetTreeViewPath(nodes);
 
-                var formDir = $"{toolPars.FormEntity.txtPKGpath}Digiwin.ERP.{toolPars.FormEntity.PkgTypekey}";
-                var toDir = $"{toolPars.FormEntity.TxtToPath}\\Digiwin.ERP.{toolPars.FormEntity.txtNewTypeKey}";
+                var formDir = $@"{toolPars.FormEntity.txtPKGpath}\Digiwin.ERP.{toolPars.FormEntity.PkgTypekey}";
+                var toDir = $@"{toolPars.FormEntity.TxtToPath}\Digiwin.ERP.{toolPars.FormEntity.txtNewTypeKey}";
 
                 CopyPkg(formDir, toDir, fileInfos);
                 ModiName(toolPars, toolPars.FormEntity.PkgTypekey);
@@ -970,5 +973,136 @@ namespace Common.Implement.Tools {
         #endregion
 
         #endregion
+
+        #region 操作实体
+
+        public static List<string> GetPropNameByEntity(MetadataContainer metadataContainer, string typeKey)
+        {
+            var propies = new List<string>();
+            var selectTypeKey =
+                metadataContainer.DataEntityTypes.FirstOrDefault(entityType => entityType.Name.Equals(typeKey));
+            selectTypeKey?.Properties.Items?.ToList().ForEach(prop =>
+            {
+                if (prop != null)
+                {
+                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
+                    if (prop is SimpleProperty)
+                    {
+                        var name = ((SimpleProperty)prop).Name ?? string.Empty;
+                        if (!name.Equals(string.Empty))
+                        {
+                            propies.Add(name);
+                        }
+                    }
+                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
+                    if (prop is ComplexProperty)
+                    {
+                        var name = ((ComplexProperty)prop).Name ?? string.Empty;
+                        if (!name.Equals(string.Empty))
+                        {
+                            propies.Add(name + @"_ROid");
+                            propies.Add(name + @"_RTK");
+                        }
+                    }
+                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
+                    if (prop is ReferenceProperty)
+                    {
+                        var name = ((ReferenceProperty)prop).Name ?? string.Empty;
+                        if (!name.Equals(string.Empty))
+                        {
+                            propies.Add(name);
+                        }
+                    }
+                }
+            });
+            selectTypeKey?.InterfaceReferences?.ToList().ForEach(item =>
+            {
+                var name = item.Name ?? string.Empty;
+                if (!name.Equals(string.Empty))
+                {
+                    switch (name)
+                    {
+                        case "IDocumentNumber":
+                            propies.Add("DOC_NO");
+                            break;
+                        case "IOwner":
+                            propies.Add("Owner_Org.RTK");
+                            propies.Add("Owner_Org.ROid");
+                            break;
+                        case "ISequenceNumber":
+                            propies.Add("SequenceNumber");
+                            break;
+                    }
+                }
+            });
+            return propies;
+        } 
+        #endregion
+
+        public static void CallModule(BuildeType bt, Toolpars toolpars) {
+
+            var plugPath = bt.PlugPath;
+            var moduleName = bt.ModuleName;
+            if (plugPath == null
+                || plugPath.Trim().Equals(string.Empty)
+                || moduleName == null
+                || moduleName.Trim().Equals(string.Empty)
+            )
+            {
+                MessageBox.Show(Resource.ModuleNotExisted);
+                return;
+            }
+            try
+            {
+                var dirPath = toolpars.MVSToolpath;
+                var dirInfo = new DirectoryInfo(dirPath);
+                var plugFullPath = dirInfo.GetFiles(plugPath, SearchOption.AllDirectories);
+                if (!plugFullPath.Any())
+                {
+                    MessageBox.Show($@"应用目录内未找到模块文件{plugPath}");
+                }
+                var dllPath = plugFullPath[0].FullName;
+
+                ////    1.Load(命名空间名称)，GetType(命名空间.类名)  
+                var type = Assembly.LoadFile(dllPath).GetType(moduleName);
+
+                ////    3.调用的实例化方法（非静态方法）需要创建类型的一个实例  
+                var obj = Activator.CreateInstance(type, new object[] { toolpars });
+                (obj as Form)?.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                // ignored
+                MessageBox.Show($@"插件{moduleName}激活失败，请检查模块信息,详细信息{Environment.NewLine}{ex.Message}");
+            }
+            //InsertForm insertForm = new InsertForm(Toolpars);
+            //insertForm.ShowDialog();
+        }
+
+        public static void OpenWord() {
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var dirInfo = new DirectoryInfo(basePath);
+            var fileMatch = "Help.docx";
+            var matchFile = dirInfo.GetFiles(fileMatch, SearchOption.AllDirectories);
+            if (matchFile.Any()) {
+                var path = matchFile[0].FullName;
+
+                try
+                {
+                    var app = new MSWord.Application { Visible = true };
+                    app.Documents.Open(path);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(Resource.OpenDocError);
+                }
+            }
+            else {
+                MessageBox.Show(Resource.HelpDocNotExiested);
+                return;
+            }
+      
+
+        }
     }
 }

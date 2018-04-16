@@ -14,7 +14,7 @@ namespace Common.Implement.Tools {
         /// <summary>
         ///     日志
         /// </summary>
-        public static void WriteLog(Toolpars toolpars, MyTreeView treeView) {
+        public static void WriteLogByTreeView(Toolpars toolpars, MyTreeView treeView) {
             var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes, toolpars);
             var txtNewTypeKey = toolpars.FormEntity.txtNewTypeKey;
             var varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
@@ -38,11 +38,18 @@ namespace Common.Implement.Tools {
 
             
             foreach (var kv in pathDic)
-            foreach (var fileinfo in kv.Value)
+            {
+                foreach (var fileinfo in kv.Value)
                 logStr.AppendLine($"    # {kv.Key} {fileinfo.FileName}");
+            }
             logStr.AppendLine(headStr);
-            using (var sw = new StreamWriter(logPath, true, Encoding.UTF8)) {
-                sw.WriteLine(logStr.ToString());
+            WriteToFile(logPath, logStr.ToString());
+        }
+
+        public static void WriteToFile(string path,string fileStr) {
+            using (var sw = new StreamWriter(path, true, Encoding.UTF8))
+            {
+                sw.WriteLine(fileStr);
                 sw.Flush();
                 sw.Close();
             }
@@ -50,16 +57,6 @@ namespace Common.Implement.Tools {
 
         public static void WriteToServer(Toolpars toolpars, IEnumerable<FileInfos> fileInfos) {
             SqlTools.InsertToolInfo(toolpars.FormEntity.txtNewTypeKey, fileInfos);
-            //int count = 0;
-            //foreach (var fileinfo in fileInfos)
-            //{
-            //    // sqlTools.insertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.formEntity.txtNewTypeKey);
-            //    string year = DateTime.Now.ToString("yyyyMMdd");
-            //    string demandId = string.Format("S01231_{0}_01", year);
-            //    string useDate = DateTime.Now.AddMilliseconds(count++).ToString("yyyyMMddHHmmssfff");
-            //    sqlTools.insertToolInfo(useDate, demandId, year,
-            //        Toolpars.formEntity.txtNewTypeKey + "_" + fileinfo.FileName);
-            //};
         }
 
         #endregion

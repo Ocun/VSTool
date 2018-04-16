@@ -88,6 +88,15 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 客户名称不可为空 的本地化字符串。
+        /// </summary>
+        internal static string CustomerNameNotNull {
+            get {
+                return ResourceManager.GetString("CustomerNameNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 目录已存在，是否覆盖?? 的本地化字符串。
         /// </summary>
         internal static string DirExisted {
@@ -161,11 +170,47 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 帮助文档不存在！ 的本地化字符串。
+        /// </summary>
+        internal static string HelpDocNotExiested {
+            get {
+                return ResourceManager.GetString("HelpDocNotExiested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未指定模块信息或模块名 的本地化字符串。
+        /// </summary>
+        internal static string ModuleNotExisted {
+            get {
+                return ResourceManager.GetString("ModuleNotExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 不可为空 的本地化字符串。
         /// </summary>
         internal static string notNull {
             get {
                 return ResourceManager.GetString("notNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开Word文档出错 的本地化字符串。
+        /// </summary>
+        internal static string OpenDocError {
+            get {
+                return ResourceManager.GetString("OpenDocError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 借用目录不存在！ 的本地化字符串。
+        /// </summary>
+        internal static string PkgDirNotExisted {
+            get {
+                return ResourceManager.GetString("PkgDirNotExisted", resourceCulture);
             }
         }
         
