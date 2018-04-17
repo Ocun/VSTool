@@ -100,8 +100,6 @@ namespace VSTool {
             CreateTree("RootView");
             SpiltWidth = 200;
             CreateMainView();
-            
-            VSTOOL_ClientSizeChanged(null, null);
         }
 
        
@@ -121,8 +119,11 @@ namespace VSTool {
                 return;
             }
             if (item[0].BuildeItems == null) return;
-            var mainViews = MyTreeViews;
+         
             var splitContainers = MySplitContainers;
+            if(!splitContainers[0].Visible)return;
+            SetSplitSize();
+            var mainViews = MyTreeViews;
             mainViews.ForEach(tv =>tv.Nodes.Clear());
             var splitCount = GetSplitCount();
 
@@ -528,12 +529,17 @@ namespace VSTool {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void VSTOOL_ClientSizeChanged(object sender, EventArgs e) {
+            if (myTreeView1.SelectedNode is MyTreeNode node)
+                CreateTree(node.BuildeType.Id);
+        }
+
+        private void SetSplitSize() {
             var clientSize = splitContainer2.Panel2.ClientSize;
             var width = clientSize.Width;
             if (scrollPanel.Controls.Count == 0) {
-                return;
+                return ;
             }
-            var splitContainerList =MySplitContainers;
+            var splitContainerList = MySplitContainers;
             var splitContainer3 = scrollPanel.Controls[0];
             splitContainer3.Size = new Size(clientSize.Width, clientSize.Height);
             var count = GetSplitCount(); //显示的个数
@@ -543,10 +549,6 @@ namespace VSTool {
                 splitContainer.SplitterDistance = width;
                 splitContainer.Panel2Collapsed = i == count - 1;
             }
-            if (!splitContainer3.Visible)
-                return;
-            if (myTreeView1.SelectedNode is MyTreeNode node)
-                CreateTree(node.BuildeType.Id);
         }
 
         /// <summary>
