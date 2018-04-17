@@ -79,12 +79,12 @@ namespace VSTool
             // 
             this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreate.BackColor = System.Drawing.SystemColors.Window;
-            this.btnCreate.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCreate.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCreate.ForeColor = System.Drawing.Color.Black;
             this.btnCreate.Location = new System.Drawing.Point(1158, 52);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(100, 29);
+            this.btnCreate.Size = new System.Drawing.Size(100, 30);
             this.btnCreate.TabIndex = 6;
             this.btnCreate.Text = "生成";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -95,12 +95,12 @@ namespace VSTool
             this.btnOpenTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenTo.FlatAppearance.BorderSize = 0;
             this.btnOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenTo.Font = new System.Drawing.Font("新宋体", 10F);
+            this.btnOpenTo.Font = new System.Drawing.Font("新宋体", 9.5F);
             this.btnOpenTo.ForeColor = System.Drawing.Color.DarkCyan;
             this.btnOpenTo.Location = new System.Drawing.Point(1006, 52);
             this.btnOpenTo.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenTo.Name = "btnOpenTo";
-            this.btnOpenTo.Size = new System.Drawing.Size(51, 30);
+            this.btnOpenTo.Size = new System.Drawing.Size(51, 25);
             this.btnOpenTo.TabIndex = 9;
             this.btnOpenTo.Text = "○";
             this.btnOpenTo.UseVisualStyleBackColor = true;
@@ -123,12 +123,12 @@ namespace VSTool
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClear.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnClear.ForeColor = System.Drawing.Color.Black;
-            this.btnClear.Location = new System.Drawing.Point(1158, 126);
+            this.btnClear.Location = new System.Drawing.Point(1158, 128);
             this.btnClear.Margin = new System.Windows.Forms.Padding(4);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(100, 29);
+            this.btnClear.Size = new System.Drawing.Size(100, 30);
             this.btnClear.TabIndex = 15;
             this.btnClear.Text = "清空";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -137,12 +137,12 @@ namespace VSTool
             // btnOpen
             // 
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOpen.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnOpen.ForeColor = System.Drawing.Color.Black;
-            this.btnOpen.Location = new System.Drawing.Point(1158, 89);
+            this.btnOpen.Location = new System.Drawing.Point(1158, 90);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(100, 29);
+            this.btnOpen.Size = new System.Drawing.Size(100, 30);
             this.btnOpen.TabIndex = 19;
             this.btnOpen.Text = "OPEN";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -214,7 +214,7 @@ namespace VSTool
             // ModiCkb
             // 
             this.ModiCkb.AutoSize = true;
-            this.ModiCkb.Location = new System.Drawing.Point(333, 74);
+            this.ModiCkb.Location = new System.Drawing.Point(403, 74);
             this.ModiCkb.Margin = new System.Windows.Forms.Padding(4);
             this.ModiCkb.Name = "ModiCkb";
             this.ModiCkb.Size = new System.Drawing.Size(59, 19);
@@ -241,17 +241,17 @@ namespace VSTool
             this.txtNewTypeKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNewTypeKey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNewTypeKey.Location = new System.Drawing.Point(251, 42);
+            this.txtNewTypeKey.Location = new System.Drawing.Point(321, 42);
             this.txtNewTypeKey.Margin = new System.Windows.Forms.Padding(4);
             this.txtNewTypeKey.Name = "txtNewTypeKey";
-            this.txtNewTypeKey.Size = new System.Drawing.Size(799, 25);
+            this.txtNewTypeKey.Size = new System.Drawing.Size(717, 25);
             this.txtNewTypeKey.TabIndex = 2;
             this.txtNewTypeKey.TextChanged += new System.EventHandler(this.TxtNewTypeKey_TextChanged);
             // 
             // Industry
             // 
             this.Industry.AutoSize = true;
-            this.Industry.Location = new System.Drawing.Point(251, 74);
+            this.Industry.Location = new System.Drawing.Point(321, 74);
             this.Industry.Margin = new System.Windows.Forms.Padding(4);
             this.Industry.Name = "Industry";
             this.Industry.Size = new System.Drawing.Size(74, 19);
@@ -265,12 +265,12 @@ namespace VSTool
             this.btncopydll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btncopydll.FlatAppearance.BorderSize = 0;
             this.btncopydll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncopydll.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btncopydll.Font = new System.Drawing.Font("宋体", 10F);
             this.btncopydll.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btncopydll.Location = new System.Drawing.Point(1164, 62);
+            this.btncopydll.Location = new System.Drawing.Point(1148, 63);
             this.btncopydll.Margin = new System.Windows.Forms.Padding(4);
             this.btncopydll.Name = "btncopydll";
-            this.btncopydll.Size = new System.Drawing.Size(120, 31);
+            this.btncopydll.Size = new System.Drawing.Size(120, 33);
             this.btncopydll.TabIndex = 22;
             this.btncopydll.Text = "复制DLL";
             this.btncopydll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -283,9 +283,9 @@ namespace VSTool
             this.btncopyUIdll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btncopyUIdll.FlatAppearance.BorderSize = 0;
             this.btncopyUIdll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncopyUIdll.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btncopyUIdll.Font = new System.Drawing.Font("宋体", 10F);
             this.btncopyUIdll.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btncopyUIdll.Location = new System.Drawing.Point(1164, 23);
+            this.btncopyUIdll.Location = new System.Drawing.Point(1148, 23);
             this.btncopyUIdll.Margin = new System.Windows.Forms.Padding(4);
             this.btncopyUIdll.Name = "btncopyUIdll";
             this.btncopyUIdll.Size = new System.Drawing.Size(128, 35);
@@ -376,10 +376,11 @@ namespace VSTool
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(602, 163);
+            this.linkLabel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkLabel1.Location = new System.Drawing.Point(599, 163);
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(37, 15);
+            this.linkLabel1.Size = new System.Drawing.Size(39, 20);
             this.linkLabel1.TabIndex = 34;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "帮助";
@@ -388,11 +389,12 @@ namespace VSTool
             // ToolsDescrition
             // 
             this.ToolsDescrition.AutoSize = true;
+            this.ToolsDescrition.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ToolsDescrition.ForeColor = System.Drawing.Color.DimGray;
             this.ToolsDescrition.Location = new System.Drawing.Point(25, 163);
             this.ToolsDescrition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ToolsDescrition.Name = "ToolsDescrition";
-            this.ToolsDescrition.Size = new System.Drawing.Size(532, 15);
+            this.ToolsDescrition.Size = new System.Drawing.Size(534, 20);
             this.ToolsDescrition.TabIndex = 16;
             this.ToolsDescrition.Text = "继续使用表示你同意本工具的使用协议，并自行承担由此带来的风险，更多点击";
             // 
@@ -401,12 +403,12 @@ namespace VSTool
             this.PkgOpenTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PkgOpenTo.FlatAppearance.BorderSize = 0;
             this.PkgOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PkgOpenTo.Font = new System.Drawing.Font("新宋体", 10F);
+            this.PkgOpenTo.Font = new System.Drawing.Font("新宋体", 9.5F);
             this.PkgOpenTo.ForeColor = System.Drawing.Color.DarkCyan;
             this.PkgOpenTo.Location = new System.Drawing.Point(1006, 119);
             this.PkgOpenTo.Margin = new System.Windows.Forms.Padding(4);
             this.PkgOpenTo.Name = "PkgOpenTo";
-            this.PkgOpenTo.Size = new System.Drawing.Size(51, 30);
+            this.PkgOpenTo.Size = new System.Drawing.Size(51, 25);
             this.PkgOpenTo.TabIndex = 33;
             this.PkgOpenTo.Text = "○";
             this.PkgOpenTo.UseVisualStyleBackColor = true;

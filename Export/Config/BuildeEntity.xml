@@ -29,17 +29,6 @@
       <Description>干涉程序运行时，加入自定义功能</Description>
       <BuildeItems>
         <BuildeItem>
-          <Id>FreeBatchService</Id>
-          <Name>普通批次</Name>
-          <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
-        </BuildeItem>
-        <BuildeItem>
-          <Id>GuideInterceptor</Id>
-          <ShowParWindow>False</ShowParWindow>
-          <Name>向导式批次</Name>
-          <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
-        </BuildeItem>
-        <BuildeItem>
           <Id>SaveInterceptor</Id>
           <PartId>commonInterceptor</PartId>
           <IsMerge>False</IsMerge>
@@ -95,6 +84,42 @@
           <Id>EditControllerCommand</Id>
           <Name>菜单</Name>
           <Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
+        </BuildeItem>
+      </BuildeItems>
+    </BuildeType>
+	<BuildeType>
+      <Id>Batch</Id>
+      <Name>批次</Name>
+      <Description>批量操作</Description>
+      <BuildeItems>
+        <BuildeItem>
+          <Id>FreeBatchService</Id>
+          <Name>普通批次</Name>
+          <Description>服务端，批量处理</Description>
+        </BuildeItem>
+        <BuildeItem>
+          <Id>GuideInterceptor</Id>
+          <ShowParWindow>False</ShowParWindow>
+          <Name>向导式批次</Name>
+          <Description>客户端，可分步处理</Description>
+        </BuildeItem>
+      </BuildeItems>
+    </BuildeType>
+	<BuildeType>
+      <Id>Report</Id>
+      <Name>报表</Name>
+      <Description>数据结果，供人娱乐</Description>
+      <BuildeItems>
+        <BuildeItem>
+          <Id>FreeBatchService</Id>
+          <Name>普通批次</Name>
+          <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
+        </BuildeItem>
+        <BuildeItem>
+          <Id>GuideInterceptor</Id>
+          <ShowParWindow>False</ShowParWindow>
+          <Name>向导式批次</Name>
+          <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
