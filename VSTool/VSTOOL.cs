@@ -99,6 +99,7 @@ namespace VSTool {
         private void VSTOOL_Load(object sender, EventArgs e) {
             CreateTree("RootView");
             SpiltWidth = 200;
+            MaxSplitCount = 3;
             CreateMainView();
         }
 
@@ -122,15 +123,11 @@ namespace VSTool {
          
             var splitContainers = MySplitContainers;
             if(!splitContainers[0].Visible)return;
-            SetSplitSize();
+            var splitCount = SetSplitSize();
             var mainViews = MyTreeViews;
             mainViews.ForEach(tv =>tv.Nodes.Clear());
-            var splitCount = GetSplitCount();
-
             var count = item[0].BuildeItems.Count();
-         
             CreateTreeView(count, splitCount, item);
-
             var nodeCount = mainViews[0].Nodes.Count;
             var hight = nodeCount * mainViews[0].ItemHeight;
             if (hight > splitContainer2.Panel2.ClientSize.Height)
@@ -520,6 +517,7 @@ namespace VSTool {
             count = count == 0 ? 1 : count;
             var splitCount = MySplitContainers.Count();
             count = count > splitCount ? splitCount : count;
+            count = count > MaxSplitCount ? MaxSplitCount : count;
             return count;
         }
         /// <summary>
@@ -533,11 +531,11 @@ namespace VSTool {
                 CreateTree(node.BuildeType.Id);
         }
 
-        private void SetSplitSize() {
+        private int SetSplitSize() {
             var clientSize = splitContainer2.Panel2.ClientSize;
             var width = clientSize.Width;
             if (scrollPanel.Controls.Count == 0) {
-                return ;
+                return 0;
             }
             var splitContainerList = MySplitContainers;
             var splitContainer3 = scrollPanel.Controls[0];
@@ -549,6 +547,7 @@ namespace VSTool {
                 splitContainer.SplitterDistance = width;
                 splitContainer.Panel2Collapsed = i == count - 1;
             }
+            return count;
         }
 
         /// <summary>
@@ -776,6 +775,7 @@ namespace VSTool {
             var width = iActulaWidth*3/4;
             var count = width / SpiltWidth;
             count = count == 0 ? 1 : count;
+            count = count > MaxSplitCount ? MaxSplitCount : count;
             var mySpilterContaniers = new List<SplitContainer>();
             for (var i = 0; i < count; i++) {
                 var mySplitContainer = new SplitContainer {
@@ -853,6 +853,7 @@ namespace VSTool {
         /// </summary>
         public int SpiltWidth { get; set; }
 
+        public int MaxSplitCount { get; set; }
         private List<MyTreeView> _myTreeViews;
         public List<MyTreeView> MyTreeViews
         {
