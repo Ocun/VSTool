@@ -5,65 +5,61 @@
  * remark 注意 如果遇到错误,请自行修正并反馈给负责人员
  *--------------------------------------------------------
  */
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
+using System.Runtime.Remoting.Messaging;
 using Digiwin.Common;
 using Digiwin.Common.Advanced;
 using Digiwin.Common.Query2;
 using Digiwin.Common.Services;
 using Digiwin.Common.Torridity;
 using Digiwin.Common.Torridity.Metadata;
+using Digiwin.Common.UI;
 using Digiwin.ERP.Common.Business;
 using Digiwin.ERP.Common.Utils;
-using System.Runtime.Remoting.Messaging;
 
 // ReSharper disable once CheckNamespace
+
 namespace Digiwin.ERP.XTEST.Business.Implement {
     public class MyTools {
-
         #region 属性
 
-        private  ServiceTools _myService;
+        private readonly ServiceTools _myService;
 
-   
-
-        public ServiceTools MyService {
-           get {
-                return _myService;
-            }
-        }
 
         public MyTools(IResourceServiceProvider resourceServiceProvider, ServiceCallContext serviceCallContext) {
             _myService = new ServiceTools(resourceServiceProvider, serviceCallContext);
-        } 
+        }
 
-        public MyTools(IServiceComponentEvents  component)
-        {
+        public MyTools(IServiceComponentEvents component) {
             _myService = new ServiceTools(component);
         }
 
-        public T GetService<T>(string typeKey) where T : class {
-            T ser = MyService.GetService<T>(typeKey) as T;
-            return ser;
+        public ServiceTools MyService {
+            get { return _myService; }
         }
 
+        public T GetService<T>(string typeKey) where T : class {
+            var ser = MyService.GetService<T>(typeKey);
+            return ser;
+        }
 
         #endregion
 
         #region 辅助方法
 
         /// <summary>
-        /// 插入
+        ///     插入
         /// </summary>
         /// <param name="typeKey"></param>
         /// <param name="insertNode"></param>
         /// <param name="propies"></param>
         /// <param name="qurSer"></param>
-        public void CreateInsert(IQueryService qurSer, string typeKey, QueryNode insertNode, IEnumerable<QueryProperty> propies)
-        {
+        public void CreateInsert(IQueryService qurSer, string typeKey, QueryNode insertNode,
+            IEnumerable<QueryProperty> propies) {
             QueryNode node = OOQL.Insert(typeKey, insertNode, propies.Select(c => c.Alias).ToArray());
             qurSer.ExecuteNoQueryWithManageProperties(node);
         }
@@ -73,67 +69,61 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         }
 
 
-
         /// <summary>
-        /// 返回实体对应的dt与doc的结构 不包含数据
+        ///     返回实体对应的dt与doc的结构 不包含数据
         /// </summary>
         /// <param name="typeKey">作业MO.XX.XX</param>
         /// <param name="dt"></param>
         /// <param name="targetType"></param>
-        public void CreatTmp(string typeKey, out DataTable dt, out DependencyObjectType targetType)
-        {
+        public void CreatTmp(string typeKey, out DataTable dt, out DependencyObjectType targetType) {
             dt = null;
             targetType = null;
             string[] spiltTypeKeys = null;
             //单身
             bool isColls = false;
             string primaryKey = string.Empty;
-            if (typeKey.Contains(@"."))
-            {
-                spiltTypeKeys = typeKey.Split(new[] { '.' });
+            if (typeKey.Contains(@".")) {
+                spiltTypeKeys = typeKey.Split(new[] {'.'});
                 typeKey = spiltTypeKeys[0];
                 primaryKey = spiltTypeKeys[spiltTypeKeys.Length - 2];
                 isColls = true;
             }
 
-            var createSrv =  GetService<ICreateService>(typeKey) ;
-            if (createSrv == null)
-            {
+            var createSrv = GetService<ICreateService>(typeKey);
+            if (createSrv == null) {
                 return;
             }
             var entity = createSrv.Create() as DependencyObject;
-            DependencyObjectType toType = entity.DependencyObjectType;
-            //去单身实体结构
-            if (isColls && spiltTypeKeys != null)
-            {
-                spiltTypeKeys.ToList().ForEach(key =>
-                {
-                    if (!key.Equals(typeKey))
-                    {
-                        toType =
-                            ((ICollectionProperty)(toType.Properties[key])).ItemDataEntityType as DependencyObjectType;
-                    }
-                });
-            }
-            var businessTypeSrv = MyService.BusinessTypeSrv;
-            targetType = RegiesterType(toType, targetType);
-            if (isColls)
-            {
-                //附加父主键
-                string primaryKeyName = primaryKey + "_ID";
-               
-                targetType.RegisterSimpleProperty(primaryKeyName, businessTypeSrv.SimplePrimaryKeyType,
-                    null, false, new Attribute[] {
-                        businessTypeSrv.SimplePrimaryKey
+            if (entity != null) {
+                DependencyObjectType toType = entity.DependencyObjectType;
+                //去单身实体结构
+                if (isColls) {
+                    spiltTypeKeys.ToList().ForEach(key => {
+                        if (!key.Equals(typeKey)) {
+                            toType =
+                                ((ICollectionProperty) (toType.Properties[key])).ItemDataEntityType as DependencyObjectType;
+                        }
                     });
+                }
+                IBusinessTypeService businessTypeSrv = MyService.BusinessTypeSrv;
+                targetType = RegiesterType(toType, null);
+                if (isColls) {
+                    //附加父主键
+                    string primaryKeyName = primaryKey + "_ID";
+
+                    targetType.RegisterSimpleProperty(primaryKeyName, businessTypeSrv.SimplePrimaryKeyType,
+                        null, false, new Attribute[] {
+                            businessTypeSrv.SimplePrimaryKey
+                        });
+                }
             }
 
-            dt = CreateDt(targetType, dt);
+            dt = CreateDt(targetType, null);
         }
 
 
         /// <summary>
-        /// 获取下一个单号
+        ///     获取下一个单号
         /// </summary>
         /// <param name="documentNumberGenSrv">单号生成服务</param>
         /// <param name="docNo">当前单号,如果传入单号为空，则会调用单号生成服务获取单号</param>
@@ -142,16 +132,12 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <param name="date">单据日期</param>
         /// <returns></returns>
         public string NextNumber(IDocumentNumberGenerateService documentNumberGenSrv, string docNo
-            , object docId, int sequenceDigit, DateTime date)
-        {
-            if (docNo == string.Empty)
-            {
+            , object docId, int sequenceDigit, DateTime date) {
+            if (docNo == string.Empty) {
                 docNo = documentNumberGenSrv.NextNumber(docId, date);
             }
-            else
-            {
-                if (docNo.Length > sequenceDigit)
-                {
+            else {
+                if (docNo.Length > sequenceDigit) {
                     docNo = docNo.Substring(0, docNo.Length - sequenceDigit)
                             +
                             (docNo.Substring(docNo.Length - sequenceDigit, sequenceDigit).ToInt32() + 1)
@@ -164,22 +150,22 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
 
 
         /// <summary>
-        /// 根據DOC 創建並返回 臨時表 及dt 包含数据
+        ///     根據DOC 創建並返回 臨時表 及dt 包含数据
         /// </summary>
         /// <param name="datas"></param>
         /// <param name="tmpType"></param>
         /// <param name="tempDt"></param>
-        private void CreateTmp(DependencyObjectCollection datas, out DependencyObjectType tmpType, out DataTable tempDt)
-        {
+        // ReSharper disable once UnusedMember.Local
+        private void CreateTmp(DependencyObjectCollection datas, out DependencyObjectType tmpType, out DataTable tempDt) {
             try {
-                var itemDependencyObjectType = datas.ItemDependencyObjectType;
+                DependencyObjectType itemDependencyObjectType = datas.ItemDependencyObjectType;
                 //创建临时表
                 tmpType = RegiesterType(itemDependencyObjectType, null);
                 tempDt = new DataTable();
                 if (tmpType == null) {
                     return;
                 }
-                var qurService = MyService.QuerySrv;
+                IQueryService qurService = MyService.QuerySrv;
                 qurService.CreateTempTable(tmpType);
                 //创建DataTable
                 tempDt = CreateDt(itemDependencyObjectType, tempDt);
@@ -188,22 +174,21 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 InsertTemp(qurService, tempDt, tmpType.Name);
             }
             catch (Exception ex) {
-                throw new BusinessRuleException("創建臨時表出錯"+ex.Message);
+                throw new BusinessRuleException("創建臨時表出錯" + ex.Message);
             }
-          
         }
 
 
         /// <summary>
-        /// 将DataTable填充到临时表 
+        ///     将DataTable填充到临时表
         /// </summary>
         /// <param name="qurService"></param>
         /// <param name="dt">DataTable</param>
         /// <param name="tname">表明</param>
         public void InsertTemp(IQueryService qurService, DataTable dt, string tname
-            )
-        {
+            ) {
             #region bak
+
             //var mappingList = new List<BulkCopyColumnMapping>();
 
             //foreach (DataColumn dcScan in dt.Columns)
@@ -225,20 +210,21 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             //}
             ////3.0 不支持直接将dt 插入到实体表（例如MO）中,可借用临时表插入（插入临时表,再由临时表插入MO）
             //qurService.BulkCopy(dt, tname, mappingList.ToArray()); 
+
             #endregion
 
             //3.0 不支持直接将dt 插入到实体表（例如MO）中，报错 xx不可为集合属性，如父主键
             //可借用临时表插入（插入临时表,再由临时表插入MO）
 
-            qurService.BulkCopy(dt, tname, 
-                (from DataColumn dcScan in dt.Columns 
-                    let targetName = dcScan.ColumnName 
-                 select new BulkCopyColumnMapping(dcScan.ColumnName, targetName)).ToArray());
+            qurService.BulkCopy(dt, tname,
+                (from DataColumn dcScan in dt.Columns
+                    let targetName = dcScan.ColumnName
+                    select new BulkCopyColumnMapping(dcScan.ColumnName, targetName)).ToArray());
         }
 
         //参考标准MO
         /// <summary>
-        ///  根据DependencyObjectType创建簡單临时表结构
+        ///     根据DependencyObjectType创建簡單临时表结构
         /// </summary>
         /// <param name="formType">DependencyObject屬性</param>
         /// <param name="targetType"></param>
@@ -249,25 +235,21 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             var stringAttr = new SimplePropertyAttribute(GeneralDBType.String);
             var dtAttr = new SimplePropertyAttribute(GeneralDBType.DateTime);
             var intAttr = new SimplePropertyAttribute(GeneralDBType.Int32);
-            if (targetType == null)
-            {
+            if (targetType == null) {
                 string tempTableName = "tmpYC_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                targetType = new DependencyObjectType(tempTableName, new Attribute[] { });
+                targetType = new DependencyObjectType(tempTableName, new Attribute[] {});
             }
 
-            if (formType == null)
-            {
+            if (formType == null) {
                 return null;
             }
-            foreach (var prop in formType.Properties)
-            {
+            foreach (DependencyProperty prop in formType.Properties) {
                 //临时表字段名不可大于30个字符，不是处理方式，后续补充
                 string propName = prop.Name.Length > 30 ? prop.Name.Substring(0, 29) : prop.Name;
 
 
-                var isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(propName));
-                if (isExist != null)
-                {
+                DependencyProperty isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(propName));
+                if (isExist != null) {
                     continue;
                 }
                 //過濾管理字段 //批量插入有影响
@@ -276,37 +258,32 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                     "CreateDate", "LastModifiedDate", "ModifiedDate", "CreateBy",
                     "LastModifiedBy", "ModifiedBy", "ApproveStatus", "ApproveDate", "ApproveBy"
                 };
-                if (cnames.Contains(propName))
-                {
+                if (cnames.Contains(propName)) {
                     continue;
                 }
 
                 Type propType = prop.PropertyType;
 
-                if (propType == typeof(DependencyObject) ||
-                    propType == typeof(DependencyObjectCollection))
-                {
+                if (propType == typeof (DependencyObject)
+                    ||
+                    propType == typeof (DependencyObjectCollection)) {
                     // 本次个案需要
-                    try
-                    {
-                        var flag = prop is IComplexProperty;
-                        if (flag)
-                        {
-                            if (((IComplexProperty)(prop)).DataEntityType.Name == "ReferToEntity")
-                            {
-                                var cpropies = ((IComplexProperty)(prop)).DataEntityType.SimpleProperties;
+                    try {
+                        bool flag = prop is IComplexProperty;
+                        if (flag) {
+                            if (((IComplexProperty) (prop)).DataEntityType.Name == "ReferToEntity") {
+                                ISimplePropertyCollection cpropies =
+                                    ((IComplexProperty) (prop)).DataEntityType.SimpleProperties;
 
-                                if (cpropies != null)
-                                {
-                                    var existRtk =
+                                if (cpropies != null) {
+                                    ISimpleProperty existRtk =
                                         cpropies.ToList()
                                             .FirstOrDefault(
                                                 cprop => cprop.Name.Equals("ROid") || cprop.Name.Equals("RTK"));
-                                    if (existRtk != null)
-                                    {
+                                    if (existRtk != null) {
                                         string rtkName = propName + "_RTK";
                                         string roidName = propName + "_ROid";
-                                        targetType.RegisterSimpleProperty(rtkName, typeof(string),
+                                        targetType.RegisterSimpleProperty(rtkName, typeof (string),
                                             string.Empty, false, new Attribute[] {
                                                 stringAttr
                                             });
@@ -321,61 +298,53 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                             }
                         }
                     }
-                    catch
-                    {
+                    catch (Exception) {
                     }
                 }
 
-                else if (propName.StartsWith("UDF"))
-                {
-                    continue;
+                else if (propName.StartsWith("UDF")) {
                 }
 
-                else
-                {
+                else {
                     object defValue = prop.DefaultValue;
 
-                    if (propName.EndsWith("_ID"))
-                    {
+                    if (propName.EndsWith("_ID")) {
                         targetType.RegisterSimpleProperty(propName, businessTypeSrv.SimplePrimaryKeyType,
                             defValue, false, new Attribute[] {
                                 businessTypeSrv.SimplePrimaryKey
                             });
                     }
-                    else if (propName.Equals("REMARK"))
-                    {
+                    else if (propName.Equals("REMARK")) {
                         targetType.RegisterSimpleProperty(propName, businessTypeSrv.SimpleRemarkType,
                             defValue, false, new Attribute[] {
                                 businessTypeSrv.SimpleRemark
                             });
                     }
-                    else
-                    {
+                    else {
                         string typeName = propType.ToString();
-                        switch (typeName)
-                        {
+                        switch (typeName) {
                             case "System.String":
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    defValue, false, new Attribute[] { stringAttr });
+                                    defValue, false, new Attribute[] {stringAttr});
                                 break;
                             case "System.DateTime":
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    defValue, false, new Attribute[] { dtAttr });
+                                    defValue, false, new Attribute[] {dtAttr});
                                 break;
                             case "System.Int16": //整型
                             case "System.Int32":
                             case "System.Int64":
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    defValue, false, new Attribute[] { intAttr });
+                                    defValue, false, new Attribute[] {intAttr});
                                 break;
                             case "System.Decimal": //浮点型
                             case "System.Double":
                                 targetType.RegisterSimpleProperty(propName, businessTypeSrv.SimpleQuantityType,
-                                    defValue, false, new Attribute[] { businessTypeSrv.SimpleQuantity });
+                                    defValue, false, new Attribute[] {businessTypeSrv.SimpleQuantity});
                                 break;
                             default:
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    defValue, false, new Attribute[] { });
+                                    defValue, false, new Attribute[] {});
                                 break;
                         }
                     }
@@ -386,38 +355,30 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
 
 
         /// <summary>
-        /// DependencyObjectCollection 構建targetTable，单身需独立调用
+        ///     DependencyObjectCollection 構建targetTable，单身需独立调用
         /// </summary>
         /// <param name="fromType"></param>
         /// <param name="targetTable"></param>
-        public DataTable CreateDt(DependencyObjectType fromType, DataTable targetTable)
-        {
-            if (fromType == null)
-            {
+        public DataTable CreateDt(DependencyObjectType fromType, DataTable targetTable) {
+            if (fromType == null) {
                 return null;
             }
-            DependencyPropertyCollection DPC = fromType.Properties;
+            DependencyPropertyCollection dpc = fromType.Properties;
 
-            if (targetTable == null)
-            {
+            if (targetTable == null) {
                 targetTable = new DataTable();
             }
 
-            try
-            {
-                foreach (DependencyProperty prop in DPC)
-                {
+            try {
+                foreach (DependencyProperty prop in dpc) {
                     Type propType = prop.PropertyType;
-                    var targetName = prop.Name; //列名
-                    var isExist = false;
-                    foreach (DataColumn column in targetTable.Columns)
-                    {
+                    string targetName = prop.Name; //列名
+                    bool isExist = false;
+                    foreach (DataColumn column in targetTable.Columns) {
                         isExist = column.ColumnName.Equals(targetName);
-                        continue;
                     }
 
-                    if (isExist)
-                    {
+                    if (isExist) {
                         continue;
                     }
 
@@ -428,347 +389,340 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                         "CreateDate", "LastModifiedDate", "ModifiedDate", "CreateBy",
                         "LastModifiedBy", "ModifiedBy", "ApproveStatus", "ApproveDate", "ApproveBy"
                     };
-                    if (cnames.Contains(prop.Name))
-                    {
+                    if (cnames.Contains(prop.Name)) {
                         continue;
                     }
 
                     //处理集合字段
-                    if (propType == typeof(DependencyObjectCollection)
-                        || propType == typeof(DependencyObject)
-                        )
-                    {
-                        if (prop is IComplexProperty && ((IComplexProperty)(prop)).DataEntityType.Name == "ReferToEntity")
-                        {
-                            var cpropies = ((IComplexProperty)(prop)).DataEntityType.SimpleProperties;
-                            if (cpropies != null)
-                            {
-                                var existRtk =
+                    if (propType == typeof (DependencyObjectCollection)
+                        || propType == typeof (DependencyObject)
+                        ) {
+                        if (prop is IComplexProperty
+                            && ((IComplexProperty) (prop)).DataEntityType.Name == "ReferToEntity") {
+                            ISimplePropertyCollection cpropies =
+                                ((IComplexProperty) (prop)).DataEntityType.SimpleProperties;
+                            if (cpropies != null) {
+                                ISimpleProperty existRtk =
                                     cpropies.ToList()
                                         .FirstOrDefault(cprop => cprop.Name.Equals("ROid") || cprop.Name.Equals("RTK"));
-                                if (existRtk != null)
-                                {
+                                if (existRtk != null) {
                                     string rtkName = targetName + "_RTK";
                                     string roidName = targetName + "_ROid";
-                                    targetTable.Columns.Add(rtkName, typeof(string));
-                                    targetTable.Columns.Add(roidName, typeof(object));
+                                    targetTable.Columns.Add(rtkName, typeof (string));
+                                    targetTable.Columns.Add(roidName, typeof (object));
                                 }
-                            }
-                            else
-                            {
-                                continue;
                             }
                         }
                     }
-                    else if (targetName.StartsWith("UDF"))
-                    {
-                        continue;
+                    else if (targetName.StartsWith("UDF")) {
                     }
-                    else
-                    {
+                    else {
                         targetTable.Columns.Add(prop.Name, propType);
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }
             return targetTable;
         }
 
         /// <summary>
-        /// 手动指定列名、类型 注册临时表
+        ///     手动指定列名、类型 注册临时表
         /// </summary>
-        /// <param name="businessTypeSrv"></param>
         /// <param name="formType"></param>
         /// <param name="targetType"></param>
         /// <returns></returns>
         public DependencyObjectType RegiesterType(
-            IEnumerable<RegiesterTypeParameter> formType, DependencyObjectType targetType)
-        {
-            if (targetType == null)
-            {
+            IEnumerable<RegiesterTypeParameter> formType, DependencyObjectType targetType) {
+            if (targetType == null) {
                 string tempTableName = "tmpYC_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                targetType = new DependencyObjectType(tempTableName, new Attribute[] { });
+                targetType = new DependencyObjectType(tempTableName, new Attribute[] {});
             }
-            IBusinessTypeService businessTypeSrv = MyService.BusinessTypeSrv;
+            var businessTypeSrv = MyService.BusinessTypeSrv;
             var stringAttr = new SimplePropertyAttribute(GeneralDBType.String);
             var dtAttr = new SimplePropertyAttribute(GeneralDBType.DateTime);
-            var IntAttr = new SimplePropertyAttribute(GeneralDBType.Int32);
-            if (formType == null)
-            {
+            var intAttr = new SimplePropertyAttribute(GeneralDBType.Int32);
+            if (formType == null) {
                 return null;
             }
 
-            formType.ToList().ForEach(prop =>
-            {
+            formType.ToList().ForEach(prop => {
                 Type propType = prop.Type;
-                var propNames = prop.Properties;
-                foreach (var propName in propNames)
-                {
+                List<string> propNames = prop.Properties;
+                foreach (string propName in propNames) {
                     string typeName = propType.ToString();
-                    var isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(propName));
-                    if (isExist != null)
-                    {
+                    string name = propName;
+                    DependencyProperty isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(name));
+                    if (isExist != null) {
                         continue;
                     }
-                    if (propName.EndsWith("_ID"))
-                    {
+                    if (propName.EndsWith("_ID")) {
                         targetType.RegisterSimpleProperty(propName, businessTypeSrv.SimplePrimaryKeyType,
                             Guid.Empty, false, new Attribute[] {
                                 businessTypeSrv.SimplePrimaryKey
                             });
                     }
-                    else if (propName.Equals("REMARK"))
-                    {
+                    else if (propName.Equals("REMARK")) {
                         targetType.RegisterSimpleProperty(propName, businessTypeSrv.SimpleRemarkType,
                             string.Empty, false, new Attribute[] {
                                 businessTypeSrv.SimpleRemark
                             });
                     }
-                    else
-                    {
-                        switch (typeName)
-                        {
+                    else {
+                        switch (typeName) {
                             case "System.String":
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    string.Empty, false, new Attribute[] { stringAttr });
+                                    string.Empty, false, new Attribute[] {stringAttr});
                                 break;
                             case "System.DateTime":
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    OrmDataOption.EmptyDateTime, false, new Attribute[] { dtAttr });
+                                    OrmDataOption.EmptyDateTime, false, new Attribute[] {dtAttr});
                                 break;
                             case "System.Int16": //整型
                             case "System.Int32":
                             case "System.Int64":
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    0, false, new Attribute[] { IntAttr });
+                                    0, false, new Attribute[] {intAttr});
                                 break;
                             case "System.Decimal": //浮点型
                             case "System.Double":
                                 targetType.RegisterSimpleProperty(propName, businessTypeSrv.SimpleQuantityType,
-                                    0m, false, new Attribute[] { businessTypeSrv.SimpleQuantity });
+                                    0m, false, new Attribute[] {businessTypeSrv.SimpleQuantity});
                                 break;
                             default:
                                 targetType.RegisterSimpleProperty(propName, propType,
-                                    null, false, new Attribute[] { });
+                                    null, false, new Attribute[] {});
                                 break;
                         }
                     }
                 }
-                ;
+                
             });
 
             return targetType;
         }
 
         /// <summary>
-        /// 指定列名、类型 構建targetTable，单身需独立调用
+        ///     指定列名、类型 構建targetTable，单身需独立调用
         /// </summary>
         /// <param name="fromType"></param>
         /// <param name="targetTable"></param>
-        public DataTable CreateDt(List<RegiesterTypeParameter> fromType, DataTable targetTable)
-        {
-            if (targetTable == null)
-            {
+        public DataTable CreateDt(List<RegiesterTypeParameter> fromType, DataTable targetTable) {
+            if (targetTable == null) {
                 targetTable = new DataTable();
             }
-            if (fromType == null)
-            {
+            if (fromType == null) {
                 return null;
             }
 
-            fromType.ForEach(prop =>
-            {
-                Type prop_type = prop.Type;
-                var prop_names = prop.Properties;
-                foreach (var prop_name in prop_names)
-                {
-                    var isExist = false;
-                    foreach (DataColumn column in targetTable.Columns)
-                    {
-                        isExist = column.ColumnName.Equals(prop_name);
-                        continue;
+            fromType.ForEach(prop => {
+                Type propType = prop.Type;
+                List<string> propNames = prop.Properties;
+                foreach (string propName in propNames) {
+                    bool isExist = false;
+                    foreach (DataColumn column in targetTable.Columns) {
+                        isExist = column.ColumnName.Equals(propName);
                     }
 
-                    if (isExist)
-                    {
+                    if (isExist) {
                         continue;
                     }
-                    targetTable.Columns.Add(prop_name, prop_type);
+                    targetTable.Columns.Add(propName, propType);
                 }
-                ;
+                
             });
             return targetTable;
         }
 
         /// <summary>
-        /// 单身转datatable,根据dataTable列名填充
+        ///     单身转datatable,根据dataTable列名填充
         /// </summary>
         /// <param name="formCollection"></param>
         /// <param name="targetTable"></param>
         /// <returns></returns>
-        public DataTable DOCToDataTable(IEnumerable<DependencyObject> formCollection, DataTable targetTable)
-        {
-            foreach (DependencyObject item in formCollection)
-            {
+        public DataTable DOCToDataTable(IEnumerable<DependencyObject> formCollection, DataTable targetTable) {
+            foreach (DependencyObject item in formCollection) {
                 DataRow dr = targetTable.NewRow();
 
-                foreach (DataColumn col in targetTable.Columns)
-                {
-                    try
-                    {
-                        var fristObject =
+                foreach (DataColumn col in targetTable.Columns) {
+                    try {
+                        DependencyProperty fristObject =
                             item.DependencyObjectType.Properties.FirstOrDefault(p => p.Name.Equals(col.ColumnName));
-                        if (fristObject != null)
-                        {
+                        if (fristObject != null) {
                             dr[col.ColumnName] = item[col.ColumnName];
                         }
-                        else
-                        {
+                        else {
                             // 转化复杂类型
-                            var targetName = col.ColumnName; //列名
+                            string targetName = col.ColumnName; //列名
                             //列名中的下划线大于0，且以[_RTK]或[_ROid]结尾的列名视为多来源字段
                             if ((targetName.IndexOf("_", StringComparison.CurrentCultureIgnoreCase) > 0)
                                 && (targetName.EndsWith("_RTK", StringComparison.CurrentCultureIgnoreCase)
-                                    || targetName.EndsWith("_ROid", StringComparison.CurrentCultureIgnoreCase)))
-                            {
+                                    || targetName.EndsWith("_ROid", StringComparison.CurrentCultureIgnoreCase))) {
                                 //列名长度
-                                var nameLength = targetName.Length;
+                                int nameLength = targetName.Length;
                                 //最后一个下划线后一位位置
-                                var endPos = targetName.LastIndexOf("_", StringComparison.Ordinal) + 1;
+                                int endPos = targetName.LastIndexOf("_", StringComparison.Ordinal) + 1;
                                 //拼接目标字段名
-                                var newTargetName = targetName.Substring(0, endPos - 1);
-                                var extName = targetName.Substring(endPos , nameLength - endPos);
+                                string newTargetName = targetName.Substring(0, endPos - 1);
+                                string extName = targetName.Substring(endPos, nameLength - endPos);
                                 fristObject =
-                                    item.DependencyObjectType.Properties.FirstOrDefault(p => p.Name.Equals(newTargetName));
-                                if (fristObject != null)
-                                {
-                                    if ((fristObject is IComplexProperty) &&
-                                        (((IComplexProperty)(fristObject)).DataEntityType.Name == "ReferToEntity"))
-                                    {
-                                        dr[col.ColumnName] = (item[newTargetName] as DependencyObject)[extName];
+                                    item.DependencyObjectType.Properties.FirstOrDefault(
+                                        p => p.Name.Equals(newTargetName));
+                                if (fristObject != null) {
+                                    if ((fristObject is IComplexProperty)
+                                        &&
+                                        (((IComplexProperty) (fristObject)).DataEntityType.Name == "ReferToEntity")) {
+                                        var dependencyObject = item[newTargetName] as DependencyObject;
+                                        if (dependencyObject != null) {
+                                            dr[col.ColumnName] = dependencyObject[extName];
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                    catch {
+                    catch (Exception) {
                     }
                 }
                 targetTable.Rows.Add(dr);
             }
             return targetTable;
-        } 
+        }
+
         #endregion
 
         /// <summary>
-        /// 不指定单据日期时,调保存自动审核
+        ///     不指定单据日期时,调保存自动审核
         /// </summary>
         /// <param name="typekey"></param>
         /// <param name="id"></param>
         /// <param name="dt"></param>
-        public void AutoApprove(string typekey, object id, DateTime dt)
-        {
+        public void AutoApprove(string typekey, object id, DateTime dt) {
             //保存单据,自動審核
 
             SetIgnoreWarningTag();
-            try
-            {
-                if (dt == null)
-                {
+            try {
+                if (dt == null) {
                     var readSrv = GetService<IReadService>(typekey) as IReadService;
                     var saveSrv = GetService<ISaveService>(typekey) as ISaveService;
-                    var entity = readSrv.Read(id);
+                    object entity = readSrv.Read(id);
                     if (entity != null
-                        )
-                    {
+                        ) {
                         saveSrv.Save(entity);
                     }
                 }
-                else
-                {
-                   
+                else {
                     var confirmService = GetService<IConfirmService>(typekey);
                     ILogOnService logOnSer = MyService.LogOnSrv;
                     var context = new ConfirmContext(id, logOnSer.CurrentUserId, dt) {UseTransaction = false};
                     confirmService.Execute(context);
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 throw new BusinessRuleException(typekey + "审核时出错：" + ex.Message);
             }
-            finally
-            {
+            finally {
                 ResetIgnoreWarningTag();
             }
         }
 
-        #region 校驗 警告
-        public void SetIgnoreWarningTag()
-        {
-            DeliverContext deliver = CallContext.GetData(DeliverContext.Name) as DeliverContext;
-            if (deliver == null)
-            {
+        #region 忽略校驗 警告
+
+        public void SetIgnoreWarningTag() {
+            var deliver = CallContext.GetData(DeliverContext.Name) as DeliverContext;
+            if (deliver == null) {
                 deliver = new DeliverContext();
-               CallContext.SetData(DeliverContext.Name, deliver);
+                CallContext.SetData(DeliverContext.Name, deliver);
             }
-            if (deliver.ContainsKey("IgnoreWarning"))
-            {
+            if (deliver.ContainsKey("IgnoreWarning")) {
                 deliver["IgnoreWarning"] = true;
             }
-            else
-            {
+            else {
                 deliver.Add("IgnoreWarning", true);
             }
         }
 
-        public void ResetIgnoreWarningTag()
-        {
-            DeliverContext deliver = CallContext.GetData(DeliverContext.Name) as DeliverContext;
-            if (deliver != null && deliver.ContainsKey("IgnoreWarning"))
-            {
+        public void ResetIgnoreWarningTag() {
+            var deliver = CallContext.GetData(DeliverContext.Name) as DeliverContext;
+            if (deliver != null
+                && deliver.ContainsKey("IgnoreWarning")) {
                 deliver["IgnoreWarning"] = false;
             }
         }
+
         /// <summary>
-        /// 服务端保存去校验，记得生效校验
+        ///     服务端保存去校验，记得生效校验
         /// </summary>
         /// <param name="typeKey"></param>
         /// <param name="points"></param>
         /// <param name="enabled"></param>
-        public void setValidateEnable(string typeKey, List<ValidateActivePoint> points, bool enabled)
-        {
-            IValidatorContainer validateSrv = this.GetService<IValidatorContainer>(typeKey);
+        public void SetValidateEnable(string typeKey, IEnumerable<ValidateActivePoint> points, bool enabled) {
+            var validateSrv = GetService<IValidatorContainer>(typeKey);
             ValidatorCollection validateColl = validateSrv.Validators;
-            validateColl.ToList().ForEach(validate =>
-            {
+            validateColl.ToList().ForEach(validate => {
                 ValidateActivePointCollection activePointColl = validate.ActivePoints;
-                activePointColl.ToList().ForEach(activePoint =>
-                {
-                    var exist = points.FirstOrDefault(point => activePoint.ActivePoint.Equals(point));
-                    if (exist != null
-                        )
-                    {
+                activePointColl.ToList().ForEach(activePoint => {
+                    bool exist =
+                        points.Any(point => activePoint.ActivePoint != null && activePoint.ActivePoint.Equals(point));
+                    if (exist) {
                         activePoint.Enabled = enabled;
                     }
                 })
-               ;
+                    ;
             });
-        } 
-        #endregion
-
-
-    }
-
-    public partial class RegiesterTypeParameter {
-        private List<string> _propertiesFiled = new List<string>();
-        private Dictionary<string, Type> _nameTypeFiled = new Dictionary<string, Type>();
+        }
 
         /// <summary>
-        /// 指定参数
+        ///     设置公式生失效
+        /// </summary>
+        /// <param name="typeKey"></param>
+        /// <param name="path"></param>
+        /// <param name="id"></param>
+        /// <param name="isEnable"></param>
+        public void SetFormula(string typeKey, string path, string id, bool isEnable) {
+            var formulas = GetService<IFormulaContainer>(typeKey);
+            foreach (FormulaBase item in formulas.Formulas) {
+                if (item.Path == path & item.Id == id) {
+                    item.Enabled = isEnable;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     设置带值生失效
+        /// </summary>
+        /// <param name="typeKey"></param>
+        /// <param name="path"></param>
+        /// <param name="id"></param>
+        /// <param name="isEnable"></param>
+        public void SetRelatedData(string typeKey, string path, string id, bool isEnable) {
+            var relate = GetService<IDocumentRelatedDataService>(typeKey);
+            foreach (RelatedData item in relate.RelatedDatas) {
+                item.Enabled = isEnable;
+            }
+        }
+
+        #endregion
+    }
+
+    public class RegiesterTypeParameter {
+        private Dictionary<string, Type> _nameTypeFiled = new Dictionary<string, Type>();
+        private List<string> _propertiesFiled = new List<string>();
+
+        private Type _type = typeof (string);
+
+        public RegiesterTypeParameter(List<string> propertiesFiled, Type type) {
+            Properties = propertiesFiled;
+            Type = type;
+        }
+
+        public RegiesterTypeParameter(Dictionary<string, Type> nameAndType) {
+            NameAndType = nameAndType;
+        }
+
+        /// <summary>
+        ///     指定参数
         /// </summary>
         public List<string> Properties {
             get {
@@ -786,26 +740,15 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             set { _nameTypeFiled = value; }
         }
 
-        private Type type = typeof (string);
-
         /// <summary>
-        /// 指定类型
+        ///     指定类型
         /// </summary>
         public Type Type {
             get {
                 return
-                    type;
+                    _type;
             }
-            set { type = value; }
-        }
-
-        public RegiesterTypeParameter(List<string> propertiesFiled, Type type) {
-            Properties = propertiesFiled;
-            this.Type = type;
-        }
-
-        public RegiesterTypeParameter(Dictionary<string, Type> nameAndType) {
-            this.NameAndType = nameAndType;
+            set { _type = value; }
         }
     }
 }

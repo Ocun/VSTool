@@ -160,7 +160,7 @@ namespace VSTool {
             try {
                 if (!ModiCkb.Checked) {
                     var dicPath = MyTool.GetTreeViewFilePath(myTreeView5.Nodes, _toolpars);
-                    List<FileInfos> fileInfos = new List<FileInfos>();
+                    var fileInfos = new List<FileInfos>();
                     foreach (var kv in dicPath) {
                         fileInfos.AddRange(kv.Value);
                     }

@@ -45,21 +45,24 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             [EventInterceptor(typeof(IEditorView), "Load")]
             private void EditorLoad(object sender, EventArgs e)
             {
-                ICommandsService cmdSer = this.GetServiceForThisTypeKey<ICommandsService>();
-                if (cmdSer.Commands.Contains("Disconfirm"))
-                {
-                    CommandBase cmdConfirm = cmdSer.Commands["Disconfirm"] as CommandBase;//审核按钮
-                    cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmEditorEnabledDecider>());
+                var cmdSer = this.GetServiceForThisTypeKey<ICommandsService>();
+                if (cmdSer.Commands.Contains("Disconfirm")) {
+                    var cmdConfirm = cmdSer.Commands["Disconfirm"] as CommandBase;//审核按钮
+                    if (cmdConfirm != null) {
+                        cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmEditorEnabledDecider>());
+                    }
                 }
-                if (cmdSer.Commands.Contains("DocumentDataDeleteCommand"))
-                {
-                    CommandBase cmdConfirm = cmdSer.Commands["DocumentDataDeleteCommand"] as CommandBase;//删除按钮
-                    cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmEditorEnabledDecider>());
+                if (cmdSer.Commands.Contains("DocumentDataDeleteCommand")) {
+                    var cmdConfirm = cmdSer.Commands["DocumentDataDeleteCommand"] as CommandBase;//删除按钮
+                    if (cmdConfirm != null) {
+                        cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmEditorEnabledDecider>());
+                    }
                 }
-                if (cmdSer.Commands.Contains("ModifyCommand"))
-                {
-                    CommandBase cmdConfirm = cmdSer.Commands["ModifyCommand"] as CommandBase;//修改按钮
-                    cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmEditorEnabledDecider>());
+                if (cmdSer.Commands.Contains("ModifyCommand")) {
+                    var cmdConfirm = cmdSer.Commands["ModifyCommand"] as CommandBase;//修改按钮
+                    if (cmdConfirm != null) {
+                        cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmEditorEnabledDecider>());
+                    }
                 }
             }
 
@@ -71,21 +74,24 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             [EventInterceptor(typeof(IBrowseWindow), "Load")]
             private void BrowseViewLoad(object sender, EventArgs e)
             {
-                ICommandsService cmdSer = this.GetServiceForThisTypeKey<ICommandsService>();
-                if (cmdSer.Commands.Contains("DisconfirmCommandForBrowseWindow"))
-                {
-                    CommandBase cmdConfirm = cmdSer.Commands["DisconfirmCommandForBrowseWindow"] as CommandBase;//审核按钮
-                    cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmBrowseEnabledDecider>());
+                var cmdSer = this.GetServiceForThisTypeKey<ICommandsService>();
+                if (cmdSer.Commands.Contains("DisconfirmCommandForBrowseWindow")) {
+                    var cmdConfirm = cmdSer.Commands["DisconfirmCommandForBrowseWindow"] as CommandBase;//审核按钮
+                    if (cmdConfirm != null) {
+                        cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmBrowseEnabledDecider>());
+                    }
                 }
-                if (cmdSer.Commands.Contains("DocumentDataDeleteCommand"))
-                {
-                    CommandBase cmdConfirm = cmdSer.Commands["DocumentDataDeleteCommand"] as CommandBase;//删除按钮
-                    cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmBrowseEnabledDecider>()); //^_^ 20171010 MODI BY HEHF FOR CBBM11709199 OLD:ConfirmEditorEnabledDecider
+                if (cmdSer.Commands.Contains("DocumentDataDeleteCommand")) {
+                    var cmdConfirm = cmdSer.Commands["DocumentDataDeleteCommand"] as CommandBase;//删除按钮
+                    if (cmdConfirm != null) {
+                        cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmBrowseEnabledDecider>()); //^_^ 20171010 MODI BY HEHF FOR CBBM11709199 OLD:ConfirmEditorEnabledDecider
+                    }
                 }
-                if (cmdSer.Commands.Contains("ModifyCommand"))
-                {
-                    CommandBase cmdConfirm = cmdSer.Commands["ModifyCommand"] as CommandBase;//修改按钮
-                    cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmBrowseEnabledDecider>()); //^_^ 20171010 MODI BY HEHF FOR CBBM11709199 OLD:ConfirmEditorEnabledDecider
+                if (cmdSer.Commands.Contains("ModifyCommand")) {
+                    var cmdConfirm = cmdSer.Commands["ModifyCommand"] as CommandBase;//修改按钮
+                    if (cmdConfirm != null) {
+                        cmdConfirm.EnabledDeciders.Add(cmdSer.GetCommandEnabledDecider<ConfirmBrowseEnabledDecider>()); //^_^ 20171010 MODI BY HEHF FOR CBBM11709199 OLD:ConfirmEditorEnabledDecider
+                    }
                 }
             }
 
@@ -112,7 +118,7 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             /// <returns></returns>
             protected override bool QueryEnabled(Digiwin.Common.Advanced.IResourceServiceProvider provider, Digiwin.Common.ServiceCallContext callContext, System.Windows.Forms.IDataObject context)
             {
-                ICurrentBrowseWindow win = provider.GetService(typeof(ICurrentBrowseWindow), "SALES_ORDER_DOC") as ICurrentBrowseWindow;
+                var win = provider.GetService(typeof(ICurrentBrowseWindow), "SALES_ORDER_DOC") as ICurrentBrowseWindow;
                 if (win == null || win.BrowseView.DataSource == null)
                 {
                     return false;
@@ -159,13 +165,13 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             /// <returns></returns>
             protected override bool QueryEnabled(Digiwin.Common.Advanced.IResourceServiceProvider provider, Digiwin.Common.ServiceCallContext callContext, System.Windows.Forms.IDataObject context)
             {
-                ICurrentDocumentWindow win = provider.GetService(typeof(ICurrentDocumentWindow), "SALES_ORDER_DOC") as ICurrentDocumentWindow;
+                var win = provider.GetService(typeof(ICurrentDocumentWindow), "SALES_ORDER_DOC") as ICurrentDocumentWindow;
                 if (win ==null || win.EditController.Document.DataSource == null)
                 {
                     return false;
                 }
                 bool flag = true;
-                DependencyObject coll = win.EditController.Document.DataSource as DependencyObject;
+                var coll = win.EditController.Document.DataSource as DependencyObject;
                 if (3.Equals(coll["XSOURCE_TYPE"]))
                 {
                     flag = false;

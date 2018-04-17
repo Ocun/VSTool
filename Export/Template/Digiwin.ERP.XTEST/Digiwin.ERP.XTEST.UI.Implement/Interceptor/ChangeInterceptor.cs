@@ -6,6 +6,7 @@ using Digiwin.Common;
 using Digiwin.Common.Torridity;
 using Digiwin.Common.UI;
 
+// ReSharper disable once CheckNamespace
 namespace Digiwin.ERP.XTEST.UI.Implement
 {
     [EventInterceptorClass]

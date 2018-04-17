@@ -10,6 +10,7 @@ namespace Digiwin.ERP.XTEST.UI.Implement
 {
     class QueryDeleteAction : GuideBatchEditorViewAction {
         public QueryDeleteAction() {
+
         }
         /// <summary>
         /// 注册数据回调
