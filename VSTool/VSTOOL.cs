@@ -99,7 +99,7 @@ namespace VSTool {
         private void VSTOOL_Load(object sender, EventArgs e) {
             CreateTree("RootView");
             SpiltWidth = 200;
-            MaxSplitCount = 3;
+            MaxSplitCount = 6;
             CreateMainView();
         }
 

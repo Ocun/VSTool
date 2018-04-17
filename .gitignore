@@ -243,3 +243,6 @@
     # JetBrains Rider  
     .idea/  
     *.sln.iml  
+*.pdb
+*.pdb
+*.pdb

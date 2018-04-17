@@ -177,10 +177,9 @@ namespace Common.Implement.UI {
 
                 if (node.Checked || node.BuildeType.Checked != null
                     && node.BuildeType.Checked.Equals("True"))
-                    if (node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox)
-                        graphics.DrawImage(_imgChecked, imgRect);
-                    else
-                        graphics.DrawImage(_imgRbChecked, imgRect);
+                    graphics.DrawImage(
+                        node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox ? _imgChecked : _imgRbChecked,
+                        imgRect);
                 else
                     graphics.DrawImage(
                         node.CheckBoxStyle == MyTreeNode.CheckBoxStyleEnum.CheckBox ? _imgUnchecked : _imgRbUnchecked,
@@ -387,7 +386,7 @@ namespace Common.Implement.UI {
         /// </summary>
         public bool ShowDescription { get; set; }
 
-        public Point PaddingSetting { get; set; }
+        public Point PaddingSetting {  get; set; }
 
         private Image _imgChecked;
         private Image _imgUnchecked;
