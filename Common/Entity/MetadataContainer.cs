@@ -307,9 +307,9 @@ namespace Common.Implement.Entity
 
         private string descriptionField;
 
-        private bool isBrowsableField;
+        private string isBrowsableField;
 
-        private bool isSystemField;
+        private string isSystemField;
 
         private string businessTypeNameField;
 
@@ -379,7 +379,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsBrowsable
+        public string IsBrowsable
         {
             get
             {
@@ -392,7 +392,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsSystem
+        public string IsSystem
         {
             get
             {
@@ -435,9 +435,9 @@ namespace Common.Implement.Entity
 
         private string descriptionField;
 
-        private bool isBrowsableField;
+        private string isBrowsableField;
 
-        private bool isSystemField;
+        private string isSystemField;
 
         /// <remarks/>
         public string DataEntityTypeName
@@ -518,7 +518,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsBrowsable
+        public string IsBrowsable
         {
             get
             {
@@ -531,7 +531,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsSystem
+        public string IsSystem
         {
             get
             {
@@ -551,15 +551,15 @@ namespace Common.Implement.Entity
 
         private string referenceToNameField;
 
-        private bool isIndexField;
+        private string isIndexField;
 
-        private bool isUniqueField;
+        private string isUniqueField;
 
         private string autoSyncField;
 
-        private bool defaultValueField;
+        private string defaultValueField;
 
-        private bool defaultValueFieldSpecified;
+       // private string defaultValueFieldSpecified;
 
         private string nameField;
 
@@ -569,9 +569,9 @@ namespace Common.Implement.Entity
 
         private string descriptionField;
 
-        private bool isBrowsableField;
+        private string isBrowsableField;
 
-        private bool isSystemField;
+        private string isSystemField;
 
         private string businessTypeNameField;
 
@@ -589,7 +589,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsIndex
+        public string IsIndex
         {
             get
             {
@@ -602,7 +602,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsUnique
+        public string IsUnique
         {
             get
             {
@@ -628,7 +628,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool DefaultValue
+        public string DefaultValue
         {
             get
             {
@@ -640,19 +640,19 @@ namespace Common.Implement.Entity
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool DefaultValueSpecified
-        {
-            get
-            {
-                return this.defaultValueFieldSpecified;
-            }
-            set
-            {
-                this.defaultValueFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public string DefaultValueSpecified
+        //{
+        //    get
+        //    {
+        //        return this.defaultValueFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.defaultValueFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         public string Name
@@ -707,7 +707,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsBrowsable
+        public string IsBrowsable
         {
             get
             {
@@ -720,7 +720,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsSystem
+        public string IsSystem
         {
             get
             {
@@ -753,17 +753,17 @@ namespace Common.Implement.Entity
 
         private string sizeField;
 
-        private bool sizeFieldSpecified;
+       // private string sizeFieldSpecified;
 
-        private bool isIndexField;
+        private string isIndexField;
 
-        private bool isUniqueField;
+        private string isUniqueField;
 
         private string autoSyncField;
 
-        private bool ignoreUpdateField;
+        private string ignoreUpdateField;
 
-        private bool ignoreUpdateFieldSpecified;
+       // private string ignoreUpdateFieldSpecified;
 
         private string defaultValueField;
 
@@ -779,9 +779,9 @@ namespace Common.Implement.Entity
 
         private string descriptionField;
 
-        private bool isBrowsableField;
+        private string isBrowsableField;
 
-        private bool isSystemField;
+        private string isSystemField;
 
         private string businessTypeNameField;
 
@@ -798,22 +798,22 @@ namespace Common.Implement.Entity
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool SizeSpecified
-        {
-            get
-            {
-                return this.sizeFieldSpecified;
-            }
-            set
-            {
-                this.sizeFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public string SizeSpecified
+        //{
+        //    get
+        //    {
+        //        return this.sizeFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.sizeFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
-        public bool IsIndex
+        public string IsIndex
         {
             get
             {
@@ -826,7 +826,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsUnique
+        public string IsUnique
         {
             get
             {
@@ -852,7 +852,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IgnoreUpdate
+        public string IgnoreUpdate
         {
             get
             {
@@ -865,18 +865,18 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool IgnoreUpdateSpecified
-        {
-            get
-            {
-                return this.ignoreUpdateFieldSpecified;
-            }
-            set
-            {
-                this.ignoreUpdateFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public string IgnoreUpdateSpecified
+        //{
+        //    get
+        //    {
+        //        return this.ignoreUpdateFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.ignoreUpdateFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         public string DefaultValue
@@ -970,7 +970,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsBrowsable
+        public string IsBrowsable
         {
             get
             {
@@ -983,7 +983,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool IsSystem
+        public string IsSystem
         {
             get
             {
@@ -1018,9 +1018,9 @@ namespace Common.Implement.Entity
 
         private string dataEntityIndexIdField;
 
-        private bool uniqueField;
+        private string uniqueField;
 
-        private bool uniqueFieldSpecified;
+        //private string uniqueFieldSpecified;
 
         private string relatedPropertiesField;
 
@@ -1051,7 +1051,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool Unique
+        public string Unique
         {
             get
             {
@@ -1064,18 +1064,18 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool UniqueSpecified
-        {
-            get
-            {
-                return this.uniqueFieldSpecified;
-            }
-            set
-            {
-                this.uniqueFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public string UniqueSpecified
+        //{
+        //    get
+        //    {
+        //        return this.uniqueFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.uniqueFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         public string RelatedProperties
@@ -1100,9 +1100,9 @@ namespace Common.Implement.Entity
 
         private string dataEntityIndexIdField;
 
-        private bool clusteredField;
+        private string clusteredField;
 
-        private bool uniqueField;
+        private string uniqueField;
 
         private string relatedPropertiesField;
 
@@ -1133,7 +1133,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool Clustered
+        public string Clustered
         {
             get
             {
@@ -1146,7 +1146,7 @@ namespace Common.Implement.Entity
         }
 
         /// <remarks/>
-        public bool Unique
+        public string Unique
         {
             get
             {

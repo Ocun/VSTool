@@ -1,16 +1,14 @@
 ﻿// create By 08628 20180411
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using Common.Implement.Entity;
+using Common.Implement.Tools;
 using Common.Implement.UI;
 
 namespace Common.Implement.EventHandler
 {
-   public    class EventHelper
+    public class EventHelper
     {
-       
         /// <summary>
         /// 防止重获焦点时，选择项瞬间跳离的问题
         /// </summary>
@@ -22,6 +20,6 @@ namespace Common.Implement.EventHandler
                 mytreeView.SelectedNode = null;
         }
      
-        
+
     }
 }

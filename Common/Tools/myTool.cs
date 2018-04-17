@@ -20,8 +20,44 @@ using static System.String;
 using MSWord = Microsoft.Office.Interop.Word;
 
 namespace Common.Implement.Tools {
-    public class MyTool 
+    public static class MyTool 
     {
+
+        public static void InitToolpars(Toolpars toolpars,string[] pToIni)
+        {
+            if (pToIni == null)
+            {
+                toolpars.FormEntity.TxtToPath = string.Empty;
+            }
+            else
+            {
+                toolpars.MALL = pToIni[0];
+                var args = toolpars.MALL.Split('&');
+                toolpars.Mpath = args[0]; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
+                toolpars.MInpath = args[1]; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
+                toolpars.Mplatform = args[2]; //C:\DF_E10_2.0.2
+                toolpars.MdesignPath = args[3]; //E:\平台\E202
+                toolpars.MVersion = args[4]; //DF_E10_2.0.2
+                toolpars.MIndustry = Convert.ToBoolean(args[5]);
+                toolpars.CustomerName = args[6];
+
+                toolpars.FormEntity.TxtToPath = toolpars.Mpath;
+                if (toolpars.MIndustry)
+                {
+                    toolpars.FormEntity.TxtToPath = toolpars.MInpath;
+                }
+
+                toolpars.FormEntity.txtPKGpath = $@"{toolpars.MdesignPath}\WD_PR\SRC";
+                toolpars.FormEntity.Industry = toolpars.MIndustry;
+                if (toolpars.Mpath.Contains("PKG")
+                    && !toolpars.MIndustry)
+                {
+                    toolpars.FormEntity.TxtToPath = $@"{toolpars.MdesignPath}\WD_PR\SRC\";
+                }
+            }
+            toolpars.OldTypekey = toolpars.SettingPathEntity.TemplateTypeKey;
+        }
+
         #region 作废
 
         /// <summary>
@@ -226,7 +262,25 @@ namespace Common.Implement.Tools {
                 File.Copy(uiImplementDllFullPath,
                     clientPath + pathEntity.UIImplementDllName, true);
         }
-
+        public static bool CheckCanCopyDll(string[] processNames)
+        {
+            var flag = true;
+            var infos = Process.GetProcesses();
+            foreach (var info in infos)
+            {
+                if (processNames.Contains(info.ProcessName))
+                {
+                    flag = false;
+                }
+            }
+            if (flag)
+                return true;
+            if (MessageBox.Show(Resource.DllUsedMsg, Resource.WarningMsg, MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning) != DialogResult.OK)
+                return false;
+            OldTools.KillProcess(processNames);
+            return true;
+        }
         public static void OpenTools(BuildeType bt) {
             try {
                 var p = new Process();
@@ -1026,8 +1080,8 @@ namespace Common.Implement.Tools {
                             propies.Add("DOC_NO");
                             break;
                         case "IOwner":
-                            propies.Add("Owner_Org.RTK");
-                            propies.Add("Owner_Org.ROid");
+                            propies.Add("Owner_Org_RTK");
+                            propies.Add("Owner_Org_ROid");
                             break;
                         case "ISequenceNumber":
                             propies.Add("SequenceNumber");
@@ -1067,7 +1121,7 @@ namespace Common.Implement.Tools {
                 var type = Assembly.LoadFile(dllPath).GetType(moduleName);
 
                 ////    3.调用的实例化方法（非静态方法）需要创建类型的一个实例  
-                var obj = Activator.CreateInstance(type, new object[] { toolpars });
+                var obj = Activator.CreateInstance(type, toolpars);
                 (obj as Form)?.ShowDialog();
             }
             catch (Exception ex)
@@ -1099,10 +1153,20 @@ namespace Common.Implement.Tools {
             }
             else {
                 MessageBox.Show(Resource.HelpDocNotExiested);
-                return;
             }
       
 
+        }
+
+        public static void OpenDir(string targetDir) {
+            if (Directory.Exists(targetDir))
+            {
+                Process.Start(targetDir);
+            }
+            else
+            {
+                MessageBox.Show(string.Format(Resource.DirNotExisted, targetDir), Resource.WarningMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

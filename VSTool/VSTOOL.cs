@@ -6,14 +6,14 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using System.Reflection;
+using System.Runtime.InteropServices;
 using Common.Implement.UI;
 using Common.Implement.Entity;
 using Common.Implement.EventHandler;
 using System.Threading;
 using Common.Implement.Tools;
+using VSTool.Annotations;
 using VSTool.Properties;
-using static System.Windows.Forms.AnchorStyles;
 
 namespace VSTool {
     // ReSharper disable once InconsistentNaming
@@ -57,45 +57,12 @@ namespace VSTool {
             }
 
             #endregion
-
-            if (pToIni == null) {
-                Toolpars.FormEntity.TxtToPath = string.Empty;
-                //btncopydll.Visible = false;
-                //btncopyUIdll.Visible = false;
-                //btnKill.Visible = false;
-            }
-            else {
-                Toolpars.MALL = pToIni[0];
-                var args = Toolpars.MALL.Split('&');
-                Toolpars.Mpath = args[0]; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
-                Toolpars.MInpath = args[1]; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
-                Toolpars.Mplatform = args[2]; //C:\DF_E10_2.0.2
-                Toolpars.MdesignPath = args[3]; //E:\平台\E202
-                Toolpars.MVersion = args[4]; //DF_E10_2.0.2
-                Toolpars.MIndustry = Convert.ToBoolean(args[5]);
-                Toolpars.CustomerName = args[6];
-
-                Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
-                if (Toolpars.MIndustry) {
-                    Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
-                }
-
-                Toolpars.FormEntity.txtPKGpath = $@"{Toolpars.MdesignPath}\WD_PR\SRC";
-                Toolpars.FormEntity.Industry = Toolpars.MIndustry;
-                if (Toolpars.Mpath.Contains("PKG")
-                    && !Toolpars.MIndustry) {
-                    Toolpars.FormEntity.TxtToPath = $@"{Toolpars.MdesignPath}\WD_PR\SRC\";
-                }
-                btncopydll.Visible = true;
-                btncopyUIdll.Visible = true;
-               // btnKill.Visible = true;
-            }
-
-            Toolpars.OldTypekey = Toolpars.SettingPathEntity.TemplateTypeKey;
+            MyTool.InitToolpars(Toolpars,pToIni);
             MyTool.InitBuilderEntity(Toolpars);
             TreeViewTool.CreateRightView(myTreeView5, _toolpars);
         }
-        
+
+
         private void VSTOOL_Load(object sender, EventArgs e) {
             CreateTree("RootView");
             SpiltWidth = 200;
@@ -166,7 +133,7 @@ namespace VSTool {
                 }
                 //有余项
                 else {
-                    var subCount = evgCount; ;
+                    var subCount = evgCount; 
                     if (subSurplusCount != 0) {
                         subSurplusCount--;
                         subCount = evgCount + 1;
@@ -208,14 +175,12 @@ namespace VSTool {
                     }
                     var success = MyTool.CreateFile(myTreeView5, _toolpars);
 
-                    if (success) {
-                        if (myTreeView1.SelectedNode != null) {
-                            var node = myTreeView1.SelectedNode as MyTreeNode;
-                            ShowTreeView(node);
-                        }
-                        TreeViewTool.CreateRightView(myTreeView5,_toolpars);
+                    if (!success) return;
+                    if (myTreeView1.SelectedNode != null) {
+                        var node = myTreeView1.SelectedNode as MyTreeNode;
+                        ShowTreeView(node);
                     }
-
+                    TreeViewTool.CreateRightView(myTreeView5,_toolpars);
                 }
                 else {
                     //OldTools.WriteLogByTreeView(Toolpars, listDATA);
@@ -237,7 +202,7 @@ namespace VSTool {
                         MessageBox.Show(Resources.TypeKeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    string pkgDir = $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                    var pkgDir = $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
                     if (Toolpars.FormEntity.PkgTypekey.StartsWith("Digiwin.ERP."))
                     {
                         pkgDir = $@"{Toolpars.FormEntity.txtPKGpath}\{Toolpars.FormEntity.PkgTypekey}";
@@ -248,10 +213,10 @@ namespace VSTool {
                             MessageBoxIcon.Error);
                         return;
                     }
-                    bool flag = true;
-                    string targetDir = $@"{Toolpars.GToIni}\Digiwin.ERP.{Toolpars.FormEntity.txtNewTypeKey}";
+                    var flag = true;
+                    var targetDir = $@"{Toolpars.GToIni}\Digiwin.ERP.{Toolpars.FormEntity.txtNewTypeKey}";
                     if (Directory.Exists(targetDir) ){
-                        DialogResult result =
+                        var result =
                             MessageBox.Show(
                                 Path.Combine(Toolpars.FormEntity.TxtToPath, Toolpars.FormEntity.txtNewTypeKey)
                                 + Environment.NewLine+Resources.DirExisted,
@@ -263,14 +228,12 @@ namespace VSTool {
                             flag = false;
                         }
                     }
+                    if (!flag) return;
+                    flag=MyTool.CopyModi(treeView1.Nodes, _toolpars);
                     if (flag) {
-                        flag=MyTool.CopyModi(treeView1.Nodes, _toolpars);
-                        if (flag) {
-                            MessageBox.Show(Resources.GenerateSucess);
-                            ModiCkb.Checked = false;
-                        }
+                        MessageBox.Show(Resources.GenerateSucess);
+                        ModiCkb.Checked = false;
                     }
-               
                 }
             }
             catch (Exception ex)
@@ -289,35 +252,11 @@ namespace VSTool {
             var btn = sender as Button;
             var name = btn?.Name;
             if (name != null && name.Equals(btnOpenTo.Name)) {
-                var txtToPathStr = Toolpars.FormEntity.TxtToPath;
-                if (txtToPathStr != null && !string.Equals(txtToPathStr.Trim(), string.Empty, StringComparison.Ordinal))
-                {
-                    folderBrowserDialog1.SelectedPath = Toolpars.FormEntity.TxtToPath.Trim();
-                }
-                else
-                {
-                    folderBrowserDialog1.SelectedPath = Toolpars.GToIni;
-                }
-                if (folderBrowserDialog1.ShowDialog() != DialogResult.OK)
-                    return;
-                Toolpars.FormEntity.TxtToPath = folderBrowserDialog1.SelectedPath;
-                txtToPath.Text = folderBrowserDialog1.SelectedPath;
-                Toolpars.GToIni = Toolpars.FormEntity.TxtToPath;
+                var targetDir = Toolpars.FormEntity.TxtToPath;
+                MyTool.OpenDir(targetDir);
             }else if (name != null && name.Equals(PkgOpenTo.Name)) {
-                var pkgPath = Toolpars.FormEntity.txtPKGpath;
-                if (pkgPath != null && !string.Equals(pkgPath.Trim(), string.Empty, StringComparison.Ordinal))
-                {
-                    folderBrowserDialog1.SelectedPath = pkgPath.Trim();
-                }
-                else
-                {
-                    folderBrowserDialog1.SelectedPath = Toolpars.GToIni;
-                }
-                if (folderBrowserDialog1.ShowDialog() != DialogResult.OK)
-                    return;
-                //Toolpars.FormEntity.txtPKGpath = folderBrowserDialog1.SelectedPath;
-                txtPKGpath.Text = folderBrowserDialog1.SelectedPath;
-                Toolpars.GToIni = Toolpars.FormEntity.txtPKGpath;
+                var targetDir = Toolpars.FormEntity.txtPKGpath;
+                MyTool.OpenDir(targetDir);
             }
 
           
@@ -340,37 +279,30 @@ namespace VSTool {
         {
             var targetDir = Toolpars.FormEntity.TxtToPath + @"\Digiwin.ERP."
                       + Toolpars.FormEntity.txtNewTypeKey;
-            if (Directory.Exists(targetDir)) {
-                Process.Start(targetDir);
-            }
-            else {
-                MessageBox.Show(string.Format(Resources.DirNotExist,string.Empty), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            MyTool.OpenDir(targetDir);
         }
         
         private void TxtNewTypeKey_TextChanged(object sender, EventArgs e) {
-            if (ModiCkb.Checked)
+            if (!ModiCkb.Checked) return;
+            if (!string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal)
+                && !string.Equals(Toolpars.FormEntity.txtNewTypeKey, string.Empty, StringComparison.Ordinal)
+                && !string.Equals(Toolpars.FormEntity.PkgTypekey, string.Empty, StringComparison.Ordinal)
+            )
             {
-                if (!string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal)
-                    && !string.Equals(Toolpars.FormEntity.txtNewTypeKey, string.Empty, StringComparison.Ordinal)
-                    && !string.Equals(Toolpars.FormEntity.PkgTypekey, string.Empty, StringComparison.Ordinal)
-                )
+                var pkgDir =
+                    $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                if (Directory.Exists(pkgDir))
                 {
-                    var pkgDir =
-                        $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
-                    if (Directory.Exists(pkgDir))
-                    {
-                        TreeViewTool.MyPaintTreeView(_toolpars, pkgDir);
-                    }
-                    else
-                    {
-                        treeView1.Nodes.Clear();
-                    }
+                    TreeViewTool.MyPaintTreeView(_toolpars, pkgDir);
                 }
                 else
                 {
                     treeView1.Nodes.Clear();
                 }
+            }
+            else
+            {
+                treeView1.Nodes.Clear();
             }
         }
 
@@ -378,17 +310,16 @@ namespace VSTool {
 
         private void Btncopydll_Click(object sender, EventArgs e) {
             try {
-            
-
                 MyTool.CopyDll(Toolpars);
                 MessageBox.Show(Resources.CopySucess);
             }
             catch (Exception ex) {
                 string[] processNames = {
-                    "Digiwin.Mars.ClientStart", "Digiwin.Mars.ServerStart",
+                    "Digiwin.Mars.ClientStart",
+                    "Digiwin.Mars.ServerStart",
                     "Digiwin.Mars.AccountSetStart"
                 };
-                bool f = CheckCanCopyDll(processNames);
+                var f = MyTool.CheckCanCopyDll(processNames);
                 if (f)
                 {
                     Btncopydll_Click(null, null);
@@ -399,7 +330,9 @@ namespace VSTool {
 
                 }
             }
-            SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopydll_Click");
+            new Thread(() => SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopydll_Click")).Start();
+
+
         }
 
         private void BtncopyUIdll_Click(object sender, EventArgs e) {
@@ -416,7 +349,7 @@ namespace VSTool {
                 string[] processNames = {
                     "Digiwin.Mars.ClientStart"
                 };
-                bool f = CheckCanCopyDll(processNames);
+                var f = MyTool.CheckCanCopyDll(processNames);
                 if (f) {
                     BtncopyUIdll_Click(null,null);
                 }
@@ -424,27 +357,12 @@ namespace VSTool {
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopyUIdll_Click");
+            new Thread(() =>SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopyUIdll_Click")).Start();
+
+         
         }
 
-        public bool CheckCanCopyDll(string[] processNames) {
-            var flag = true;
-            var infos = Process.GetProcesses();
-            foreach (var info in infos)
-            {
-                if (processNames.Contains(info.ProcessName))
-                {
-                    flag = false;
-                }
-            }
-            if (flag)
-                return true;
-            if (MessageBox.Show(Resources.DllUsedMsg, Resources.Warning, MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning) != DialogResult.OK)
-                return false;
-            OldTools.KillProcess(processNames);
-            return true;
-        }
+      
 
         #endregion
 
@@ -482,9 +400,9 @@ namespace VSTool {
         }
 
         private void Panel3_Paint(object sender, PaintEventArgs e) {
-            var borderLineStyle = ButtonBorderStyle.Solid;
-            var borderLineStyleNo = ButtonBorderStyle.None;
-            var borderWidth = 1;
+            const ButtonBorderStyle borderLineStyle = ButtonBorderStyle.Solid;
+            const ButtonBorderStyle borderLineStyleNo = ButtonBorderStyle.None;
+            const int borderWidth = 1;
             var borderColor = Color.LightGray;
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
                 borderColor, borderWidth, borderLineStyle,
@@ -510,7 +428,7 @@ namespace VSTool {
                 CreateTree(node.BuildeType.Id);
         }
 
-        int GetSplitCount() {
+        private int GetSplitCount() {
             var clientSize = splitContainer2.Panel2.ClientSize;
             var currentWidth = clientSize.Width;
             var count = currentWidth / SpiltWidth; //显示的个数
@@ -559,7 +477,6 @@ namespace VSTool {
             var vscroll = scrollPanel.VerticalScroll.Visible;
             if (!vscroll)
                 return;
-            //var maxnum = scrollPanel.VerticalScroll.Maximum;
             var splitContainer = scrollPanel.Controls[0] as SplitContainer;
             var myTreeView2 =splitContainer?.Panel1.Controls[0] as MyTreeView;
             if (myTreeView2 == null)
@@ -808,7 +725,6 @@ namespace VSTool {
             
                 
         }
-
         
         private MyTreeView CreateMyTreeView(int i) {
             var myTreeView = new MyTreeView {
@@ -851,27 +767,23 @@ namespace VSTool {
         /// <summary>
         /// 分割宽度，每间隔此宽度分割一列
         /// </summary>
-        public int SpiltWidth { get; set; }
+        private int SpiltWidth { get; set; }
 
-        public int MaxSplitCount { get; set; }
+        private int MaxSplitCount { get; set; }
         private List<MyTreeView> _myTreeViews;
-        public List<MyTreeView> MyTreeViews
-        {
-            get => _myTreeViews ?? (_myTreeViews = GetTreeViews(scrollPanel.Controls[0]));
-            set => _myTreeViews = value;
-        }
+
+        private List<MyTreeView> MyTreeViews => _myTreeViews ?? (_myTreeViews = GetTreeViews(scrollPanel.Controls[0]));
         private List<SplitContainer> _mySplitContainers;
-        public List<SplitContainer> MySplitContainers
-        {
-            get => _mySplitContainers ?? (_mySplitContainers = GetSplitContainerList(scrollPanel.Controls[0]));
-            set => _mySplitContainers = value;
-        }
+
+        private List<SplitContainer> MySplitContainers => _mySplitContainers ?? (_mySplitContainers = GetSplitContainerList(scrollPanel.Controls[0]));
+
         /// <summary>
         /// 获取全部TreeView
         /// </summary>
         /// <param name="control"></param>
         /// <returns></returns>
-        List<MyTreeView> GetTreeViews(Control control) {
+        private List<MyTreeView> GetTreeViews([NotNull] Control control) {
+            if (control == null) throw new ArgumentNullException(nameof(control));
             var treeViewList = new List<MyTreeView>();
             var container = control as SplitContainer;
             if (container == null)
@@ -891,7 +803,7 @@ namespace VSTool {
         /// </summary>
         /// <param name="control"></param>
         /// <returns></returns>
-        List<SplitContainer> GetSplitContainerList(Control control) {
+        private List<SplitContainer> GetSplitContainerList(IDisposable control) {
             var splitContainerList = new List<SplitContainer>();
             var container = control as SplitContainer;
             if (container == null)
@@ -903,10 +815,6 @@ namespace VSTool {
             }
             return splitContainerList;
         }
-
-        private void splitContainer2_Panel2_SizeChanged(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

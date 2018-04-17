@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Common.Implement.Entity;
+using Common.Implement.Properties;
 using Common.Implement.Tools;
 
 namespace Common.Implement.UI
@@ -46,6 +47,11 @@ namespace Common.Implement.UI
             if (files.Any())
             {
                 var metadataContainer = ReadToEntityTools.ReadToEntity<MetadataContainer>(files[0].FullName);
+                if (metadataContainer == null) {
+                    MessageBox.Show(Resource.ReadEntityError,Resource.ErrorMsg);
+                    return;
+                }
+                   
                 if (isSplit) {
                     var splitRes = fulltypeKey.Split('.');
                     var lastTypeKey = splitRes[splitRes.Length - 1];

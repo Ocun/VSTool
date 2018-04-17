@@ -1,6 +1,7 @@
 ﻿// create By 08628 20180411
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,6 +10,13 @@ using Common.Implement.UI;
 
 namespace Common.Implement.Tools {
     public static class TreeViewTool {
+  
+
+        /// <summary>
+        /// 创建右面板
+        /// </summary>
+        /// <param name="myTreeView5"></param>
+        /// <param name="toolpars"></param>
         public static void CreateRightView(MyTreeView myTreeView5, Toolpars toolpars) {
             myTreeView5.Nodes.Clear();
             CreateRightView(toolpars, myTreeView5.Nodes);

@@ -115,6 +115,15 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 当前DLL被占用，是否结束进程以复制？ 的本地化字符串。
+        /// </summary>
+        internal static string DllUsedMsg {
+            get {
+                return ResourceManager.GetString("DllUsedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap down_arrow {
@@ -220,6 +229,15 @@ namespace Common.Implement.Properties {
         internal static string pkgNotNull {
             get {
                 return ResourceManager.GetString("pkgNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 读取实体文件时发生错误 的本地化字符串。
+        /// </summary>
+        internal static string ReadEntityError {
+            get {
+                return ResourceManager.GetString("ReadEntityError", resourceCulture);
             }
         }
         

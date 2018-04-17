@@ -190,4 +190,10 @@
   <data name="OpenDocError" xml:space="preserve">
     <value>打开Word文档出错</value>
   </data>
+  <data name="ReadEntityError" xml:space="preserve">
+    <value>读取实体文件时发生错误</value>
+  </data>
+  <data name="DllUsedMsg" xml:space="preserve">
+    <value>当前DLL被占用，是否结束进程以复制？</value>
+  </data>
 </root>
