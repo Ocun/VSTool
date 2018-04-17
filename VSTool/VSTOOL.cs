@@ -13,6 +13,7 @@ using Common.Implement.EventHandler;
 using System.Threading;
 using Common.Implement.Tools;
 using VSTool.Properties;
+using static System.Windows.Forms.AnchorStyles;
 
 namespace VSTool {
     // ReSharper disable once InconsistentNaming
@@ -94,76 +95,93 @@ namespace VSTool {
             MyTool.InitBuilderEntity(Toolpars);
             TreeViewTool.CreateRightView(myTreeView5, _toolpars);
         }
-
-        private void AddEventer() {
-            myTreeView2.Leave += EventHelper.myTreeView_Leave;
-            myTreeView3.Leave += EventHelper.myTreeView_Leave;
-            myTreeView4.Leave += EventHelper.myTreeView_Leave;
-        }
-
+        
         private void VSTOOL_Load(object sender, EventArgs e) {
             CreateTree("RootView");
-            AddEventer();
+            SpiltWidth = 200;
+            MaxSplitCount = 3;
+            CreateMainView();
         }
 
+       
         /// <summary>
         /// 绘制左侧导航及主视图区
         /// </summary>
         /// <param name="id"></param>
         void CreateTree(string id) {
-            BuildeEntity buildeEntity = _toolpars.BuilderEntity;
+            var buildeEntity = _toolpars.BuilderEntity;
 
             var item = buildeEntity.BuildeTypies.Where(et => et.Id.Equals(id) || id.Equals("RootView")).ToList();
 
-            if (item.Count > 0) {
-                if (id.Equals("RootView")) {
-                   TreeViewTool.CreateTree(_toolpars,myTreeView1, item, false);
-                    return;
-                }
-                if (item[0].BuildeItems == null) return;
-                //最大3列，平均显示
-                myTreeView2.Nodes.Clear();
-                myTreeView3.Nodes.Clear();
-                myTreeView4.Nodes.Clear();
-                // 右两排折叠
-                int vnum = 0, ftake, count = item[0].BuildeItems.Count();
+            if (item.Count <= 0)
+                return;
+            if (id.Equals("RootView")) {
+                TreeViewTool.CreateTree(_toolpars,myTreeView1, item, false);
+                return;
+            }
+            if (item[0].BuildeItems == null) return;
+         
+            var splitContainers = MySplitContainers;
+            if(!splitContainers[0].Visible)return;
+            var splitCount = SetSplitSize();
+            var mainViews = MyTreeViews;
+            mainViews.ForEach(tv =>tv.Nodes.Clear());
+            var count = item[0].BuildeItems.Count();
+            CreateTreeView(count, splitCount, item);
+            var nodeCount = mainViews[0].Nodes.Count;
+            var hight = nodeCount * mainViews[0].ItemHeight;
+            if (hight > splitContainer2.Panel2.ClientSize.Height)
+            {
+                splitContainers[0].Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
+            }
+            else
+            {
+                splitContainers[0].Size = new Size(splitContainer2.Panel2.ClientSize.Width,
+                    splitContainer2.Panel2.ClientSize.Height);
+            }
+      
+        }
 
-                if (splitContainer3.Panel2Collapsed) {
-                    ftake = count;
+        private void CreateTreeView(int count, int splitCount, List<BuildeType> item
+            ) {
+            var skipSeq = 0;
+            var evgCount = count / splitCount;
+            var surplusCount = count % splitCount;
+            var splitContainers = MySplitContainers;
+            var subSurplusCount = surplusCount % splitCount;
+            foreach (var splitContainer in splitContainers) {
+                var tv = splitContainer.Panel1.Controls[0] as MyTreeView;
+                //项目小于分列数量，每项取一个
+                if (evgCount == 0 && count < splitCount) {
+                    if (skipSeq <= count - 1) {
+                        var item2 = item[0].BuildeItems.Skip(skipSeq++).Take(1).ToList();
+                        TreeViewTool.CreateTree(_toolpars, tv, item2, true);
+                    }
                 }
-                //最右列折叠
-                else if (splitContainer4.Panel2Collapsed) {
-                    vnum = count / 2;
-                    ftake = count - vnum;
+                //均分
+                else if (surplusCount == 0) {
+                    var item2 = item[0].BuildeItems.Skip(skipSeq).Take(evgCount).ToList();
+                    skipSeq += evgCount;
+                    TreeViewTool.CreateTree(_toolpars, tv, item2, true);
                 }
+                //有余项
                 else {
-                    if (count < 3) {
-                        vnum = 1;
-                        ftake = 1;
+                    var subCount = evgCount; ;
+                    if (subSurplusCount != 0) {
+                        subSurplusCount--;
+                        subCount = evgCount + 1;
                     }
-                    else {
-                        vnum = count / 3;
-                        var otherNum = count % 3;
-                        ftake = otherNum == 2 ? count - 2 * vnum - 1 : count - 2 * vnum;
-                    }
+                 
+                    var item2 = item[0].BuildeItems.Skip(skipSeq).Take(subCount).ToList();
                 
+                    skipSeq += subCount;
+                    TreeViewTool.CreateTree(_toolpars, tv, item2, true);
                 }
-                var item2 = item[0].BuildeItems.Take(ftake).ToList();
-                var item3 = item[0].BuildeItems.Skip(ftake).Take(vnum).ToList();
-                var item4 = item[0].BuildeItems.Skip(ftake + vnum).Take(vnum).ToList();
-                TreeViewTool.CreateTree(_toolpars,myTreeView2, item2, true);
-                TreeViewTool.CreateTree(_toolpars,myTreeView3, item3, true);
-                TreeViewTool.CreateTree(_toolpars,myTreeView4, item4, true);
-                int nodeCount = item2.Count;
-                int hight = nodeCount * myTreeView2.ItemHeight;
-                if (hight > splitContainer2.Panel2.ClientSize.Height) {
-                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width, hight);
-                }
-                else {
-                    splitContainer3.Size = new Size(splitContainer2.Panel2.ClientSize.Width,
-                        splitContainer2.Panel2.ClientSize.Height);
+                if (splitContainer.Panel2Collapsed) {
+                    break;
                 }
             }
+
         }
 
         /// <summary>
@@ -269,8 +287,8 @@ namespace VSTool {
         /// <param name="e"></param>
         private void BtnOpenTo_Click(object sender, EventArgs e) {
             var btn = sender as Button;
-            var name = btn.Name;
-            if (name.Equals(btnOpenTo.Name)) {
+            var name = btn?.Name;
+            if (name != null && name.Equals(btnOpenTo.Name)) {
                 var txtToPathStr = Toolpars.FormEntity.TxtToPath;
                 if (txtToPathStr != null && !string.Equals(txtToPathStr.Trim(), string.Empty, StringComparison.Ordinal))
                 {
@@ -285,7 +303,7 @@ namespace VSTool {
                 Toolpars.FormEntity.TxtToPath = folderBrowserDialog1.SelectedPath;
                 txtToPath.Text = folderBrowserDialog1.SelectedPath;
                 Toolpars.GToIni = Toolpars.FormEntity.TxtToPath;
-            }else if (name.Equals(PkgOpenTo.Name)) {
+            }else if (name != null && name.Equals(PkgOpenTo.Name)) {
                 var pkgPath = Toolpars.FormEntity.txtPKGpath;
                 if (pkgPath != null && !string.Equals(pkgPath.Trim(), string.Empty, StringComparison.Ordinal))
                 {
@@ -488,10 +506,20 @@ namespace VSTool {
         private void ShowTreeView(MyTreeNode node) {
                 treeView1.Visible = false;
                 scrollPanel.Visible = true;
-                splitContainer3.Visible = true;
+                scrollPanel.Controls[0].Visible = true;
                 CreateTree(node.BuildeType.Id);
         }
 
+        int GetSplitCount() {
+            var clientSize = splitContainer2.Panel2.ClientSize;
+            var currentWidth = clientSize.Width;
+            var count = currentWidth / SpiltWidth; //显示的个数
+            count = count == 0 ? 1 : count;
+            var splitCount = MySplitContainers.Count();
+            count = count > splitCount ? splitCount : count;
+            count = count > MaxSplitCount ? MaxSplitCount : count;
+            return count;
+        }
         /// <summary>
         /// 设置流式布局，最大3列。
         /// 因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
@@ -499,32 +527,27 @@ namespace VSTool {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void VSTOOL_ClientSizeChanged(object sender, EventArgs e) {
-            var clientSize = splitContainer2.Panel2.ClientSize;
-            var currentWidth = clientSize.Width;
-            var width = currentWidth;
-
-            if (currentWidth > 600
-                && currentWidth <= 800) {
-                splitContainer3.Panel2Collapsed = false;
-                splitContainer4.Panel2Collapsed = true;
-                splitContainer3.SplitterDistance = width / 2;
-            }
-            else if (currentWidth > 800) {
-                splitContainer3.Panel2Collapsed = false;
-                splitContainer4.Panel2Collapsed = false;
-
-                width /= 3;
-                splitContainer4.SplitterDistance = width;
-                splitContainer3.SplitterDistance = width;
-            }
-            else {
-                splitContainer3.Panel2Collapsed = true;
-                splitContainer4.Panel2Collapsed = true;
-            }
-            if (!splitContainer3.Visible)
-                return;
             if (myTreeView1.SelectedNode is MyTreeNode node)
                 CreateTree(node.BuildeType.Id);
+        }
+
+        private int SetSplitSize() {
+            var clientSize = splitContainer2.Panel2.ClientSize;
+            var width = clientSize.Width;
+            if (scrollPanel.Controls.Count == 0) {
+                return 0;
+            }
+            var splitContainerList = MySplitContainers;
+            var splitContainer3 = scrollPanel.Controls[0];
+            splitContainer3.Size = new Size(clientSize.Width, clientSize.Height);
+            var count = GetSplitCount(); //显示的个数
+            width /= count;
+            for (var i = 0; i < count; i++) {
+                var splitContainer = splitContainerList[i];
+                splitContainer.SplitterDistance = width;
+                splitContainer.Panel2Collapsed = i == count - 1;
+            }
+            return count;
         }
 
         /// <summary>
@@ -537,6 +560,10 @@ namespace VSTool {
             if (!vscroll)
                 return;
             //var maxnum = scrollPanel.VerticalScroll.Maximum;
+            var splitContainer = scrollPanel.Controls[0] as SplitContainer;
+            var myTreeView2 =splitContainer?.Panel1.Controls[0] as MyTreeView;
+            if (myTreeView2 == null)
+                return;
             var growbase = myTreeView2.Nodes.Count / 20;
             var growNum = growbase == 0 ? 40 : growbase * 40;
 
@@ -661,9 +688,9 @@ namespace VSTool {
             {
                 var form1 = new ModiPkgForm(_toolpars);
                 if (form1.ShowDialog() == DialogResult.OK) {
-                    string empStr = string.Empty;
+                    var empStr = string.Empty;
                     treeView1.Visible = true;
-                    splitContainer3.Visible = false;
+                    scrollPanel.Controls[0].Visible = false;
                     scrollPanel.Visible = false;
                     if (!string.Equals(Toolpars.FormEntity.TxtToPath, empStr, StringComparison.Ordinal)
                         && !string.Equals(Toolpars.FormEntity.txtNewTypeKey, empStr, StringComparison.Ordinal)
@@ -708,7 +735,7 @@ namespace VSTool {
                 treeView1.Nodes.Clear();
                 treeView1.Visible = false;
                 scrollPanel.Visible = true;
-                splitContainer3.Visible = true;
+                scrollPanel.Controls[0].Visible = true;
                 if (myTreeView1.SelectedNode is MyTreeNode node)
                     CreateTree(node.BuildeType.Id);
             }
@@ -718,10 +745,10 @@ namespace VSTool {
 
 
 
-        private void myTreeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
+        private void MyTreeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
             var node = e.Node as MyTreeNode;
             if (node == null) return;
-            var bt = node?.BuildeType;
+            var bt = node.BuildeType;
             if (bt?.IsPlug != null  &&
                 bt.IsPlug.Equals("True")
                 ) {
@@ -729,24 +756,157 @@ namespace VSTool {
             }
             else if (bt?.IsTools == null
                      || !bt.IsTools.Equals("True")) {
-                if (bt.Checked != null
+                if (bt?.Checked != null
                     && bt.Checked.Equals("True")) {
                     node.Checked = false;
                 }
                 else {
                     node.Checked = true;
                 }
-            
-
-
             }
-                
-
-            
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
            new Thread(MyTool.OpenWord).Start();
+        }
+
+        private void CreateMainView() {
+            var iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
+            var width = iActulaWidth*3/4;
+            var count = width / SpiltWidth;
+            count = count == 0 ? 1 : count;
+            count = count > MaxSplitCount ? MaxSplitCount : count;
+            var mySpilterContaniers = new List<SplitContainer>();
+            for (var i = 0; i < count; i++) {
+                var mySplitContainer = new SplitContainer {
+                    IsSplitterFixed = true,
+                    Location = new Point(0, 0),
+                    Name = "MySplitContainer"+i,
+                    SplitterWidth = 1
+
+                };
+                var myTreeView = CreateMyTreeView(i);
+                mySplitContainer.Panel1.Controls.Add(myTreeView);
+                if (i == 0) {
+                    mySplitContainer.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                              | AnchorStyles.Right;
+                    mySplitContainer.Size = new Size(scrollPanel.ClientSize.Width, scrollPanel.ClientSize.Height);
+                }
+                else if(i<= count - 1){
+                    mySplitContainer.Dock = DockStyle.Fill;
+                    mySpilterContaniers[i-1].Panel2.Controls.Add(mySplitContainer);
+                }
+                if (i == count - 1) {
+                    var lastmyTreeView = CreateMyTreeView(i+1);
+                    mySplitContainer.Panel2.Controls.Add(lastmyTreeView);
+                }
+
+                mySpilterContaniers.Add(mySplitContainer);
+            }
+            scrollPanel.Controls.Clear();
+            scrollPanel.Controls.Add(mySpilterContaniers[0]);
+            
+                
+        }
+
+        
+        private MyTreeView CreateMyTreeView(int i) {
+            var myTreeView = new MyTreeView {
+                BackColor = SystemColors.Window,
+                BorderStyle = BorderStyle.None,
+                DescriptionColor = Color.DimGray,
+                Dock = DockStyle.Fill,
+                DrawMode = TreeViewDrawMode.OwnerDrawText,
+                Font = new Font("新宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134),
+                ForeColor = Color.Black,
+                FullRowSelect = true,
+                HotTracking = true,
+                ImeMode = ImeMode.On,
+                IsCard = false,
+                ItemHeight = 85,
+                Location = new Point(0, 0),
+                Margin = new Padding(4, 4, 4, 4),
+                Name = "myTreeView" + i,
+                NodeFont = null,
+                NodeImageSize = new Size(20, 20),
+                PaddingSetting = new Point(5, 15),
+                Scrollable = false,
+                ShowDescription = true,
+                ShowLines = false,
+                ShowPlusMinus = false,
+                Size = new Size(333, 584),
+                TabIndex = 35
+            };
+            myTreeView.SetAutoScrollEvent -= MyTreeView2_SetAutoScrollEvent;
+            myTreeView.SetAutoScrollEvent += MyTreeView2_SetAutoScrollEvent;
+            myTreeView.AfterCheck -= MyTreeView2_AfterCheck;
+            myTreeView.AfterCheck += MyTreeView2_AfterCheck;
+            myTreeView.NodeMouseDoubleClick -= MyTreeView2_NodeMouseDoubleClick;
+            myTreeView.NodeMouseDoubleClick += MyTreeView2_NodeMouseDoubleClick;
+            myTreeView.Leave -= EventHelper.myTreeView_Leave;
+            myTreeView.Leave += EventHelper.myTreeView_Leave;
+            return myTreeView;
+        }
+
+        /// <summary>
+        /// 分割宽度，每间隔此宽度分割一列
+        /// </summary>
+        public int SpiltWidth { get; set; }
+
+        public int MaxSplitCount { get; set; }
+        private List<MyTreeView> _myTreeViews;
+        public List<MyTreeView> MyTreeViews
+        {
+            get => _myTreeViews ?? (_myTreeViews = GetTreeViews(scrollPanel.Controls[0]));
+            set => _myTreeViews = value;
+        }
+        private List<SplitContainer> _mySplitContainers;
+        public List<SplitContainer> MySplitContainers
+        {
+            get => _mySplitContainers ?? (_mySplitContainers = GetSplitContainerList(scrollPanel.Controls[0]));
+            set => _mySplitContainers = value;
+        }
+        /// <summary>
+        /// 获取全部TreeView
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
+        List<MyTreeView> GetTreeViews(Control control) {
+            var treeViewList = new List<MyTreeView>();
+            var container = control as SplitContainer;
+            if (container == null)
+                return treeViewList;
+            var treeViewControl = container.Panel1.Controls[0];
+            if (treeViewControl is MyTreeView) {
+                treeViewList.Add(treeViewControl as MyTreeView);
+            }
+            var splitContainerControl = container.Panel2.Controls[0];
+            if (splitContainerControl is SplitContainer) {
+                treeViewList.AddRange(GetTreeViews(splitContainerControl)); 
+            }
+            return treeViewList;
+        }
+        /// <summary>
+        /// 获取全部SpiltContainer
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
+        List<SplitContainer> GetSplitContainerList(Control control) {
+            var splitContainerList = new List<SplitContainer>();
+            var container = control as SplitContainer;
+            if (container == null)
+                return splitContainerList;
+            splitContainerList.Add(container);
+            var panel2Control = container.Panel2.Controls[0];
+            if (panel2Control is SplitContainer) {
+                splitContainerList.AddRange(GetSplitContainerList(panel2Control));
+            }
+            return splitContainerList;
+        }
+
+        private void splitContainer2_Panel2_SizeChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -107,15 +107,14 @@ namespace Common.Implement.Tools
                             dt.Rows.Add(dr);
                         });
 
-                        for (int i = 0; i < dt.Columns.Count; i++) {
+                        for (var i = 0; i < dt.Columns.Count; i++) {
                             bulkCopy.ColumnMappings.Add(dt.Columns[i].ColumnName, dt.Columns[i].ColumnName);
                         }
-                        if (dt.Rows.Count != 0) {
-                            bulkCopy.BatchSize = dt.Rows.Count;
-                            bulkCopy.WriteToServer(dt);
-                        }
+                        if (dt.Rows.Count == 0)
+                            return;
+                        bulkCopy.BatchSize = dt.Rows.Count;
+                        bulkCopy.WriteToServer(dt);
                     }
-                    connection.Close();
                 }
             }
             catch (Exception)
