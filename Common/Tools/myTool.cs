@@ -8,7 +8,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -103,40 +102,28 @@ namespace Common.Implement.Tools {
         }
 
         #region 获取应用程序图标 （太小）原准备在treeView生成图标，
-        [DllImport("shell32.dll")]
-        private static extern int ExtractIconEx(string lpszFile, int niconIndex, IntPtr[] phiconLarge,
-            IntPtr[] phiconSmall, int nIcons);
-
         public static void GetExeIcon(string appPath)
         {
-            var appExtension = Path.GetExtension(appPath);
-            string[] extensions = { ".exe", "dll" };
-            if (!extensions.Contains(appExtension))
-                return;
-            //第一步：获取程序中的图标数
-            var iconCount = ExtractIconEx(appPath, -1, null, null, 0);
-
-            //第二步：创建存放大/小图标的空间
-            var largeIcons = new IntPtr[iconCount];
-            var smallIcons = new IntPtr[iconCount];
-            //第三步：抽取所有的大小图标保存到largeIcons和smallIcons中
-            ExtractIconEx(appPath, 0, largeIcons, smallIcons, iconCount);
-
-            //第四步：显示抽取的图标(推荐使用imageList和listview搭配显示）
-            var images = new List<Image>();
-            for (var i = 0; i < iconCount; i++)
-            {
-                var icon = Icon.FromHandle(largeIcons[i]);
-                images.Add(Image.FromHbitmap(icon.ToBitmap().GetHbitmap())); //图标添加进imageList中
+            try {
+                var appExtension = Path.GetExtension(appPath);
+                string[] extensions = {".exe", "dll"};
+                if (!extensions.Contains(appExtension))
+                    return;
+                var iconGet = IconTool.GetIcon(appPath, true);
+                var imageGet = iconGet.ToBitmap();
+                var images = new List<Image>() { imageGet };
+              
+                var exeName = Path.GetFileNameWithoutExtension(appPath);
+                foreach (var image in images)
+                    using (var fs =
+                        new FileStream($"{Application.StartupPath}\\Images\\{exeName}.png", FileMode.OpenOrCreate)) {
+                        image.Save(fs, ImageFormat.Png);
+                        image.Dispose();
+                    }
             }
-            var exeName = Path.GetFileNameWithoutExtension(appPath);
-            //第五步：保存图标
-            foreach (var image in images)
-                using (var fs =
-                    new FileStream($"{Application.StartupPath}\\Images\\{exeName}.png", FileMode.OpenOrCreate))
-                {
-                    image.Save(fs, ImageFormat.Png);
-                }
+            catch (Exception) {
+                // ignored
+            }
         }
 
         #endregion
@@ -313,7 +300,7 @@ namespace Common.Implement.Tools {
             XmlTools.ModiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
                 bt.Id, bt.Url);
             //获取Exe图标
-            //GetExeIcon(bt.Url);
+            GetExeIcon(bt.Url);
         }
 
         #region Copy
@@ -1131,7 +1118,9 @@ namespace Common.Implement.Tools {
             }
             //InsertForm insertForm = new InsertForm(Toolpars);
             //insertForm.ShowDialog();
+          
         }
+ 
 
         public static void OpenWord() {
             var basePath = AppDomain.CurrentDomain.BaseDirectory;

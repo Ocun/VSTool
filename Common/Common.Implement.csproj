@@ -59,6 +59,7 @@
       <HintPath>..\VSTool\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -73,6 +74,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\BuildeEntity.cs" />
@@ -86,6 +88,7 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Tools\CallUpdate.cs" />
+    <Compile Include="Tools\IconTool.cs" />
     <Compile Include="Tools\LogTool.cs" />
     <Compile Include="Tools\MyTool.cs" />
     <Compile Include="Tools\PathTools.cs" />

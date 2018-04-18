@@ -90,7 +90,7 @@ namespace Common.Implement.UI
             sb.AppendLine("List<QueryProperty> properties = new List<QueryProperty>();");
             sb.AppendLine(" properties.AddRange(new QueryProperty[]{");
             propies.ForEach(prop => {
-                var propName = $@"OOQL.CreateProperty("""",{prop})";
+                var propName = $@"OOQL.CreateProperty("""",""{prop}"")";
                 sb.AppendLine(prop.Equals(propies[propies.Count() - 1])
                     ? propName
                     : propName + @", ");
@@ -99,7 +99,7 @@ namespace Common.Implement.UI
             sb.AppendLine("--插入示例,单笔--");
             sb.AppendLine(@"Dictionary<string, QueryProperty> columns = new Dictionary<string, QueryProperty>();");
             propies.ForEach(prop => {
-                var propName = $@"columns.Add({prop},OOQL.CreateConstants())";
+                var propName = $@"columns.Add(""{prop}"",OOQL.CreateConstants())";
                 sb.AppendLine(prop.Equals(propies[propies.Count() - 1])
                     ? propName : propName + @",");
             });

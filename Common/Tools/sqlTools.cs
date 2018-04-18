@@ -70,14 +70,12 @@ namespace Common.Implement.Tools
         {
             try
             {
-                using (SqlConnection connection = Connection) {
+                using (var connection = Connection) {
                     connection.Open();
-                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection)) {
-
-
+                    using (var bulkCopy = new SqlBulkCopy(connection)) {
                         bulkCopy.DestinationTableName = "WF_TOOLINFO";
 
-                        DataTable dt = new DataTable();
+                        var dt = new DataTable();
                         dt.Columns.Add("ToolName", typeof(object));
                         dt.Columns.Add("UseDate", typeof(object));
                         dt.Columns.Add("UseTime", typeof(object));

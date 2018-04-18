@@ -87,7 +87,7 @@
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
-	<BuildeType>
+    <BuildeType>
       <Id>Batch</Id>
       <Name>批次</Name>
       <Description>批量操作</Description>
@@ -105,7 +105,7 @@
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
-	<BuildeType>
+    <BuildeType>
       <Id>Report</Id>
       <Name>报表</Name>
       <Description>数据结果，供人娱乐</Description>
@@ -181,11 +181,19 @@
           <Description>提供查单实例</Description>
         </BuildeItem>
         <BuildeItem>
+          <Id>Insert</Id>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsPlug>True</IsPlug>
+          <PlugPath>Common.Implement.dll</PlugPath>
+          <ModuleName>Common.Implement.UI.ModiPkgForm</ModuleName>
+          <Name>一键借用</Name>
+          <Description>复制标准或客户作业</Description>
+        </BuildeItem>
+        <BuildeItem>
           <Id>DesignTool</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
-          <Url>
-          </Url>
+          <Url></Url>
           <Name>设计器</Name>
           <Description>就是设计器</Description>
         </BuildeItem>
@@ -193,8 +201,7 @@
           <Id>OOQLDesign</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
-          <Url>
-          </Url>
+          <Url></Url>
           <Name>OOQL转换工具</Name>
           <Description>将OOQL转换为SQL</Description>
         </BuildeItem>

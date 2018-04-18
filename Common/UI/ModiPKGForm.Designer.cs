@@ -62,7 +62,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(467, 10);
+            this.button1.Location = new System.Drawing.Point(532, 10);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 23);
             this.button1.TabIndex = 1;
@@ -73,11 +73,11 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(537, 10);
+            this.btnOK.Location = new System.Drawing.Point(462, 10);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(64, 23);
             this.btnOK.TabIndex = 0;
-            this.btnOK.Text = "确定";
+            this.btnOK.Text = "修改代码";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
@@ -138,7 +138,7 @@
             // FromServer
             // 
             this.FromServer.AutoSize = true;
-            this.FromServer.Location = new System.Drawing.Point(112, 87);
+            this.FromServer.Location = new System.Drawing.Point(112, 115);
             this.FromServer.Margin = new System.Windows.Forms.Padding(2);
             this.FromServer.Name = "FromServer";
             this.FromServer.Size = new System.Drawing.Size(72, 16);
@@ -178,7 +178,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(34, 113);
+            this.label3.Location = new System.Drawing.Point(34, 94);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 16);
             this.label3.TabIndex = 17;
@@ -190,7 +190,7 @@
             this.CustomerText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.CustomerText.Enabled = false;
-            this.CustomerText.Location = new System.Drawing.Point(112, 108);
+            this.CustomerText.Location = new System.Drawing.Point(112, 89);
             this.CustomerText.Name = "CustomerText";
             this.CustomerText.Size = new System.Drawing.Size(419, 21);
             this.CustomerText.TabIndex = 16;
