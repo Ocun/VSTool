@@ -29,7 +29,7 @@ namespace Common.Implement.Tools {
         /// <param name="isLargeIcon">是否返回大图标</param>
         /// <returns>获取到的图标</returns>
         public static Icon GetIcon(string fileName, bool isLargeIcon) {
-            var test = CIconOfPath.Icon_of_path_large(fileName, isLargeIcon, false);
+            var test = CIconOfPath.GetJumboIcon(fileName, isLargeIcon, true);
             return test;
         }
 
@@ -78,7 +78,7 @@ namespace Common.Implement.Tools {
                 string[] extensions = {".exe", "dll"};
                 if (!extensions.Contains(appExtension))
                     return;
-                var iconGet = GetIcon(appPath, true);
+                var iconGet = GetIcon(appPath, false);
                 var imageGet = iconGet.ToBitmap();
                 var exeName = Path.GetFileNameWithoutExtension(appPath);
                 if (exeName != null && !ImageList.Contains(exeName)) {
@@ -111,6 +111,12 @@ namespace Common.Implement.Tools {
         //    return ic2;
         //}
 
+        /// <summary>
+        /// 获取系统图标
+        /// </summary>
+        /// <param name="small"></param>
+        /// <param name="csidl"></param>
+        /// <returns></returns>
         public static Icon SystemIcon(bool small, int csidl) {
             var pidlTrash = IntPtr.Zero;
             var hr = NativeMethods.SHGetSpecialFolderLocation(IntPtr.Zero, csidl, ref pidlTrash);
@@ -131,7 +137,7 @@ namespace Common.Implement.Tools {
             var res = NativeMethods.SHGetFileInfo(pidlTrash, 0, ref shinfo, Marshal.SizeOf(shinfo), flags);
             Debug.Assert(res != 0);
 
-            var myIcon = Icon.FromHandle(shinfo.hIcon);
+            var myIcon = Icon.FromHandle(shinfo.HIcon);
 
             //Marshal.FreeCoTaskMem(pidlTrash);
             //var bs = bitmap_source_of_icon(myIcon);
@@ -142,7 +148,15 @@ namespace Common.Implement.Tools {
             return myIcon;
         }
 
-        public static Icon Icon_of_path(string fileName, bool small, bool checkDisk, bool addOverlay) {
+        /// <summary>
+        /// 获得小或大
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="small"></param>
+        /// <param name="checkDisk"></param>
+        /// <param name="addOverlay"></param>
+        /// <returns></returns>
+        public static Icon GetSmall(string fileName, bool small, bool checkDisk, bool addOverlay) {
             var shinfo = new Shfileinfo();
 
             uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
@@ -162,7 +176,7 @@ namespace Common.Implement.Tools {
             if (res == 0)
                 throw new FileNotFoundException();
 
-            var myIcon = Icon.FromHandle(shinfo.hIcon);
+            var myIcon = Icon.FromHandle(shinfo.HIcon);
 
             //var bs = bitmap_source_of_icon(myIcon);
             //myIcon.Dispose();
@@ -174,25 +188,31 @@ namespace Common.Implement.Tools {
             return myIcon;
         }
 
-        public static Icon Icon_of_path_large(string FileName, bool jumbo, bool checkDisk) {
+        /// <summary>
+        /// 获得大或超大 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="jumbo"></param>
+        /// <param name="checkDisk"></param>
+        /// <returns></returns>
+        public static Icon GetJumboIcon(string fileName, bool jumbo, bool checkDisk) {
             var shinfo = new Shfileinfo();
 
-            uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
-            uint SHGFI_SYSICONINDEX = 0x4000;
+            uint shgfiUsefileattributes = 0x000000010;
+            uint shgfiSysiconindex = 0x4000;
 
-            var FILE_ATTRIBUTE_NORMAL = 0x80;
+            var fileAttributeNormal = 0x80;
 
-            uint flags;
-            flags = SHGFI_SYSICONINDEX;
+            var flags = shgfiSysiconindex;
 
             if (!checkDisk) // This does not seem to work. If I try it, a folder icon is always returned.
-                flags |= SHGFI_USEFILEATTRIBUTES;
+                flags |= shgfiUsefileattributes;
 
-            var res = NativeMethods.SHGetFileInfo(FileName, FILE_ATTRIBUTE_NORMAL, ref shinfo, Marshal.SizeOf(shinfo),
+            var res = NativeMethods.SHGetFileInfo(fileName, fileAttributeNormal, ref shinfo, Marshal.SizeOf(shinfo),
                 flags);
             if (res == 0)
                 throw new FileNotFoundException();
-            var iconIndex = shinfo.iIcon;
+            var iconIndex = shinfo.IIcon;
 
             // Get the System IImageList object from the Shell:
             var iidImageList = new Guid("46EB5926-582E-4017-9FDF-E8998DAA0950");
@@ -206,8 +226,8 @@ namespace Common.Implement.Tools {
             //}
 
             var hIcon = IntPtr.Zero;
-            var ILD_TRANSPARENT = 1;
-            hres = iml.GetIcon(iconIndex, ILD_TRANSPARENT, ref hIcon);
+            var ildTransparent = 1;
+            hres = iml.GetIcon(iconIndex, ildTransparent, ref hIcon);
             //if (hres == 0)
             //{
             //    throw (new System.Exception("Error iml.GetIcon"));
@@ -274,31 +294,31 @@ namespace Common.Implement.Tools {
     public struct Shfileinfo {
         // Handle to the icon representing the file
 
-        public IntPtr hIcon;
+        public IntPtr HIcon;
 
         // Index of the icon within the image list
 
-        public int iIcon;
+        public int IIcon;
 
         // Various attributes of the file
 
-        public uint dwAttributes;
+        public uint DwAttributes;
 
         // Path to the file
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string szDisplayName;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string SzDisplayName;
 
         // File type
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)] public string szTypeName;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)] public string SzTypeName;
     }
 
 
     public struct Imagelistdrawparams {
-        public int cbSize;
-        public IntPtr himl;
+        public int CbSize;
+        public IntPtr Himl;
         public int i;
-        public IntPtr hdcDst;
+        public IntPtr HdcDst;
         public int x;
         public int y;
         public int cx;

@@ -305,7 +305,7 @@ namespace VSTool
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(256, 584);
+            this.panel3.Size = new System.Drawing.Size(253, 584);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3_Paint);
             // 
@@ -329,13 +329,14 @@ namespace VSTool
             this.myTreeView5.Location = new System.Drawing.Point(12, 29);
             this.myTreeView5.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView5.Name = "myTreeView5";
-            this.myTreeView5.NodeFont = null;
             this.myTreeView5.NodeCheckBoxSize = new System.Drawing.Size(20, 20);
+            this.myTreeView5.NodeFont = null;
+            this.myTreeView5.NodeImageSize = new System.Drawing.Size(40, 40);
             this.myTreeView5.PaddingSetting = new System.Drawing.Point(0, 4);
             this.myTreeView5.ShowDescription = false;
             this.myTreeView5.ShowLines = false;
             this.myTreeView5.ShowPlusMinus = false;
-            this.myTreeView5.Size = new System.Drawing.Size(235, 555);
+            this.myTreeView5.Size = new System.Drawing.Size(232, 555);
             this.myTreeView5.TabIndex = 15;
             // 
             // label1
@@ -456,7 +457,7 @@ namespace VSTool
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Size = new System.Drawing.Size(1309, 584);
-            this.splitContainer1.SplitterDistance = 1052;
+            this.splitContainer1.SplitterDistance = 1055;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 36;
             // 
@@ -468,7 +469,7 @@ namespace VSTool
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1052, 584);
+            this.panel2.Size = new System.Drawing.Size(1055, 584);
             this.panel2.TabIndex = 33;
             // 
             // splitContainer2
@@ -489,13 +490,14 @@ namespace VSTool
             // 
             this.splitContainer2.Panel2.Controls.Add(this.scrollPanel);
             this.splitContainer2.Panel2.Controls.Add(this.treeView1);
-            this.splitContainer2.Size = new System.Drawing.Size(1052, 584);
+            this.splitContainer2.Size = new System.Drawing.Size(1055, 584);
             this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 14;
             // 
             // myTreeView1
             // 
+            this.myTreeView1.AllowDrop = true;
             this.myTreeView1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.myTreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.myTreeView1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -513,8 +515,9 @@ namespace VSTool
             this.myTreeView1.Location = new System.Drawing.Point(0, 0);
             this.myTreeView1.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView1.Name = "myTreeView1";
-            this.myTreeView1.NodeFont = null;
             this.myTreeView1.NodeCheckBoxSize = new System.Drawing.Size(20, 20);
+            this.myTreeView1.NodeFont = null;
+            this.myTreeView1.NodeImageSize = new System.Drawing.Size(40, 40);
             this.myTreeView1.PaddingSetting = new System.Drawing.Point(0, 4);
             this.myTreeView1.ShowDescription = true;
             this.myTreeView1.ShowLines = false;
@@ -525,13 +528,17 @@ namespace VSTool
             // 
             // scrollPanel
             // 
+            this.scrollPanel.AllowDrop = true;
             this.scrollPanel.AutoScroll = true;
+            this.scrollPanel.Cursor = System.Windows.Forms.Cursors.Default;
             this.scrollPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scrollPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.scrollPanel.Name = "scrollPanel";
-            this.scrollPanel.Size = new System.Drawing.Size(806, 584);
+            this.scrollPanel.Size = new System.Drawing.Size(809, 584);
             this.scrollPanel.TabIndex = 35;
+            this.scrollPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.scrollPanel_DragDrop);
+            this.scrollPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.scrollPanel_DragEnter);
             // 
             // treeView1
             // 
@@ -551,13 +558,14 @@ namespace VSTool
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
-            this.treeView1.NodeFont = null;
             this.treeView1.NodeCheckBoxSize = new System.Drawing.Size(20, 20);
+            this.treeView1.NodeFont = null;
+            this.treeView1.NodeImageSize = new System.Drawing.Size(40, 40);
             this.treeView1.PaddingSetting = new System.Drawing.Point(0, 0);
             this.treeView1.ShowDescription = false;
             this.treeView1.ShowLines = false;
             this.treeView1.ShowPlusMinus = false;
-            this.treeView1.Size = new System.Drawing.Size(806, 584);
+            this.treeView1.Size = new System.Drawing.Size(809, 584);
             this.treeView1.TabIndex = 13;
             this.treeView1.Visible = false;
             // 

@@ -3,6 +3,7 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -19,11 +20,24 @@ namespace Common.Implement.Tools {
         /// <param name="obj"></param>
         /// <returns></returns>
         public static string XmlSerialize<T>(T obj) {
-            using (var sw = new StringWriter()) {
-                var serializer = new XmlSerializer(obj.GetType());
-                serializer.Serialize(sw, obj);
-                return sw.ToString();
+            using (var mem = new MemoryStream()) {
+                var ser = new XmlSerializer(obj.GetType());
+                var writer = new XmlTextWriter(mem, Encoding.UTF8);
+                var ns = new XmlSerializerNamespaces();
+                ns.Add("", "");
+                ser.Serialize(writer, obj, ns);
+                writer.Close();
+                return Encoding.UTF8.GetString(mem.ToArray());
             }
+            //using (var sw = new StringWriter()) {
+            
+            //    var ns = new XmlSerializerNamespaces();
+            //    //Add an empty namespace and empty value
+            //    ns.Add("", "");
+            //    var serializer = new XmlSerializer(obj.GetType());
+            //    serializer.Serialize(sw, obj,ns);
+            //    return sw.ToString();
+            //}
         }
 
         /// <summary>

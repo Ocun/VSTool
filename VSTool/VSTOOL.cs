@@ -816,6 +816,44 @@ namespace VSTool {
             }
             return splitContainerList;
         }
-      
+
+        private void scrollPanel_DragEnter(object sender, DragEventArgs e)
+        {
+
+            if (myTreeView1.SelectedNode == null)
+                return;
+            var node = myTreeView1.SelectedNode as MyTreeNode;
+            var b = node?.BuildeType.Id.Equals("MYTools");
+            if (b == null || !(bool) b)
+                return;
+            var filePath = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            var exeExtension = Path.GetExtension(filePath);
+            string[] extName = {".lnk", ".exe"};
+            if(!extName.Contains(exeExtension))
+                return;
+
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
+        }
+
+        private void scrollPanel_DragDrop(object sender, DragEventArgs e) {
+            var fileList = ((Array) e.Data.GetData(DataFormats.FileDrop));
+            foreach (var file in fileList) {
+                var filePath = file.ToString();
+                if (!File.Exists(filePath))
+                    return;
+                var form = new CreateToolForm(filePath, Toolpars);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (myTreeView1.SelectedNode == null)
+                    {
+                        return;
+                    }
+                    var node = myTreeView1.SelectedNode as MyTreeNode;
+                    if (node != null)
+                        CreateTree(node.BuildeType.Id);
+                };
+            }
+            
+        }
     }
 }
