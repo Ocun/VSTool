@@ -55,6 +55,8 @@ namespace Common.Implement.Tools {
                 }
             }
             toolpars.OldTypekey = toolpars.SettingPathEntity.TemplateTypeKey;
+
+            IconTool.InitImageList(toolpars);
         }
 
         #region 作废
@@ -101,32 +103,7 @@ namespace Common.Implement.Tools {
             }
         }
 
-        #region 获取应用程序图标 （太小）原准备在treeView生成图标，
-        public static void GetExeIcon(string appPath)
-        {
-            try {
-                var appExtension = Path.GetExtension(appPath);
-                string[] extensions = {".exe", "dll"};
-                if (!extensions.Contains(appExtension))
-                    return;
-                var iconGet = IconTool.GetIcon(appPath, true);
-                var imageGet = iconGet.ToBitmap();
-                var images = new List<Image>() { imageGet };
-              
-                var exeName = Path.GetFileNameWithoutExtension(appPath);
-                foreach (var image in images)
-                    using (var fs =
-                        new FileStream($"{Application.StartupPath}\\Images\\{exeName}.png", FileMode.OpenOrCreate)) {
-                        image.Save(fs, ImageFormat.Png);
-                        image.Dispose();
-                    }
-            }
-            catch (Exception) {
-                // ignored
-            }
-        }
-
-        #endregion
+      
 
         #endregion
 
@@ -276,7 +253,7 @@ namespace Common.Implement.Tools {
                 if (!File.Exists(path))
                     SetToolsPath(bt);
                 path = bt.Url;
-                var exeName = Path.GetFileNameWithoutExtension(path);
+                var exeName = Path.GetFileName(path);
                 var f = infos.All(info => exeName != null && !info.ProcessName.ToUpper().Contains(exeName.ToUpper()));
                 if (f) {
                     p.StartInfo.FileName = path;
@@ -300,7 +277,7 @@ namespace Common.Implement.Tools {
             XmlTools.ModiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
                 bt.Id, bt.Url);
             //获取Exe图标
-            GetExeIcon(bt.Url);
+            IconTool.SetExeIcon(bt.Url);
         }
 
         #region Copy
@@ -502,8 +479,12 @@ namespace Common.Implement.Tools {
             if (!File.Exists(filePath))
                 return;
             var text = File.ReadAllText(filePath);
-            var regex = new Regex(matchStr);
-            text = regex.Replace(text, toStr);
+        
+            var classNameText = (Regex.Match(text, matchStr).Value).Trim();
+            if (classNameText.StartsWith(@"_") && classNameText.EndsWith(@"_")) {
+                var regex = new Regex(matchStr);
+                text = regex.Replace(text, toStr);
+            }
             //修改接口名 b
             var interfaceName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\r\{]+(?=[\r\n\{])";
             var csRow = (Regex.Match(text, interfaceName).Value).Trim();

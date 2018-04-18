@@ -1,13 +1,27 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Forms;
+using Common.Implement.Entity;
 using Point = System.Drawing.Point;
 
 namespace Common.Implement.Tools {
     public class IconTool {
+        private static Hashtable _imageList = new Hashtable();
+
+        public static Hashtable ImageList {
+            get => _imageList;
+            set => _imageList = value;
+        }
+
+
         /// <summary>
         ///     获取文件类型的关联图标
         /// </summary>
@@ -17,13 +31,77 @@ namespace Common.Implement.Tools {
         public static Icon GetIcon(string fileName, bool isLargeIcon) {
             var test = CIconOfPath.Icon_of_path_large(fileName, isLargeIcon, false);
             return test;
+        }
+
+        public static Bitmap GetBitmap(string path) {
+            return (Bitmap) Image.FromFile(path, false);
+        }
+
+        /// <summary>
+        /// 初始化Tool图标
+        /// </summary>
+        /// <param name="toolpars"></param>
+        public static void InitImageList(Toolpars toolpars) {
+            var bts = toolpars.BuilderEntity.BuildeTypies;
+            SetImageList(bts);
 
         }
+
+        public static void SetImageList(BuildeType[] bts) {
+            if(bts == null) return;
+            foreach (var buildeType in bts.ToList()) {
+                var isTools = buildeType.IsTools;
+                var showIcon = buildeType.ShowIcon;
+                var url = buildeType.Url;
+                if (isTools != null && showIcon != null
+                    && isTools.Equals("True")
+                    && showIcon.Equals("True")
+                    && url != null
+                    && !url.Trim().Equals(string.Empty))
+                {
+                    var exeName = Path.GetFileNameWithoutExtension(url);
+                    if (!ImageList.Contains(exeName))
+                    {
+                        SetExeIcon(url);
+                    }
+                }
+                SetImageList(buildeType.BuildeItems);
+            }
+         
+        }
+
+        #region 获取应用程序图标 （太小）原准备在treeView生成图标，
+
+        public static void SetExeIcon(string appPath) {
+            try {
+                var appExtension = Path.GetExtension(appPath);
+                string[] extensions = {".exe", "dll"};
+                if (!extensions.Contains(appExtension))
+                    return;
+                var iconGet = GetIcon(appPath, true);
+                var imageGet = iconGet.ToBitmap();
+                var exeName = Path.GetFileNameWithoutExtension(appPath);
+                if (exeName != null && !ImageList.Contains(exeName)) {
+                    ImageList.Add(exeName, imageGet);
+                }
+                //var images = new List<Image> {imageGet};
+                //foreach (var image in images)
+                //    using (var fs =
+                //        new FileStream($"{Application.StartupPath}\\Images\\{exeName}.png", FileMode.OpenOrCreate)) {
+                //        image.Save(fs, ImageFormat.Png);
+                //        image.Dispose();
+                //    }
+            }
+            catch (Exception) {
+                // ignored
+            }
+        }
+
+        #endregion
     }
 
 
-    public static class CIconOfPath
-    {
+    public static class CIconOfPath {
         //private static BitmapSource bitmap_source_of_icon(Icon ic)
         //{
         //    var ic2 = Imaging.CreateBitmapSourceFromHIcon(ic.Handle,
@@ -33,8 +111,7 @@ namespace Common.Implement.Tools {
         //    return ic2;
         //}
 
-        public static Icon SystemIcon(bool small, int csidl)
-        {
+        public static Icon SystemIcon(bool small, int csidl) {
             var pidlTrash = IntPtr.Zero;
             var hr = NativeMethods.SHGetSpecialFolderLocation(IntPtr.Zero, csidl, ref pidlTrash);
             Debug.Assert(hr == 0);
@@ -55,7 +132,7 @@ namespace Common.Implement.Tools {
             Debug.Assert(res != 0);
 
             var myIcon = Icon.FromHandle(shinfo.hIcon);
-         
+
             //Marshal.FreeCoTaskMem(pidlTrash);
             //var bs = bitmap_source_of_icon(myIcon);
             //myIcon.Dispose();
@@ -65,23 +142,25 @@ namespace Common.Implement.Tools {
             return myIcon;
         }
 
-        public static Icon Icon_of_path(string fileName, bool small, bool checkDisk, bool addOverlay)
-        {
+        public static Icon Icon_of_path(string fileName, bool small, bool checkDisk, bool addOverlay) {
             var shinfo = new Shfileinfo();
 
             uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
             uint SHGFI_LINKOVERLAY = 0x000008000;
 
             uint flags;
-            if (small) flags = NativeMethods.ShgfiIcon | NativeMethods.ShgfiSmallicon;
-            else flags = NativeMethods.ShgfiIcon | NativeMethods.ShgfiLargeicon;
+            if (small)
+                flags = NativeMethods.ShgfiIcon | NativeMethods.ShgfiSmallicon;
+            else
+                flags = NativeMethods.ShgfiIcon | NativeMethods.ShgfiLargeicon;
             if (!checkDisk)
                 flags |= SHGFI_USEFILEATTRIBUTES;
             if (addOverlay)
                 flags |= SHGFI_LINKOVERLAY;
 
             var res = NativeMethods.SHGetFileInfo(fileName, 0, ref shinfo, Marshal.SizeOf(shinfo), flags);
-            if (res == 0) throw new FileNotFoundException();
+            if (res == 0)
+                throw new FileNotFoundException();
 
             var myIcon = Icon.FromHandle(shinfo.hIcon);
 
@@ -90,13 +169,12 @@ namespace Common.Implement.Tools {
             //bs.Freeze(); // importantissimo se no fa memory leak
             //NativeMethods.DestroyIcon(shinfo.hIcon);
             // NativeMethods.CloseHandle(shinfo.hIcon);
-            
+
 
             return myIcon;
         }
 
-        public static Icon Icon_of_path_large(string FileName, bool jumbo, bool checkDisk)
-        {
+        public static Icon Icon_of_path_large(string FileName, bool jumbo, bool checkDisk) {
             var shinfo = new Shfileinfo();
 
             uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
@@ -112,7 +190,8 @@ namespace Common.Implement.Tools {
 
             var res = NativeMethods.SHGetFileInfo(FileName, FILE_ATTRIBUTE_NORMAL, ref shinfo, Marshal.SizeOf(shinfo),
                 flags);
-            if (res == 0) throw new FileNotFoundException();
+            if (res == 0)
+                throw new FileNotFoundException();
             var iconIndex = shinfo.iIcon;
 
             // Get the System IImageList object from the Shell:
@@ -140,11 +219,12 @@ namespace Common.Implement.Tools {
             //bs.Freeze(); // very important to avoid memory leak
             //NativeMethods.DestroyIcon(hIcon);
             //NativeMethods.CloseHandle(hIcon);
-            
+
             return myIcon;
             //return bs;
         }
     }
+
     internal static class NativeMethods {
         // Constants that we need in the function call
 
@@ -411,5 +491,4 @@ namespace Common.Implement.Tools {
         public Icon Icon { get; set; }
         public IntPtr IconHandleToDestroy { set; get; }
     }
-
 }

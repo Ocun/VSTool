@@ -64,6 +64,7 @@ namespace VSTool {
 
 
         private void VSTOOL_Load(object sender, EventArgs e) {
+            
             CreateTree("RootView");
             SpiltWidth = 200;
             MaxSplitCount = 6;
@@ -744,7 +745,7 @@ namespace VSTool {
                 Margin = new Padding(4, 4, 4, 4),
                 Name = "myTreeView" + i,
                 NodeFont = null,
-                NodeImageSize = new Size(20, 20),
+                NodeCheckBoxSize = new Size(20, 20),
                 PaddingSetting = new Point(5, 15),
                 Scrollable = false,
                 ShowDescription = true,

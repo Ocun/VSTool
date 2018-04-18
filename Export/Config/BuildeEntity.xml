@@ -193,23 +193,26 @@
           <Id>DesignTool</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsTools>True</IsTools>
-          <Url></Url>
+          <ShowIcon>True</ShowIcon>
+          <ShowIcon>True</ShowIcon>
+          <Url>D:\Program Files\Tencent\QQ\Bin\maLauncher.exe</Url>
           <Name>设计器</Name>
           <Description>就是设计器</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>OOQLDesign</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
+          <ShowIcon>True</ShowIcon>
           <IsTools>True</IsTools>
-          <Url></Url>
+          <Url>D:\Program Files\Tencent\QQ\Bin\QQ.exe</Url>
           <Name>OOQL转换工具</Name>
           <Description>将OOQL转换为SQL</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>GUIDSHOW</Id>
           <IsTools>True</IsTools>
-          <Url>
-          </Url>
+          <ShowIcon>True</ShowIcon>
+          <Url>C:\Users\a2863\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>GUID_SHOW</Name>
           <Description>跟踪当前客户SQL</Description>
@@ -217,8 +220,8 @@
         <BuildeItem>
           <Id>ColligateQuery</Id>
           <IsTools>True</IsTools>
-          <Url>
-          </Url>
+          <ShowIcon>True</ShowIcon>
+          <Url>D:\Program Files\Tencent\QQ\txupd.exe</Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>综合查询工具</Name>
           <Description>查询</Description>
@@ -226,8 +229,8 @@
         <BuildeItem>
           <Id>E10Search</Id>
           <IsTools>True</IsTools>
-          <Url>
-          </Url>
+          <ShowIcon>True</ShowIcon>
+          <Url>D:\Program Files\Tencent\QQ\Bin\bugreport.exe</Url>
           <ShowCheckedBox>False</ShowCheckedBox>
           <Name>E10Search</Name>
           <Description>常用服务方法查询</Description>

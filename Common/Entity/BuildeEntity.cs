@@ -47,6 +47,7 @@ namespace Common.Implement.Entity
         //工具提供路径
         private string _isTools;
         private string _url;
+        private string _showIcon;
 
         //是否可见
         private string _visiable;
@@ -176,6 +177,11 @@ namespace Common.Implement.Entity
         public string ModuleName {
             get => _moduleName;
             set => _moduleName = value;
+        }
+
+        public string ShowIcon {
+            get { return _showIcon; }
+            set { _showIcon = value; }
         }
     }
 

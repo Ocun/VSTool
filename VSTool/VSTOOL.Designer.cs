@@ -330,7 +330,7 @@ namespace VSTool
             this.myTreeView5.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView5.Name = "myTreeView5";
             this.myTreeView5.NodeFont = null;
-            this.myTreeView5.NodeImageSize = new System.Drawing.Size(20, 20);
+            this.myTreeView5.NodeCheckBoxSize = new System.Drawing.Size(20, 20);
             this.myTreeView5.PaddingSetting = new System.Drawing.Point(0, 4);
             this.myTreeView5.ShowDescription = false;
             this.myTreeView5.ShowLines = false;
@@ -514,7 +514,7 @@ namespace VSTool
             this.myTreeView1.Margin = new System.Windows.Forms.Padding(4);
             this.myTreeView1.Name = "myTreeView1";
             this.myTreeView1.NodeFont = null;
-            this.myTreeView1.NodeImageSize = new System.Drawing.Size(20, 20);
+            this.myTreeView1.NodeCheckBoxSize = new System.Drawing.Size(20, 20);
             this.myTreeView1.PaddingSetting = new System.Drawing.Point(0, 4);
             this.myTreeView1.ShowDescription = true;
             this.myTreeView1.ShowLines = false;
@@ -552,7 +552,7 @@ namespace VSTool
             this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
             this.treeView1.NodeFont = null;
-            this.treeView1.NodeImageSize = new System.Drawing.Size(20, 20);
+            this.treeView1.NodeCheckBoxSize = new System.Drawing.Size(20, 20);
             this.treeView1.PaddingSetting = new System.Drawing.Point(0, 0);
             this.treeView1.ShowDescription = false;
             this.treeView1.ShowLines = false;
