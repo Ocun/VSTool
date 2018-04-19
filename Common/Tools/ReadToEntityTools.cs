@@ -21,14 +21,13 @@ namespace Common.Implement.Tools {
         /// <returns></returns>
         public static string XmlSerialize<T>(T obj) {
             using (var mem = new MemoryStream()) {
-                var ser = new XmlSerializer(obj.GetType());
-                var writer = new XmlTextWriter(mem, Encoding.UTF8);
-                var ns = new XmlSerializerNamespaces();
-                ns.Add("", "");
-                ser.Serialize(writer, obj, ns);
-                writer.Close();
-                return Encoding.UTF8.GetString(mem.ToArray());
+                    var ser = new XmlSerializer(obj.GetType());
+                    var ns = new XmlSerializerNamespaces();
+                    ns.Add("", "");
+                    ser.Serialize(mem, obj, ns);
+                    return Encoding.UTF8.GetString(mem.ToArray());
             }
+          
             //using (var sw = new StringWriter()) {
             
             //    var ns = new XmlSerializerNamespaces();
