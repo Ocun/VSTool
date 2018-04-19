@@ -648,7 +648,7 @@ namespace VSTool {
                 {
                     ModiCkb.Checked = !ModiCkb.Checked;
                 }
-                this.txtPKGpath.Refresh();
+               
             }
             else
             {
@@ -659,6 +659,7 @@ namespace VSTool {
                 if (myTreeView1.SelectedNode is MyTreeNode node)
                     CreateTree(node.BuildeType.Id);
             }
+            this.txtPKGpath.Text = Toolpars.FormEntity.txtPKGpath;
         }
         #endregion
 
