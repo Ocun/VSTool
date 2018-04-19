@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using Common.Implement.Entity;
 using Common.Implement.Tools;
 using IWshRuntimeLibrary;
-using Microsoft.Office.Interop.Word;
 using File = System.IO.File;
 
 namespace Common.Implement.UI
@@ -48,8 +47,6 @@ namespace Common.Implement.UI
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            var extName = Path.GetFileNameWithoutExtension(ToolPath);
-
             var bt = new BuildeType
             {
                 Id = IDTB.Text.Trim(),
@@ -67,11 +64,9 @@ namespace Common.Implement.UI
                 buildeItems.AddRange(item.BuildeItems);
                 item.BuildeItems = buildeItems.ToArray();
             });
-            var text= ReadToEntityTools.XmlSerialize<BuildeEntity>(Toolpar.BuilderEntity);
+            var text= ReadToEntityTools.XmlSerialize(Toolpar.BuilderEntity);
             var xmlPath = AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml";
             File.WriteAllText(xmlPath, text, Encoding.UTF8);
-            //XmlTools.ModiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
-            //    "MYTools", bt);
             IconTool.SetExeIcon(bt.Url);
             DialogResult = DialogResult.OK;
 
@@ -93,11 +88,9 @@ namespace Common.Implement.UI
                     return;
 
             });
-            if (existed)
-            {
-                DialogResult = DialogResult.Cancel;
-                this.Dispose();
-            }
+            if (!existed) return;
+            DialogResult = DialogResult.Cancel;
+            this.Dispose();
         }
     }
 }

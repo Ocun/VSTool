@@ -39,6 +39,7 @@
             this.txtNewTypeKey = new System.Windows.Forms.TextBox();
             this.FromServer = new System.Windows.Forms.CheckBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.CustomerText = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
@@ -106,7 +107,7 @@
             this.btnOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenTo.Location = new System.Drawing.Point(537, 62);
             this.btnOpenTo.Name = "btnOpenTo";
-            this.btnOpenTo.Size = new System.Drawing.Size(59, 20);
+            this.btnOpenTo.Size = new System.Drawing.Size(46, 20);
             this.btnOpenTo.TabIndex = 12;
             this.btnOpenTo.Text = "打开";
             this.btnOpenTo.UseVisualStyleBackColor = true;
@@ -145,7 +146,6 @@
             this.FromServer.TabIndex = 15;
             this.FromServer.Text = "15服务器";
             this.FromServer.UseVisualStyleBackColor = true;
-            this.FromServer.Visible = false;
             this.FromServer.CheckedChanged += new System.EventHandler(this.FromServer_CheckedChanged);
             // 
             // splitContainer1
@@ -160,6 +160,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.button2);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.CustomerText);
             this.splitContainer1.Panel1.Controls.Add(this.txtNewTypeKey);
@@ -174,6 +175,20 @@
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 16;
             // 
+            // button2
+            // 
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("宋体", 8F);
+            this.button2.Location = new System.Drawing.Point(537, 90);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(33, 20);
+            this.button2.TabIndex = 18;
+            this.button2.Text = " …";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -183,18 +198,15 @@
             this.label3.Size = new System.Drawing.Size(72, 16);
             this.label3.TabIndex = 17;
             this.label3.Text = "借用客户";
-            this.label3.Visible = false;
             // 
             // CustomerText
             // 
             this.CustomerText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.CustomerText.Enabled = false;
             this.CustomerText.Location = new System.Drawing.Point(112, 89);
             this.CustomerText.Name = "CustomerText";
             this.CustomerText.Size = new System.Drawing.Size(419, 21);
             this.CustomerText.TabIndex = 16;
-            this.CustomerText.Visible = false;
             this.CustomerText.TextChanged += new System.EventHandler(this.CustomerText_TextChanged);
             // 
             // ModiPkgForm
@@ -237,5 +249,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox CustomerText;
+        private System.Windows.Forms.Button button2;
     }
 }

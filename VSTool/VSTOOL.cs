@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Common.Implement.UI;
 using Common.Implement.Entity;
 using Common.Implement.EventHandler;
@@ -606,6 +605,8 @@ namespace VSTool {
             {
                 var form1 = new ModiPkgForm(_toolpars);
                 if (form1.ShowDialog() == DialogResult.OK) {
+                 
+
                     var empStr = string.Empty;
                     treeView1.Visible = true;
                     scrollPanel.Controls[0].Visible = false;
@@ -647,6 +648,7 @@ namespace VSTool {
                 {
                     ModiCkb.Checked = !ModiCkb.Checked;
                 }
+                this.txtPKGpath.Refresh();
             }
             else
             {

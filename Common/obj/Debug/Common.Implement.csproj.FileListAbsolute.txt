@@ -41,3 +41,6 @@ E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyRefer
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Interop.IWshRuntimeLibrary.dll
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csproj.ResolveComReference.cache
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.CreateToolForm.resources
+E:\MyProject\VSTool\Common\obj\Debug\Interop.IWshRuntimeLibrary.dll
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.ResolveComReference.cache
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.CreateToolForm.resources
