@@ -10,7 +10,7 @@ using Digiwin.Common.UI;
 namespace Digiwin.ERP.XTEST.UI.Implement
 {
     [EventInterceptorClass]
-    class ChangeInterceptor : ServiceComponent
+    class _ChangeInterceptor_ : ServiceComponent
     {
         [DataEntityChangedInterceptor(Path = "", DependencyItems = "", ActivePoints = new string[] { "" }, IsRunAtInitialized = false)]
         public void DataChanging(IDataEntityBase[] activeObjs, DataChangedCallbackResponseContext context)

@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 namespace Digiwin.ERP.XTEST.UI.Implement
 {
     [EventInterceptorClass]
-    public sealed class DigiwinGridInterceptor : ServiceComponent
+    public sealed class _DigiwinGridInterceptor_ : ServiceComponent
     {
         private static DigiwinGrid _dgGrid1 = null;
         private static DigiwinGrid _dgGrid3 = null;

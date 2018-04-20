@@ -61,6 +61,35 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 客户端正在运行 的本地化字符串。
+        /// </summary>
+        internal static string ClientRunning {
+            get {
+                return ResourceManager.GetString("ClientRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Copy {
+            get {
+                object obj = ResourceManager.GetObject("Copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Copy_Client {
+            get {
+                object obj = ResourceManager.GetObject("Copy_Client", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 复制失败 的本地化字符串。
         /// </summary>
         internal static string CopyFailed {
@@ -197,6 +226,15 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 找不到文件{0} 的本地化字符串。
+        /// </summary>
+        internal static string NotFindFile {
+            get {
+                return ResourceManager.GetString("NotFindFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 不可为空 的本地化字符串。
         /// </summary>
         internal static string notNull {
@@ -244,10 +282,29 @@ namespace Common.Implement.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Refresh {
+            get {
+                object obj = ResourceManager.GetObject("Refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap right_arrow {
             get {
                 object obj = ResourceManager.GetObject("right_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 服务端正在运行 的本地化字符串。
+        /// </summary>
+        internal static string ServerRunning {
+            get {
+                return ResourceManager.GetString("ServerRunning", resourceCulture);
             }
         }
         
@@ -257,6 +314,16 @@ namespace Common.Implement.Properties {
         internal static System.Drawing.Bitmap Start {
             get {
                 object obj = ResourceManager.GetObject("Start", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Start_Client {
+            get {
+                object obj = ResourceManager.GetObject("Start_Client", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

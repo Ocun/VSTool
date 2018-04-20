@@ -27,7 +27,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
     public class MyTools {
         #region 属性
 
-        private readonly ServiceTools _myService;
+        private ServiceTools _myService;
 
 
         public MyTools(IResourceServiceProvider resourceServiceProvider, ServiceCallContext serviceCallContext) {
@@ -156,7 +156,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <param name="tmpType"></param>
         /// <param name="tempDt"></param>
         // ReSharper disable once UnusedMember.Local
-        private void CreateTmp(DependencyObjectCollection datas, out DependencyObjectType tmpType, out DataTable tempDt) {
+        public void CreateTmp(DependencyObjectCollection datas, out DependencyObjectType tmpType, out DataTable tempDt) {
             try {
                 DependencyObjectType itemDependencyObjectType = datas.ItemDependencyObjectType;
                 //创建临时表
@@ -301,9 +301,9 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                     catch (Exception) {
                     }
                 }
-
-                else if (propName.StartsWith("UDF")) {
-                }
+                //忽略UDF字段
+                //else if (propName.StartsWith("UDF")) {
+                //}
 
                 else {
                     object defValue = prop.DefaultValue;
@@ -414,8 +414,9 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                             }
                         }
                     }
-                    else if (targetName.StartsWith("UDF")) {
-                    }
+                     //忽略UDF字段
+                    //else if (targetName.StartsWith("UDF")) {
+                    //}
                     else {
                         targetTable.Columns.Add(prop.Name, propType);
                     }
@@ -536,7 +537,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         }
 
         /// <summary>
-        ///     单身转datatable,根据dataTable列名填充
+        ///     单身转datatable,根据dataTable列名转换,如果 formCollection不存在 则忽略
         /// </summary>
         /// <param name="formCollection"></param>
         /// <param name="targetTable"></param>
@@ -703,6 +704,58 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             }
         }
 
+        #endregion
+
+        #region 批次获取存在于介于
+
+        /// <summary>
+        /// 根据范围类的条件实体的Code属性值来生成条件
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="targetProperyName"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public IExpression GetQueryConditionByCode(object[] parameter, ParameterStyle type, string targetProperyName)
+        {
+            //"存在于"
+            if (type == ParameterStyle.List)
+            {
+                var list = new IExpression[parameter.Length];
+                for (int i = 0; i < parameter.Length; i++)
+                {
+                    list[i] = new ConstantsQueryProperty(parameter[i], GeneralDBType.String);
+                }
+                var condition = new QueryCondition(new SimpleQueryProperty(targetProperyName), list, CompareOperator.In);
+                return condition;
+            }
+            else
+            {   //"介于"
+                if (!Maths.IsEmpty(parameter[0])) {
+                    var condition1 = new QueryCondition(new SimpleQueryProperty(targetProperyName),
+                        OOQL.CreateConstants(parameter[0]), CompareOperator.GreaterEqual);
+                    if (!Maths.IsEmpty(parameter[1]))
+                    {
+                        return new QueryConditionGroup(condition1, new QueryCondition(new SimpleQueryProperty(targetProperyName),
+                                                OOQL.CreateConstants(parameter[1]), CompareOperator.LessEqual), LogicalOperator.And);
+                    }
+                    else
+                    {
+                        return condition1;
+                    }
+                }
+                else
+                {
+                    if (!Maths.IsEmpty(parameter[1]))
+                    {
+                        return new QueryCondition(new SimpleQueryProperty(targetProperyName), OOQL.CreateConstants(parameter[1]), CompareOperator.LessEqual);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        } 
         #endregion
     }
 

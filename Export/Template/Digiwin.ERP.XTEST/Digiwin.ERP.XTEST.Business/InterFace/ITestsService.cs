@@ -10,6 +10,6 @@ namespace Digiwin.ERP.XTEST.Business
     [TypeKeyOnly]	
     public interface _ITestsService_
     {
-        void myFunc();
+        DependencyObjectCollection myFunc();
     }
 }

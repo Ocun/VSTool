@@ -57,6 +57,7 @@ namespace VSTool {
 
             #endregion
             MyTool.InitToolpars(Toolpars,pToIni);
+            MyToolbar.Toolpar = Toolpars;
             MyTool.InitBuilderEntity(Toolpars);
             TreeViewTool.CreateRightView(myTreeView5, _toolpars);
         }

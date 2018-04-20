@@ -59,7 +59,33 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         private IPrimaryKeyService _primaryKeySrv;
         private IQueryService _querySrv;
         private ISysParameterService _sysParameterSrv;
+        private IGetTaxService _getTaxSrv;
+        private IExchangeRateService _exchangeRateSrv ;
+        private IDiscountCalcService _discountCalcSrv ;
 
+
+
+        /// <summary>
+        ///     折扣服务
+        /// </summary>
+        public IDiscountCalcService DiscountCalcSrv
+        {
+            get { return _discountCalcSrv ?? (_discountCalcSrv = GetService<IDiscountCalcService>(CallContext.TypeKey)); }
+        } 
+        /// <summary>
+        ///     税率转化服务
+        /// </summary>
+        public IExchangeRateService ExchangeRateSrv
+        {
+            get { return _exchangeRateSrv ?? (_exchangeRateSrv = GetService<IExchangeRateService>(CallContext.TypeKey)); }
+        } 
+        /// <summary>
+        ///     税率服务
+        /// </summary>
+        public IGetTaxService GetTaxSrv
+        {
+            get { return _getTaxSrv ?? (_getTaxSrv = GetService<IGetTaxService>(CallContext.TypeKey)); }
+        } 
         /// <summary>
         ///     登陆服务
         /// </summary>
@@ -166,7 +192,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         }
 
         /// <summary>
-        ///     金额取位服务
+        ///     金额计算取位服务
         /// </summary>
         public ICurrencyPrecisionService CurrencyPrecisionSrv {
             get {

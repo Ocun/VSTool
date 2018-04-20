@@ -36,7 +36,6 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.In
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.ModiPkgForm.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.SetToolPath.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
-E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Interop.IWshRuntimeLibrary.dll
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csproj.ResolveComReference.cache
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.CreateToolForm.resources
@@ -45,3 +44,4 @@ E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.ResolveComReference
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.CreateToolForm.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.Properties.Resources.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ButtonManger.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache

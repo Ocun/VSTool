@@ -20,6 +20,7 @@ using Digiwin.Common.Advanced;
 using Digiwin.Common.Torridity;
 using Digiwin.Common.UI;
 using Digiwin.ERP.FormBaseExtensions.UI.Implement;
+using Digiwin.ERP.XTEST.UI.Implement.Tools;
 
 // ReSharper disable once CheckNamespace
 namespace Digiwin.ERP.XTEST.UI.Implement
@@ -27,31 +28,36 @@ namespace Digiwin.ERP.XTEST.UI.Implement
     // ReSharper disable once InconsistentNaming
     public class MyUITools
     {
-        public MyUITools(IResourceServiceProvider provider, ServiceCallContext serContext)
+
+        private UIServiceTools _myUIService;
+        public UIServiceTools MyUIService
         {
-            Provider = provider;
-            Context = serContext;
+            get { return _myUIService; }
+        }
+
+        public MyUITools(IResourceServiceProvider provider, ServiceCallContext serContext) {
+            _myUIService = new UIServiceTools(provider,serContext);
         }
 
         public MyUITools(IServiceComponentEvents component)
         {
-            Provider = component.ResourceServiceProvider;
-            Context = component.ServiceCallContext;
+            _myUIService = new UIServiceTools(component);
         }
 
-        public IResourceServiceProvider Provider { get; set; }
+        public T GetService<T>(string typeKey) where T : class
+        {
+            var ser = MyUIService.GetService<T>(typeKey);
+            return ser;
+        }
 
-        public ServiceCallContext Context { get; set; }
-
+     
         /// <summary>
         ///     CallSendMessage
         /// </summary>
         /// <param name="contents"></param>
-        public void SendMessage(IEnumerable<string> contents)
-        {
+        public void SendMessage(IEnumerable<string> contents) {
             var documentWindowCreateService =
-                Provider.GetService(typeof(IDocumentWindowCreateService), "Sys_SendedMessage") as
-                    IDocumentWindowCreateService;
+                GetService<IDocumentWindowCreateService>("Sys_SendedMessage");
             if (documentWindowCreateService != null)
             {
                 IDocumentWindow windowService = documentWindowCreateService.Create();
@@ -88,7 +94,7 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             DependencyObject doResult = null;
             using (var imageFwo = new ImagesPreviewWindowOpener.UI.Implement.ImagesPreviewWindowOpener())
             {
-                imageFwo.ConnectOpeningContext(Context.TypeKey, context);
+                imageFwo.ConnectOpeningContext(MyUIService.CallContext.TypeKey, context);
                 imageFwo.StartPosition = FormStartPosition.CenterScreen;
                 imageFwo.imageCount = 1;
                 if (imageFwo.ShowDialog() == DialogResult.OK)
@@ -107,23 +113,24 @@ namespace Digiwin.ERP.XTEST.UI.Implement
         /// <param name="type"></param>
         public void OperationView(Form form, string elementType, int type)
         {
-            try
-            {
+            try {
+                var provider = MyUIService.Provider;
+                var context = MyUIService.CallContext;
                 if (type == 1)
                 {
-                    var util = new UiConfigurationUtils(Provider, Context.TypeKey);
-                    util.LoadConfiguration(form, Context.TypeKey, elementType);
+                    var util = new UiConfigurationUtils(provider, context.TypeKey);
+                    util.LoadConfiguration(form, context.TypeKey, elementType);
                 }
                 else if (type == 2)
                 {
-                    var util = new UiConfigurationUtils(Provider, Context.TypeKey);
-                    util.SaveConfiguration(form, Context.TypeKey, elementType);
+                    var util = new UiConfigurationUtils(provider, context.TypeKey);
+                    util.SaveConfiguration(form, context.TypeKey, elementType);
                     DigiwinMessageBox.ShowInfo("SaveSuccess");
                 }
                 else if (type == 3)
                 {
-                    var util = new UiConfigurationUtils(Provider, Context.TypeKey);
-                    util.ClearConfiguration(Context.TypeKey, elementType);
+                    var util = new UiConfigurationUtils(provider, context.TypeKey);
+                    util.ClearConfiguration(context.TypeKey, elementType);
                     DigiwinMessageBox.ShowInfo("DeleteSuccess");
                 }
             }
@@ -139,7 +146,8 @@ namespace Digiwin.ERP.XTEST.UI.Implement
         /// </summary>
         public void MenuBtnView(string buttonName, bool readOnly)
         {
-            var cmdService = GetService<ICommandsService>(Context.TypeKey);
+            var context = MyUIService.CallContext;
+            var cmdService = GetService<ICommandsService>(context.TypeKey);
             var cmd = cmdService.Commands[buttonName] as CommandBase; 
             if (cmd != null)
             {
@@ -152,7 +160,8 @@ namespace Digiwin.ERP.XTEST.UI.Implement
         /// </summary>
         public void MenuBtnView<T>(string buttonName) where T : CommandEnabledDecider
         {
-            var cmdService = GetService<ICommandsService>(Context.TypeKey);
+            var context = MyUIService.CallContext;
+            var cmdService = GetService<ICommandsService>(context.TypeKey);
             var cmdConfirm = cmdService.Commands[buttonName] as CommandBase;
             if (cmdConfirm != null)
             {
@@ -302,11 +311,7 @@ namespace Digiwin.ERP.XTEST.UI.Implement
             });
         }
 
-        public T GetService<T>(string typeKey) where T : class
-        {
-            var xser = Provider.GetService(typeof(T), typeKey) as T;
-            return xser;
-        }
+      
 
         #endregion
     }
