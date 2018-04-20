@@ -47,12 +47,12 @@ namespace Common.Implement.UI {
             BackgroundPen = new Pen(Color.FromArgb(130, 249, 252), 1);
             DescriptionColor = ForeColor;
             NodeImageSize = new Size(40,40);
-            _imgUnchecked = Resource.TreeNodeUnchecked;
-            _imgChecked = Resource.TreeNodeChecked;
-            _imgRbUnchecked = Resource.TreeNodeUnchecked;
-            _imgRbChecked = Resource.TreeNodeChecked;
-            _imgLeft = Resource.down_arrow;
-            _imaDown = Resource.right_arrow;
+            _imgUnchecked = Resources.TreeNodeUnchecked;
+            _imgChecked = Resources.TreeNodeChecked;
+            _imgRbUnchecked = Resources.TreeNodeUnchecked;
+            _imgRbChecked = Resources.TreeNodeChecked;
+            _imgLeft = Resources.down_arrow;
+            _imaDown = Resources.right_arrow;
             // 设置TreeView为自己绘制文本和图标并绑定相关的事件  
             DrawMode = TreeViewDrawMode.OwnerDrawText;
             DrawNode += TreeView_DrawNode;

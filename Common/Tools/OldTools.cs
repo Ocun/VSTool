@@ -116,7 +116,7 @@ namespace Common.Implement.Tools {
                         File.Copy(pFrom, pTo, pOverWriteOrNot);
                     }
                     catch {
-                        MessageBox.Show(Resource.CopyFailed, Resource.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(Resources.CopyFailed, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }

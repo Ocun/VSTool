@@ -48,7 +48,7 @@ namespace Common.Implement.UI
             {
                 var metadataContainer = ReadToEntityTools.ReadToEntity<MetadataContainer>(files[0].FullName);
                 if (metadataContainer == null) {
-                    MessageBox.Show(Resource.ReadEntityError,Resource.ErrorMsg);
+                    MessageBox.Show(Resources.ReadEntityError,Resources.ErrorMsg);
                     return;
                 }
                    

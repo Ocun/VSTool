@@ -88,7 +88,7 @@ namespace Common.Implement.Tools {
                     if (!Directory.Exists(newFileDir))
                         Directory.CreateDirectory(newFileDir);
                     if (File.Exists(newFilePath))
-                        if (MessageBox.Show(Resource.FileExisted, Resource.WarningMsg, MessageBoxButtons.OK,
+                        if (MessageBox.Show(Resources.FileExisted, Resources.WarningMsg, MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning)
                             != DialogResult.OK)
                             return;
@@ -178,10 +178,10 @@ namespace Common.Implement.Tools {
                     SearchOption.AllDirectories);
                 foreach (var mfile in filedir)
                     File.Copy(mfile, mfile.Replace(fromPath, toPath), true);
-                MessageBox.Show(Resource.CopySucess);
+                MessageBox.Show(Resources.CopySucess);
             }
             catch (Exception ex) {
-                MessageBox.Show(ex.Message, Resource.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -239,7 +239,7 @@ namespace Common.Implement.Tools {
             }
             if (flag)
                 return true;
-            if (MessageBox.Show(Resource.DllUsedMsg, Resource.WarningMsg, MessageBoxButtons.OKCancel,
+            if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning) != DialogResult.OK)
                 return false;
             OldTools.KillProcess(processNames);
@@ -261,11 +261,11 @@ namespace Common.Implement.Tools {
                     p.Start();
                 }
                 else {
-                    MessageBox.Show(Resource.ExeAlreadyExe);
+                    MessageBox.Show(Resources.ExeAlreadyExe);
                 }
             }
             catch (Exception e0) {
-                MessageBox.Show(Resource.ExeExeError + e0.Message);
+                MessageBox.Show(Resources.ExeExeError + e0.Message);
             }
         }
 
@@ -342,7 +342,7 @@ namespace Common.Implement.Tools {
             if (msgList.Count > 0) {
                 var msg = Empty;
                 msgList.ForEach(str => { msg += str + Environment.NewLine; });
-                if (MessageBox.Show(msg + Resource.FileExisted, Resource.WarningMsg, MessageBoxButtons.YesNo,
+                if (MessageBox.Show(msg + Resources.FileExisted, Resources.WarningMsg, MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning)
                     != DialogResult.Yes) {
                     f = false;
@@ -366,8 +366,8 @@ namespace Common.Implement.Tools {
                     foreach (var kv in pathDic) {
                         foreach (var path in kv.Value)
                             if (!File.Exists(path.FromPath)) {
-                                MessageBox.Show(string.Format(Resource.TemplateNotExisted, kv.Key, path.FileName),
-                                    Resource.ErrorMsg,
+                                MessageBox.Show(string.Format(Resources.TemplateNotExisted, kv.Key, path.FileName),
+                                    Resources.ErrorMsg,
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 checkTemplate = false;
                                 break;
@@ -441,7 +441,7 @@ namespace Common.Implement.Tools {
                 return false;
             LogTool.WriteLogByTreeView(toolPars, treeView);
             InitBuilderEntity(toolPars);
-            MessageBox.Show(Resource.GenerateSucess);
+            MessageBox.Show(Resources.GenerateSucess);
             return true;
         }
 
@@ -932,7 +932,7 @@ namespace Common.Implement.Tools {
                         var tCusSrc = new DirectoryInfo(toolpars.GToIni + @"\");
                         //toolpars.FormEntity.txtPKGpath + "Digiwin.ERP."+ toolpars.FormEntity.PkgTypekey;
                         if (!Directory.Exists(pkgPath)) {
-                            MessageBox.Show(string.Format(Resource.DirNotExisted, pkgPath), Resource.ErrorMsg,
+                            MessageBox.Show(string.Format(Resources.DirNotExisted, pkgPath), Resources.ErrorMsg,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                             success = false;
@@ -944,8 +944,8 @@ namespace Common.Implement.Tools {
                                 var result =
                                     MessageBox.Show(
                                         Path.Combine(toolpars.FormEntity.TxtToPath, toolpars.FormEntity.txtNewTypeKey)
-                                        + Environment.NewLine + Resource.DirExisted,
-                                        Resource.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                        + Environment.NewLine + Resources.DirExisted,
+                                        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                                 if (result == DialogResult.Yes) {
                                     object tArgsPath = Path.Combine(toolpars.GToIni + @"\",
                                         "Digiwin.ERP." + toolpars.FormEntity.txtNewTypeKey);
@@ -961,15 +961,15 @@ namespace Common.Implement.Tools {
                         }
                     }
                     else {
-                        MessageBox.Show(string.Format(Resource.DirNotExisted, toolpars.FormEntity.TxtToPath),
-                            Resource.ErrorMsg,
+                        MessageBox.Show(string.Format(Resources.DirNotExisted, toolpars.FormEntity.TxtToPath),
+                            Resources.ErrorMsg,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         success = false;
                     }
                 }
                 else {
-                    MessageBox.Show(Resource.TypekeyNotExisted, Resource.ErrorMsg, MessageBoxButtons.OK,
+                    MessageBox.Show(Resources.TypekeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     success = false;
                 }
@@ -978,14 +978,14 @@ namespace Common.Implement.Tools {
 
                 if (success) {
                     ModiName(toolpars, toolpars.FormEntity.PkgTypekey);
-                    MessageBox.Show(Resource.GenerateSucess);
+                    MessageBox.Show(Resources.GenerateSucess);
                 }
 
                 #endregion
             }
             catch (Exception ex) {
                 success = false;
-                MessageBox.Show(ex.Message, Resource.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             new Thread(delegate() { SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "COPY PKG SOURCE"); }
             ).Start();
@@ -1071,7 +1071,7 @@ namespace Common.Implement.Tools {
                 || moduleName.Trim().Equals(string.Empty)
             )
             {
-                MessageBox.Show(Resource.ModuleNotExisted);
+                MessageBox.Show(Resources.ModuleNotExisted);
                 return;
             }
             try
@@ -1118,11 +1118,11 @@ namespace Common.Implement.Tools {
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show(Resource.OpenDocError);
+                    MessageBox.Show(Resources.OpenDocError);
                 }
             }
             else {
-                MessageBox.Show(Resource.HelpDocNotExiested);
+                MessageBox.Show(Resources.HelpDocNotExiested);
             }
       
 
@@ -1135,7 +1135,7 @@ namespace Common.Implement.Tools {
             }
             else
             {
-                MessageBox.Show(string.Format(Resource.DirNotExisted, targetDir), Resource.WarningMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Resources.DirNotExisted, targetDir), Resources.WarningMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

@@ -57,7 +57,7 @@ namespace Common.Implement.UI {
 
         private void BtnOK_Click(object sender, EventArgs e) {
             if ((Toolpars.FormEntity.PkgTypekey ?? string.Empty).Equals(string.Empty)) {
-                MessageBox.Show(Resource.pkgNotNull);
+                MessageBox.Show(Resources.pkgNotNull);
                 return;
             }
             var customerName = CustomerText.Text.Trim();
@@ -89,7 +89,7 @@ namespace Common.Implement.UI {
             var pkgPath = Toolpars.FormEntity.txtPKGpath;
           
             if (!Directory.Exists(pkgPath)) {
-                MessageBox.Show(Resource.PkgDirNotExisted);
+                MessageBox.Show(Resources.PkgDirNotExisted);
                 return;
             }
 

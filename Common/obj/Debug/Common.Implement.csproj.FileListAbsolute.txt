@@ -24,7 +24,6 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.cspro
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
 E:\MyProject\VSTool\Common\bin\Debug\Common.Implement.dll
 E:\MyProject\VSTool\Common\bin\Debug\Common.Implement.pdb
-E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.Properties.Resource.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.InsertForm.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ModiName.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ModiPKGForm.resources
@@ -44,3 +43,5 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.Cr
 E:\MyProject\VSTool\Common\obj\Debug\Interop.IWshRuntimeLibrary.dll
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csproj.ResolveComReference.cache
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.CreateToolForm.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.Properties.Resources.resources
+E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ButtonManger.resources

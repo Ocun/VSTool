@@ -30,7 +30,7 @@ namespace Common.Implement.UI {
         private void btnOK_Click(object sender, EventArgs e) {
             if (string.Equals(txt01.Text, string.Empty, StringComparison.Ordinal) && txt01.Visible ||
                 string.Equals(txt02.Text, string.Empty, StringComparison.Ordinal) && txt02.Visible) {
-                MessageBox.Show(Resource.notNull);
+                MessageBox.Show(Resources.notNull);
             }
             else {
                 var fileMapping = _toolpars.FileMappingEntity;
@@ -121,8 +121,8 @@ namespace Common.Implement.UI {
         private void ModiName_Load(object sender, EventArgs e) {
             try
             {
-                txt01.Text = string.Format(Resource.CreateFileName, BuildeType.Id);
-                txt02.Text = string.Format(Resource.CreateFileName, BuildeType.Id);
+                txt01.Text = string.Format(Resources.CreateFileName, BuildeType.Id);
+                txt02.Text = string.Format(Resources.CreateFileName, BuildeType.Id);
                 if (BuildeType.Id.Equals("Service")) {
                     txt01.Text = "ICreateService";
                     txt02.Text = "ICreateService";
