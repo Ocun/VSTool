@@ -19,7 +19,7 @@ namespace VSTool {
     public partial class VSTOOL : Form {
         #region 屬性
 
-        public Toolpars Toolpars { get; } = new Toolpars();
+        public Toolpars Toolpars { get; } = MyTool.Toolpars;
 
         #endregion
         
@@ -52,24 +52,20 @@ namespace VSTool {
             catch {
                 // ignored
             }
-
             #endregion
-            MyTool.InitToolpars(Toolpars,pToIni);
-            MyToolbar.Toolpar = Toolpars;
-            MyTool.InitBuilderEntity(Toolpars);
-            TreeViewTool.CreateRightView(myTreeView5, Toolpars);
+
+            MyTool.InitToolpars(pToIni);
         }
 
 
         private void VSTOOL_Load(object sender, EventArgs e) {
-            
+            TreeViewTool.CreateRightView(myTreeView5);
             CreateTree("RootView");
             SpiltWidth = 200;
             MaxSplitCount = 6;
             CreateMainView();
         }
-
-       
+        
         /// <summary>
         /// 绘制左侧导航及主视图区
         /// </summary>
@@ -82,7 +78,7 @@ namespace VSTool {
             if (item.Count <= 0)
                 return;
             if (id.Equals("RootView")) {
-                TreeViewTool.CreateTree(Toolpars,myTreeView1, item, false);
+                TreeViewTool.CreateTree(myTreeView1, item, false);
                 return;
             }
             if (item[0].BuildeItems == null) return;
@@ -121,14 +117,14 @@ namespace VSTool {
                 if (evgCount == 0 && count < splitCount) {
                     if (skipSeq <= count - 1) {
                         var item2 = item[0].BuildeItems.Skip(skipSeq++).Take(1).ToList();
-                        TreeViewTool.CreateTree(Toolpars, tv, item2, true);
+                        TreeViewTool.CreateTree(tv, item2, true);
                     }
                 }
                 //均分
                 else if (surplusCount == 0) {
                     var item2 = item[0].BuildeItems.Skip(skipSeq).Take(evgCount).ToList();
                     skipSeq += evgCount;
-                    TreeViewTool.CreateTree(Toolpars, tv, item2, true);
+                    TreeViewTool.CreateTree(tv, item2, true);
                 }
                 //有余项
                 else {
@@ -141,7 +137,7 @@ namespace VSTool {
                     var item2 = item[0].BuildeItems.Skip(skipSeq).Take(subCount).ToList();
                 
                     skipSeq += subCount;
-                    TreeViewTool.CreateTree(Toolpars, tv, item2, true);
+                    TreeViewTool.CreateTree(tv, item2, true);
                 }
                 if (splitContainer.Panel2Collapsed) {
                     break;
@@ -159,12 +155,12 @@ namespace VSTool {
             try {
                 var pathInfo = Toolpars.PathEntity;
                 if (!ModiCkb.Checked) {
-                    var dicPath = MyTool.GetTreeViewFilePath(myTreeView5.Nodes, Toolpars);
+                    var dicPath = MyTool.GetTreeViewFilePath(myTreeView5.Nodes);
                     var fileInfos = new List<FileInfos>();
                     foreach (var kv in dicPath) {
                         fileInfos.AddRange(kv.Value);
                     }
-                    new Thread(()=>  LogTool.WriteToServer(Toolpars, fileInfos)
+                    new Thread(()=>  LogTool.WriteToServer(fileInfos)
                     ).Start();
 
                     if ((string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal))
@@ -172,14 +168,14 @@ namespace VSTool {
                         MessageBox.Show(Resources.TypeKeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    var success = MyTool.CreateFile(myTreeView5, Toolpars);
+                    var success = MyTool.CreateFile(myTreeView5);
 
                     if (!success) return;
                     if (myTreeView1.SelectedNode != null) {
                         var node = myTreeView1.SelectedNode as MyTreeNode;
                         ShowTreeView(node);
                     }
-                    TreeViewTool.CreateRightView(myTreeView5,Toolpars);
+                    TreeViewTool.CreateRightView(myTreeView5);
                 }
                 else {
                     var fileInfos = MyTool.GetTreeViewPath(treeView1.Nodes);
@@ -189,7 +185,7 @@ namespace VSTool {
                     //        }));
                     //    }
                     //).Start();
-                    new Thread( ()=>  LogTool.WriteToServer(Toolpars, fileInfos)
+                    new Thread( ()=>  LogTool.WriteToServer(fileInfos)
                           
                     ).Start();
                  
@@ -222,7 +218,7 @@ namespace VSTool {
                         }
                     }
                     if (!flag) return;
-                    flag=MyTool.CopyModi(treeView1.Nodes, Toolpars);
+                    flag=MyTool.CopyModi(treeView1.Nodes);
                     if (!flag)
                         return;
                     MessageBox.Show(Resources.GenerateSucess);
@@ -255,13 +251,13 @@ namespace VSTool {
         }
         
         private void BtnClear_Click(object sender, EventArgs e) {
-            MyTool.InitBuilderEntity(Toolpars);
+            MyTool.InitBuilderEntity();
             if (myTreeView1.SelectedNode != null)
             {
                 var node = myTreeView1.SelectedNode as MyTreeNode;
                 ShowTreeView(node);
             }
-            TreeViewTool.CreateRightView(myTreeView5, Toolpars);
+            TreeViewTool.CreateRightView(myTreeView5);
 
         }
 
@@ -284,7 +280,7 @@ namespace VSTool {
                 var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
                 if (Directory.Exists(pkgDir))
                 {
-                    TreeViewTool.MyPaintTreeView(Toolpars, pkgDir);
+                    TreeViewTool.MyPaintTreeView(pkgDir);
                 }
                 else
                 {
@@ -459,7 +455,7 @@ namespace VSTool {
                               && builderType.ShowParWindow.Equals(falseStr))
                         )
                         {
-                            fileInfos = MyTool.CreateFileMappingInfo(Toolpars, builderType);
+                            fileInfos = MyTool.CreateFileMappingInfo(builderType);
 
                         }
                         else
@@ -520,7 +516,7 @@ namespace VSTool {
                     }
                 }
             }
-            TreeViewTool.CreateRightView(myTreeView5,Toolpars);
+            TreeViewTool.CreateRightView(myTreeView5);
         }
         
         #region 修改
@@ -530,13 +526,12 @@ namespace VSTool {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e) {
+            var pathInfo = Toolpars.PathEntity;
             if (ModiCkb.Checked)
             {
                 var form1 = new ModiPkgForm(Toolpars);
                 if (form1.ShowDialog() == DialogResult.OK) {
-                 
 
                     var empStr = string.Empty;
                     treeView1.Visible = true;
@@ -546,19 +541,14 @@ namespace VSTool {
                         && !string.Equals(Toolpars.FormEntity.TxtNewTypeKey, empStr, StringComparison.Ordinal)
                         && !string.Equals(Toolpars.FormEntity.PkgTypekey, empStr, StringComparison.Ordinal))
                     {
-                        var txtPkGpath = Toolpars.FormEntity.TxtPkGpath;
-
-                        var pkgDir = $@"{txtPkGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
-                        if (Toolpars.FormEntity.PkgTypekey.StartsWith("Digiwin.ERP."))
-                        {
-                            pkgDir = $@"{txtPkGpath}\{Toolpars.FormEntity.PkgTypekey}";
-                        }
+                  
+                        var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
 
                         if (Directory.Exists(pkgDir))
                         {
                             myTreeView5.Nodes.Clear();
                             treeView1.Nodes.Clear();
-                            treeView1.Nodes.Add(TreeViewTool.MyPaintTreeView(Toolpars, pkgDir)); //mfroma
+                            treeView1.Nodes.Add(TreeViewTool.MyPaintTreeView(pkgDir)); //mfroma
                             treeView1.ExpandAll();
                         }
                         else
@@ -604,7 +594,7 @@ namespace VSTool {
             if (bt?.IsPlug != null  &&
                 bt.IsPlug.Equals("True")
                 ) {
-                MyTool.CallModule(bt,Toolpars);
+                MyTool.CallModule(bt);
             }
             else if (bt?.IsTools == null
                      || !bt.IsTools.Equals("True")) {

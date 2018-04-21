@@ -707,22 +707,22 @@
         </member>
         <member name="T:Common.Implement.Tools.ModelType">
             <summary>
-            model文件类型
+                model文件类型
             </summary>
         </member>
         <member name="F:Common.Implement.Tools.ModelType.Xml">
             <summary>
-            xml类型
+                xml类型
             </summary>
         </member>
         <member name="F:Common.Implement.Tools.ModelType.Json">
             <summary>
-            json类型
+                json类型
             </summary>
         </member>
         <member name="F:Common.Implement.Tools.ModelType.Binary">
             <summary>
-            二进制
+                二进制
             </summary>
         </member>
         <member name="T:Common.Implement.Tools.CallUpdate">
@@ -845,11 +845,10 @@
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.IconTool.InitImageList(Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.IconTool.InitImageList">
             <summary>
                 初始化Tool图标
             </summary>
-            <param name="toolpars"></param>
         </member>
         <member name="M:Common.Implement.Tools.IconTool.InitImageList(Common.Implement.Entity.BuildeType[])">
             <summary>
@@ -1313,7 +1312,7 @@
             日志
             </summary>
         </member>
-        <member name="M:Common.Implement.Tools.LogTool.WriteLogByTreeView(Common.Implement.Entity.Toolpars,Common.Implement.UI.MyTreeView)">
+        <member name="M:Common.Implement.Tools.LogTool.WriteLogByTreeView(Common.Implement.UI.MyTreeView)">
             <summary>
                 日志
             </summary>
@@ -1325,11 +1324,10 @@
             <param name="path"></param>
             <param name="fileStr"></param>
         </member>
-        <member name="M:Common.Implement.Tools.LogTool.WriteToServer(Common.Implement.Entity.Toolpars,System.Collections.Generic.IEnumerable{Common.Implement.Entity.FileInfos})">
+        <member name="M:Common.Implement.Tools.LogTool.WriteToServer(System.Collections.Generic.IEnumerable{Common.Implement.Entity.FileInfos})">
             <summary>
             记录到Server
             </summary>
-            <param name="toolpars"></param>
             <param name="fileInfos"></param>
         </member>
         <member name="T:Common.Implement.Tools.MyTool">
@@ -1337,18 +1335,20 @@
                 工具类
             </summary>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.InitToolpars(Common.Implement.Entity.Toolpars,System.String[])">
+        <member name="P:Common.Implement.Tools.MyTool.Toolpars">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.InitToolpars(System.String[])">
             <summary>
                 初始化窗体参数
             </summary>
-            <param name="toolpars"></param>
             <param name="pToIni"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CopyTo(Common.Implement.Entity.Toolpars,System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.String)">
+        <member name="M:Common.Implement.Tools.MyTool.CopyTo(System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.String)">
             <summary>
                 把文件拷入指定的文件夹
             </summary>
-            <param name="toolpars"></param>
             <param name="fromDir"></param>
             <param name="toDir"></param>
             <param name="fileNames"></param>
@@ -1370,17 +1370,23 @@
             <param name="fromName"></param>
             <param name="toName"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CopyUIdll(Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.GetPropNameByEntity(Common.Implement.Entity.MetadataContainer,System.String)">
+            <summary>
+                获取实体属性名称
+            </summary>
+            <param name="metadataContainer"></param>
+            <param name="typeKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CopyUIdll">
             <summary>
                 將dll 考入平臺目錄
             </summary>
-            <param name="toolpar"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CopyDll(Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.CopyDll">
             <summary>
                 CopyDll
             </summary>
-            <param name="toolpars"></param>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.CheckCanCopyDll(System.String[])">
             <summary>
@@ -1394,19 +1400,19 @@
                 kill the process
             </summary>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.GetPropNameByEntity(Common.Implement.Entity.MetadataContainer,System.String)">
-            <summary>
-            获取实体属性名称
-            </summary>
-            <param name="metadataContainer"></param>
-            <param name="typeKey"></param>
-            <returns></returns>
-        </member>
         <member name="M:Common.Implement.Tools.MyTool.SetToolsPath(Common.Implement.Entity.BuildeType)">
             <summary>
                 设置第三方工具的路径
             </summary>
             <param name="bt"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ModiBuilderById(Common.Implement.Entity.BuildeType[],System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="items"></param>
+            <param name="id"></param>
+            <param name="value"></param>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.OpenTools(Common.Implement.Entity.BuildeType)">
             <summary>
@@ -1414,21 +1420,20 @@
             </summary>
             <param name="bt"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CallModule(Common.Implement.Entity.BuildeType,Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.CallModule(Common.Implement.Entity.BuildeType)">
             <summary>
-            呼叫第三方模块
+                呼叫第三方模块
             </summary>
             <param name="bt"></param>
-            <param name="toolpars"></param>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.OpenWord(System.String)">
             <summary>
-            打开Word
+                打开Word
             </summary>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.OpenDir(System.String)">
             <summary>
-            打开文件夹
+                打开文件夹
             </summary>
             <param name="targetDir"></param>
         </member>
@@ -1446,26 +1451,23 @@
             <param name="pathDic"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CreateFile(Common.Implement.UI.MyTreeView,Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.CreateFile(Common.Implement.UI.MyTreeView)">
             <summary>
                 根据选择生成项目文件
             </summary>
             <param name="treeView"></param>
-            <param name="toolPars"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.InitBuilderEntity(Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.InitBuilderEntity">
             <summary>
                 初始化，创建完成之后 清空按钮 选择项
             </summary>
-            <param name="toolPars"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.InitBuildeTypies(Common.Implement.Entity.BuildeType[],Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.InitBuildeTypies(Common.Implement.Entity.BuildeType[])">
             <summary>
                 初始化主界面
             </summary>
             <param name="buildeTypies"></param>
-            <param name="toolPars"></param>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.ReplaceByRegex(System.String,System.String,System.String)">
             <summary>
@@ -1480,39 +1482,33 @@
                 查找代码片段，插入指定文件内
             </summary>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CreateBaseItem(Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.CreateBaseItem">
             <summary>
                 一些必考项目,模板目录
             </summary>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.ModiFiles(Common.Implement.Entity.Toolpars,System.String,System.String)">
+        <member name="M:Common.Implement.Tools.MyTool.ModiFiles">
             <summary>
                 修改个案文件的typeKey
             </summary>
-            <param name="toolpars"></param>
-            <param name="oldKey"></param>
-            <param name="newKey"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.GetTreeViewFilePath(System.Windows.Forms.TreeNodeCollection,Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.GetTreeViewFilePath(System.Windows.Forms.TreeNodeCollection)">
             <summary>
                 获取节点地址与文件地址
             </summary>
             <param name="nodes"></param>
-            <param name="toolPars"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.UpdatePath(System.Collections.Generic.List{Common.Implement.Entity.FileInfos},Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.UpdatePath(System.Collections.Generic.List{Common.Implement.Entity.FileInfos})">
             <summary>
                 当中途更改typekey时，更新个案路径
             </summary>
             <param name="fileInfos"></param>
-            <param name="toolPars"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CreateFileMappingInfo(Common.Implement.Entity.Toolpars,Common.Implement.Entity.BuildeType)">
+        <member name="M:Common.Implement.Tools.MyTool.CreateFileMappingInfo(Common.Implement.Entity.BuildeType)">
             <summary>
                 创建项目的模板文件映射
             </summary>
-            <param name="toolpars"></param>
             <param name="bt"></param>
             <returns></returns>
         </member>
@@ -1524,19 +1520,17 @@
             <param name="pDistFolder"></param>
             <param name="filesinfo"></param>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CopyModi(System.Windows.Forms.TreeNodeCollection,Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.CopyModi(System.Windows.Forms.TreeNodeCollection)">
             <summary>
                 修改代码
             </summary>
             <param name="nodes"></param>
-            <param name="toolpars"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.ModiName(Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.MyTool.ModiName">
             <summary>
                 批量修改个案cs文件
             </summary>
-            <param name="toolpars"></param>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.GetTreeViewPath(System.Windows.Forms.TreeNodeCollection)">
             <summary>
@@ -1545,43 +1539,67 @@
             <param name="nodes"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.CopyAllPkG(Common.Implement.Entity.Toolpars,System.String)">
+        <member name="M:Common.Implement.Tools.MyTool.CopyAllPkG(System.String)">
             <summary>
-            
             </summary>
-            <param name="toolpars"></param>
             <param name="pkgPath"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.MyTool.ServerOn(Common.Implement.Entity.Toolpars,System.String)">
+        <member name="M:Common.Implement.Tools.MyTool.ServerOn(System.String)">
             <summary>
-            打开服务器
+                打开服务器
             </summary>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.ClientOn(Common.Implement.Entity.Toolpars,System.String)">
             <summary>
-            打开服务器
+                打开服务器
             </summary>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.ExecuteCmd(System.String,System.String)">
             <summary>
-            不知何用
+                不知何用
             </summary>
             <param name="pFileName"></param>
             <param name="pArguments"></param>
         </member>
         <member name="M:Common.Implement.Tools.MyTool.CheckProcessOn(System.String)">
             <summary>
-            检查进程是否启动
+                检查进程是否启动
             </summary>
             <param name="processName"></param>
             <returns></returns>
+        </member>
+        <member name="T:Common.Implement.Tools.PathTools">
+            <summary>
+            路径辅助类
+            </summary>
         </member>
         <member name="M:Common.Implement.Tools.PathTools.GetPathEntity(Common.Implement.Entity.Toolpars)">
             <summary>
                 獲取各種路徑
             </summary>
             <param name="toolpars"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.PathTools.CombineStr(System.String[])">
+            <summary>
+            连接字符串
+            </summary>
+            <param name="strs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.PathTools.PathCombine(System.String[])">
+            <summary>
+            连接路径
+            </summary>
+            <param name="strs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.PathTools.IsNullOrEmpty(System.Object)">
+            <summary>
+            检查空字符串
+            </summary>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:Common.Implement.Tools.PathTools.CheckFile(System.String)">
@@ -1591,6 +1609,13 @@
             <param name="filePath"></param>
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Common.Implement.Tools.PathTools.GetSettingPath(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
         </member>
         <member name="T:Common.Implement.Tools.ReadToEntityTools">
             <summary>
@@ -1685,43 +1710,38 @@
                 treeView生成辅助
             </summary>
         </member>
-        <member name="M:Common.Implement.Tools.TreeViewTool.CreateRightView(Common.Implement.UI.MyTreeView,Common.Implement.Entity.Toolpars)">
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateRightView(Common.Implement.UI.MyTreeView)">
             <summary>
                 创建右面板
             </summary>
             <param name="myTreeView5"></param>
-            <param name="toolpars"></param>
         </member>
-        <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.Entity.Toolpars,Common.Implement.UI.MyTreeView,System.Collections.Generic.List{Common.Implement.Entity.BuildeType},System.Boolean)">
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.UI.MyTreeView,System.Collections.Generic.List{Common.Implement.Entity.BuildeType},System.Boolean)">
             <summary>
             </summary>
-            <param name="toolpars"></param>
             <param name="mytree"></param>
             <param name="buildeEntity"></param>
             <param name="showCheck"></param>
         </member>
-        <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.Entity.Toolpars,Common.Implement.Entity.BuildeType,System.Boolean,System.Boolean)">
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.Entity.BuildeType,System.Boolean,System.Boolean)">
             <summary>
             </summary>
-            <param name="toolpars"></param>
             <param name="buildeType"></param>
             <param name="showCheck"></param>
             <param name="readSubView"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.TreeViewTool.MyPaintTreeView(Common.Implement.Entity.Toolpars,System.String)">
+        <member name="M:Common.Implement.Tools.TreeViewTool.MyPaintTreeView(System.String)">
             <summary>
                 根据标准路径生成结点
             </summary>
-            <param name="toolpars"></param>
             <param name="fullPath"></param>
             <returns></returns>
         </member>
-        <member name="M:Common.Implement.Tools.TreeViewTool.CreateRightView(Common.Implement.Entity.Toolpars,System.Windows.Forms.TreeNodeCollection)">
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateRightView(System.Windows.Forms.TreeNodeCollection)">
             <summary>
                 创建右面板
             </summary>
-            <param name="toolPar"></param>
             <param name="nodes"></param>
         </member>
         <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.Entity.BuildeType)">
@@ -2158,29 +2178,25 @@
         </member>
         <member name="T:Common.Implement.UI.CreateToolForm">
             <summary>
-            
+            创建工具项
             </summary>
         </member>
         <member name="M:Common.Implement.UI.CreateToolForm.#ctor">
             <summary>
-            
             </summary>
         </member>
         <member name="M:Common.Implement.UI.CreateToolForm.#ctor(System.String,Common.Implement.Entity.Toolpars)">
             <summary>
-            
             </summary>
             <param name="toolPath"></param>
             <param name="toolpar"></param>
         </member>
         <member name="P:Common.Implement.UI.CreateToolForm.Toolpar">
             <summary>
-            
             </summary>
         </member>
         <member name="P:Common.Implement.UI.CreateToolForm.ToolPath">
             <summary>
-            
             </summary>
         </member>
         <member name="F:Common.Implement.UI.CreateToolForm.components">
@@ -2314,6 +2330,11 @@
         <member name="P:Common.Implement.UI.ModiPkgForm.Toolpars">
             <summary>
             主窗体参数
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.ModiPkgForm.PkgPathOld">
+            <summary>
+            记录上次目录，用于还原
             </summary>
         </member>
         <member name="F:Common.Implement.UI.ModiPkgForm.components">

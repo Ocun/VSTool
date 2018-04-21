@@ -29,7 +29,7 @@ namespace Common.Implement.UI {
         /// <summary>
         ///     主窗体参数
         /// </summary>
-        public Toolpars Toolpar { get; set; }
+        public Toolpars Toolpar { get; set; } = MyTool.Toolpars;
 
         private Hashtable CheckServerTable { get; set; }
 
@@ -49,7 +49,7 @@ namespace Common.Implement.UI {
                 args += " /r:false";
                 args += " /l:false";
             }
-            MyTool.ServerOn(Toolpar, args);
+            MyTool.ServerOn(args);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Common.Implement.UI {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CopyClientBtn_Click(object sender, EventArgs e) {
-            MyTool.CopyUIdll(Toolpar);
+            MyTool.CopyUIdll();
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace Common.Implement.UI {
         /// <param name="e"></param>
         private void CopyBtn_Click(object sender, EventArgs e) {
             try {
-                MyTool.CopyDll(Toolpar);
+                MyTool.CopyDll();
                 MessageBox.Show(Resources.CopySucess);
             }
             catch (Exception ex) {

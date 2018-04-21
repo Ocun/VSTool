@@ -43,9 +43,8 @@ namespace Common.Implement.Tools {
         /// <summary>
         ///     初始化Tool图标
         /// </summary>
-        /// <param name="toolpars"></param>
-        public static void InitImageList(Toolpars toolpars) {
-            var bts = toolpars.BuilderEntity.BuildeTypies;
+        public static void InitImageList() {
+            var bts =MyTool.Toolpars.BuilderEntity.BuildeTypies;
             InitImageList(bts);
         }
 

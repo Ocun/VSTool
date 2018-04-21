@@ -17,8 +17,9 @@ namespace Common.Implement.Tools {
         /// <summary>
         ///     日志
         /// </summary>
-        public static void WriteLogByTreeView(Toolpars toolpars, MyTreeView treeView) {
-            var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes, toolpars);
+        public static void WriteLogByTreeView(MyTreeView treeView) {
+            var toolpars = MyTool.Toolpars;
+            var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes);
             var txtNewTypeKey = toolpars.FormEntity.TxtNewTypeKey;
             var varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
             if (!Directory.Exists(varAppPath))
@@ -65,9 +66,9 @@ namespace Common.Implement.Tools {
         /// <summary>
         /// 记录到Server
         /// </summary>
-        /// <param name="toolpars"></param>
         /// <param name="fileInfos"></param>
-        public static void WriteToServer(Toolpars toolpars, IEnumerable<FileInfos> fileInfos) {
+        public static void WriteToServer(IEnumerable<FileInfos> fileInfos) {
+            var toolpars = MyTool.Toolpars;
             SqlTools.InsertToolInfo(toolpars.FormEntity.TxtNewTypeKey, fileInfos);
         }
 

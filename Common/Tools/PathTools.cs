@@ -1,8 +1,6 @@
 ﻿// create By 08628 20180411
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +8,10 @@ using Common.Implement.Entity;
 using Common.Implement.Properties;
 
 namespace Common.Implement.Tools {
-    internal class PathTools {
+   /// <summary>
+   /// 路径辅助类
+   /// </summary>
+   public  class PathTools {
         /// <summary>
         ///     獲取各種路徑
         /// </summary>
@@ -32,7 +33,7 @@ namespace Common.Implement.Tools {
             #region typekey路径
             var txtNewTypeKey = toolpars.FormEntity.TxtNewTypeKey;
             var newTypeKeyRootDir = txtNewTypeKey;
-            if (newTypeKeyRootDir.StartsWith(settingPathEntity.PackageBaseName)) {
+            if (!newTypeKeyRootDir.StartsWith(settingPathEntity.PackageBaseName)) {
                 newTypeKeyRootDir= CombineStr(new[]
                     {settingPathEntity.PackageBaseName, txtNewTypeKey}); //Digiwin.ERP.typekey
             }
@@ -99,13 +100,23 @@ namespace Common.Implement.Tools {
         }
 
 
+        /// <summary>
+        /// 连接字符串
+        /// </summary>
+        /// <param name="strs"></param>
+        /// <returns></returns>
         public static string CombineStr(string[] strs) {
             var sb = new StringBuilder();
             strs.ToList().ForEach(str => sb.Append((str ?? string.Empty).Trim()));
             return sb.ToString();
         }
 
-        public static string PathCombine(params string[] strs) {
+       /// <summary>
+       /// 连接路径
+       /// </summary>
+       /// <param name="strs"></param>
+       /// <returns></returns>
+       public static string PathCombine(params string[] strs) {
             var path = string.Empty;
             strs.ToList().ForEach(str => {
                     var pathArg = (str ?? string.Empty).Trim();
@@ -122,8 +133,38 @@ namespace Common.Implement.Tools {
                 }
             );
             return path;
-        }
+        } 
 
+       // /// <summary>
+       ///// 连接路径，指定连接字符串
+       ///// </summary>
+       ///// <param name="combineStr">连接字符串</param>
+       ///// <param name="strs"></param>
+       ///// <returns></returns>
+       //public static string PathCombine(string combineStr, params string[] strs) {
+       //     var path = string.Empty;
+       //     strs.ToList().ForEach(str => {
+       //             var pathArg = (str ?? string.Empty).Trim();
+       //             if (path.Equals(string.Empty)) {
+       //                 path = pathArg;
+       //             }
+       //             else if (path.EndsWith(@combineStr)) {
+       //                 path = $@"{path}{pathArg}";
+       //             }
+       //             else {
+       //                 path = $@"{path}{combineStr}{pathArg}";
+       //             }
+                   
+       //         }
+       //     );
+       //     return path;
+       // }
+
+        /// <summary>
+        /// 检查空字符串
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool IsNullOrEmpty(object value) {
             var f = value == null;
             if(f) return true;
@@ -146,7 +187,13 @@ namespace Common.Implement.Tools {
             return true;
         }
 
-        public static string GetSettingPath(string fileName,Toolpars toolPars) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetSettingPath(string fileName) {
+            var toolPars = MyTool.Toolpars;
             var modelType= toolPars.ModelType;
             var path = string.Empty;
             var mvsToolpath = toolPars.MvsToolpath;

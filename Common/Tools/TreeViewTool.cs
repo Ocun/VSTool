@@ -16,27 +16,25 @@ namespace Common.Implement.Tools {
         ///     创建右面板
         /// </summary>
         /// <param name="myTreeView5"></param>
-        /// <param name="toolpars"></param>
-        public static void CreateRightView(MyTreeView myTreeView5, Toolpars toolpars) {
+        public static void CreateRightView(MyTreeView myTreeView5) {
             myTreeView5.Nodes.Clear();
-            CreateRightView(toolpars, myTreeView5.Nodes);
+            CreateRightView(myTreeView5.Nodes);
             myTreeView5.ExpandAll();
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="toolpars"></param>
         /// <param name="mytree"></param>
         /// <param name="buildeEntity"></param>
         /// <param name="showCheck"></param>
-        public static void CreateTree(Toolpars toolpars, MyTreeView mytree, List<BuildeType> buildeEntity,
+        public static void CreateTree(MyTreeView mytree, List<BuildeType> buildeEntity,
             bool showCheck) {
             mytree.Nodes.Clear();
             if (buildeEntity == null || buildeEntity.Count <= 0)
                 return;
             var item = buildeEntity.ToList();
             item.ForEach(buildeType => {
-                var node = CreateTree(toolpars, buildeType, showCheck, false);
+                var node = CreateTree(buildeType, showCheck, false);
                 if (node != null)
                     mytree.Nodes.Add(node);
             });
@@ -44,12 +42,11 @@ namespace Common.Implement.Tools {
 
         /// <summary>
         /// </summary>
-        /// <param name="toolpars"></param>
         /// <param name="buildeType"></param>
         /// <param name="showCheck"></param>
         /// <param name="readSubView"></param>
         /// <returns></returns>
-        public static TreeNode CreateTree(Toolpars toolpars, BuildeType buildeType, bool showCheck, bool readSubView) {
+        public static TreeNode CreateTree(BuildeType buildeType, bool showCheck, bool readSubView) {
             var text = buildeType.Name ?? string.Empty;
             if (buildeType.Visiable != null && buildeType.Visiable.Equals("False") && buildeType.BuildeItems == null)
                 return null;
@@ -64,13 +61,13 @@ namespace Common.Implement.Tools {
                         buildeType.ReadOnly != null &&
                         buildeType.ReadOnly.Equals("True")
                     )
-                        newChild.BuildeType.FileInfos = MyTool.CreateFileMappingInfo(toolpars, newChild.BuildeType);
+                        newChild.BuildeType.FileInfos = MyTool.CreateFileMappingInfo(newChild.BuildeType);
                     newChild.CheckBoxVisible = true;
                 }
             //读下层目录
             else if (readSubView && buildeType.BuildeItems != null && buildeType.BuildeItems.Length > 0)
                 buildeType.BuildeItems.ToList().ForEach(buildeItem => {
-                    newChild.Nodes.Add(CreateTree(toolpars, buildeItem, false, true));
+                    newChild.Nodes.Add(CreateTree(buildeItem, false, true));
                 });
             return newChild;
         }
@@ -78,10 +75,9 @@ namespace Common.Implement.Tools {
         /// <summary>
         ///     根据标准路径生成结点
         /// </summary>
-        /// <param name="toolpars"></param>
         /// <param name="fullPath"></param>
         /// <returns></returns>
-        public static MyTreeNode MyPaintTreeView(Toolpars toolpars, string fullPath) {
+        public static MyTreeNode MyPaintTreeView(string fullPath) {
             var dirName = Path.GetFileName(fullPath);
             var node = new MyTreeNode(dirName) {CheckBoxVisible = false};
             var dirs = new DirectoryInfo(fullPath);
@@ -94,7 +90,7 @@ namespace Common.Implement.Tools {
             var filecount = file.Count();
             for (var i = 0; i < dircount; i++) {
                 var pathNode = $@"{fullPath}\{dir[i].Name}";
-                var newChild = MyPaintTreeView(toolpars, pathNode);
+                var newChild = MyPaintTreeView(pathNode);
 
                 node.Nodes.Add(newChild);
             }
@@ -132,9 +128,9 @@ namespace Common.Implement.Tools {
         /// <summary>
         ///     创建右面板
         /// </summary>
-        /// <param name="toolPar"></param>
         /// <param name="nodes"></param>
-        public static void CreateRightView(Toolpars toolPar, TreeNodeCollection nodes) {
+        public static void CreateRightView(TreeNodeCollection nodes) {
+            var toolPar = MyTool.Toolpars;
             var buildeEntity = toolPar.BuilderEntity.BuildeTypies;
             if (buildeEntity == null)
                 return;

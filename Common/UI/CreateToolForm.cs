@@ -61,16 +61,17 @@ namespace Common.Implement.UI {
                 Description = DesTb.Text.Trim(),
                 Url = UrlTB.Text
             };
-            var buildeItems = new List<BuildeType> {bt};
+            var buildeItems = new List<BuildeType>() ;
             Toolpar.BuilderEntity.BuildeTypies.ToList().ForEach(item => {
                 if (!item.Id.Equals("MYTools"))
                     return;
                 buildeItems.AddRange(item.BuildeItems);
+                buildeItems.Add(bt);
                 item.BuildeItems = buildeItems.ToArray();
             });
 
 
-            var xmlPath = PathTools.GetSettingPath("BuildeEntity", Toolpar);
+            var xmlPath = PathTools.GetSettingPath("BuildeEntity");
             ReadToEntityTools.SaveSerialize(Toolpar.BuilderEntity, Toolpar.ModelType, xmlPath);
 
             IconTool.SetExeIcon(bt.Url);

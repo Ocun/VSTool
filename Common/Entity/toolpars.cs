@@ -45,7 +45,7 @@ namespace Common.Implement.Entity {
         public T GetEntity<T>(T obj,string fileName) where T:class {
             if (obj != null)
                 return obj;
-            var path = PathTools.GetSettingPath(fileName, this);
+            var path = PathTools.GetSettingPath(fileName);
             if (PathTools.CheckFile(path))
                 obj = ReadToEntityTools.ReadToEntity<T>(path, ModelType);
             return obj;
