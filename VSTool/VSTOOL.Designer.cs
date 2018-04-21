@@ -246,7 +246,7 @@ namespace VSTool
             this.txtNewTypeKey.Name = "txtNewTypeKey";
             this.txtNewTypeKey.Size = new System.Drawing.Size(538, 21);
             this.txtNewTypeKey.TabIndex = 2;
-            this.txtNewTypeKey.TextChanged += new System.EventHandler(this.TxtNewTypeKey_TextChanged);
+            this.txtNewTypeKey.TextChanged += TxtNewTypeKey_TextChanged;
             // 
             // Industry
             // 

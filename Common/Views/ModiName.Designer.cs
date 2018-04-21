@@ -189,15 +189,15 @@
 
         #endregion
 
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox txt01;
-        public System.Windows.Forms.TextBox txt02;
-        public System.Windows.Forms.Button btnOK;
-        public System.Windows.Forms.Label lblattention;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txt01;
+        private System.Windows.Forms.TextBox txt02;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label lblattention;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox comboBox2;
-        public System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox MergeBox;
     }
 }

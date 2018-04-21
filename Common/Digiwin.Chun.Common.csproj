@@ -99,7 +99,7 @@
     <Compile Include="Controller\MyTool.cs" />
     <Compile Include="Controller\PathTools.cs" />
     <Compile Include="Controller\ReadToEntityTools.cs" />
-    <Compile Include="Controller\TreeViewTool.cs" />
+    <Compile Include="Controller\ControlTool.cs" />
     <Compile Include="Model\FormEntity.cs" />
     <Compile Include="Model\PathEntity.cs" />
     <Compile Include="Model\Toolpars.cs" />

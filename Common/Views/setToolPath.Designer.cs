@@ -126,9 +126,9 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnOpenTo;
-        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

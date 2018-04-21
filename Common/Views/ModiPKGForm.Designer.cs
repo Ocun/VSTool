@@ -237,18 +237,18 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Button btnOK;
-        public System.Windows.Forms.TextBox TypeKeyText;
-        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.TextBox TypeKeyText;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOpenTo;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox txtNewTypeKey;
-        public System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtNewTypeKey;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox FromServer;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        public System.Windows.Forms.Label label3;
-        public System.Windows.Forms.TextBox CustomerText;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox CustomerText;
         private System.Windows.Forms.Button button2;
     }
 }

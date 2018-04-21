@@ -1,9 +1,12 @@
 ﻿// create By 08628 20180411
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Digiwin.Chun.Common.EventHandler;
 using Digiwin.Chun.Common.Model;
 using Digiwin.Chun.Common.Views;
 
@@ -11,7 +14,7 @@ namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     treeView生成辅助
     /// </summary>
-    public static class TreeViewTool {
+    public static class ControlTool {
         /// <summary>
         ///     创建右面板
         /// </summary>
@@ -173,6 +176,53 @@ namespace Digiwin.Chun.Common.Controller {
             return null;
         }
 
+        /// <summary>
+        /// 获取全部TreeView
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
+        public  static  List<MyTreeView> GetTreeViews(Control control)
+        {
+            if (control == null) throw new ArgumentNullException(nameof(control));
+            var treeViewList = new List<MyTreeView>();
+            var container = control as SplitContainer;
+            if (container == null)
+                return treeViewList;
+            var treeViewControl = container.Panel1.Controls[0];
+            if (treeViewControl is MyTreeView)
+            {
+                treeViewList.Add(treeViewControl as MyTreeView);
+            }
+            var splitContainerControl = container.Panel2.Controls[0];
+            if (splitContainerControl is SplitContainer)
+            {
+                treeViewList.AddRange(GetTreeViews(splitContainerControl));
+            }
+            return treeViewList;
+        }
+
+
+        /// <summary>
+        /// 获取全部SpiltContainer
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
+        public static List<SplitContainer> GetSplitContainerList(IDisposable control)
+        {
+            var splitContainerList = new List<SplitContainer>();
+            var container = control as SplitContainer;
+            if (container == null)
+                return splitContainerList;
+            splitContainerList.Add(container);
+            var panel2Control = container.Panel2.Controls[0];
+            if (panel2Control is SplitContainer)
+            {
+                splitContainerList.AddRange(GetSplitContainerList(panel2Control));
+            }
+            return splitContainerList;
+        }
         #endregion
+        
+
     }
 }

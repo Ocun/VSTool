@@ -11,7 +11,6 @@ using System.Threading;
 using Digiwin.Chun.Common.Controller;
 using Digiwin.Chun.Common.Model;
 using Digiwin.Chun.Common.Views;
-using VSTool.Annotations;
 using VSTool.Properties;
 
 namespace VSTool {
@@ -22,10 +21,8 @@ namespace VSTool {
         public Toolpars Toolpars { get; } = MyTool.Toolpars;
 
         #endregion
-        
 
-        public VSTOOL(string[] pToIni) {
-            InitializeComponent();
+        private void ControlDataBingding() {
             splitContainer2.Panel2.HorizontalScroll.Visible = false;
             //绑定类，当类或控件值改变时触发更新
             txtToPath.DataBindings.Add(new Binding("Text", Toolpars.FormEntity, "txtToPath", true,
@@ -36,6 +33,15 @@ namespace VSTool {
                 DataSourceUpdateMode.OnPropertyChanged));
             Industry.DataBindings.Add(new Binding("Checked", Toolpars.FormEntity, "Industry", true,
                 DataSourceUpdateMode.OnPropertyChanged));
+            ModiCkb.DataBindings.Add(new Binding("Checked", Toolpars.FormEntity, "IsModi", true,
+                DataSourceUpdateMode.OnPropertyChanged));
+        }
+
+        public VSTOOL(string[] pToIni) {
+            InitializeComponent();
+
+
+            ControlDataBingding();
 
             #region 自動更新
 
@@ -59,11 +65,12 @@ namespace VSTool {
 
 
         private void VSTOOL_Load(object sender, EventArgs e) {
-            TreeViewTool.CreateRightView(myTreeView5);
+            ControlTool.CreateRightView(myTreeView5);
             CreateTree("RootView");
             SpiltWidth = 200;
             MaxSplitCount = 6;
             CreateMainView();
+
         }
         
         /// <summary>
@@ -78,7 +85,7 @@ namespace VSTool {
             if (item.Count <= 0)
                 return;
             if (id.Equals("RootView")) {
-                TreeViewTool.CreateTree(myTreeView1, item, false);
+                ControlTool.CreateTree(myTreeView1, item, false);
                 return;
             }
             if (item[0].BuildeItems == null) return;
@@ -117,14 +124,14 @@ namespace VSTool {
                 if (evgCount == 0 && count < splitCount) {
                     if (skipSeq <= count - 1) {
                         var item2 = item[0].BuildeItems.Skip(skipSeq++).Take(1).ToList();
-                        TreeViewTool.CreateTree(tv, item2, true);
+                        ControlTool.CreateTree(tv, item2, true);
                     }
                 }
                 //均分
                 else if (surplusCount == 0) {
                     var item2 = item[0].BuildeItems.Skip(skipSeq).Take(evgCount).ToList();
                     skipSeq += evgCount;
-                    TreeViewTool.CreateTree(tv, item2, true);
+                    ControlTool.CreateTree(tv, item2, true);
                 }
                 //有余项
                 else {
@@ -137,7 +144,7 @@ namespace VSTool {
                     var item2 = item[0].BuildeItems.Skip(skipSeq).Take(subCount).ToList();
                 
                     skipSeq += subCount;
-                    TreeViewTool.CreateTree(tv, item2, true);
+                    ControlTool.CreateTree(tv, item2, true);
                 }
                 if (splitContainer.Panel2Collapsed) {
                     break;
@@ -175,7 +182,7 @@ namespace VSTool {
                         var node = myTreeView1.SelectedNode as MyTreeNode;
                         ShowTreeView(node);
                     }
-                    TreeViewTool.CreateRightView(myTreeView5);
+                    ControlTool.CreateRightView(myTreeView5);
                 }
                 else {
                     var fileInfos = MyTool.GetTreeViewPath(treeView1.Nodes);
@@ -257,7 +264,7 @@ namespace VSTool {
                 var node = myTreeView1.SelectedNode as MyTreeNode;
                 ShowTreeView(node);
             }
-            TreeViewTool.CreateRightView(myTreeView5);
+            ControlTool.CreateRightView(myTreeView5);
 
         }
 
@@ -268,8 +275,10 @@ namespace VSTool {
             var targetDir = Toolpars.PathEntity.TypeKeyFullRootDir;
             MyTool.OpenDir(targetDir);
         }
-        
+
         private void TxtNewTypeKey_TextChanged(object sender, EventArgs e) {
+
+
             if (!ModiCkb.Checked) return;
             if (!string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal)
                 && !string.Equals(Toolpars.FormEntity.TxtNewTypeKey, string.Empty, StringComparison.Ordinal)
@@ -280,7 +289,7 @@ namespace VSTool {
                 var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
                 if (Directory.Exists(pkgDir))
                 {
-                    TreeViewTool.MyPaintTreeView(pkgDir);
+                    ControlTool.MyPaintTreeView(pkgDir);
                 }
                 else
                 {
@@ -516,7 +525,7 @@ namespace VSTool {
                     }
                 }
             }
-            TreeViewTool.CreateRightView(myTreeView5);
+            ControlTool.CreateRightView(myTreeView5);
         }
         
         #region 修改
@@ -548,7 +557,7 @@ namespace VSTool {
                         {
                             myTreeView5.Nodes.Clear();
                             treeView1.Nodes.Clear();
-                            treeView1.Nodes.Add(TreeViewTool.MyPaintTreeView(pkgDir)); //mfroma
+                            treeView1.Nodes.Add(ControlTool.MyPaintTreeView(pkgDir)); //mfroma
                             treeView1.ExpandAll();
                         }
                         else
@@ -697,53 +706,15 @@ namespace VSTool {
         private int MaxSplitCount { get; set; }
         private List<MyTreeView> _myTreeViews;
 
-        private List<MyTreeView> MyTreeViews => _myTreeViews ?? (_myTreeViews = GetTreeViews(scrollPanel.Controls[0]));
+        private List<MyTreeView> MyTreeViews => _myTreeViews ?? (_myTreeViews = ControlTool.GetTreeViews(scrollPanel.Controls[0]));
         private List<SplitContainer> _mySplitContainers;
 
-        private List<SplitContainer> MySplitContainers => _mySplitContainers ?? (_mySplitContainers = GetSplitContainerList(scrollPanel.Controls[0]));
+        private List<SplitContainer> MySplitContainers => _mySplitContainers ?? (_mySplitContainers = ControlTool.GetSplitContainerList(scrollPanel.Controls[0]));
 
-        /// <summary>
-        /// 获取全部TreeView
-        /// </summary>
-        /// <param name="control"></param>
-        /// <returns></returns>
-        private List<MyTreeView> GetTreeViews([NotNull] Control control) {
-            if (control == null) throw new ArgumentNullException(nameof(control));
-            var treeViewList = new List<MyTreeView>();
-            var container = control as SplitContainer;
-            if (container == null)
-                return treeViewList;
-            var treeViewControl = container.Panel1.Controls[0];
-            if (treeViewControl is MyTreeView) {
-                treeViewList.Add(treeViewControl as MyTreeView);
-            }
-            var splitContainerControl = container.Panel2.Controls[0];
-            if (splitContainerControl is SplitContainer) {
-                treeViewList.AddRange(GetTreeViews(splitContainerControl)); 
-            }
-            return treeViewList;
-        }
-        /// <summary>
-        /// 获取全部SpiltContainer
-        /// </summary>
-        /// <param name="control"></param>
-        /// <returns></returns>
-        private List<SplitContainer> GetSplitContainerList(IDisposable control) {
-            var splitContainerList = new List<SplitContainer>();
-            var container = control as SplitContainer;
-            if (container == null)
-                return splitContainerList;
-            splitContainerList.Add(container);
-            var panel2Control = container.Panel2.Controls[0];
-            if (panel2Control is SplitContainer) {
-                splitContainerList.AddRange(GetSplitContainerList(panel2Control));
-            }
-            return splitContainerList;
-        }
+       
 
         private void ScrollPanel_DragEnter(object sender, DragEventArgs e)
         {
-
             if (myTreeView1.SelectedNode == null)
                 return;
             var node = myTreeView1.SelectedNode as MyTreeNode;

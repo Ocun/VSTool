@@ -26,8 +26,23 @@ namespace Digiwin.Chun.Common.Model {
         public bool Industry { get; set; } = false;
 
         /// <summary>
+        ///     修改状态
+        /// </summary>
+        public bool IsModi { get; set; } = false;
+
+        /// <summary>
         ///     借用TypeKey
         /// </summary>
         public string PkgTypekey { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 分割宽度，每间隔此宽度分割一列
+        /// </summary>
+        public int SpiltWidth { get; set; }
+
+        /// <summary>
+        /// 最大分割列数
+        /// </summary>
+        public int MaxSplitCount { get; set; }
     }
 }

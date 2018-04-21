@@ -516,9 +516,24 @@
                 行業包
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.IsModi">
+            <summary>
+                修改状态
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Model.FormEntity.PkgTypekey">
             <summary>
                 借用TypeKey
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.SpiltWidth">
+            <summary>
+            分割宽度，每间隔此宽度分割一列
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.MaxSplitCount">
+            <summary>
+            最大分割列数
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Model.PathEntity">
@@ -1705,25 +1720,25 @@
             <param name="xmlPath">xml路径</param>
             <returns>DataSet</returns>
         </member>
-        <member name="T:Digiwin.Chun.Common.Controller.TreeViewTool">
+        <member name="T:Digiwin.Chun.Common.Controller.ControlTool">
             <summary>
                 treeView生成辅助
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.TreeViewTool.CreateRightView(Digiwin.Chun.Common.Views.MyTreeView)">
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.CreateRightView(Digiwin.Chun.Common.Views.MyTreeView)">
             <summary>
                 创建右面板
             </summary>
             <param name="myTreeView5"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.TreeViewTool.CreateTree(Digiwin.Chun.Common.Views.MyTreeView,System.Collections.Generic.List{Digiwin.Chun.Common.Model.BuildeType},System.Boolean)">
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.CreateTree(Digiwin.Chun.Common.Views.MyTreeView,System.Collections.Generic.List{Digiwin.Chun.Common.Model.BuildeType},System.Boolean)">
             <summary>
             </summary>
             <param name="mytree"></param>
             <param name="buildeEntity"></param>
             <param name="showCheck"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.TreeViewTool.CreateTree(Digiwin.Chun.Common.Model.BuildeType,System.Boolean,System.Boolean)">
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.CreateTree(Digiwin.Chun.Common.Model.BuildeType,System.Boolean,System.Boolean)">
             <summary>
             </summary>
             <param name="buildeType"></param>
@@ -1731,24 +1746,38 @@
             <param name="readSubView"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.TreeViewTool.MyPaintTreeView(System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.MyPaintTreeView(System.String)">
             <summary>
                 根据标准路径生成结点
             </summary>
             <param name="fullPath"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.TreeViewTool.CreateRightView(System.Windows.Forms.TreeNodeCollection)">
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.CreateRightView(System.Windows.Forms.TreeNodeCollection)">
             <summary>
                 创建右面板
             </summary>
             <param name="nodes"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.TreeViewTool.CreateTree(Digiwin.Chun.Common.Model.BuildeType)">
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.CreateTree(Digiwin.Chun.Common.Model.BuildeType)">
             <summary>
             创建右侧message
             </summary>
             <param name="buildeType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.GetTreeViews(System.Windows.Forms.Control)">
+            <summary>
+            获取全部TreeView
+            </summary>
+            <param name="control"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTool.GetSplitContainerList(System.IDisposable)">
+            <summary>
+            获取全部SpiltContainer
+            </summary>
+            <param name="control"></param>
             <returns></returns>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.SqlTools">
@@ -1856,7 +1885,11 @@
         </member>
         <member name="T:Digiwin.Chun.Common.EventHandler.EventHelper">
             <summary>
-            事件帮助类
+                事件帮助类
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.EventHandler.EventHelper.VsForm">
+            <summary>
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.EventHandler.EventHelper.MyTreeView_Leave(System.Object,System.EventArgs)">
@@ -1865,6 +1898,26 @@
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.EventHandler.EventHelper.TxtNewTypeKey_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.EventHandler.EventHelper.ScrollPanel_DragEnter(System.Object,System.Windows.Forms.DragEventArgs)">
+            <summary>
+                拖拽到主窗体
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.EventHandler.EventHelper.GetControlByName``1(System.String)">
+            <summary>
+            </summary>
+            <param name="name"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
         </member>
         <member name="T:Digiwin.Chun.Common.Properties.Resources">
             <summary>
