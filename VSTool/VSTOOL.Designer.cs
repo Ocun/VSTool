@@ -1,4 +1,6 @@
 ﻿
+using Digiwin.Chun.Common.Views;
+
 namespace VSTool
 {
     partial class VSTOOL
@@ -41,13 +43,13 @@ namespace VSTool
             this.btnP = new System.Windows.Forms.Button();
             this.btnG = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.MyToolbar = new Common.Implement.UI.ToolBarManger();
+            this.MyToolbar = new ToolBarManger();
             this.ModiCkb = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNewTypeKey = new System.Windows.Forms.TextBox();
             this.Industry = new System.Windows.Forms.CheckBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.myTreeView5 = new Common.Implement.UI.MyTreeView();
+            this.myTreeView5 = new MyTreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -58,9 +60,9 @@ namespace VSTool
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.myTreeView1 = new Common.Implement.UI.MyTreeView();
-            this.scrollPanel = new Common.Implement.UI.MyPanel();
-            this.treeView1 = new Common.Implement.UI.MyTreeView();
+            this.myTreeView1 = new MyTreeView();
+            this.scrollPanel = new MyPanel();
+            this.treeView1 = new MyTreeView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -576,17 +578,17 @@ namespace VSTool
         private System.Windows.Forms.TextBox txtNewTypeKey;
         private System.Windows.Forms.CheckBox Industry;
         private System.Windows.Forms.Label label1;
-        private Common.Implement.UI.MyTreeView treeView1;
+        private MyTreeView treeView1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private Common.Implement.UI.MyTreeView myTreeView1;
-        private Common.Implement.UI.MyPanel scrollPanel;
-        private Common.Implement.UI.MyTreeView myTreeView5;
+        private MyTreeView myTreeView1;
+        private MyPanel scrollPanel;
+        private MyTreeView myTreeView5;
         private System.Windows.Forms.CheckBox ModiCkb;
         private System.Windows.Forms.Button PkgOpenTo;
         private System.Windows.Forms.Label ToolsDescrition;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private Common.Implement.UI.ToolBarManger MyToolbar;
+        private ToolBarManger MyToolbar;
     }
 }
 

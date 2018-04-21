@@ -1,4 +1,4 @@
-﻿namespace Common.Implement.UI
+﻿namespace Digiwin.Chun.Common.Views
 {
     sealed partial class ModiName
     {

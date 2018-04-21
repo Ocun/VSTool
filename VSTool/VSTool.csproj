@@ -108,9 +108,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.Implement.csproj">
+    <ProjectReference Include="..\Common\Digiwin.Chun.Common.csproj">
       <Project>{B3C53F24-8BAD-439A-A43D-BB64C5F8296F}</Project>
-      <Name>Common.Implement</Name>
+      <Name>Digiwin.Chun.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

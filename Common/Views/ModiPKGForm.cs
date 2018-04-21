@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Implement.Entity;
-using Common.Implement.Properties;
-using Common.Implement.Tools;
+using Digiwin.Chun.Common.Controller;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Properties;
 
-namespace Common.Implement.UI {
+namespace Digiwin.Chun.Common.Views {
     /// <summary>
     /// 借用标准
     /// </summary>

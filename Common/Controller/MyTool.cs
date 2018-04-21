@@ -10,13 +10,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using Common.Implement.Entity;
-using Common.Implement.Properties;
-using Common.Implement.UI;
-using static System.String;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Properties;
+using Digiwin.Chun.Common.Views;
+using Application = System.Windows.Forms.Application;
 using MSWord = Microsoft.Office.Interop.Word;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     工具类
     /// </summary>
@@ -31,7 +31,7 @@ namespace Common.Implement.Tools {
         /// <param name="pToIni"></param>
         public static void InitToolpars(string[] pToIni) {
             if (pToIni == null) {
-                Toolpars.FormEntity.TxtToPath = Empty;
+                Toolpars.FormEntity.TxtToPath = String.Empty;
             }
             else {
                 Toolpars.Mall = pToIni[0];
@@ -82,8 +82,8 @@ namespace Common.Implement.Tools {
                     continue;
                 if (fileinfo.Directory == null)
                     continue;
-                var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, Empty);
-                var absolutePath = file.Replace(fromDir, Empty);
+                var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, String.Empty);
+                var absolutePath = file.Replace(fromDir, String.Empty);
                 var newFilePath = Path.Combine(toDir, absolutePath);
                 var newFileDir = Path.Combine(toDir, absolutedir).Replace(fromTypeKey, toTypeKey);
                 if (!Directory.Exists(newFileDir))
@@ -180,29 +180,29 @@ namespace Common.Implement.Tools {
                 if (prop != null) {
                     // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
                     if (prop is SimpleProperty) {
-                        var name = ((SimpleProperty) prop).Name ?? Empty;
-                        if (!name.Equals(Empty))
+                        var name = ((SimpleProperty) prop).Name ?? String.Empty;
+                        if (!name.Equals(String.Empty))
                             propies.Add(name);
                     }
                     // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
                     if (prop is ComplexProperty) {
-                        var name = ((ComplexProperty) prop).Name ?? Empty;
-                        if (!name.Equals(Empty)) {
+                        var name = ((ComplexProperty) prop).Name ?? String.Empty;
+                        if (!name.Equals(String.Empty)) {
                             propies.Add(name + @"_ROid");
                             propies.Add(name + @"_RTK");
                         }
                     }
                     // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
                     if (prop is ReferenceProperty) {
-                        var name = ((ReferenceProperty) prop).Name ?? Empty;
-                        if (!name.Equals(Empty))
+                        var name = ((ReferenceProperty) prop).Name ?? String.Empty;
+                        if (!name.Equals(String.Empty))
                             propies.Add(name);
                     }
                 }
             });
             selectTypeKey?.InterfaceReferences?.ToList().ForEach(item => {
-                var name = item.Name ?? Empty;
-                if (!name.Equals(Empty))
+                var name = item.Name ?? String.Empty;
+                if (!name.Equals(String.Empty))
                     switch (name) {
                         case "IDocumentNumber":
                             propies.Add("DOC_NO");
@@ -427,9 +427,9 @@ namespace Common.Implement.Tools {
             var plugPath = bt.PlugPath;
             var moduleName = bt.ModuleName;
             if (plugPath == null
-                || plugPath.Trim().Equals(Empty)
+                || plugPath.Trim().Equals(String.Empty)
                 || moduleName == null
-                || moduleName.Trim().Equals(Empty)
+                || moduleName.Trim().Equals(String.Empty)
             ) {
                 MessageBox.Show(Resources.ModuleNotExisted);
                 return;
@@ -505,7 +505,7 @@ namespace Common.Implement.Tools {
         /// <param name="dir"></param>
         /// <returns></returns>
         public static string FindCSproj(DirectoryInfo dir) {
-            var csproj = Empty;
+            var csproj = String.Empty;
             if (!dir.Exists)
                 return csproj;
             var fileInfo = dir.GetFiles();
@@ -559,7 +559,7 @@ namespace Common.Implement.Tools {
             #region 检查覆盖
 
             if (msgList.Count > 0) {
-                var msg = Empty;
+                var msg = String.Empty;
                 msgList.ForEach(str => { msg += str + Environment.NewLine; });
                 if (MessageBox.Show(msg + Resources.FileExisted, Resources.WarningMsg, MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning)
@@ -623,7 +623,7 @@ namespace Common.Implement.Tools {
                         }
                         else {
                             if (path.PartId != null
-                                && !path.PartId.Equals(Empty))
+                                && !path.PartId.Equals(String.Empty))
                                 FindPartAndInsert(path);
                             else
                                 fileinfo.CopyTo(toPath);
@@ -734,7 +734,7 @@ namespace Common.Implement.Tools {
         /// </summary>
         private static void FindPartAndInsert(FileInfos fileinfo) {
             if (fileinfo.PartId != null
-                && !fileinfo.PartId.Equals(Empty)
+                && !fileinfo.PartId.Equals(String.Empty)
             ) {
                 var fromPath = fileinfo.FromPath;
                 var toPath = fileinfo.ToPath;
@@ -939,7 +939,7 @@ namespace Common.Implement.Tools {
                     fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.TxtToPath, newFilePath);
                 }
                 if (bt.PartId != null
-                    && !bt.PartId.Equals(Empty)) {
+                    && !bt.PartId.Equals(String.Empty)) {
                     fileinfo.PartId = bt.PartId;
                     fileinfo.PartId = bt.Id;
                     fileinfo.IsMerge = bt.IsMerge;

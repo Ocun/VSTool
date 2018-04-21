@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     /// xml辅助类
     /// </summary>

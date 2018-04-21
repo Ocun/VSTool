@@ -6,10 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
-using Common.Implement.Entity;
+using Digiwin.Chun.Common.Model;
 using Point = System.Drawing.Point;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     获取应用程序图标
     /// </summary>

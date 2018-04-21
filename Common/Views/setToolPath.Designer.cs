@@ -1,4 +1,4 @@
-﻿namespace Common.Implement.UI
+﻿namespace Digiwin.Chun.Common.Views
 {
     partial class SetToolPath
     {

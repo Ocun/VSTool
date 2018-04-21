@@ -1,9 +1,9 @@
 ﻿// create By 08628 20180411
 
 using System;
-using Common.Implement.UI;
+using Digiwin.Chun.Common.Views;
 
-namespace Common.Implement.EventHandler {
+namespace Digiwin.Chun.Common.EventHandler {
     /// <summary>
     /// 事件帮助类
     /// </summary>

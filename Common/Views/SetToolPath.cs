@@ -3,9 +3,9 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using Common.Implement.Properties;
+using Digiwin.Chun.Common.Properties;
 
-namespace Common.Implement.UI {
+namespace Digiwin.Chun.Common.Views {
     /// <summary>
     /// 设置外部工具链接地址
     /// </summary>

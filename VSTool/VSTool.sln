@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSTool", "VSTool.csproj", "{D04BFEFF-0000-4CF3-8AB8-3289F8D8FAB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Implement", "..\Common\Common.Implement.csproj", "{B3C53F24-8BAD-439A-A43D-BB64C5F8296F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digiwin.Chun.Common", "..\Common\Digiwin.Chun.Common.csproj", "{B3C53F24-8BAD-439A-A43D-BB64C5F8296F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

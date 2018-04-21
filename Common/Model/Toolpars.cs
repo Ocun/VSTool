@@ -1,9 +1,9 @@
 // create By 08628 20180411
 
 using System;
-using Common.Implement.Tools;
+using Digiwin.Chun.Common.Controller;
 
-namespace Common.Implement.Entity {
+namespace Digiwin.Chun.Common.Model {
     /// <summary>
     ///     ´°Ìå²ÎÊý
     /// </summary>

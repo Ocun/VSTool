@@ -3,7 +3,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Common.Implement.UI {
+namespace Digiwin.Chun.Common.Views {
+    /// <summary>
+    /// 自定panel，解决滚动响应问题
+    /// </summary>
     public class MyPanel : Panel {
         /// <summary>
         ///     解决 当pannel里的控件重获焦点时，自动滚动到最上面

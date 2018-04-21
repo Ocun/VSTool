@@ -1,4 +1,4 @@
-﻿namespace Common.Implement.UI
+﻿namespace Digiwin.Chun.Common.Views
 {
     partial class ToolBarManger
     {
@@ -43,7 +43,7 @@
             // 
             // StopBtn
             // 
-            this.StopBtn.BackgroundImage = global::Common.Implement.Properties.Resources.Stop;
+            this.StopBtn.BackgroundImage = global::Digiwin.Chun.Common.Properties.Resources.Stop;
             this.StopBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.StopBtn.FlatAppearance.BorderSize = 0;
             this.StopBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -62,7 +62,7 @@
             // 
             // StartBtn
             // 
-            this.StartBtn.BackgroundImage = global::Common.Implement.Properties.Resources.Start;
+            this.StartBtn.BackgroundImage = global::Digiwin.Chun.Common.Properties.Resources.Start;
             this.StartBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.StartBtn.FlatAppearance.BorderSize = 0;
             this.StartBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -81,7 +81,7 @@
             // 
             // CopyBtn
             // 
-            this.CopyBtn.BackgroundImage = global::Common.Implement.Properties.Resources.Copy;
+            this.CopyBtn.BackgroundImage = global::Digiwin.Chun.Common.Properties.Resources.Copy;
             this.CopyBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.CopyBtn.FlatAppearance.BorderSize = 0;
             this.CopyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -100,7 +100,7 @@
             // 
             // RefreshBtn
             // 
-            this.RefreshBtn.BackgroundImage = global::Common.Implement.Properties.Resources.Refresh;
+            this.RefreshBtn.BackgroundImage = global::Digiwin.Chun.Common.Properties.Resources.Refresh;
             this.RefreshBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.RefreshBtn.FlatAppearance.BorderSize = 0;
             this.RefreshBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -119,7 +119,7 @@
             // 
             // StartClientBtn
             // 
-            this.StartClientBtn.BackgroundImage = global::Common.Implement.Properties.Resources.Start_Client;
+            this.StartClientBtn.BackgroundImage = global::Digiwin.Chun.Common.Properties.Resources.Start_Client;
             this.StartClientBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.StartClientBtn.FlatAppearance.BorderSize = 0;
             this.StartClientBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -138,7 +138,7 @@
             // 
             // CopyClientBtn
             // 
-            this.CopyClientBtn.BackgroundImage = global::Common.Implement.Properties.Resources.Copy_Client;
+            this.CopyClientBtn.BackgroundImage = global::Digiwin.Chun.Common.Properties.Resources.Copy_Client;
             this.CopyClientBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.CopyClientBtn.FlatAppearance.BorderSize = 0;
             this.CopyClientBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

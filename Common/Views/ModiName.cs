@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Implement.Entity;
-using Common.Implement.Properties;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Properties;
 
-namespace Common.Implement.UI {
+namespace Digiwin.Chun.Common.Views {
     /// <summary>
     ///     新项目参数窗体
     /// </summary>

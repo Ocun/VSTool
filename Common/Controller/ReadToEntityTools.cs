@@ -10,7 +10,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
 
     
     /// <summary>

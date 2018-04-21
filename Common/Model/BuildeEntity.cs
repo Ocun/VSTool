@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
-namespace Common.Implement.Entity {
+namespace Digiwin.Chun.Common.Model {
     // 注意: 生成的代码可能至少需要 .NET Framework 4.5 或 .NET Core/Standard 2.0。
     /// <remarks />
     [Serializable]

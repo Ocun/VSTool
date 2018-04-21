@@ -1,6 +1,6 @@
 ﻿// create By 08628 20180411
 
-namespace Common.Implement.Entity {
+namespace Digiwin.Chun.Common.Model {
     /// <summary>
     ///     路径相关
     /// </summary>

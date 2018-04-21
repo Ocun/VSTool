@@ -4,10 +4,10 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Common.Implement.Entity;
-using Common.Implement.Properties;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Properties;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
    /// <summary>
    /// 路径辅助类
    /// </summary>

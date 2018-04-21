@@ -4,9 +4,9 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Common.Implement.Properties;
+using Digiwin.Chun.Common.Properties;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     旧版用到的一些方法
     /// </summary>

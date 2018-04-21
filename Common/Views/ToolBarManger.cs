@@ -6,12 +6,12 @@ using System.IO;
 using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
-using Common.Implement.Entity;
-using Common.Implement.Properties;
-using Common.Implement.Tools;
+using Digiwin.Chun.Common.Controller;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Properties;
 using Timer = System.Timers.Timer;
 
-namespace Common.Implement.UI {
+namespace Digiwin.Chun.Common.Views {
     /// <summary>
     ///     ToolBar控件
     /// </summary>

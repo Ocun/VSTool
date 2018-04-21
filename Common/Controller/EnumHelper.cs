@@ -1,4 +1,4 @@
-﻿namespace Common.Implement.Tools {
+﻿namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     model文件类型
     /// </summary>

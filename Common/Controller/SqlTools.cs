@@ -1,13 +1,14 @@
 ﻿// create By 08628 20180411
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using Common.Implement.Entity;
+using Digiwin.Chun.Common.Model;
 
-namespace Common.Implement.Tools
+namespace Digiwin.Chun.Common.Controller
 {
     /// <summary>
     /// sql辅助类

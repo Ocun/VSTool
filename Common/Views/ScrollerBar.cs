@@ -17,7 +17,10 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace Common.Implement.UI {
+namespace Digiwin.Chun.Common.Views {
+    /// <summary>
+    /// 自定义滚动条，本项目并未使用
+    /// </summary>
     public class ScrollerBar : UserControl {
         //窗体设计器所添加或重写的变量******************************************************
         //

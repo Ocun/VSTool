@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Implement.Entity;
-using Common.Implement.Tools;
+using Digiwin.Chun.Common.Controller;
+using Digiwin.Chun.Common.Model;
 using IWshRuntimeLibrary;
 
-namespace Common.Implement.UI {
+namespace Digiwin.Chun.Common.Views {
     /// <summary>
     /// 创建工具项
     /// </summary>

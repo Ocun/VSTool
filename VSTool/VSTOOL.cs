@@ -6,11 +6,11 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using Common.Implement.UI;
-using Common.Implement.Entity;
-using Common.Implement.EventHandler;
+using Digiwin.Chun.Common.EventHandler;
 using System.Threading;
-using Common.Implement.Tools;
+using Digiwin.Chun.Common.Controller;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Views;
 using VSTool.Annotations;
 using VSTool.Properties;
 

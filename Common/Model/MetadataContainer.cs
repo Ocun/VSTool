@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Common.Implement.Entity {
+namespace Digiwin.Chun.Common.Model {
     // 注意: 生成的代码可能至少需要 .NET Framework 4.5 或 .NET Core/Standard 2.0。
     /// <remarks />
     [XmlType(AnonymousType = true, Namespace = "http://schemas.dcms.com/configuration/MetadataContainerElement")]

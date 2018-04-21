@@ -8,8 +8,8 @@
     <ProjectGuid>{B3C53F24-8BAD-439A-A43D-BB64C5F8296F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common.Implement</RootNamespace>
-    <AssemblyName>Common.Implement</AssemblyName>
+    <RootNamespace>Digiwin.Chun.Common</RootNamespace>
+    <AssemblyName>Digiwin.Chun.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -43,7 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\Common.Implement.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Digiwin.Chun.Common.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Common.Implement.Entity;
-using Common.Implement.UI;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Views;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     /// 日志
     /// </summary>

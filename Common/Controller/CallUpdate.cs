@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     /// 自动升级辅助类
     /// </summary>

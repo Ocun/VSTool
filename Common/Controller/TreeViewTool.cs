@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Implement.Entity;
-using Common.Implement.UI;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Views;
 
-namespace Common.Implement.Tools {
+namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     treeView生成辅助
     /// </summary>
