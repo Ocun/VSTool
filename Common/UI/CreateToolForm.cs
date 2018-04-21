@@ -2,53 +2,57 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Common.Implement.Entity;
 using Common.Implement.Tools;
 using IWshRuntimeLibrary;
-using File = System.IO.File;
 
-namespace Common.Implement.UI
-{
-    public partial class CreateToolForm : Form
-    {
-        public CreateToolForm()
-        {
+namespace Common.Implement.UI {
+    /// <summary>
+    /// 创建工具项
+    /// </summary>
+    public partial class CreateToolForm : Form {
+        /// <summary>
+        /// </summary>
+        public CreateToolForm() {
             InitializeComponent();
         }
 
-        public CreateToolForm(string toolPath, Toolpars toolpar)
-        {
+        /// <summary>
+        /// </summary>
+        /// <param name="toolPath"></param>
+        /// <param name="toolpar"></param>
+        public CreateToolForm(string toolPath, Toolpars toolpar) {
             InitializeComponent();
             Toolpar = toolpar;
             ToolPath = toolPath;
             var extName = Path.GetExtension(toolPath);
             var tagertPath = string.Empty;
-            if (extName != null && extName.Trim().Equals(".lnk"))
-            {
+            if (extName != null && extName.Trim().Equals(".lnk")) {
                 var shell = new WshShell();
-                var shortCut = (IWshShortcut)shell.CreateShortcut(ToolPath);
+                var shortCut = (IWshShortcut) shell.CreateShortcut(ToolPath);
                 tagertPath = shortCut.TargetPath;
             }
-            else if (extName != null && extName.Trim().Equals(".exe"))
-            {
+            else if (extName != null && extName.Trim().Equals(".exe")) {
                 tagertPath = ToolPath;
             }
             UrlTB.Text = tagertPath;
-           
+
             var toolName = Path.GetFileNameWithoutExtension(tagertPath);
             IDTB.Text = $@"Create{toolName}ID";
             NameTB.Text = toolName;
         }
 
+        /// <summary>
+        /// </summary>
         public Toolpars Toolpar { get; set; }
+
+        /// <summary>
+        /// </summary>
         public string ToolPath { get; set; }
 
-        private void BtnOK_Click(object sender, EventArgs e)
-        {
-            var bt = new BuildeType
-            {
+        private void BtnOK_Click(object sender, EventArgs e) {
+            var bt = new BuildeType {
                 Id = IDTB.Text.Trim(),
                 Name = NameTB.Text.Trim(),
                 IsTools = "True",
@@ -57,40 +61,41 @@ namespace Common.Implement.UI
                 Description = DesTb.Text.Trim(),
                 Url = UrlTB.Text
             };
-            var buildeItems = new List<BuildeType>(){ bt };
+            var buildeItems = new List<BuildeType> {bt};
             Toolpar.BuilderEntity.BuildeTypies.ToList().ForEach(item => {
                 if (!item.Id.Equals("MYTools"))
                     return;
                 buildeItems.AddRange(item.BuildeItems);
                 item.BuildeItems = buildeItems.ToArray();
             });
-            var text= ReadToEntityTools.XmlSerialize(Toolpar.BuilderEntity);
-            var xmlPath = AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml";
-            File.WriteAllText(xmlPath, text, Encoding.UTF8);
+
+
+            var xmlPath = PathTools.GetSettingPath("BuildeEntity", Toolpar);
+            ReadToEntityTools.SaveSerialize(Toolpar.BuilderEntity, Toolpar.ModelType, xmlPath);
+
             IconTool.SetExeIcon(bt.Url);
             DialogResult = DialogResult.OK;
-
-
         }
 
-        private void CreateToolForm_Load(object sender, EventArgs e)
-        {
-            var tagertPath =UrlTB.Text;
+        private void CreateToolForm_Load(object sender, EventArgs e) {
+            var tagertPath = UrlTB.Text;
             var existed = false;
-            Toolpar.BuilderEntity.BuildeTypies.ToList().ForEach(item => {
+            var buildeTypies = Toolpar.BuilderEntity.BuildeTypies.ToList();
+            foreach (var item in buildeTypies) {
+
                 if (!item.Id.Equals("MYTools"))
-                    return;
+                    break;
                 existed = item.BuildeItems.Any(builderItem => {
-                    var @equals = builderItem?.Url?.Equals(tagertPath);
-                    return @equals != null && (bool)@equals;
+                    var equals = builderItem?.Url?.Equals(tagertPath);
+                    return equals != null && (bool) equals;
                 });
                 if (existed)
-                    return;
-
-            });
-            if (!existed) return;
+                    break;
+            }
+            if (!existed)
+                return;
             DialogResult = DialogResult.Cancel;
-            this.Dispose();
+            Dispose();
         }
     }
 }

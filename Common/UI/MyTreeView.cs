@@ -1,7 +1,6 @@
 ﻿//  create By 08628 20180411
 
 using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -10,10 +9,23 @@ using Common.Implement.Entity;
 using Common.Implement.Properties;
 using Common.Implement.Tools;
 
-namespace Common.Implement.UI {
+namespace Common.Implement.UI
+{
+    /// <summary>
+    /// 自定义TreeView
+    /// </summary>
     public partial class MyTreeView : TreeView {
+
+        /// <summary>
+        /// 相应外部滚动事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="upAndDown"></param>
         public delegate void SetAutoScrollHandler(object sender, int upAndDown);
 
+        /// <summary>
+        /// 构造
+        /// </summary>
         public MyTreeView() {
             InitializeComponent();
             //this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
@@ -236,8 +248,15 @@ namespace Common.Implement.UI {
             graphics.Dispose();
         }
 
+        /// <summary>
+        /// 相应外部滚动事件
+        /// </summary>
         public event SetAutoScrollHandler SetAutoScrollEvent;
 
+        /// <summary>
+        /// 双击
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNodeMouseDoubleClick(TreeNodeMouseClickEventArgs e) {
             base.OnNodeMouseDoubleClick(e);
             var node = e.Node as MyTreeNode;
@@ -252,7 +271,11 @@ namespace Common.Implement.UI {
             }
         }
 
-        //自定义消息
+        
+        /// <summary>
+        /// 自定义消息
+        /// </summary>
+        /// <param name="m"></param>
         protected override void WndProc(ref Message m) {
             //const int wmMouseClick = 0x0201;
             //const int wmMouseDoubleClick = 0x0203;
@@ -379,16 +402,29 @@ namespace Common.Implement.UI {
             // Application.DoEvents();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int Loword(int value) {
             return value & 0xFFFF;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int Hiword(int value) {
             return value >> 16;
         }
 
         #region 屬性
 
+        /// <summary>
+        /// 节点图片
+        /// </summary>
         public  Hashtable NodeImages => _nodeImages ?? (_nodeImages = IconTool.ImageList);
 
         /// <summary>
@@ -416,6 +452,9 @@ namespace Common.Implement.UI {
         /// </summary>
         public Size NodeImageSize { get; set; }
 
+        /// <summary>
+        /// 描述字体颜色
+        /// </summary>
         public Color DescriptionColor {
             get => _desColor;
 
@@ -433,6 +472,9 @@ namespace Common.Implement.UI {
         /// </summary>
         public bool ShowDescription { get; set; }
 
+        /// <summary>
+        /// 外部间距
+        /// </summary>
         public Point PaddingSetting {  get; set; }
 
         private Image _imgChecked;
@@ -447,18 +489,45 @@ namespace Common.Implement.UI {
         #endregion
     }
 
+    /// <summary>
+    /// 自定义TreeNode
+    /// </summary>
     public class MyTreeNode : TreeNode {
+        /// <summary>
+        /// checkBoxOrRadioBox
+        /// </summary>
         public enum CheckBoxStyleEnum {
+            /// <summary>
+            /// 单选
+            /// </summary>
             RadioButton,
+            /// <summary>
+            /// 复选
+            /// </summary>
             CheckBox
         }
 
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="text"></param>
         public MyTreeNode(string text) : base(text) {
             BuildeType = new BuildeType();
         }
 
+        /// <summary>
+        /// checkbox是否可见
+        /// </summary>
         public bool CheckBoxVisible { get; set; }
+
+        /// <summary>
+        /// box是否可见
+        /// </summary>
         public CheckBoxStyleEnum CheckBoxStyle { get; set; }
+
+        /// <summary>
+        /// 外部参数
+        /// </summary>
         public BuildeType BuildeType { get; set; }
     }
 }

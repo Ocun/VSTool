@@ -3,13 +3,24 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using Common.Implement.Properties;
 
 namespace Common.Implement.UI {
+    /// <summary>
+    /// 设置外部工具链接地址
+    /// </summary>
     public partial class SetToolPath : Form {
+        /// <summary>
+        /// 
+        /// </summary>
         public SetToolPath() {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
         public SetToolPath(string path) {
             InitializeComponent();
             textBox1.Text = (path??string.Empty).Trim();
@@ -18,9 +29,12 @@ namespace Common.Implement.UI {
                 DataSourceUpdateMode.OnPropertyChanged));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Path { get; set; }
 
-        private void btnOpenTo_Click(object sender, EventArgs e) {
+        private void BtnOpenTo_Click(object sender, EventArgs e) {
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
             if (File.Exists(openFileDialog1.FileName)) {
@@ -28,7 +42,7 @@ namespace Common.Implement.UI {
                 Path = openFileDialog1.FileName;
             }
             else {
-                MessageBox.Show("所选文件无效，请重新选择");
+                MessageBox.Show(string.Format(Resources.NotFindFile,string.Empty));
             }
         }
 

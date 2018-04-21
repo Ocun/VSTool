@@ -19,9 +19,7 @@ namespace VSTool {
     public partial class VSTOOL : Form {
         #region 屬性
 
-        private Toolpars _toolpars = new Toolpars();
-
-        public Toolpars Toolpars => _toolpars;
+        public Toolpars Toolpars { get; } = new Toolpars();
 
         #endregion
         
@@ -59,7 +57,7 @@ namespace VSTool {
             MyTool.InitToolpars(Toolpars,pToIni);
             MyToolbar.Toolpar = Toolpars;
             MyTool.InitBuilderEntity(Toolpars);
-            TreeViewTool.CreateRightView(myTreeView5, _toolpars);
+            TreeViewTool.CreateRightView(myTreeView5, Toolpars);
         }
 
 
@@ -76,15 +74,15 @@ namespace VSTool {
         /// 绘制左侧导航及主视图区
         /// </summary>
         /// <param name="id"></param>
-        void CreateTree(string id) {
-            var buildeEntity = _toolpars.BuilderEntity;
+        public void CreateTree(string id) {
+            var buildeEntity = Toolpars.BuilderEntity;
 
             var item = buildeEntity.BuildeTypies.Where(et => et.Id.Equals(id) || id.Equals("RootView")).ToList();
 
             if (item.Count <= 0)
                 return;
             if (id.Equals("RootView")) {
-                TreeViewTool.CreateTree(_toolpars,myTreeView1, item, false);
+                TreeViewTool.CreateTree(Toolpars,myTreeView1, item, false);
                 return;
             }
             if (item[0].BuildeItems == null) return;
@@ -110,7 +108,7 @@ namespace VSTool {
       
         }
 
-        private void CreateTreeView(int count, int splitCount, List<BuildeType> item
+        private void CreateTreeView(int count, int splitCount, IReadOnlyList<BuildeType> item
             ) {
             var skipSeq = 0;
             var evgCount = count / splitCount;
@@ -123,14 +121,14 @@ namespace VSTool {
                 if (evgCount == 0 && count < splitCount) {
                     if (skipSeq <= count - 1) {
                         var item2 = item[0].BuildeItems.Skip(skipSeq++).Take(1).ToList();
-                        TreeViewTool.CreateTree(_toolpars, tv, item2, true);
+                        TreeViewTool.CreateTree(Toolpars, tv, item2, true);
                     }
                 }
                 //均分
                 else if (surplusCount == 0) {
                     var item2 = item[0].BuildeItems.Skip(skipSeq).Take(evgCount).ToList();
                     skipSeq += evgCount;
-                    TreeViewTool.CreateTree(_toolpars, tv, item2, true);
+                    TreeViewTool.CreateTree(Toolpars, tv, item2, true);
                 }
                 //有余项
                 else {
@@ -143,7 +141,7 @@ namespace VSTool {
                     var item2 = item[0].BuildeItems.Skip(skipSeq).Take(subCount).ToList();
                 
                     skipSeq += subCount;
-                    TreeViewTool.CreateTree(_toolpars, tv, item2, true);
+                    TreeViewTool.CreateTree(Toolpars, tv, item2, true);
                 }
                 if (splitContainer.Panel2Collapsed) {
                     break;
@@ -159,32 +157,31 @@ namespace VSTool {
         /// <param name="e"></param>
         private void BtnCreate_Click(object sender, EventArgs e) {
             try {
+                var pathInfo = Toolpars.PathEntity;
                 if (!ModiCkb.Checked) {
-                    var dicPath = MyTool.GetTreeViewFilePath(myTreeView5.Nodes, _toolpars);
+                    var dicPath = MyTool.GetTreeViewFilePath(myTreeView5.Nodes, Toolpars);
                     var fileInfos = new List<FileInfos>();
                     foreach (var kv in dicPath) {
                         fileInfos.AddRange(kv.Value);
                     }
                     new Thread(()=>  LogTool.WriteToServer(Toolpars, fileInfos)
                     ).Start();
-                    
-                    Toolpars.GToIni = Toolpars.FormEntity.TxtToPath;
+
                     if ((string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal))
-                        || (string.Equals(Toolpars.FormEntity.txtNewTypeKey, string.Empty, StringComparison.Ordinal))) {
+                        || (string.Equals(Toolpars.FormEntity.TxtNewTypeKey, string.Empty, StringComparison.Ordinal))) {
                         MessageBox.Show(Resources.TypeKeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    var success = MyTool.CreateFile(myTreeView5, _toolpars);
+                    var success = MyTool.CreateFile(myTreeView5, Toolpars);
 
                     if (!success) return;
                     if (myTreeView1.SelectedNode != null) {
                         var node = myTreeView1.SelectedNode as MyTreeNode;
                         ShowTreeView(node);
                     }
-                    TreeViewTool.CreateRightView(myTreeView5,_toolpars);
+                    TreeViewTool.CreateRightView(myTreeView5,Toolpars);
                 }
                 else {
-                    //OldTools.WriteLogByTreeView(Toolpars, listDATA);
                     var fileInfos = MyTool.GetTreeViewPath(treeView1.Nodes);
                     //new Thread( ()=> {
                     //        Invoke(new Action(()=>{
@@ -195,19 +192,15 @@ namespace VSTool {
                     new Thread( ()=>  LogTool.WriteToServer(Toolpars, fileInfos)
                           
                     ).Start();
-
-                    Toolpars.GToIni = Toolpars.FormEntity.TxtToPath;
+                 
                     if ((string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal))
-                        || (string.Equals(Toolpars.FormEntity.txtNewTypeKey, string.Empty, StringComparison.Ordinal))
+                        || (string.Equals(Toolpars.FormEntity.TxtNewTypeKey, string.Empty, StringComparison.Ordinal))
                         ) {
                         MessageBox.Show(Resources.TypeKeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    var pkgDir = $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
-                    if (Toolpars.FormEntity.PkgTypekey.StartsWith("Digiwin.ERP."))
-                    {
-                        pkgDir = $@"{Toolpars.FormEntity.txtPKGpath}\{Toolpars.FormEntity.PkgTypekey}";
-                    }
+                    var pkgDir = pathInfo.PkgTypeKeyFullRootDir; 
+
                     if (!Directory.Exists(pkgDir))
                     {
                         MessageBox.Show(string.Format(Resources.DirNotExist, pkgDir), Resources.ErrorMsg, MessageBoxButtons.OK,
@@ -215,12 +208,11 @@ namespace VSTool {
                         return;
                     }
                     var flag = true;
-                    var targetDir = $@"{Toolpars.GToIni}\Digiwin.ERP.{Toolpars.FormEntity.txtNewTypeKey}";
+
+                    var targetDir = pathInfo.TypeKeyFullRootDir; 
                     if (Directory.Exists(targetDir) ){
                         var result =
-                            MessageBox.Show(
-                                Path.Combine(Toolpars.FormEntity.TxtToPath, Toolpars.FormEntity.txtNewTypeKey)
-                                + Environment.NewLine+Resources.DirExisted,
+                            MessageBox.Show( targetDir  + Environment.NewLine+Resources.DirExisted,
                                 Resources.WarnningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         if (result == DialogResult.Yes) {
                             OldTools.DeleteAll(targetDir);
@@ -230,18 +222,17 @@ namespace VSTool {
                         }
                     }
                     if (!flag) return;
-                    flag=MyTool.CopyModi(treeView1.Nodes, _toolpars);
-                    if (flag) {
-                        MessageBox.Show(Resources.GenerateSucess);
-                        ModiCkb.Checked = false;
-                    }
+                    flag=MyTool.CopyModi(treeView1.Nodes, Toolpars);
+                    if (!flag)
+                        return;
+                    MessageBox.Show(Resources.GenerateSucess);
+                    ModiCkb.Checked = false;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "Create" + Toolpars.FormEntity.txtNewTypeKey);
         }
     
         /// <summary>
@@ -256,7 +247,7 @@ namespace VSTool {
                 var targetDir = Toolpars.FormEntity.TxtToPath;
                 MyTool.OpenDir(targetDir);
             }else if (name != null && name.Equals(PkgOpenTo.Name)) {
-                var targetDir = Toolpars.FormEntity.txtPKGpath;
+                var targetDir = Toolpars.FormEntity.TxtPkGpath;
                 MyTool.OpenDir(targetDir);
             }
 
@@ -264,13 +255,13 @@ namespace VSTool {
         }
         
         private void BtnClear_Click(object sender, EventArgs e) {
-            MyTool.InitBuilderEntity(_toolpars);
+            MyTool.InitBuilderEntity(Toolpars);
             if (myTreeView1.SelectedNode != null)
             {
                 var node = myTreeView1.SelectedNode as MyTreeNode;
                 ShowTreeView(node);
             }
-            TreeViewTool.CreateRightView(myTreeView5, _toolpars);
+            TreeViewTool.CreateRightView(myTreeView5, Toolpars);
 
         }
 
@@ -278,23 +269,22 @@ namespace VSTool {
         
         private void BtnOpen_Click(object sender, EventArgs e) //打开文件夹
         {
-            var targetDir = Toolpars.FormEntity.TxtToPath + @"\Digiwin.ERP."
-                      + Toolpars.FormEntity.txtNewTypeKey;
+            var targetDir = Toolpars.PathEntity.TypeKeyFullRootDir;
             MyTool.OpenDir(targetDir);
         }
         
         private void TxtNewTypeKey_TextChanged(object sender, EventArgs e) {
             if (!ModiCkb.Checked) return;
             if (!string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal)
-                && !string.Equals(Toolpars.FormEntity.txtNewTypeKey, string.Empty, StringComparison.Ordinal)
+                && !string.Equals(Toolpars.FormEntity.TxtNewTypeKey, string.Empty, StringComparison.Ordinal)
                 && !string.Equals(Toolpars.FormEntity.PkgTypekey, string.Empty, StringComparison.Ordinal)
             )
             {
-                var pkgDir =
-                    $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                var pathInfo = Toolpars.PathEntity;
+                var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
                 if (Directory.Exists(pkgDir))
                 {
-                    TreeViewTool.MyPaintTreeView(_toolpars, pkgDir);
+                    TreeViewTool.MyPaintTreeView(Toolpars, pkgDir);
                 }
                 else
                 {
@@ -307,67 +297,6 @@ namespace VSTool {
             }
         }
 
-        #region 复制到平台下
-
-        private void Btncopydll_Click(object sender, EventArgs e) {
-            try {
-                MyTool.CopyDll(Toolpars);
-                MessageBox.Show(Resources.CopySucess);
-            }
-            catch (Exception ex) {
-                string[] processNames = {
-                    "Digiwin.Mars.ClientStart",
-                    "Digiwin.Mars.ServerStart",
-                    "Digiwin.Mars.AccountSetStart"
-                };
-                var f = MyTool.CheckCanCopyDll(processNames);
-                if (f)
-                {
-                    Btncopydll_Click(null, null);
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
-            }
-            new Thread(() => SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopydll_Click")).Start();
-
-
-        }
-
-        private void BtncopyUIdll_Click(object sender, EventArgs e) {
-            try {
-                var export = Toolpars.PathEntity.ExportPath;
-                var toPath = $"{Toolpars.Mplatform}\\DeployServer\\Shared\\Customization\\Programs\\";
-                var filterStr = $"*{Toolpars.FormEntity.txtNewTypeKey}.UI.*";
-                if (Toolpars.MIndustry) {
-                    toPath = $"{Toolpars.Mplatform}\\DeployServer\\Shared\\Industry\\Programs\\";
-                }
-                MyTool.FileCopyUIdll(export, toPath, filterStr);
-            }
-            catch (Exception ex) {
-                string[] processNames = {
-                    "Digiwin.Mars.ClientStart"
-                };
-                var f = MyTool.CheckCanCopyDll(processNames);
-                if (f) {
-                    BtncopyUIdll_Click(null,null);
-                }
-                else {
-                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            new Thread(() =>SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopyUIdll_Click")).Start();
-
-         
-        }
-
-      
-
-        #endregion
-
-  
         private void Industry_CheckedChanged(object sender, EventArgs e) {
             Toolpars.MIndustry = Industry.Checked;
             Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
@@ -389,7 +318,8 @@ namespace VSTool {
         private void BtnG_Click(object sender, EventArgs e) {
             if (Toolpars.FormEntity.PkgTypekey == "")
                 return;
-            var targetDir = $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+            var pathInfo = Toolpars.PathEntity;
+            var targetDir = pathInfo.PkgTypeKeyFullRootDir;
             if (Directory.Exists(targetDir))
             {
                 Process.Start(targetDir);
@@ -529,13 +459,13 @@ namespace VSTool {
                               && builderType.ShowParWindow.Equals(falseStr))
                         )
                         {
-                            fileInfos = MyTool.CreateFileMappingInfo(_toolpars, builderType);
+                            fileInfos = MyTool.CreateFileMappingInfo(Toolpars, builderType);
 
                         }
                         else
                         {
                             var myForm =
-                                new ModiName(builderType, _toolpars)
+                                new ModiName(builderType, Toolpars)
                                 { StartPosition = FormStartPosition.CenterParent };
                             if (myForm.ShowDialog() == DialogResult.OK)
                             {
@@ -556,7 +486,7 @@ namespace VSTool {
                 if (myTreeView1.SelectedNode != null)
                 {
                     var parNode = myTreeView1.SelectedNode as MyTreeNode;
-                    var parItem = _toolpars.BuilderEntity.BuildeTypies.ToList()
+                    var parItem = Toolpars.BuilderEntity.BuildeTypies.ToList()
                         .Where(et => parNode != null && et.Id.Equals(parNode.BuildeType.Id)).ToList();
                     if (parItem.Count > 0)
                     {
@@ -590,7 +520,7 @@ namespace VSTool {
                     }
                 }
             }
-            TreeViewTool.CreateRightView(myTreeView5,_toolpars);
+            TreeViewTool.CreateRightView(myTreeView5,Toolpars);
         }
         
         #region 修改
@@ -604,7 +534,7 @@ namespace VSTool {
         {
             if (ModiCkb.Checked)
             {
-                var form1 = new ModiPkgForm(_toolpars);
+                var form1 = new ModiPkgForm(Toolpars);
                 if (form1.ShowDialog() == DialogResult.OK) {
                  
 
@@ -613,10 +543,10 @@ namespace VSTool {
                     scrollPanel.Controls[0].Visible = false;
                     scrollPanel.Visible = false;
                     if (!string.Equals(Toolpars.FormEntity.TxtToPath, empStr, StringComparison.Ordinal)
-                        && !string.Equals(Toolpars.FormEntity.txtNewTypeKey, empStr, StringComparison.Ordinal)
+                        && !string.Equals(Toolpars.FormEntity.TxtNewTypeKey, empStr, StringComparison.Ordinal)
                         && !string.Equals(Toolpars.FormEntity.PkgTypekey, empStr, StringComparison.Ordinal))
                     {
-                        var txtPkGpath = Toolpars.FormEntity.txtPKGpath;
+                        var txtPkGpath = Toolpars.FormEntity.TxtPkGpath;
 
                         var pkgDir = $@"{txtPkGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
                         if (Toolpars.FormEntity.PkgTypekey.StartsWith("Digiwin.ERP."))
@@ -628,7 +558,7 @@ namespace VSTool {
                         {
                             myTreeView5.Nodes.Clear();
                             treeView1.Nodes.Clear();
-                            treeView1.Nodes.Add(TreeViewTool.MyPaintTreeView(_toolpars, pkgDir)); //mfroma
+                            treeView1.Nodes.Add(TreeViewTool.MyPaintTreeView(Toolpars, pkgDir)); //mfroma
                             treeView1.ExpandAll();
                         }
                         else
@@ -660,7 +590,7 @@ namespace VSTool {
                 if (myTreeView1.SelectedNode is MyTreeNode node)
                     CreateTree(node.BuildeType.Id);
             }
-            this.txtPKGpath.Text = Toolpars.FormEntity.txtPKGpath;
+            txtPKGpath.Text = Toolpars.FormEntity.TxtPkGpath;
         }
         #endregion
 
@@ -689,7 +619,7 @@ namespace VSTool {
         }
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-           new Thread(MyTool.OpenWord).Start();
+           new Thread(() => { MyTool.OpenWord("Help.docx"); }).Start();
         }
 
         private void CreateMainView() {
@@ -764,8 +694,8 @@ namespace VSTool {
             myTreeView.AfterCheck += MyTreeView2_AfterCheck;
             myTreeView.NodeMouseDoubleClick -= MyTreeView2_NodeMouseDoubleClick;
             myTreeView.NodeMouseDoubleClick += MyTreeView2_NodeMouseDoubleClick;
-            myTreeView.Leave -= EventHelper.myTreeView_Leave;
-            myTreeView.Leave += EventHelper.myTreeView_Leave;
+            myTreeView.Leave -= EventHelper.MyTreeView_Leave;
+            myTreeView.Leave += EventHelper.MyTreeView_Leave;
             return myTreeView;
         }
 
@@ -821,7 +751,7 @@ namespace VSTool {
             return splitContainerList;
         }
 
-        private void scrollPanel_DragEnter(object sender, DragEventArgs e)
+        private void ScrollPanel_DragEnter(object sender, DragEventArgs e)
         {
 
             if (myTreeView1.SelectedNode == null)
@@ -830,32 +760,35 @@ namespace VSTool {
             var b = node?.BuildeType.Id.Equals("MYTools");
             if (b == null || !(bool) b)
                 return;
-            var filePath = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-            var exeExtension = Path.GetExtension(filePath);
-            string[] extName = {".lnk", ".exe"};
-            if(!extName.Contains(exeExtension))
-                return;
+            var fileList = ((Array)e.Data.GetData(DataFormats.FileDrop));
+            var f = true;
+            foreach (var filePath in fileList) {
+                string[] extName = { ".lnk", ".exe" };
+                var exeExtension = Path.GetExtension(filePath.ToString());
+                if (!extName.Contains(exeExtension))
+                    f = false;
+            }
+            if(!f)return;
 
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
-        private void scrollPanel_DragDrop(object sender, DragEventArgs e) {
+        private void ScrollPanel_DragDrop(object sender, DragEventArgs e) {
             var fileList = ((Array) e.Data.GetData(DataFormats.FileDrop));
             foreach (var file in fileList) {
                 var filePath = file.ToString();
                 if (!File.Exists(filePath))
                     return;
                 var form = new CreateToolForm(filePath, Toolpars);
-                if (form.ShowDialog() == DialogResult.OK)
+                if (form.ShowDialog() != DialogResult.OK)
+                    continue;
+                if (myTreeView1.SelectedNode == null)
                 {
-                    if (myTreeView1.SelectedNode == null)
-                    {
-                        return;
-                    }
-                    var node = myTreeView1.SelectedNode as MyTreeNode;
-                    if (node != null)
-                        CreateTree(node.BuildeType.Id);
-                };
+                    return;
+                }
+                var node = myTreeView1.SelectedNode as MyTreeNode;
+                if (node != null)
+                    CreateTree(node.BuildeType.Id);
             }
             
         }

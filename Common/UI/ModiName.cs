@@ -9,13 +9,22 @@ using Common.Implement.Entity;
 using Common.Implement.Properties;
 
 namespace Common.Implement.UI {
-    public sealed partial class ModiName : Form {
+    /// <summary>
+    ///     新项目参数窗体
+    /// </summary>
+    public partial class ModiName : Form {
         private readonly Toolpars _toolpars;
 
+        /// <summary>
+        /// </summary>
         public ModiName() {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="itemBuildeType"></param>
+        /// <param name="toolpars"></param>
         public ModiName(BuildeType itemBuildeType, Toolpars toolpars) {
             InitializeComponent();
             BuildeType = itemBuildeType;
@@ -24,10 +33,17 @@ namespace Common.Implement.UI {
             FileInfos = new List<FileInfos>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public BuildeType BuildeType { get; set; }
+
+        /// <summary>
+        /// 模板文件信息
+        /// </summary>
         public List<FileInfos> FileInfos { get; set; }
 
-        private void btnOK_Click(object sender, EventArgs e) {
+        private void BtnOK_Click(object sender, EventArgs e) {
             if (string.Equals(txt01.Text, string.Empty, StringComparison.Ordinal) && txt01.Visible ||
                 string.Equals(txt02.Text, string.Empty, StringComparison.Ordinal) && txt02.Visible) {
                 MessageBox.Show(Resources.notNull);
@@ -45,7 +61,7 @@ namespace Common.Implement.UI {
                 if (fileInfo?.Paths != null)
                     if (fileInfo.Paths.Length == 1) {
                         var path = fileInfo.Paths[0];
-                        var fromPath = $@"{_toolpars.MVSToolpath}\Template\{path}";
+                        var fromPath = $@"{_toolpars.MvsToolpath}\Template\{path}";
                         var fileinfo = new FileInfos {
                             ActionName = "",
                             ClassName = txt01.Text,
@@ -53,12 +69,11 @@ namespace Common.Implement.UI {
                             FunctionName = txt02.Text,
                             BasePath = fileInfo.Paths[0],
                             FromPath = fromPath
-                            
                         };
                         var oldFilePath = Path.GetFileNameWithoutExtension(path);
                         if (oldFilePath != null) {
                             var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-                            fileinfo.ToPath = $@"{_toolpars.GToIni}\{newFilePath}";
+                            fileinfo.ToPath = $@"{_toolpars.FormEntity.TxtToPath}\{newFilePath}";
                         }
                         if (BuildeType.PartId != null
                             && !BuildeType.PartId.Equals(string.Empty)) {
@@ -66,16 +81,15 @@ namespace Common.Implement.UI {
                             fileinfo.Id = BuildeType.Id;
                             fileinfo.IsMerge = BuildeType.IsMerge;
                         }
-                        if (MergeBox.Checked) {
+                        if (MergeBox.Checked)
                             fileinfo.IsMerge = "True";
-                        }
                         FileInfos.Add(fileinfo);
                     }
                     else {
                         fileInfo.Paths.ToList().ForEach(path => {
                             var classNameFiled = Path.GetFileName(path);
-                            var fromPath = $@"{_toolpars.MVSToolpath}\Template\{path}";
-                           
+                            var fromPath = $@"{_toolpars.MvsToolpath}\Template\{path}";
+
                             var fileinfo = new FileInfos {
                                 ActionName = "",
                                 ClassName = classNameFiled,
@@ -86,7 +100,7 @@ namespace Common.Implement.UI {
                             };
                             var oldFilePath = Path.GetFileNameWithoutExtension(path);
                             //针对服务，这种解决方法，我认为非常蠢
-                            if (BuildeType.Id.Equals("Service")) {
+                            if (BuildeType.Id.Equals("Service"))
                                 if (classNameFiled != null && classNameFiled.StartsWith(@"I")) {
                                     fileinfo.ClassName = txt01.Text;
                                     fileinfo.FileName = txt01.Text;
@@ -95,22 +109,17 @@ namespace Common.Implement.UI {
                                     fileinfo.ClassName = txt01.Text.Substring(1);
                                     fileinfo.FileName = txt01.Text.Substring(1);
                                 }
-                              
-                            }
-                            
+
 
                             if (oldFilePath != null) {
                                 var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
 
-                                fileinfo.ToPath = _toolpars.GToIni + @"\" + newFilePath;
+                                fileinfo.ToPath = _toolpars.FormEntity.TxtToPath + @"\" + newFilePath;
                             }
-
 
 
                             if (MergeBox.Checked)
-                            {
                                 fileinfo.IsMerge = "True";
-                            }
                             FileInfos.Add(fileinfo);
                         });
                     }
@@ -119,15 +128,14 @@ namespace Common.Implement.UI {
         }
 
         private void ModiName_Load(object sender, EventArgs e) {
-            try
-            {
+            try {
                 txt01.Text = string.Format(Resources.CreateFileName, BuildeType.Id);
                 txt02.Text = string.Format(Resources.CreateFileName, BuildeType.Id);
                 if (BuildeType.Id.Equals("Service")) {
-                    txt01.Text = "ICreateService";
-                    txt02.Text = "ICreateService";
+                    txt01.Text = @"ICreateService";
+                    txt02.Text = @"ICreateService";
                 }
-             
+
 
                 btnOK.Focus();
             }
@@ -137,19 +145,26 @@ namespace Common.Implement.UI {
         }
 
 
-        private void txt01_KeyPress(object sender, KeyPressEventArgs e) {
+        private void Txt01_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char) Keys.Enter)
                 SendKeys.Send("{tab}");
         }
 
-        private void MergeBox_CheckedChanged(object sender, EventArgs e)
-        {
-
+        private void MergeBox_CheckedChanged(object sender, EventArgs e) {
         }
     }
 
+    /// <summary>
+    /// 时机点，暂时不用
+    /// </summary>
     public class ActionPoint {
+        /// <summary>
+        /// 
+        /// </summary>
         public string Id { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name { get; set; }
     }
 }

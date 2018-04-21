@@ -1,0 +1,315 @@
+﻿{
+  "BuildeTypies": [
+    {
+      "Id": "Services",
+      "Name": "服务",
+      "Description": "操作数据库，增删改查",
+      "BuildeItems": [
+        {
+          "Id": "Service",
+          "Name": "服务",
+          "Description": "搭建一个服务的框架"
+        },
+        {
+          "Id": "Tools",
+          "Name": "工具类",
+          "Description": "提供常用的方法",
+          "Checked": "False",
+          "ReadOnly": "False",
+          "ShowParWindow": "False",
+          "ShowCheckedBox": "True",
+          "Visiable": "True"
+        }
+      ]
+    },
+    {
+      "Id": "InterCeptor",
+      "Name": "常用切片",
+      "Description": "干涉程序运行时，加入自定义功能",
+      "BuildeItems": [
+        {
+          "IsMerge": "False",
+          "Id": "SaveInterceptor",
+          "Name": "保存",
+          "Description": "涉及保存操作时",
+          "PartId": "commonInterceptor"
+        },
+        {
+          "IsMerge": "False",
+          "Id": "ApproveInterceptor",
+          "Name": "审核",
+          "Description": "涉及审核操作时",
+          "PartId": "commonInterceptor"
+        },
+        {
+          "Id": "IDisconfirmInterceptor",
+          "Name": "撤销审核",
+          "Description": "涉及撤销审核操作时",
+          "PartId": "commonInterceptor"
+        },
+        {
+          "Id": "DeleteInterceptor",
+          "Name": "删除",
+          "Description": "涉及删除操作时",
+          "PartId": "commonInterceptor"
+        },
+        {
+          "Id": "ApproveStatusInterceptor",
+          "Name": "作废/生失效",
+          "Description": "涉及作废/生失效操作时",
+          "PartId": "commonInterceptor"
+        },
+        {
+          "Id": "Validator",
+          "Name": "校验",
+          "Description": "涉及校验操作时"
+        },
+        {
+          "Id": "DataEntityChanged",
+          "Name": "数据跟踪",
+          "Description": "涉及数据跟踪操作时，字段改变带值，界面实体刷新"
+        },
+        {
+          "Id": "SelectWindowDialogEx",
+          "Name": "功能开窗",
+          "Description": "涉及数据跟踪操作时，字段改变带值，界面实体刷新"
+        },
+        {
+          "Id": "EditControllerCommand",
+          "Name": "菜单",
+          "Description": "涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改"
+        }
+      ]
+    },
+    {
+      "Id": "Batch",
+      "Name": "批次",
+      "Description": "批量操作",
+      "BuildeItems": [
+        {
+          "Id": "FreeBatchService",
+          "Name": "普通批次",
+          "Description": "服务端，批量处理"
+        },
+        {
+          "Id": "GuideInterceptor",
+          "Name": "向导式批次",
+          "Description": "客户端，可分步处理",
+          "ShowParWindow": "False"
+        }
+      ]
+    },
+    {
+      "Id": "Report",
+      "Name": "报表",
+      "Description": "数据结果，供人娱乐",
+      "BuildeItems": [
+        {
+          "Id": "FreeBatchService",
+          "Name": "普通批次",
+          "Description": "一组命令，批量操作，分为向导式批次，普通批次"
+        },
+        {
+          "Id": "GuideInterceptor",
+          "Name": "向导式批次",
+          "Description": "一组命令，批量操作，分为向导式批次，普通批次",
+          "ShowParWindow": "False"
+        }
+      ]
+    },
+    {
+      "Id": "Function",
+      "Name": "常用功能",
+      "Description": "提供完整的常用功能",
+      "BuildeItems": [
+        {
+          "Id": "ImportExcel",
+          "Name": "导入Excel",
+          "Description": "故名思议",
+          "ShowParWindow": "False"
+        },
+        {
+          "Id": "ExportExcel",
+          "Name": "导出Excel",
+          "Description": "故名思议",
+          "ShowParWindow": "False"
+        },
+        {
+          "Id": "LowFill",
+          "Name": "向下填充",
+          "Description": "故名思议",
+          "ShowParWindow": "False"
+        },
+        {
+          "Id": "PrintPreview",
+          "Name": "打印预览",
+          "Description": "故名思议",
+          "ShowParWindow": "False"
+        },
+        {
+          "Id": "Print",
+          "Name": "打印",
+          "Description": "故名思议",
+          "ShowParWindow": "False"
+        },
+        {
+          "Id": "AllChoose",
+          "Name": "全选",
+          "Description": "提供表格全选,撤销功能",
+          "ShowParWindow": "False"
+        }
+      ]
+    },
+    {
+      "Id": "MYTools",
+      "Name": "常用工具",
+      "Description": "提供常用工具",
+      "BuildeItems": [
+        {
+          "Id": "CreateSteamID",
+          "Name": "Steam",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "D:\\Program Files\\Steam\\Steam.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreatelanternID",
+          "Name": "lantern",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "C:\\Users\\a2863\\AppData\\Roaming\\Lantern\\lantern.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreategenymotionID",
+          "Name": "genymotion",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "C:\\Program Files\\Genymobile\\Genymotion\\genymotion.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreateTeamViewerID",
+          "Name": "TeamViewer",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "C:\\Program Files (x86)\\TeamViewer\\TeamViewer.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreateeclipseID",
+          "Name": "eclipse",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "D:\\Program Files\\eclipse\\java-oxygen\\eclipse\\eclipse.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreateQQMusicID",
+          "Name": "QQMusic",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "D:\\Program Files\\Tencent\\QQMusic\\QQMusic.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreateShadowsocksID",
+          "Name": "Shadowsocks",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "D:\\Program Files\\Shadowsocks-win-2.3\\Shadowsocks.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreatePPLiveID",
+          "Name": "PPLive",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "D:\\Program Files\\PPLive\\PPTV\\PPLive.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreatechromeID",
+          "Name": "chrome",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "C:\\Users\\a2863\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreateQyClientID",
+          "Name": "QyClient",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "C:\\Program Files (x86)\\IQIYI Video\\LStyle\\6.2.57.5300\\QyClient.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "Createwebstorm64ID",
+          "Name": "webstorm64",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "D:\\Program Files\\JetBrains\\WebStorm\\bin\\webstorm64.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreateGitHubDesktopID",
+          "Name": "GitHubDesktop",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "C:\\Users\\a2863\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "Create2345PicID",
+          "Name": "2345Pic",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "C:\\Program Files (x86)\\2345Soft\\2345Pic\\2345Pic.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "CreateBCompareID",
+          "Name": "BCompare",
+          "Description": "",
+          "ShowCheckedBox": "False",
+          "IsTools": "True",
+          "Url": "D:\\Program Files\\Beyond Compare 4\\BCompare.exe",
+          "ShowIcon": "True"
+        },
+        {
+          "Id": "Insert",
+          "Name": "插单",
+          "Description": "提供查单实例",
+          "ShowCheckedBox": "False",
+          "IsPlug": "True",
+          "PlugPath": "Common.Implement.dll",
+          "ModuleName": "Common.Implement.UI.InsertForm"
+        },
+        {
+          "Id": "Insert",
+          "Name": "一键借用",
+          "Description": "复制标准或客户作业",
+          "ShowCheckedBox": "False",
+          "IsPlug": "True",
+          "PlugPath": "Common.Implement.dll",
+          "ModuleName": "Common.Implement.UI.ModiPkgForm"
+        }
+      ]
+    }
+  ]
+}

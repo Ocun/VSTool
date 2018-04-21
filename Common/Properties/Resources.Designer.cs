@@ -226,6 +226,15 @@ namespace Common.Implement.Properties {
         }
         
         /// <summary>
+        ///   查找类似 没有找到 的本地化字符串。
+        /// </summary>
+        internal static string NotFind {
+            get {
+                return ResourceManager.GetString("NotFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 找不到文件{0} 的本地化字符串。
         /// </summary>
         internal static string NotFindFile {
@@ -296,6 +305,15 @@ namespace Common.Implement.Properties {
             get {
                 object obj = ResourceManager.GetObject("right_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 服务端未启动 的本地化字符串。
+        /// </summary>
+        internal static string ServerNotRunning {
+            get {
+                return ResourceManager.GetString("ServerNotRunning", resourceCulture);
             }
         }
         

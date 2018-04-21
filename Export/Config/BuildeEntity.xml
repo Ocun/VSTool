@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <BuildeEntity>
   <BuildeTypies>
     <BuildeType>
@@ -10,21 +10,18 @@
           <Id>Service</Id>
           <Name>服务</Name>
           <Description>搭建一个服务的框架</Description>
-          <FileInfos />
         </BuildeItem>
         <BuildeItem>
           <Id>Tools</Id>
           <Name>工具类</Name>
-          <Description>提供常用的方法</Description>
+          <Visiable>True</Visiable>
+          <ShowCheckedBox>True</ShowCheckedBox>
           <Checked>False</Checked>
           <ReadOnly>False</ReadOnly>
-          <FileInfos />
           <ShowParWindow>False</ShowParWindow>
-          <ShowCheckedBox>True</ShowCheckedBox>
-          <Visiable>True</Visiable>
+          <Description>提供常用的方法</Description>
         </BuildeItem>
       </BuildeItems>
-      <FileInfos />
     </BuildeType>
     <BuildeType>
       <Id>InterCeptor</Id>
@@ -32,70 +29,63 @@
       <Description>干涉程序运行时，加入自定义功能</Description>
       <BuildeItems>
         <BuildeItem>
-          <IsMerge>False</IsMerge>
           <Id>SaveInterceptor</Id>
+          <PartId>commonInterceptor</PartId>
+          <IsMerge>False</IsMerge>
           <Name>保存</Name>
           <Description>涉及保存操作时</Description>
-          <FileInfos />
-          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
-          <IsMerge>False</IsMerge>
           <Id>ApproveInterceptor</Id>
           <Name>审核</Name>
-          <Description>涉及审核操作时</Description>
-          <FileInfos />
           <PartId>commonInterceptor</PartId>
+          <IsMerge>False</IsMerge>
+          <Description>涉及审核操作时</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>IDisconfirmInterceptor</Id>
+          <PartId>commonInterceptor</PartId>
+          <PartId>False</PartId>
           <Name>撤销审核</Name>
           <Description>涉及撤销审核操作时</Description>
-          <FileInfos />
-          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>DeleteInterceptor</Id>
+          <PartId>commonInterceptor</PartId>
+          <PartId>False</PartId>
           <Name>删除</Name>
           <Description>涉及删除操作时</Description>
-          <FileInfos />
-          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>ApproveStatusInterceptor</Id>
+          <PartId>commonInterceptor</PartId>
+          <PartId>False</PartId>
           <Name>作废/生失效</Name>
           <Description>涉及作废/生失效操作时</Description>
-          <FileInfos />
-          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>Validator</Id>
           <Name>校验</Name>
           <Description>涉及校验操作时</Description>
-          <FileInfos />
         </BuildeItem>
         <BuildeItem>
           <Id>DataEntityChanged</Id>
-          <Name>数据跟踪</Name>
-          <Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-          <FileInfos />
           <PartId>
           </PartId>
+          <Name>数据跟踪</Name>
+          <Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>SelectWindowDialogEx</Id>
           <Name>功能开窗</Name>
           <Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
-          <FileInfos />
         </BuildeItem>
         <BuildeItem>
           <Id>EditControllerCommand</Id>
           <Name>菜单</Name>
           <Description>涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改</Description>
-          <FileInfos />
         </BuildeItem>
       </BuildeItems>
-      <FileInfos />
     </BuildeType>
     <BuildeType>
       <Id>Batch</Id>
@@ -106,17 +96,14 @@
           <Id>FreeBatchService</Id>
           <Name>普通批次</Name>
           <Description>服务端，批量处理</Description>
-          <FileInfos />
         </BuildeItem>
         <BuildeItem>
           <Id>GuideInterceptor</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>向导式批次</Name>
           <Description>客户端，可分步处理</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
       </BuildeItems>
-      <FileInfos />
     </BuildeType>
     <BuildeType>
       <Id>Report</Id>
@@ -127,17 +114,14 @@
           <Id>FreeBatchService</Id>
           <Name>普通批次</Name>
           <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
-          <FileInfos />
         </BuildeItem>
         <BuildeItem>
           <Id>GuideInterceptor</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>向导式批次</Name>
           <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
       </BuildeItems>
-      <FileInfos />
     </BuildeType>
     <BuildeType>
       <Id>Function</Id>
@@ -146,78 +130,111 @@
       <BuildeItems>
         <BuildeItem>
           <Id>ImportExcel</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>导入Excel</Name>
           <Description>故名思议</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>ExportExcel</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>导出Excel</Name>
           <Description>故名思议</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>LowFill</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>向下填充</Name>
           <Description>故名思议</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>PrintPreview</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>打印预览</Name>
           <Description>故名思议</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>Print</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>打印</Name>
           <Description>故名思议</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>AllChoose</Id>
+          <ShowParWindow>False</ShowParWindow>
           <Name>全选</Name>
           <Description>提供表格全选,撤销功能</Description>
-          <FileInfos />
-          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
       </BuildeItems>
-      <FileInfos />
     </BuildeType>
     <BuildeType>
       <Id>MYTools</Id>
       <Name>常用工具</Name>
       <Description>提供常用工具</Description>
       <BuildeItems>
-     
         <BuildeItem>
           <Id>Insert</Id>
-          <Name>插单</Name>
-          <Description>提供查单实例</Description>
-          <FileInfos />
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsPlug>True</IsPlug>
           <PlugPath>Common.Implement.dll</PlugPath>
           <ModuleName>Common.Implement.UI.InsertForm</ModuleName>
+          <Name>插单</Name>
+          <Description>提供查单实例</Description>
         </BuildeItem>
         <BuildeItem>
-          <Id>Insert</Id>
-          <Name>一键借用</Name>
-          <Description>复制标准或客户作业</Description>
-          <FileInfos />
+          <Id>OnkeyCopy</Id>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsPlug>True</IsPlug>
           <PlugPath>Common.Implement.dll</PlugPath>
           <ModuleName>Common.Implement.UI.ModiPkgForm</ModuleName>
+          <Name>一键借用</Name>
+          <Description>复制标准或客户作业</Description>
         </BuildeItem>
-       
+        <BuildeItem>
+          <Id>DesignTool</Id>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsTools>True</IsTools>
+          <ShowIcon>True</ShowIcon>
+          <Url>D:\Program Files\Tencent\QQ\Bin\maLauncher.exe</Url>
+          <Name>设计器</Name>
+          <Description>就是设计器</Description>
+        </BuildeItem>
+        <BuildeItem>
+          <Id>OOQLDesign</Id>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <ShowIcon>True</ShowIcon>
+          <IsTools>True</IsTools>
+          <Url>D:\Program Files\Tencent\QQ\Bin\QQ.exe</Url>
+          <Name>OOQL转换工具</Name>
+          <Description>将OOQL转换为SQL</Description>
+        </BuildeItem>
+        <BuildeItem>
+          <Id>GUIDSHOW</Id>
+          <IsTools>True</IsTools>
+          <ShowIcon>True</ShowIcon>
+          <Url>C:\Users\a2863\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Url>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <Name>GUID_SHOW</Name>
+          <Description>跟踪当前客户SQL</Description>
+        </BuildeItem>
+        <BuildeItem>
+          <Id>ColligateQuery</Id>
+          <IsTools>True</IsTools>
+          <ShowIcon>True</ShowIcon>
+          <Url>D:\Program Files\Tencent\QQ\txupd.exe</Url>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <Name>综合查询工具</Name>
+          <Description>查询</Description>
+        </BuildeItem>
+        <BuildeItem>
+          <Id>E10Search</Id>
+          <IsTools>True</IsTools>
+          <ShowIcon>True</ShowIcon>
+          <Url>D:\Program Files\Tencent\QQ\Bin\bugreport.exe</Url>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <Name>E10Search</Name>
+          <Description>常用服务方法查询</Description>
+        </BuildeItem>
       </BuildeItems>
-      <FileInfos />
     </BuildeType>
   </BuildeTypies>
 </BuildeEntity>

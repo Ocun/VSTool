@@ -9,12 +9,18 @@ using Common.Implement.Entity;
 
 namespace Common.Implement.Tools
 {
+    /// <summary>
+    /// sql辅助类
+    /// </summary>
     public class SqlTools {
         private static string _connectionString = "";
         private static SqlConnection _connection ;
         private static StringBuilder _builder = new StringBuilder();
         private static string _address =string.Empty;
 
+        /// <summary>
+        /// Connection
+        /// </summary>
         public static SqlConnection Connection {
             get {
                 _connection = GetConnectionStr();
@@ -24,8 +30,15 @@ namespace Common.Implement.Tools
         }
 
         // ReSharper disable once ConvertToAutoProperty
+        /// <summary>
+        /// 
+        /// </summary>
         public static StringBuilder Builder { get => _builder; set => _builder = value; }
 
+        /// <summary>
+        /// 获取连接字符串
+        /// </summary>
+        /// <returns></returns>
         public static SqlConnection GetConnectionStr()
         {
             _address = CallUpdate.GetLocation();
@@ -37,6 +50,12 @@ namespace Common.Implement.Tools
 
         #region 防網路順斷，暫停三秒後繼續作業，並重試三次
 
+        /// <summary>
+        /// 单笔插入
+        /// </summary>
+        /// <param name="pDemandId"></param>
+        /// <param name="pUseYear"></param>
+        /// <param name="pTheMemo"></param>
         public static void InsertToolInfo(string pDemandId, string pUseYear, string pTheMemo)
         {
             try
@@ -44,14 +63,8 @@ namespace Common.Implement.Tools
                 Connection.Open();
                 Builder.Length = 0;
                 Builder.AppendFormat(
-                    "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1}',{2},'{3}','{4}',{5},'{6}','{7}',{8})",
-                    new object[] {
-                        "VSTool", DateTime.Now.ToString("yyyyMMddHHmmss"),
-                        DateTime.Now.ToString("yyyyMMddHHmmss")
-                            .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8),
-                        Environment.MachineName,
-                        "N", 1, pTheMemo, pDemandId, pUseYear
-                    });
+                    "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1}',{2},'{3}','{4}',{5},'{6}','{7}',{8})", "VSTool", DateTime.Now.ToString("yyyyMMddHHmmss"), DateTime.Now.ToString("yyyyMMddHHmmss")
+                        .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8), Environment.MachineName, "N", 1, pTheMemo, pDemandId, pUseYear);
                 new SqlCommand(Builder.ToString(), Connection).ExecuteNonQuery();
                 Connection.Close();
             }

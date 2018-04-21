@@ -5,70 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Common.Implement.Entity;
 
 namespace Common.Implement.Tools {
+    /// <summary>
+    /// xml辅助类
+    /// </summary>
     public static class XmlTools {
         /// <summary>
-        /// 修改菜单项，设置第三方工具的url
-        /// </summary>
-        /// <param name="xmlPath"></param>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public static void ModiXml(string xmlPath, string id, BuildeType bt) {
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            var xns = xmlDoc.SelectNodes("//BuildeType");
-            if (xns != null)
-                foreach (XmlNode xn in xns) {
-                    var childNodes = xn.ChildNodes;
-                    var f = true;
-                    foreach (XmlNode node in childNodes)
-                        if (node.Name == "Id"
-                            && node.InnerText.Equals(id)) {
-                            f = false;
-                            break;
-                        }
-                        else {
-                            break;
-                        }
-                    if (f)
-                        continue;
-                    {
-                        foreach (XmlNode node in childNodes)
-                            if (node.Name == "BuildeItems") {
-                                var newNode = xmlDoc.CreateElement("BuildeItem");
-                                var Id = xmlDoc.CreateElement("Id");
-                                Id.InnerText = bt.Id;
-                                var showCheckedBox = xmlDoc.CreateElement("ShowCheckedBox");
-                                showCheckedBox.InnerText = bt.ShowCheckedBox;
-                                var isTools = xmlDoc.CreateElement("IsTools");
-                                isTools.InnerText = bt.IsTools;
-                                var showIcon = xmlDoc.CreateElement("ShowIcon");
-                                showIcon.InnerText = bt.ShowIcon;
-                                var url = xmlDoc.CreateElement("Url");
-                                url.InnerText = bt.Url;
-                                var name = xmlDoc.CreateElement("Name");
-                                name.InnerText = bt.Name;
-                                var description = xmlDoc.CreateElement("Description");
-                                description.InnerText = bt.Description;
-                                newNode.AppendChild(Id);
-                                newNode.AppendChild(showCheckedBox);
-                                newNode.AppendChild(isTools);
-                                newNode.AppendChild(showIcon);
-                                newNode.AppendChild(url);
-                                newNode.AppendChild(name);
-
-                                node.AppendChild(newNode);
-                                break;
-                            }
-
-                        break;
-                    }
-                }
-            xmlDoc.Save(xmlPath);
-            
-        } /// <summary>
         /// 修改菜单项，设置第三方工具的url
         /// </summary>
         /// <param name="xmlPath"></param>
@@ -104,7 +47,6 @@ namespace Common.Implement.Tools {
                     }
                 }
             xmlDoc.Save(xmlPath);
-            
         }
 
         #region  修改解决方案的csproj文件 添加类文件
@@ -144,7 +86,13 @@ namespace Common.Implement.Tools {
             xmlDoc.Save(xmlFileName);
         }
 
-        public static IEnumerable<string> GetPkgPath(string xmlFileName,string xpath) {
+        /// <summary>
+        /// 获取模板
+        /// </summary>
+        /// <param name="xmlFileName"></param>
+        /// <param name="xpath"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetPathByXpath(string xmlFileName,string xpath) {
             var pathList = new List<string>();
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(xmlFileName);

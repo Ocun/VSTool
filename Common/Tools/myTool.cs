@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -19,19 +17,22 @@ using static System.String;
 using MSWord = Microsoft.Office.Interop.Word;
 
 namespace Common.Implement.Tools {
-    public static class MyTool 
-    {
-
-        public static void InitToolpars(Toolpars toolpars,string[] pToIni)
-        {
-            if (pToIni == null)
-            {
-                toolpars.FormEntity.TxtToPath = string.Empty;
+    /// <summary>
+    ///     工具类
+    /// </summary>
+    public static class MyTool {
+        /// <summary>
+        ///     初始化窗体参数
+        /// </summary>
+        /// <param name="toolpars"></param>
+        /// <param name="pToIni"></param>
+        public static void InitToolpars(Toolpars toolpars, string[] pToIni) {
+            if (pToIni == null) {
+                toolpars.FormEntity.TxtToPath = Empty;
             }
-            else
-            {
-                toolpars.MALL = pToIni[0];
-                var args = toolpars.MALL.Split('&');
+            else {
+                toolpars.Mall = pToIni[0];
+                var args = toolpars.Mall.Split('&');
                 toolpars.Mpath = args[0]; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
                 toolpars.MInpath = args[1]; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
                 toolpars.Mplatform = args[2]; //C:\DF_E10_2.0.2
@@ -42,20 +43,16 @@ namespace Common.Implement.Tools {
 
                 toolpars.FormEntity.TxtToPath = toolpars.Mpath;
                 if (toolpars.MIndustry)
-                {
                     toolpars.FormEntity.TxtToPath = toolpars.MInpath;
-                }
 
-                toolpars.FormEntity.txtPKGpath = $@"{toolpars.MdesignPath}\WD_PR\SRC";
+                toolpars.FormEntity.TxtPkGpath = $@"{toolpars.MdesignPath}\WD_PR\SRC";
                 toolpars.FormEntity.Industry = toolpars.MIndustry;
                 if (toolpars.Mpath.Contains("PKG")
                     && !toolpars.MIndustry)
-                {
                     toolpars.FormEntity.TxtToPath = $@"{toolpars.MdesignPath}\WD_PR\SRC\";
-                }
             }
             toolpars.OldTypekey = toolpars.SettingPathEntity.TemplateTypeKey;
-
+            toolpars.ModelType = ModelType.Binary;
             IconTool.InitImageList(toolpars);
         }
 
@@ -80,30 +77,28 @@ namespace Common.Implement.Tools {
                 var fileName = Path.GetFileNameWithoutExtension(file);
                 if (!fileNames.Contains(fileName))
                     continue;
-                if (fileinfo.Directory != null) {
-                    var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, Empty);
-                    var absolutePath = file.Replace(fromDir, Empty);
-                    var newFilePath = Path.Combine(toDir, absolutePath);
-                    var newFileDir = Path.Combine(toDir, absolutedir).Replace(fromTypeKey, toTypeKey);
-                    if (!Directory.Exists(newFileDir))
-                        Directory.CreateDirectory(newFileDir);
-                    if (File.Exists(newFilePath))
-                        if (MessageBox.Show(Resources.FileExisted, Resources.WarningMsg, MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning)
-                            != DialogResult.OK)
-                            return;
-                    fileinfo.CopyTo(newFilePath);
-                    ChangeText(newFilePath, fromTypeKey, toTypeKey);
-                    //var fileInfo = new FileInfo(newFilePath);
-                }
+                if (fileinfo.Directory == null)
+                    continue;
+                var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, Empty);
+                var absolutePath = file.Replace(fromDir, Empty);
+                var newFilePath = Path.Combine(toDir, absolutePath);
+                var newFileDir = Path.Combine(toDir, absolutedir).Replace(fromTypeKey, toTypeKey);
+                if (!Directory.Exists(newFileDir))
+                    Directory.CreateDirectory(newFileDir);
+                if (File.Exists(newFilePath))
+                    if (MessageBox.Show(Resources.FileExisted, Resources.WarningMsg, MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
+                        != DialogResult.OK)
+                        return;
+                fileinfo.CopyTo(newFilePath);
+                ChangeText(newFilePath, fromTypeKey, toTypeKey);
+                //var fileInfo = new FileInfo(newFilePath);
 
                 //dir.Parent
                 //OldTools.ModiCS(mpaths + @"\" + StrYY + ".Business.Implement\\" + StrYY +
                 //                            ".Business.Implement.csproj", "Interceptor\\DetailInterceptorS" + ra + ".cs");
             }
         }
-
-      
 
         #endregion
 
@@ -166,45 +161,74 @@ namespace Common.Implement.Tools {
             //}
         }
 
+        #region CopyDll
+
         /// <summary>
         ///     將dll 考入平臺目錄
         /// </summary>
-        /// <param name="fromPath"></param>
-        /// <param name="toPath"></param>
-        /// <param name="filterStr"></param>
-        public static void FileCopyUIdll(string fromPath, string toPath, string filterStr) {
-            try {
+        /// <param name="toolpar"></param>
+        public static void CopyUIdll(Toolpars toolpar)
+        {
+            try
+            {
+                var fromPath = toolpar.PathEntity.ExportFullPath;
+                var toPath = $"{toolpar.Mplatform}\\DeployServer\\Shared\\Customization\\Programs\\";
+                var filterStr = $"*{toolpar.FormEntity.TxtNewTypeKey}.UI.*";
+                if (toolpar.MIndustry)
+                {
+                    toPath = $"{toolpar.Mplatform}\\DeployServer\\Shared\\Industry\\Programs\\";
+                }
                 var filedir = Directory.GetFiles(fromPath, filterStr,
                     SearchOption.AllDirectories);
                 foreach (var mfile in filedir)
                     File.Copy(mfile, mfile.Replace(fromPath, toPath), true);
                 MessageBox.Show(Resources.CopySucess);
             }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (Exception ex)
+            {
+                string[] processNames = {
+                    "Digiwin.Mars.ClientStart"
+                };
+                var f = CheckCanCopyDll(processNames);
+                if (f)
+                {
+                    CopyUIdll(toolpar);
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            new Thread(() => SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopyUIdll_Click")).Start();
         }
 
-        public static void CopyDll(Toolpars toolpars) {
+        /// <summary>
+        ///     CopyDll
+        /// </summary>
+        /// <param name="toolpars"></param>
+        public static void CopyDll(Toolpars toolpars)
+        {
             var pathEntity = toolpars.PathEntity;
             if (pathEntity == null)
                 return;
-            var serverPath = pathEntity.ServerProgramsPath;
-            var clientPath = pathEntity.DeployProgramsPath;
-            var businessDllFullPath = pathEntity.ExportPath + pathEntity.BusinessDllName;
-            var implementDllFullPath = pathEntity.ExportPath + pathEntity.ImplementDllName;
-            var uiDllFullPath = pathEntity.ExportPath + pathEntity.UIDllName;
-            var uiImplementDllFullPath = pathEntity.ExportPath + pathEntity.UIImplementDllName;
-            //Path.GetDirectoryName()
+            var serverPath = pathEntity.ServerProgramsFullPath;
+            var clientPath = pathEntity.DeployProgramsFullPath;
+            var businessDllFullPath = pathEntity.ExportFullPath + pathEntity.BusinessDllName;
+            var implementDllFullPath = pathEntity.ExportFullPath + pathEntity.ImplementDllName;
+            var uiDllFullPath = pathEntity.ExportFullPath + pathEntity.UiDllName;
+            var uiImplementDllFullPath = pathEntity.ExportFullPath + pathEntity.UiImplementDllName;
 
             //business.dll
-            if (File.Exists(businessDllFullPath)) {
+            if (File.Exists(businessDllFullPath))
+            {
                 string toPath;
-                if (Directory.Exists(serverPath)) {
+                if (Directory.Exists(serverPath))
+                {
                     toPath = serverPath + pathEntity.BusinessDllName;
                     File.Copy(businessDllFullPath, toPath, true);
                 }
-                if (Directory.Exists(clientPath)) {
+                if (Directory.Exists(clientPath))
+                {
                     toPath = clientPath + pathEntity.BusinessDllName;
                     File.Copy(businessDllFullPath, toPath, true);
                 }
@@ -218,35 +242,136 @@ namespace Common.Implement.Tools {
             if (File.Exists(uiDllFullPath))
                 if (Directory.Exists(clientPath))
                     File.Copy(uiDllFullPath,
-                        clientPath + pathEntity.UIDllName, true);
+                        clientPath + pathEntity.UiDllName, true);
             //ui.implement.dll
             if (!File.Exists(uiImplementDllFullPath))
                 return;
             if (Directory.Exists(clientPath))
                 File.Copy(uiImplementDllFullPath,
-                    clientPath + pathEntity.UIImplementDllName, true);
+                    clientPath + pathEntity.UiImplementDllName, true);
         }
+
+        /// <summary>
+        ///     检查dll是否被占用
+        /// </summary>
+        /// <param name="processNames"></param>
+        /// <returns></returns>
         public static bool CheckCanCopyDll(string[] processNames)
         {
             var flag = true;
             var infos = Process.GetProcesses();
             foreach (var info in infos)
-            {
                 if (processNames.Contains(info.ProcessName))
-                {
                     flag = false;
-                }
-            }
             if (flag)
                 return true;
             if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning) != DialogResult.OK)
                 return false;
-            OldTools.KillProcess(processNames);
+            KillProcess(processNames);
             return true;
         }
-        public static void OpenTools(BuildeType bt) {
-            try {
+
+        /// <summary>
+        ///     kill the process
+        /// </summary>
+        public static void KillProcess(string[] processNames)
+        {
+            foreach (var p in Process.GetProcesses())
+                processNames.ToList().ForEach(processName => {
+                    if (p.ProcessName.Contains(processName))
+                        p.Kill();
+                });
+        }
+
+
+        #endregion
+
+        #region 操作实体
+
+        /// <summary>
+        /// 获取实体属性名称
+        /// </summary>
+        /// <param name="metadataContainer"></param>
+        /// <param name="typeKey"></param>
+        /// <returns></returns>
+        public static List<string> GetPropNameByEntity(MetadataContainer metadataContainer, string typeKey) {
+            var propies = new List<string>();
+            var selectTypeKey =
+                metadataContainer.DataEntityTypes.FirstOrDefault(entityType => entityType.Name.Equals(typeKey));
+            selectTypeKey?.Properties.Items?.ToList().ForEach(prop => {
+                if (prop != null) {
+                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
+                    if (prop is SimpleProperty) {
+                        var name = ((SimpleProperty) prop).Name ?? Empty;
+                        if (!name.Equals(Empty))
+                            propies.Add(name);
+                    }
+                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
+                    if (prop is ComplexProperty) {
+                        var name = ((ComplexProperty) prop).Name ?? Empty;
+                        if (!name.Equals(Empty)) {
+                            propies.Add(name + @"_ROid");
+                            propies.Add(name + @"_RTK");
+                        }
+                    }
+                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
+                    if (prop is ReferenceProperty) {
+                        var name = ((ReferenceProperty) prop).Name ?? Empty;
+                        if (!name.Equals(Empty))
+                            propies.Add(name);
+                    }
+                }
+            });
+            selectTypeKey?.InterfaceReferences?.ToList().ForEach(item => {
+                var name = item.Name ?? Empty;
+                if (!name.Equals(Empty))
+                    switch (name) {
+                        case "IDocumentNumber":
+                            propies.Add("DOC_NO");
+                            break;
+                        case "IOwner":
+                            propies.Add("Owner_Org_RTK");
+                            propies.Add("Owner_Org_ROid");
+                            break;
+                        case "ISequenceNumber":
+                            propies.Add("SequenceNumber");
+                            break;
+                    }
+            });
+            return propies;
+        }
+
+        #endregion
+
+        #region 开启外部程序
+
+        /// <summary>
+        ///     设置第三方工具的路径
+        /// </summary>
+        /// <param name="bt"></param>
+        public static void SetToolsPath(BuildeType bt)
+        {
+            var form = new SetToolPath(bt.Url);
+            if (form.ShowDialog() != DialogResult.OK)
+                return;
+            bt.Url = form.Path;
+
+            XmlTools.ModiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.json",
+                bt.Id, bt.Url);
+            //获取Exe图标
+            IconTool.SetExeIcon(bt.Url);
+        }
+
+
+        /// <summary>
+        ///     打开第三方工具
+        /// </summary>
+        /// <param name="bt"></param>
+        public static void OpenTools(BuildeType bt)
+        {
+            try
+            {
                 var p = new Process();
                 var infos = Process.GetProcesses();
                 var path = bt.Url;
@@ -255,32 +380,114 @@ namespace Common.Implement.Tools {
                 path = bt.Url;
                 var exeName = Path.GetFileName(path);
                 var f = infos.All(info => exeName != null && !info.ProcessName.ToUpper().Contains(exeName.ToUpper()));
-                if (f) {
+                if (f)
+                {
                     p.StartInfo.FileName = path;
 
                     p.Start();
                 }
-                else {
+                else
+                {
                     MessageBox.Show(Resources.ExeAlreadyExe);
                 }
             }
-            catch (Exception e0) {
+            catch (Exception e0)
+            {
                 MessageBox.Show(Resources.ExeExeError + e0.Message);
             }
         }
 
-        public static void SetToolsPath(BuildeType bt) {
-            var form = new SetToolPath(bt.Url);
-            if (form.ShowDialog() != DialogResult.OK)
+        /// <summary>
+        /// 呼叫第三方模块
+        /// </summary>
+        /// <param name="bt"></param>
+        /// <param name="toolpars"></param>
+        public static void CallModule(BuildeType bt, Toolpars toolpars)
+        {
+            var plugPath = bt.PlugPath;
+            var moduleName = bt.ModuleName;
+            if (plugPath == null
+                || plugPath.Trim().Equals(Empty)
+                || moduleName == null
+                || moduleName.Trim().Equals(Empty)
+            )
+            {
+                MessageBox.Show(Resources.ModuleNotExisted);
                 return;
-            bt.Url = form.Path;
-            XmlTools.ModiXml(AppDomain.CurrentDomain.BaseDirectory + @"Config\BuildeEntity.xml",
-                bt.Id, bt.Url);
-            //获取Exe图标
-            IconTool.SetExeIcon(bt.Url);
+            }
+            try
+            {
+                var dirPath = toolpars.MvsToolpath;
+                var dirInfo = new DirectoryInfo(dirPath);
+                var plugFullPath = dirInfo.GetFiles(plugPath, SearchOption.AllDirectories);
+                if (!plugFullPath.Any())
+                    MessageBox.Show($@"应用目录内未找到模块文件{plugPath}");
+                var dllPath = plugFullPath[0].FullName;
+
+                ////    1.Load(命名空间名称)，GetType(命名空间.类名)  
+                var type = Assembly.LoadFile(dllPath).GetType(moduleName);
+
+                ////    3.调用的实例化方法（非静态方法）需要创建类型的一个实例  
+                var obj = Activator.CreateInstance(type, toolpars);
+                // ReSharper disable once UseNullPropagation
+                if (obj is Form)
+                {
+                    (obj as Form).ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                // ignored
+                MessageBox.Show($@"插件{moduleName}激活失败，请检查模块信息,详细信息{Environment.NewLine}{ex.Message}");
+            }
+            //InsertForm insertForm = new InsertForm(Toolpars);
+            //insertForm.ShowDialog();
         }
 
-        #region Copy
+        /// <summary>
+        /// 打开Word
+        /// </summary>
+        public static void OpenWord(string fileName)
+        {
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var dirInfo = new DirectoryInfo(basePath);
+            var fileMatch = "Help.docx";
+            var matchFile = dirInfo.GetFiles(fileMatch, SearchOption.AllDirectories);
+            if (matchFile.Any())
+            {
+                var path = matchFile[0].FullName;
+
+                try
+                {
+                    var app = new MSWord.Application { Visible = true };
+                    app.Documents.Open(path);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(Resources.OpenDocError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(Resources.HelpDocNotExiested);
+            }
+        }
+
+        /// <summary>
+        /// 打开文件夹
+        /// </summary>
+        /// <param name="targetDir"></param>
+        public static void OpenDir(string targetDir)
+        {
+            if (Directory.Exists(targetDir))
+                Process.Start(targetDir);
+            else
+                MessageBox.Show(string.Format(Resources.DirNotExisted, targetDir), Resources.WarningMsg,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+        } 
+        #endregion
+
+        #region CopyFile
 
         /// <summary>
         ///     找到文件所属第一个CSproj,这有问题！！
@@ -328,10 +535,13 @@ namespace Common.Implement.Tools {
             return msgList;
         }
 
-
+        /// <summary>
+        ///     根据选择生成项目文件
+        /// </summary>
+        /// <param name="treeView"></param>
+        /// <param name="toolPars"></param>
+        /// <returns></returns>
         public static bool CreateFile(MyTreeView treeView, Toolpars toolPars) {
-            // var test = Regex.Match("http://192.168.1.250:9595/", @"(?<=://)[a-zA-Z\.0-9-_]+(?=[:,\/])").Value;
-
             var pathDic = GetTreeViewFilePath(treeView.Nodes, toolPars);
             var msgList = GetExistedMsg(pathDic);
             var f = true;
@@ -418,7 +628,7 @@ namespace Common.Implement.Tools {
                         fileinfo = new FileInfo(toPath);
                         var dirInfo = fileinfo.Directory;
                         var csPath = FindCSproj(dirInfo);
-                        var csDir = $"{Path.GetDirectoryName(csPath)}\\";
+                        var csDir = $@"{Path.GetDirectoryName(csPath)}\";
 
                         //找到相对位置
                         var index = toPath.IndexOf(csDir, StringComparison.Ordinal);
@@ -429,7 +639,7 @@ namespace Common.Implement.Tools {
                         #endregion
                     }
                     //修改文件内容，替换typekey
-                    ModiFiles(toolPars, toolPars.OldTypekey, toolPars.FormEntity.txtNewTypeKey);
+                    ModiFiles(toolPars, toolPars.OldTypekey, toolPars.FormEntity.TxtNewTypeKey);
                 }
                 catch (Exception) {
                     success = false;
@@ -452,8 +662,8 @@ namespace Common.Implement.Tools {
         /// <param name="toolPars"></param>
         public static void InitBuilderEntity(Toolpars toolPars) {
             try {
-                var path = $@"{toolPars.MVSToolpath}Config\BuildeEntity.xml";
-                toolPars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path);
+                var path =PathTools.GetSettingPath("BuildeEntity", toolPars);
+                toolPars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path, ModelType.Json);
                 InitBuildeTypies(toolPars.BuilderEntity.BuildeTypies, toolPars);
             }
             catch (Exception ex) {
@@ -461,6 +671,11 @@ namespace Common.Implement.Tools {
             }
         }
 
+        /// <summary>
+        ///     初始化主界面
+        /// </summary>
+        /// <param name="buildeTypies"></param>
+        /// <param name="toolPars"></param>
         // ReSharper disable once MemberCanBePrivate.Global
         public static void InitBuildeTypies(BuildeType[] buildeTypies, Toolpars toolPars) {
             buildeTypies?.ToList().ForEach(item => {
@@ -475,26 +690,30 @@ namespace Common.Implement.Tools {
 
         #region __insertPart__
 
+        /// <summary>
+        ///     根据Regex替换文本
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="matchStr"></param>
+        /// <param name="toStr"></param>
         private static void ReplaceByRegex(string filePath, string matchStr, string toStr) {
             if (!File.Exists(filePath))
                 return;
             var text = File.ReadAllText(filePath);
-        
-            var classNameText = (Regex.Match(text, matchStr).Value).Trim();
+
+            var classNameText = Regex.Match(text, matchStr).Value.Trim();
             if (classNameText.StartsWith(@"_") && classNameText.EndsWith(@"_")) {
                 var regex = new Regex(matchStr);
                 text = regex.Replace(text, toStr);
             }
             //修改接口名 b
             var interfaceName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\r\{]+(?=[\r\n\{])";
-            var csRow = (Regex.Match(text, interfaceName).Value).Trim();
+            var csRow = Regex.Match(text, interfaceName).Value.Trim();
             interfaceName = @"(?<=\s*,)[^\n\r\{]+";
-            var interfaceNameText= (Regex.Match(csRow, interfaceName).Value).Trim();
+            var interfaceNameText = Regex.Match(csRow, interfaceName).Value.Trim();
 
-            if (interfaceNameText.StartsWith(@"_") && interfaceNameText.EndsWith(@"_")) {
-               
-                text = text.Replace(interfaceNameText, "I"+toStr);
-            }
+            if (interfaceNameText.StartsWith(@"_") && interfaceNameText.EndsWith(@"_"))
+                text = text.Replace(interfaceNameText, "I" + toStr);
             //修改接口名 e
             File.WriteAllText(filePath, text, Encoding.UTF8);
         }
@@ -553,16 +772,16 @@ namespace Common.Implement.Tools {
         /// </summary>
         public static void CreateBaseItem(Toolpars toolPars) {
             var templateType = toolPars.SettingPathEntity.TemplateTypeKey;
-            var newTypeKey = toolPars.FormEntity.txtNewTypeKey;
+            var newTypeKey = toolPars.FormEntity.TxtNewTypeKey;
             var fileMapping = toolPars.FileMappingEntity;
             var fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
                 filmap.Id.Equals("BaseItem")
             );
             fileInfo?.Paths.ToList().ForEach(path => {
-                var fromPath = toolPars.MVSToolpath + @"Template\" + path;
+                var fromPath =PathTools.PathCombine(toolPars.MvsToolpath, "Template", path);
 
                 var newFilePath = path.Replace(templateType, newTypeKey);
-                newFilePath = toolPars.GToIni + @"\" + newFilePath;
+                newFilePath = PathTools.PathCombine(toolPars.FormEntity.TxtToPath, newFilePath) ;
 
                 if (File.Exists(newFilePath))
                     return;
@@ -582,7 +801,9 @@ namespace Common.Implement.Tools {
         /// <param name="newKey"></param>
         public static void ModiFiles(Toolpars toolpars, string oldKey, string newKey) {
             //个案路径
-            var directoryPath = $@"{toolpars.GToIni}\Digiwin.ERP.{newKey}\";
+            var pathInfo = toolpars.PathEntity;
+            var directoryPath = $@"{pathInfo.TypeKeyFullRootDir}\";
+            var typeKeyRootDir = pathInfo.TypeKeyRootDir;
             var tDes = new DirectoryInfo(directoryPath);
 
             var tSearchPatternList = new List<string>();
@@ -601,7 +822,7 @@ namespace Common.Implement.Tools {
                     continue;
                 var text = File.ReadAllText(filePath);
                 text = text.Replace("Digiwin.ERP." + oldKey,
-                    "Digiwin.ERP." + newKey);
+                    typeKeyRootDir);
                 File.SetAttributes(filePath, FileAttributes.Normal);
                 File.Delete(filePath);
                 File.WriteAllText(filePath, text, Encoding.UTF8);
@@ -667,7 +888,7 @@ namespace Common.Implement.Tools {
         /// <param name="toolPars"></param>
         private static void UpdatePath(List<FileInfos> fileInfos, Toolpars toolPars) {
             var templateType = toolPars.SettingPathEntity.TemplateTypeKey;
-            var newTypeKey = toolPars.FormEntity.txtNewTypeKey;
+            var newTypeKey = toolPars.FormEntity.TxtNewTypeKey;
             fileInfos.ForEach(fileinfo => {
                     var basePath = fileinfo.BasePath;
                     var oldFilePath = Path.GetFileNameWithoutExtension(basePath);
@@ -675,11 +896,17 @@ namespace Common.Implement.Tools {
                         return;
                     var newFilePath = basePath.Replace(templateType, newTypeKey)
                         .Replace(oldFilePath, fileinfo.FileName);
-                    fileinfo.ToPath = $@"{toolPars.GToIni}\{newFilePath}";
+                    fileinfo.ToPath =PathTools.PathCombine(toolPars.FormEntity.TxtToPath, newFilePath);
                 }
             );
         }
 
+        /// <summary>
+        ///     创建项目的模板文件映射
+        /// </summary>
+        /// <param name="toolpars"></param>
+        /// <param name="bt"></param>
+        /// <returns></returns>
         public static List<FileInfos> CreateFileMappingInfo(Toolpars toolpars, BuildeType bt) {
             var fileInfos = new List<FileInfos>();
             var fileMapping = toolpars.FileMappingEntity;
@@ -689,7 +916,7 @@ namespace Common.Implement.Tools {
             );
             if (fileInfo?.Paths == null)
                 return fileInfos;
-            if (fileInfo.Paths.Count() == 1) {
+            if (fileInfo.Paths.Length == 1) {
                 var fileinfo = new FileInfos {
                     ActionName = "",
                     ClassName = $"Create{id}",
@@ -699,12 +926,12 @@ namespace Common.Implement.Tools {
 
                 var path = fileInfo.Paths[0];
                 fileinfo.BasePath = fileInfo.Paths[0];
-                var fromPath = $@"{toolpars.MVSToolpath}\Template\{path}";
+                var fromPath = PathTools.PathCombine(toolpars.MvsToolpath, "Template", path);
                 fileinfo.FromPath = fromPath;
                 var oldFilePath = Path.GetFileNameWithoutExtension(path);
                 if (oldFilePath != null) {
                     var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-                    fileinfo.ToPath = $@"{toolpars.GToIni}\{newFilePath}";
+                    fileinfo.ToPath = PathTools.PathCombine(toolpars.FormEntity.TxtToPath, newFilePath);
                 }
                 if (bt.PartId != null
                     && !bt.PartId.Equals(Empty)) {
@@ -717,7 +944,7 @@ namespace Common.Implement.Tools {
             else {
                 fileInfo.Paths.ToList().ForEach(path => {
                     var classNameFiled = Path.GetFileNameWithoutExtension(path);
-                    var fromPath = $@"{toolpars.MVSToolpath}\Template\{path}";
+                    var fromPath = PathTools.PathCombine(toolpars.MvsToolpath,"Template",path);
                     var fileinfo = new FileInfos {
                         ActionName = "",
                         ClassName = classNameFiled,
@@ -730,7 +957,7 @@ namespace Common.Implement.Tools {
                     if (oldFilePath != null) {
                         var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
 
-                        fileinfo.ToPath = $@"{toolpars.GToIni}\{newFilePath}";
+                        fileinfo.ToPath = PathTools.PathCombine(toolpars.FormEntity.TxtToPath,newFilePath);
                     }
 
                     fileInfos.Add(fileinfo);
@@ -793,16 +1020,21 @@ namespace Common.Implement.Tools {
             }
         }
 
-        public static bool CopyModi(TreeNodeCollection nodes, Toolpars toolPars) {
+        /// <summary>
+        ///     修改代码
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="toolpars"></param>
+        /// <returns></returns>
+        public static bool CopyModi(TreeNodeCollection nodes, Toolpars toolpars) {
             var sucess = true;
             try {
                 var fileInfos = GetTreeViewPath(nodes);
-
-                var formDir = $@"{toolPars.FormEntity.txtPKGpath}\Digiwin.ERP.{toolPars.FormEntity.PkgTypekey}";
-                var toDir = $@"{toolPars.FormEntity.TxtToPath}\Digiwin.ERP.{toolPars.FormEntity.txtNewTypeKey}";
-
+                var pathInfo = toolpars.PathEntity;
+                var formDir = pathInfo.PkgTypeKeyFullRootDir;
+                var toDir = pathInfo.TypeKeyFullRootDir; 
                 CopyPkg(formDir, toDir, fileInfos);
-                ModiName(toolPars, toolPars.FormEntity.PkgTypekey);
+                ModiName(toolpars);
             }
             catch (Exception) {
                 sucess = false;
@@ -815,12 +1047,15 @@ namespace Common.Implement.Tools {
         ///     批量修改个案cs文件
         /// </summary>
         /// <param name="toolpars"></param>
-        /// <param name="oldTypeKey"></param>
-        public static void ModiName(Toolpars toolpars, string oldTypeKey) {
-            var txtNewTypeKey = toolpars.FormEntity.txtNewTypeKey;
-            var pkgTypekey = oldTypeKey; // Toolpars.formEntity.PkgTypekey;
+        public static void ModiName(Toolpars toolpars) {
+            var pkgTypekey = toolpars.FormEntity.PkgTypekey;
+            var txtNewTypeKey = toolpars.FormEntity.TxtNewTypeKey;
+            var pathInfo = toolpars.PathEntity;
+            var newTypeKeyRootDir = pathInfo.TypeKeyRootDir;
+            var tempTypeKeyRootDir = pathInfo.PkgTypeKeyRootDir;
+
             //个案路径
-            var directoryPath = $@"{toolpars.GToIni}\Digiwin.ERP.{txtNewTypeKey}\";
+            var directoryPath = pathInfo.TypeKeyFullRootDir;
             var tDes = new DirectoryInfo(directoryPath);
 
             var tSearchPatternList = new List<string>();
@@ -839,26 +1074,20 @@ namespace Common.Implement.Tools {
                 //查找txtPKGpath
                 if (d.Name.IndexOf(pkgTypekey, StringComparison.Ordinal) == -1)
                     continue;
+                var newTypeKeyFile =PathTools.PathCombine(d.Parent?.FullName, d.Name.Replace(pkgTypekey, txtNewTypeKey));
                 if (
-                    d.Parent != null && File.Exists($@"{d.Parent.FullName}\\{d.Name.Replace(pkgTypekey, txtNewTypeKey)}"
-                    )) {
-                    File.SetAttributes(
-                        d.Parent.FullName + "\\" +
-                        d.Name.Replace(pkgTypekey, txtNewTypeKey),
+                    d.Parent != null && File.Exists(newTypeKeyFile)) {
+                    File.SetAttributes( newTypeKeyFile,
                         FileAttributes.Normal);
-                    File.Delete(d.Parent.FullName + "\\" +
-                                d.Name.Replace(pkgTypekey, txtNewTypeKey));
+                    File.Delete(newTypeKeyFile);
                 }
                 if (
-                    d.Parent != null && Directory.Exists(d.Parent.FullName + "\\" +
-                                                         d.Name.Replace(pkgTypekey, txtNewTypeKey)) ==
+                    d.Parent != null && Directory.Exists(newTypeKeyFile) ==
                     false)
-                    d.MoveTo(d.Parent.FullName + "\\" +
-                             d.Name.Replace(pkgTypekey, txtNewTypeKey));
+                    d.MoveTo(newTypeKeyFile);
                 Application.DoEvents();
             }
-
-
+            
             foreach (var f in tDes.GetFiles("*", SearchOption.AllDirectories)) {
                 if (f.Name.IndexOf(txtNewTypeKey, StringComparison.Ordinal) != -1)
                     continue;
@@ -866,13 +1095,11 @@ namespace Common.Implement.Tools {
                     continue;
                 if (!File.Exists(f.FullName))
                     continue;
+                var newTypeKeyFile = PathTools.PathCombine(f.Directory?.FullName,f.Name.Replace(tempTypeKeyRootDir,
+                    newTypeKeyRootDir));
                 if (
-                    f.Directory != null && File.Exists(f.Directory.FullName + "\\" +
-                                                       f.Name.Replace("Digiwin.ERP." + pkgTypekey,
-                                                           "Digiwin.ERP." + txtNewTypeKey)) == false)
-                    f.MoveTo(f.Directory.FullName + "\\" +
-                             f.Name.Replace("Digiwin.ERP." + pkgTypekey,
-                                 "Digiwin.ERP." + txtNewTypeKey));
+                    f.Directory != null && !File.Exists(newTypeKeyFile))
+                    f.MoveTo(newTypeKeyFile);
                 Application.DoEvents();
             }
             var patList = GetFilePath(directoryPath);
@@ -882,8 +1109,8 @@ namespace Common.Implement.Tools {
                 if (!File.Exists(filePath))
                     continue;
                 var text = File.ReadAllText(filePath);
-                text = text.Replace("Digiwin.ERP." + pkgTypekey,
-                    "Digiwin.ERP." + txtNewTypeKey);
+                text = text.Replace(tempTypeKeyRootDir,
+                    newTypeKeyRootDir);
                 text = text.Replace(@"<HintPath>..\..\", @"<HintPath>..\..\..\..\..\WD_PR\SRC\");
                 File.SetAttributes(filePath, FileAttributes.Normal);
                 File.Delete(filePath);
@@ -898,6 +1125,11 @@ namespace Common.Implement.Tools {
             }
         }
 
+        /// <summary>
+        ///     获取生成文件的路径
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
         public static List<FileInfos> GetTreeViewPath(TreeNodeCollection nodes) {
             var paths = new List<FileInfos>();
 
@@ -922,15 +1154,20 @@ namespace Common.Implement.Tools {
 
         #region 一键借用
 
-        public static bool CopyAllPkG(Toolpars toolpars,string pkgPath) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="toolpars"></param>
+        /// <param name="pkgPath"></param>
+        /// <returns></returns>
+        public static bool CopyAllPkG(Toolpars toolpars, string pkgPath) {
             var success = true;
             try {
-                toolpars.GToIni = toolpars.FormEntity.TxtToPath;
-                if (toolpars.FormEntity.TxtToPath != ""
-                    && toolpars.FormEntity.txtNewTypeKey != "") {
+                var pathInfo = toolpars.PathEntity;
+                var newTypeKeyFullRootDir = pathInfo.TypeKeyFullRootDir;
+                if (!PathTools.IsNullOrEmpty(toolpars.FormEntity.TxtToPath)
+                    && !PathTools.IsNullOrEmpty(toolpars.FormEntity.TxtNewTypeKey)) {
                     if (Directory.Exists(toolpars.FormEntity.TxtToPath)) {
-                        var tCusSrc = new DirectoryInfo(toolpars.GToIni + @"\");
-                        //toolpars.FormEntity.txtPKGpath + "Digiwin.ERP."+ toolpars.FormEntity.PkgTypekey;
                         if (!Directory.Exists(pkgPath)) {
                             MessageBox.Show(string.Format(Resources.DirNotExisted, pkgPath), Resources.ErrorMsg,
                                 MessageBoxButtons.OK,
@@ -939,16 +1176,14 @@ namespace Common.Implement.Tools {
                         }
                         else {
                             if (
-                                Directory.Exists(Path.Combine(toolpars.GToIni + @"\",
-                                    "Digiwin.ERP." + toolpars.FormEntity.txtNewTypeKey))) {
+                                Directory.Exists(newTypeKeyFullRootDir)) {
                                 var result =
                                     MessageBox.Show(
-                                        Path.Combine(toolpars.FormEntity.TxtToPath, toolpars.FormEntity.txtNewTypeKey)
+                                        Path.Combine(toolpars.FormEntity.TxtToPath, toolpars.FormEntity.TxtNewTypeKey)
                                         + Environment.NewLine + Resources.DirExisted,
                                         Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                                 if (result == DialogResult.Yes) {
-                                    object tArgsPath = Path.Combine(toolpars.GToIni + @"\",
-                                        "Digiwin.ERP." + toolpars.FormEntity.txtNewTypeKey);
+                                    object tArgsPath = Path.Combine(newTypeKeyFullRootDir);
                                     OldTools.DeleteAll(tArgsPath);
                                 }
                                 else {
@@ -956,8 +1191,7 @@ namespace Common.Implement.Tools {
                                 }
                             }
                             if (success)
-                                OldTools.CopyAllPkg(pkgPath,
-                                    tCusSrc + "Digiwin.ERP." + toolpars.FormEntity.txtNewTypeKey);
+                                OldTools.CopyAllPkg(pkgPath,  newTypeKeyFullRootDir);
                         }
                     }
                     else {
@@ -977,7 +1211,7 @@ namespace Common.Implement.Tools {
                 #region 修改命名
 
                 if (success) {
-                    ModiName(toolpars, toolpars.FormEntity.PkgTypekey);
+                    ModiName(toolpars);
                     MessageBox.Show(Resources.GenerateSucess);
                 }
 
@@ -987,7 +1221,7 @@ namespace Common.Implement.Tools {
                 success = false;
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            new Thread(delegate() { SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "COPY PKG SOURCE"); }
+            new Thread(() => SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "COPY PKG SOURCE") 
             ).Start();
             return success;
         }
@@ -996,147 +1230,85 @@ namespace Common.Implement.Tools {
 
         #endregion
 
-        #region 操作实体
-
-        public static List<string> GetPropNameByEntity(MetadataContainer metadataContainer, string typeKey)
+        #region 开启客户端，服务端
+        /// <summary>
+        /// 打开服务器
+        /// </summary>
+        public static void ServerOn(Toolpars toolpar,string args)
         {
-            var propies = new List<string>();
-            var selectTypeKey =
-                metadataContainer.DataEntityTypes.FirstOrDefault(entityType => entityType.Name.Equals(typeKey));
-            selectTypeKey?.Properties.Items?.ToList().ForEach(prop =>
+            var isOn = CheckProcessOn("Digiwin.Mars.ServerStart");
+            if (isOn)
             {
-                if (prop != null)
-                {
-                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
-                    if (prop is SimpleProperty)
-                    {
-                        var name = ((SimpleProperty)prop).Name ?? string.Empty;
-                        if (!name.Equals(string.Empty))
-                        {
-                            propies.Add(name);
-                        }
-                    }
-                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
-                    if (prop is ComplexProperty)
-                    {
-                        var name = ((ComplexProperty)prop).Name ?? string.Empty;
-                        if (!name.Equals(string.Empty))
-                        {
-                            propies.Add(name + @"_ROid");
-                            propies.Add(name + @"_RTK");
-                        }
-                    }
-                    // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
-                    if (prop is ReferenceProperty)
-                    {
-                        var name = ((ReferenceProperty)prop).Name ?? string.Empty;
-                        if (!name.Equals(string.Empty))
-                        {
-                            propies.Add(name);
-                        }
-                    }
-                }
-            });
-            selectTypeKey?.InterfaceReferences?.ToList().ForEach(item =>
-            {
-                var name = item.Name ?? string.Empty;
-                if (!name.Equals(string.Empty))
-                {
-                    switch (name)
-                    {
-                        case "IDocumentNumber":
-                            propies.Add("DOC_NO");
-                            break;
-                        case "IOwner":
-                            propies.Add("Owner_Org_RTK");
-                            propies.Add("Owner_Org_ROid");
-                            break;
-                        case "ISequenceNumber":
-                            propies.Add("SequenceNumber");
-                            break;
-                    }
-                }
-            });
-            return propies;
-        } 
-        #endregion
-
-        public static void CallModule(BuildeType bt, Toolpars toolpars) {
-
-            var plugPath = bt.PlugPath;
-            var moduleName = bt.ModuleName;
-            if (plugPath == null
-                || plugPath.Trim().Equals(string.Empty)
-                || moduleName == null
-                || moduleName.Trim().Equals(string.Empty)
-            )
-            {
-                MessageBox.Show(Resources.ModuleNotExisted);
+                MessageBox.Show(Resources.ServerRunning);
                 return;
             }
-            try
+            var tServerPath = toolpar.Mplatform + "\\Server\\Control\\Digiwin.Mars.ServerStart.exe";
+            ExecuteCmd("IISRESET", "");
+       
+            if (!File.Exists(tServerPath))
             {
-                var dirPath = toolpars.MVSToolpath;
-                var dirInfo = new DirectoryInfo(dirPath);
-                var plugFullPath = dirInfo.GetFiles(plugPath, SearchOption.AllDirectories);
-                if (!plugFullPath.Any())
-                {
-                    MessageBox.Show($@"应用目录内未找到模块文件{plugPath}");
-                }
-                var dllPath = plugFullPath[0].FullName;
-
-                ////    1.Load(命名空间名称)，GetType(命名空间.类名)  
-                var type = Assembly.LoadFile(dllPath).GetType(moduleName);
-
-                ////    3.调用的实例化方法（非静态方法）需要创建类型的一个实例  
-                var obj = Activator.CreateInstance(type, toolpars);
-                (obj as Form)?.ShowDialog();
+                MessageBox.Show(string.Format(Resources.NotFindFile, tServerPath));
+                return;
             }
-            catch (Exception ex)
-            {
-                // ignored
-                MessageBox.Show($@"插件{moduleName}激活失败，请检查模块信息,详细信息{Environment.NewLine}{ex.Message}");
-            }
-            //InsertForm insertForm = new InsertForm(Toolpars);
-            //insertForm.ShowDialog();
-          
-        }
- 
-
-        public static void OpenWord() {
-            var basePath = AppDomain.CurrentDomain.BaseDirectory;
-            var dirInfo = new DirectoryInfo(basePath);
-            var fileMatch = "Help.docx";
-            var matchFile = dirInfo.GetFiles(fileMatch, SearchOption.AllDirectories);
-            if (matchFile.Any()) {
-                var path = matchFile[0].FullName;
-
-                try
-                {
-                    var app = new MSWord.Application { Visible = true };
-                    app.Documents.Open(path);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show(Resources.OpenDocError);
-                }
-            }
-            else {
-                MessageBox.Show(Resources.HelpDocNotExiested);
-            }
-      
-
+            Process.Start(tServerPath, args);
         }
 
-        public static void OpenDir(string targetDir) {
-            if (Directory.Exists(targetDir))
-            {
-                Process.Start(targetDir);
+        /// <summary>
+        /// 打开服务器
+        /// </summary>
+        public static void ClientOn(Toolpars toolpar, string args) {
+            if (!CheckProcessOn("Digiwin.Mars.ServerStart"))
+                MessageBox.Show(Resources.ServerNotRunning);
+            if (CheckProcessOn("Digiwin.Mars.ClientStart")) {
+                MessageBox.Show(Resources.ClientRunning);
+                return;
             }
-            else
-            {
-                MessageBox.Show(string.Format(Resources.DirNotExisted, targetDir), Resources.WarningMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            var tClientPath = toolpar.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
+            Process.Start(tClientPath, args);
         }
+
+        #region executeCmd
+        /// <summary>
+        /// 不知何用
+        /// </summary>
+        /// <param name="pFileName"></param>
+        /// <param name="pArguments"></param>
+        private static void ExecuteCmd(string pFileName, string pArguments)
+        {
+            var process = new Process
+            {
+                StartInfo = {
+                    FileName = pFileName,
+                    Arguments = pArguments,
+                    UseShellExecute = false,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                }
+            };
+            process.Start();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 检查进程是否启动
+        /// </summary>
+        /// <param name="processName"></param>
+        /// <returns></returns>
+        public static bool CheckProcessOn(string processName)
+        {
+            var tIsOpen = false;
+            foreach (var p in Process.GetProcesses())
+                if (p.ProcessName.Contains(processName))
+                    tIsOpen = true;
+            return tIsOpen;
+        }
+
+        #endregion
+
+
     }
 }

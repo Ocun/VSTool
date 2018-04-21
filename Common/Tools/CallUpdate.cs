@@ -6,25 +6,44 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace Common.Implement.Tools {
+    /// <summary>
+    /// 自动升级辅助类
+    /// </summary>
     public class CallUpdate {
-        //Kill執行緒 
+        
+        /// <summary>
+        /// Kill執行緒
+        /// </summary>
+        /// <param name="exeFileName"></param>
         public static void KillTask(string exeFileName) {
             foreach (var p in Process.GetProcessesByName(exeFileName))
                 p.Kill();
         }
 
-        //取得電腦名稱
+        
+        /// <summary>
+        /// 取得電腦名稱
+        /// </summary>
+        /// <returns></returns>
         public static string GetPcHostName() {
             return Environment.MachineName;
         }
-
-        //取得電腦IP
+        
+        /// <summary>
+        /// 取得電腦IP
+        /// </summary>
+        /// <returns></returns>
         public static string GetIpAddress() {
             var svrIp = new IPAddress(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].Address);
+
             return svrIp.ToString();
         }
 
-        //取得電腦所在地
+        
+        /// <summary>
+        /// 取得電腦所在地
+        /// </summary>
+        /// <returns></returns>
         public static string GetLocation() {
             var ip = GetIpAddress();
 
@@ -34,20 +53,26 @@ namespace Common.Implement.Tools {
                 return "TW";
             if (ip.IndexOf("10.40", StringComparison.Ordinal) != -1) //台中
                 return "TH";
-            if (ip.IndexOf("192.168.168", StringComparison.Ordinal) != -1) //南京VM
-                return "NJVM";
-            if (ip.IndexOf("192.168", StringComparison.Ordinal) != -1) //南京
-                return "NJ";
-            return "NJ";
+            return ip.IndexOf("192.168.168", StringComparison.Ordinal) != -1 ? "NJVM" : "NJ";
         }
 
-        //取得執行檔執行資料夾路徑
+        
+        /// <summary>
+        /// 取得執行檔執行資料夾路徑
+        /// </summary>
+        /// <param name="fullFilePath"></param>
+        /// <returns></returns>
         public static string GetExeFolder(string fullFilePath) {
             var exeFolder = fullFilePath.Substring(0, fullFilePath.LastIndexOf("\\", StringComparison.Ordinal));
             return exeFolder;
         }
 
-        //取得執行檔名稱
+        
+        /// <summary>
+        /// 取得執行檔名稱
+        /// </summary>
+        /// <param name="fullFilePath"></param>
+        /// <returns></returns>
         public static string GetExeName(string fullFilePath) {
             var exeFolder = fullFilePath.Substring(0, fullFilePath.LastIndexOf("\\", StringComparison.Ordinal));
             fullFilePath = fullFilePath.Substring(fullFilePath.LastIndexOf("\\", StringComparison.Ordinal) + 1,
@@ -55,7 +80,12 @@ namespace Common.Implement.Tools {
             return fullFilePath;
         }
 
-        //取得本地workday連線字串
+        
+        /// <summary>
+        /// 取得本地workday連線字串
+        /// </summary>
+        /// <param name="getLocation"></param>
+        /// <returns></returns>
         public static string GetWorkDayConnectionString(string getLocation) {
             if (getLocation == "TW"
                 || getLocation == "TWVM"
@@ -66,12 +96,25 @@ namespace Common.Implement.Tools {
                 "Provider=SQLOLEDB.1;Password=518518;Persist Security Info=True;User ID=sa;Initial Catalog=NJWF;Data Source=172.16.1.28;Application Name=NEWDB";
         }
 
-        //取得Workday Insert指令
+        
+        /// <summary>
+        /// 取得Workday Insert指令
+        /// </summary>
+        /// <param name="isWfTool"></param>
+        /// <param name="toolName"></param>
+        /// <param name="useDate"></param>
+        /// <param name="useTime"></param>
+        /// <param name="pcName"></param>
+        /// <param name="isFailed"></param>
+        /// <param name="usedCount"></param>
+        /// <param name="theMemo"></param>
+        /// <param name="demandId"></param>
+        /// <param name="useYear"></param>
+        /// <returns></returns>
         public static string GetWorkDayInsertString(bool isWfTool, bool toolName, string useDate, string useTime,
             string pcName, string isFailed, int usedCount, string theMemo, string demandId, string useYear) {
-            string workDayTableName;
             var insertString = new StringBuilder();
-            workDayTableName = isWfTool ? "WF_TOOLINFO" : "YF_TOOLINFO";
+            var workDayTableName = isWfTool ? "WF_TOOLINFO" : "YF_TOOLINFO";
             insertString.AppendFormat(
                 "Insert into " + workDayTableName
                 + " (ToolName,UseDate,UseTime,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear ) Values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
@@ -79,7 +122,12 @@ namespace Common.Implement.Tools {
             return insertString.ToString();
         }
 
-        //取得主機上執行檔路徑
+        
+        /// <summary>
+        /// 取得主機上執行檔路徑
+        /// </summary>
+        /// <param name="toolName"></param>
+        /// <returns></returns>
         public static string GetServerExePath(string toolName) {
             if (GetLocation().Trim().IndexOf("NJ", StringComparison.Ordinal) != -1)
                 if (toolName.ToUpper().Trim() == "VSTool")
@@ -91,6 +139,12 @@ namespace Common.Implement.Tools {
             return @"\\10.40.99.158\E10_Tools\E10_Switch\" + toolName + @"\" + toolName + ".exe";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fullFilePath"></param>
+        /// <param name="serverFilePath"></param>
+        /// <returns></returns>
         public static bool CompareFileLastWritedate(string fullFilePath, string serverFilePath) {
             var fullFile = new FileInfo(fullFilePath);
             var serverFile = new FileInfo(serverFilePath);
@@ -98,6 +152,13 @@ namespace Common.Implement.Tools {
             return fullFile.LastWriteTime != serverFile.LastWriteTime || File.Exists(fullFilePath) == false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lpHandle"></param>
+        /// <param name="lpProgram"></param>
+        /// <param name="lpParameter"></param>
+        /// <returns></returns>
         public static bool CallExe(int lpHandle, string lpProgram, string lpParameter) {
             var p = new Process {
                 StartInfo = {
@@ -112,9 +173,10 @@ namespace Common.Implement.Tools {
             //System.Diagnostics.Process.Start(lpProgram, lpParameter);
             return true;
         }
-
-        //取得機碼執行檔路徑
-
+        
+        /// <summary>
+        /// 取得機碼執行檔路徑
+        /// </summary>
         public static void AutoUpgrade() {
             if (GetServerExePath("VSTool") != "") {
                 if (File.Exists(GetServerExePath("VSTool")))

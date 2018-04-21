@@ -1,123 +1,86 @@
 ﻿// create By 08628 20180411
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Common.Implement.Entity
-{
+namespace Common.Implement.Entity {
     /// <summary>
-    /// 路径相关
+    ///     路径相关
     /// </summary>
     public class PathEntity {
-        private string _serverPath = string.Empty;
-        private string _deployServerPath = string.Empty;
 
-        private string _exportPath = string.Empty;
-        private string _businessDllName = string.Empty;
-        private string _implementDllName = string.Empty;
-        private string _uiDllName = string.Empty;
-        private string _uiImplementDllName = string.Empty;
+        /// <summary>
+        ///     產生接口dll名稱
+        /// </summary>
+        public string BusinessDllName { get; set; } = string.Empty;
 
+        /// <summary>
+        ///     產生實現dll名稱
+        /// </summary>
+        public string ImplementDllName { get; set; } = string.Empty;
 
-        private string _businessDir = string.Empty;
-        private string _implementDir = string.Empty;
-        private string _uiDir= string.Empty;
-        private string _uiImplementDir = string.Empty;
+        /// <summary>
+        ///     UI端接口dll名稱
+        /// </summary>
+        public string UiDllName { get; set; } = string.Empty;
 
+        /// <summary>
+        ///     ui端實現dll名稱
+        /// </summary>
+        public string UiImplementDllName { get; set; } = string.Empty;
 
-        private string _serverProgramsPath = string.Empty;
-        private string _clientProgramsPath = string.Empty;
-        private string _rootDir = string.Empty;
+        /// <summary>
+        ///     導出目錄
+        /// </summary>
+        public string ExportFullPath { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     个案源码之接口目录
+        /// </summary>
+        public string BusinessDir { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     个案源码之接口实现目录
+        /// </summary>
+        public string ImplementDir { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     个案源码之接口目录
+        /// </summary>
+        public string UiDir { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     个案源码之客户端目录
+        /// </summary>
+        public string UiImplementDir { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     dll部署路径
+        /// </summary>
+        public string ServerProgramsFullPath { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     dll部署路径
+        /// </summary>
+        public string DeployProgramsFullPath { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     新typekey目录,相对目录
+        /// </summary>
+        public string TypeKeyRootDir { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     新typekey目录，绝对目录
+        /// </summary>
+        public string TypeKeyFullRootDir { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     借用typekey路径(代码)，相对路径
+        /// </summary>
+        public string PkgTypeKeyRootDir { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     借用typekey路径(代码)，绝对路径
+        /// </summary>
+        public string PkgTypeKeyFullRootDir { get; set; } = string.Empty;
+
         
-
-        
-        /// <summary>
-        /// 產生接口dll名稱
-        /// </summary>
-        public string BusinessDllName {
-            get => _businessDllName;
-            set => _businessDllName = value;
-        }
-        /// <summary>
-        /// 產生實現dll名稱
-        /// </summary>
-        public string ImplementDllName {
-            get => _implementDllName;
-            set => _implementDllName = value;
-        }
-        /// <summary>
-        /// UI端接口dll名稱
-        /// </summary>
-        public string UIDllName {
-            get => _uiDllName;
-            set => _uiDllName = value;
-        }
-        /// <summary>
-        /// ui端實現dll名稱
-        /// </summary>
-        public string UIImplementDllName {
-            get => _uiImplementDllName;
-            set => _uiImplementDllName = value;
-        }
-        /// <summary>
-        /// 導出目錄
-        /// </summary>
-        public string ExportPath {
-            get => _exportPath;
-            set => _exportPath = value;
-        }
-        /// <summary>
-        /// 个案源码之接口目录
-        /// </summary>
-        public string BusinessDir {
-            get => _businessDir;
-            set => _businessDir = value;
-        }
-        /// <summary>
-        /// 个案源码之接口实现目录
-        /// </summary>
-        public string ImplementDir {
-            get => _implementDir;
-            set => _implementDir = value;
-        }
-        /// <summary>
-        /// 个案源码之接口目录
-        /// </summary>
-        public string UIDir {
-            get => _uiDir;
-            set => _uiDir = value;
-        }
-        /// <summary>
-        /// 个案源码之客户端目录
-        /// </summary>
-        public string UIImplementDir {
-            get => _uiImplementDir;
-            set => _uiImplementDir = value;
-        }
-        /// <summary>
-        /// dll部署路径
-        /// </summary>
-        public string ServerProgramsPath
-        {
-            get => _serverProgramsPath;
-            set => _serverProgramsPath = value;
-        }
-        /// <summary>
-        /// dll部署路径
-        /// </summary>
-        public string DeployProgramsPath
-        {
-            get => _clientProgramsPath;
-            set => _clientProgramsPath = value;
-        }
-        /// <summary>
-        /// 代码根目录
-        /// </summary>
-        public string RootDir
-        {
-            get => _rootDir;
-            set => _rootDir = value;
-        }
     }
 }

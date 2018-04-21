@@ -1,0 +1,16 @@
+{
+          "ServerDir": "\\Server\\Application\\Customization",
+          "DeployServerDir": "\\DeployServer\\Shared\\Customization",
+          "IndustryServerDir": "\\Server\\Application\\Industry",
+          "IndustryDeployDir": "\\DeployServer\\Application\\Industry",
+          "Programs": "\\Programs\\",
+          "BasicDir": "",
+          "ExportDir": "\\Export\\",
+          "BusinessDirExtention": ".Business",
+          "ImplementDirExtention": ".Implement",
+          "UIDirExtention": ".UI",
+          "DllExtention": ".dll",
+          "PackageBaseName": "Digiwin.ERP.",
+          "TemplateDir": "Digiwin.ERP.XTEST",
+          "TemplateTypeKey": "XTEST"
+}

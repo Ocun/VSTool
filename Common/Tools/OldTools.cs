@@ -1,31 +1,16 @@
 ﻿// create By 08628 20180411
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Common.Implement.Properties;
 
 namespace Common.Implement.Tools {
+    /// <summary>
+    ///     旧版用到的一些方法
+    /// </summary>
     public class OldTools {
-        /// <summary>
-        ///     kill the process
-        /// </summary>
-        public static void KillProcess(string[] processNames) {
-            var tPs = new List<Process>();
-            foreach (var p in Process.GetProcesses())
-                processNames.ToList().ForEach(processName => {
-                    if (p.ProcessName.Contains(processName))
-                        p.Kill();
-                    else
-                        tPs.Add(p);
-                });
-        }
-
-
         /// <summary>
         ///     刪除文件夾及其子項
         /// </summary>
@@ -98,6 +83,12 @@ namespace Common.Implement.Tools {
             }
         }
 
+        /// <summary>
+        /// 防断路
+        /// </summary>
+        /// <param name="pFrom"></param>
+        /// <param name="pTo"></param>
+        /// <param name="pOverWriteOrNot"></param>
         public static void CopyFileAndRetry(string pFrom, string pTo, bool pOverWriteOrNot)
             //^_^20140521 add by sunny for 防網路順斷，暫停三秒後繼續作業，並重試三次
         {
@@ -116,7 +107,8 @@ namespace Common.Implement.Tools {
                         File.Copy(pFrom, pTo, pOverWriteOrNot);
                     }
                     catch {
-                        MessageBox.Show(Resources.CopyFailed, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(Resources.CopyFailed, Resources.ErrorMsg, MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                     }
                 }
             }

@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\Common.Implement.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,6 +60,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\VSTool\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\VSTool\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -79,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\BuildeEntity.cs" />
+    <Compile Include="Tools\EnumHelper.cs" />
     <Compile Include="Entity\FileMappingEntity.cs" />
     <Compile Include="Entity\MetadataContainer.cs" />
     <Compile Include="Entity\SettingEntity.cs" />
@@ -95,7 +100,6 @@
     <Compile Include="Tools\PathTools.cs" />
     <Compile Include="Tools\ReadToEntityTools.cs" />
     <Compile Include="Tools\TreeViewTool.cs" />
-    <Compile Include="Tools\ValidateTool.cs" />
     <Compile Include="Entity\FormEntity.cs" />
     <Compile Include="Entity\PathEntity.cs" />
     <Compile Include="Entity\Toolpars.cs" />
@@ -103,11 +107,11 @@
     <Compile Include="Tools\OldTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\XmlTools.cs" />
-    <Compile Include="UI\ButtonManger.cs">
+    <Compile Include="UI\ToolBarManger.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ButtonManger.Designer.cs">
-      <DependentUpon>ButtonManger.cs</DependentUpon>
+    <Compile Include="UI\ToolBarManger.Designer.cs">
+      <DependentUpon>ToolBarManger.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CreateToolForm.cs">
       <SubType>Form</SubType>
@@ -175,8 +179,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ButtonManger.resx">
-      <DependentUpon>ButtonManger.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ToolBarManger.resx">
+      <DependentUpon>ToolBarManger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateToolForm.resx">
       <DependentUpon>CreateToolForm.cs</DependentUpon>
@@ -196,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\checked_.png" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\left-arrow.png" />

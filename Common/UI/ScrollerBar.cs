@@ -27,6 +27,16 @@ namespace Common.Implement.UI {
         /*直接给这些内部变量赋值相当于给了控件属性的初始值*/
         private Color _bottomColor = Color.FromArgb(62, 62, 66);
 
+        private Color _mouseDownSliderColor = Color.FromArgb(239, 235, 239);
+
+        private Color _mouseOverSliderColor = Color.FromArgb(158, 158, 158);
+        private Color _sliderColor = Color.FromArgb(104, 104, 104);
+        private int _sliderHeight = 100;
+
+        private double _sliderWidthPercent = 0.5;
+        private int _smallChange = 1;
+        private int _value;
+
         //小范围使用的全局变量*******************************************************
         //
         protected int DIstance; //鼠标按下的位置与滑块顶端的距离
@@ -35,18 +45,12 @@ namespace Common.Implement.UI {
         protected bool MouseDownOverSliderFlag; //鼠标按下滑块并在滑块上方移动标志
         protected Point MouseDownPoint;
 
-        private Color _mouseDownSliderColor = Color.FromArgb(239, 235, 239);
-
         //标志性变量*****************************************************************
         //
         protected bool MouseDownSliderFlag; //鼠标按下滑块标志
 
-        private Color _mouseOverSliderColor = Color.FromArgb(158, 158, 158);
-
         protected bool MouseOverSliderFlag; //鼠标在滑块上方标志
         protected Point MousePoint;
-        private Color _sliderColor = Color.FromArgb(104, 104, 104);
-        private int _sliderHeight = 100;
 
         //大范围使用的全局变量********************************************************
         //
@@ -57,10 +61,6 @@ namespace Common.Implement.UI {
         protected int SliderPointX; //Width  SliderWidthPercent_
         protected int SliderPointY; //Value  Heigth  SliderHeight_
         protected int SliderWidth; //Width   SliderWidthPercent_
-
-        private double _sliderWidthPercent = 0.5;
-        private int _smallChange = 1;
-        private int _value;
 
 
         public ScrollerBar() {

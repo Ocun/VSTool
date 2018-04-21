@@ -10,21 +10,34 @@ using Common.Implement.Tools;
 
 namespace Common.Implement.UI
 {
+    /// <summary>
+    /// 插单示例窗口
+    /// </summary>
     public sealed partial class InsertForm : Form
     {
+        /// <summary>
+        /// 主窗体参数
+        /// </summary>
         public Toolpars Toolpars { get; set; }
+
+        /// <summary>
+        /// 窗体构造
+        /// </summary>
+        /// <param name="toolpars"></param>
         public InsertForm(Toolpars toolpars)
         {
             InitializeComponent();
-            this.Toolpars = toolpars;
+            Toolpars = toolpars;
         }
-
+        /// <summary>
+        /// 构造器
+        /// </summary>
         public InsertForm()
         {
             InitializeComponent();
         }
 
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        private void TextBox1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
             var fulltypeKey = textBox1.Text.Trim();
@@ -39,14 +52,14 @@ namespace Common.Implement.UI
             }
             var path = $@"{Toolpars.Mplatform}\Server\Application\BusinessObjects\{typeKey}";
             if (!Directory.Exists(path)) {
-                MessageBox.Show($@"{path}不存在");
+                MessageBox.Show($@"{path}{Resources.NotFind}");
                 return;
             }
             var targetDir = new DirectoryInfo(path);
             var files = targetDir.GetFiles("MetadataContainer.dcxml", SearchOption.AllDirectories);
             if (files.Any())
             {
-                var metadataContainer = ReadToEntityTools.ReadToEntity<MetadataContainer>(files[0].FullName);
+                var metadataContainer = ReadToEntityTools.ReadToEntity<MetadataContainer>(files[0].FullName, ModelType.Xml);
                 if (metadataContainer == null) {
                     MessageBox.Show(Resources.ReadEntityError,Resources.ErrorMsg);
                     return;
@@ -60,14 +73,14 @@ namespace Common.Implement.UI
                     {
                         if (!metadataContainer.DataEntityTypes.Any(entityType => entityType.Name.Equals(currentKey))) {
                             isCurrect = false;
-                        };
+                        }
                     });
                     if (isCurrect) {
                         var propies = MyTool.GetPropNameByEntity(metadataContainer, lastTypeKey);
                        richTextBox1.Text = CreateInsert(propies, fulltypeKey);
                     }
                     else {
-                        MessageBox.Show($@"{fulltypeKey}不存在{lastTypeKey}");
+                        MessageBox.Show($@"{fulltypeKey}{Resources.NotFind}{lastTypeKey}");
                     }
                    
                 }
@@ -79,7 +92,7 @@ namespace Common.Implement.UI
             }
             else
             {
-                MessageBox.Show($@"平台TypeKey{typeKey}不存在");
+                MessageBox.Show($@"平台TypeKey{typeKey}{Resources.NotFind}");
             }
         }
 
@@ -91,7 +104,7 @@ namespace Common.Implement.UI
             sb.AppendLine(" properties.AddRange(new QueryProperty[]{");
             propies.ForEach(prop => {
                 var propName = $@"OOQL.CreateProperty(""{prop}"",""{prop}"")";
-                sb.AppendLine(prop.Equals(propies[propies.Count() - 1])
+                sb.AppendLine(prop.Equals(propies[propies.Count - 1])
                     ? propName
                     : propName + @", ");
             });
@@ -100,7 +113,7 @@ namespace Common.Implement.UI
             sb.AppendLine(@"Dictionary<string, QueryProperty> columns = new Dictionary<string, QueryProperty>();");
             propies.ForEach(prop => {
                 var propName = $@"columns.Add(""{prop}"",OOQL.CreateConstants())";
-                sb.AppendLine(prop.Equals(propies[propies.Count() - 1])
+                sb.AppendLine(prop.Equals(propies[propies.Count - 1])
                     ? propName : propName + @",");
             });
             sb.AppendLine($@"node = OOQL.Insert(""{fullTypeKey}"", columns.Keys.ToArray()).Values(columns.Values.ToArray())");

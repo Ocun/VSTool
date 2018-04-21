@@ -1,7 +1,6 @@
 ﻿// create By 08628 20180411
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,11 +8,12 @@ using Common.Implement.Entity;
 using Common.Implement.UI;
 
 namespace Common.Implement.Tools {
+    /// <summary>
+    ///     treeView生成辅助
+    /// </summary>
     public static class TreeViewTool {
-  
-
         /// <summary>
-        /// 创建右面板
+        ///     创建右面板
         /// </summary>
         /// <param name="myTreeView5"></param>
         /// <param name="toolpars"></param>
@@ -37,8 +37,8 @@ namespace Common.Implement.Tools {
             var item = buildeEntity.ToList();
             item.ForEach(buildeType => {
                 var node = CreateTree(toolpars, buildeType, showCheck, false);
-                if(node != null)
-                mytree.Nodes.Add(node);
+                if (node != null)
+                    mytree.Nodes.Add(node);
             });
         }
 
@@ -51,9 +51,8 @@ namespace Common.Implement.Tools {
         /// <returns></returns>
         public static TreeNode CreateTree(Toolpars toolpars, BuildeType buildeType, bool showCheck, bool readSubView) {
             var text = buildeType.Name ?? string.Empty;
-            if (buildeType.Visiable !=null && buildeType.Visiable.Equals("False") && buildeType.BuildeItems == null) {
+            if (buildeType.Visiable != null && buildeType.Visiable.Equals("False") && buildeType.BuildeItems == null)
                 return null;
-            }
             var newChild = new MyTreeNode(text) {BuildeType = buildeType};
             if (showCheck)
                 if (buildeType.ShowCheckedBox != null
@@ -69,7 +68,7 @@ namespace Common.Implement.Tools {
                     newChild.CheckBoxVisible = true;
                 }
             //读下层目录
-            else if (readSubView && buildeType.BuildeItems  != null&& buildeType.BuildeItems.Length > 0)
+            else if (readSubView && buildeType.BuildeItems != null && buildeType.BuildeItems.Length > 0)
                 buildeType.BuildeItems.ToList().ForEach(buildeItem => {
                     newChild.Nodes.Add(CreateTree(toolpars, buildeItem, false, true));
                 });
@@ -147,6 +146,11 @@ namespace Common.Implement.Tools {
             });
         }
 
+        /// <summary>
+        /// 创建右侧message
+        /// </summary>
+        /// <param name="buildeType"></param>
+        /// <returns></returns>
         public static MyTreeNode CreateTree(BuildeType buildeType) {
             var text = buildeType.Name ?? string.Empty;
             var newChild = new MyTreeNode(text);

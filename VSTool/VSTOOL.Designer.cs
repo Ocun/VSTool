@@ -41,7 +41,7 @@ namespace VSTool
             this.btnP = new System.Windows.Forms.Button();
             this.btnG = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.MyToolbar = new Common.Implement.UI.ButtonManger();
+            this.MyToolbar = new Common.Implement.UI.ToolBarManger();
             this.ModiCkb = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNewTypeKey = new System.Windows.Forms.TextBox();
@@ -488,8 +488,8 @@ namespace VSTool
             this.scrollPanel.Name = "scrollPanel";
             this.scrollPanel.Size = new System.Drawing.Size(503, 467);
             this.scrollPanel.TabIndex = 35;
-            this.scrollPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.scrollPanel_DragDrop);
-            this.scrollPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.scrollPanel_DragEnter);
+            this.scrollPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.ScrollPanel_DragDrop);
+            this.scrollPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.ScrollPanel_DragEnter);
             // 
             // treeView1
             // 
@@ -586,7 +586,7 @@ namespace VSTool
         private System.Windows.Forms.Label ToolsDescrition;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private Common.Implement.UI.ButtonManger MyToolbar;
+        private Common.Implement.UI.ToolBarManger MyToolbar;
     }
 }
 

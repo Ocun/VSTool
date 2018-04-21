@@ -71,7 +71,7 @@
             this.txt01.Name = "txt01";
             this.txt01.Size = new System.Drawing.Size(399, 25);
             this.txt01.TabIndex = 1;
-            this.txt01.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt01_KeyPress);
+            this.txt01.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt01_KeyPress);
             // 
             // txt02
             // 
@@ -81,7 +81,7 @@
             this.txt02.Size = new System.Drawing.Size(399, 25);
             this.txt02.TabIndex = 2;
             this.txt02.Visible = false;
-            this.txt02.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt01_KeyPress);
+            this.txt02.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt01_KeyPress);
             // 
             // btnOK
             // 
@@ -93,7 +93,7 @@
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // lblattention
             // 

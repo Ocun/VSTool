@@ -18,7 +18,6 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.dll
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.pdb
 G:\my document\my project\VSTools\VSTool\Common\bin\Debug\Common.Implement.dll
 G:\my document\my project\VSTools\VSTool\Common\bin\Debug\Common.Implement.pdb
-G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.Properties.Resource.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.ModiName.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csproj.GenerateResource.Cache
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.csproj.CoreCompileInputs.cache
@@ -45,3 +44,8 @@ E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.CreateToolForm.resource
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.Properties.Resources.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.UI.ButtonManger.resources
 E:\MyProject\VSTool\Common\obj\Debug\Common.Implement.csprojResolveAssemblyReference.cache
+G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.Properties.Resources.resources
+G:\my document\my project\VSTools\VSTool\Common\bin\Debug\Newtonsoft.Json.dll
+G:\my document\my project\VSTools\VSTool\Common\bin\Debug\Newtonsoft.Json.xml
+G:\my document\my project\VSTools\VSTool\Common\bin\Debug\Common.Implement.xml
+G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Common.Implement.UI.ToolBarManger.resources

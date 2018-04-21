@@ -1,0 +1,2538 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Implement</name>
+    </assembly>
+    <members>
+        <member name="T:Common.Implement.Entity.BuildeEntity">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeEntity.BuildeTypies">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.BuildeType">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.IsMerge">
+            <summary>
+                来源自同一模板代码片段是否合并
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.Id">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.Description">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.BuildeItems">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.Checked">
+            <summary>
+                是否选中
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.ReadOnly">
+            <summary>
+                是否可选
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.FileInfos">
+            <summary>
+              对应的模板文件
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.ShowParWindow">
+            <summary>
+                点击是否显示参数框
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.PartId">
+            <summary>
+                指示所属代码片段
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.ShowCheckedBox">
+            <summary>
+                是否显示复选框
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.IsTools">
+            <summary>
+                是否时外部工具
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.Url">
+            <summary>
+                外部应用程序地址
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.Visiable">
+            <summary>
+                项目是否可见，仅在无子项时生效
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.IsPlug">
+            <summary>
+                是否是插件
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.PlugPath">
+            <summary>
+                插件路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.ModuleName">
+            <summary>
+                模块名
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.BuildeType.ShowIcon">
+            <summary>
+                是否显示Icon
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Entity.FileInfos">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.ActionName">
+            <summary>
+                时机点
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.FunctionName">
+            <summary>
+                方法名
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.ClassName">
+            <summary>
+                类名
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.FileName">
+            <summary>
+                文件名
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.FromPath">
+            <summary>
+                模板路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.ToPath">
+            <summary>
+                个案路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.BasePath">
+            <summary>
+                模板路径（相对路径）
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.PartId">
+            <summary>
+                引用代码片段
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.IsMerge">
+            <summary>
+                来源自同一模板代码片段是否合并
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FileInfos.Id">
+            <summary>
+                Id唯一
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Entity.MappingEntity">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MappingEntity.MappingItems">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.MappingItem">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MappingItem.Id">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MappingItem.Description">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MappingItem.Paths">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.MetadataContainer">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MetadataContainer.DataEntityTypes">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MetadataContainer.FileVersion">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MetadataContainer.ProductVersion">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MetadataContainer.ProductName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.MetadataContainer.CopyRight">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.DataEntityType">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.Alias">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.DataEntityTypeType">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.Description">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.PrimaryKey">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.Domain">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.BusinessPrimaryKey">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.Properties">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.DataEntityIndexes">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityType.InterfaceReferences">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.Properties">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.Properties.Items">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.CollectionProperty">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.ItemDataEntityTypeName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.CollectionProperty.BusinessTypeName">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.ComplexProperty">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.DataEntityTypeName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.PickListType">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ComplexProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.ReferenceProperty">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.ReferenceToName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.IsIndex">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.IsUnique">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.AutoSync">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.DefaultValue">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.ReferenceProperty.BusinessTypeName">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.SimpleProperty">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.Size">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.IsIndex">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.IsUnique">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.AutoSync">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.IgnoreUpdate">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.DefaultValue">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.PickListType">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.DbType">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SimpleProperty.BusinessTypeName">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.DataEntityIndex">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityIndex.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityIndex.DataEntityIndexId">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityIndex.Unique">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityIndex.RelatedProperties">
+            <remarks />
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.IndexesDataEntityIndex">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.IndexesDataEntityIndex.Name">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.IndexesDataEntityIndex.DataEntityIndexId">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.IndexesDataEntityIndex.Clustered">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.IndexesDataEntityIndex.Unique">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.IndexesDataEntityIndex.RelatedProperties">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.InterfaceReference">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.InterfaceReference.Name">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.DataEntityTypeReference">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.DataEntityTypeReference.Name">
+            <remarks />
+        </member>
+        <member name="T:Common.Implement.Entity.SettingPathEntity">
+            <remarks />
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.ServerDir">
+            <summary>
+                服务端部署路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.DeployServerDir">
+            <summary>
+                客户端部署路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.IndustryServerDir">
+            <summary>
+                行业包服务端部署路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.IndustryDeployDir">
+            <summary>
+                行业包客户端部署路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.Programs">
+            <summary>
+                平台dll目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.BasicDir">
+            <summary>
+                源码路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.ExportDir">
+            <summary>
+                导出路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.BusinessDirExtention">
+            <summary>
+                Business
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.ImplementDirExtention">
+            <summary>
+                Implement
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.UiDirExtention">
+            <summary>
+                UI
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.DllExtention">
+            <summary>
+                dll
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.PackageBaseName">
+            <summary>
+                包名前缀
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.TemplateDir">
+            <summary>
+                模版目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.TemplateTypeKey">
+            <summary>
+            模板typeKey
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.SettingPathEntity.TemplateDirField">
+            <summary>
+            模板路径
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Entity.FormEntity">
+            <summary>
+                界面參數
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FormEntity.TxtToPath">
+            <summary>
+                個案路徑
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FormEntity.TxtPkGpath">
+            <summary>
+                借用路徑
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FormEntity.TxtNewTypeKey">
+            <summary>
+                個案typekey
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FormEntity.Industry">
+            <summary>
+                行業包
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.FormEntity.PkgTypekey">
+            <summary>
+                借用TypeKey
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Entity.PathEntity">
+            <summary>
+                路径相关
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.BusinessDllName">
+            <summary>
+                產生接口dll名稱
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.ImplementDllName">
+            <summary>
+                產生實現dll名稱
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.UiDllName">
+            <summary>
+                UI端接口dll名稱
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.UiImplementDllName">
+            <summary>
+                ui端實現dll名稱
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.ExportFullPath">
+            <summary>
+                導出目錄
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.BusinessDir">
+            <summary>
+                个案源码之接口目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.ImplementDir">
+            <summary>
+                个案源码之接口实现目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.UiDir">
+            <summary>
+                个案源码之接口目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.UiImplementDir">
+            <summary>
+                个案源码之客户端目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.ServerProgramsFullPath">
+            <summary>
+                dll部署路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.DeployProgramsFullPath">
+            <summary>
+                dll部署路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.TypeKeyRootDir">
+            <summary>
+                新typekey目录,相对目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.TypeKeyFullRootDir">
+            <summary>
+                新typekey目录，绝对目录
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.PkgTypeKeyRootDir">
+            <summary>
+                借用typekey路径(代码)，相对路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.PathEntity.PkgTypeKeyFullRootDir">
+            <summary>
+                借用typekey路径(代码)，绝对路径
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Entity.Toolpars">
+            <summary>
+                窗体参数
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.ModelType">
+            <summary>
+            配置类型
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Entity.Toolpars.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.FileMappingEntity">
+            <summary>
+                文件映射
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Entity.Toolpars.GetEntity``1(``0,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <param name="fileName"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.SettingPathEntity">
+            <summary>
+                一些路径中常用字符配置
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.BuilderEntity">
+            <summary>
+                菜单项目实体
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.OldTypekey">
+            <summary>
+                要复制的typekey
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.Mall">
+            <summary>
+                全部参数信息，平台路径，设计器路径，个案路径，客户名，行业包
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.Mcodepath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.CustomerName">
+            <summary>
+                客户名
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.MIndustry">
+            <summary>
+                行業包
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.MvsToolpath">
+            <summary>
+                VS当前路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.MDistince">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.Mpath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.MInpath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.Mplatform">
+            <summary>
+                平台路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.MdesignPath">
+            <summary>
+                设计器路径
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.MVersion">
+            <summary>
+                版本
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.FormEntity">
+            <summary>
+                窗體參數
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Entity.Toolpars.PathEntity">
+            <summary>
+                生成路徑
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Tools.ModelType">
+            <summary>
+            model文件类型
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.ModelType.Xml">
+            <summary>
+            xml类型
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.ModelType.Json">
+            <summary>
+            json类型
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.ModelType.Binary">
+            <summary>
+            二进制
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Tools.CallUpdate">
+            <summary>
+            自动升级辅助类
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.KillTask(System.String)">
+            <summary>
+            Kill執行緒
+            </summary>
+            <param name="exeFileName"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetPcHostName">
+            <summary>
+            取得電腦名稱
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetIpAddress">
+            <summary>
+            取得電腦IP
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetLocation">
+            <summary>
+            取得電腦所在地
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetExeFolder(System.String)">
+            <summary>
+            取得執行檔執行資料夾路徑
+            </summary>
+            <param name="fullFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetExeName(System.String)">
+            <summary>
+            取得執行檔名稱
+            </summary>
+            <param name="fullFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetWorkDayConnectionString(System.String)">
+            <summary>
+            取得本地workday連線字串
+            </summary>
+            <param name="getLocation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetWorkDayInsertString(System.Boolean,System.Boolean,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            取得Workday Insert指令
+            </summary>
+            <param name="isWfTool"></param>
+            <param name="toolName"></param>
+            <param name="useDate"></param>
+            <param name="useTime"></param>
+            <param name="pcName"></param>
+            <param name="isFailed"></param>
+            <param name="usedCount"></param>
+            <param name="theMemo"></param>
+            <param name="demandId"></param>
+            <param name="useYear"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.GetServerExePath(System.String)">
+            <summary>
+            取得主機上執行檔路徑
+            </summary>
+            <param name="toolName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.CompareFileLastWritedate(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fullFilePath"></param>
+            <param name="serverFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.CallExe(System.Int32,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="lpHandle"></param>
+            <param name="lpProgram"></param>
+            <param name="lpParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.CallUpdate.AutoUpgrade">
+            <summary>
+            取得機碼執行檔路徑
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Tools.IconTool">
+            <summary>
+                获取应用程序图标
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Tools.IconTool.ImageList">
+            <summary>
+                存储图标
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.IconTool.GetIcon(System.String,System.Boolean)">
+            <summary>
+                获取文件类型的关联图标
+            </summary>
+            <param name="fileName">文件类型的扩展名或文件的绝对路径</param>
+            <param name="isLargeIcon">是否返回大图标</param>
+            <returns>获取到的图标</returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IconTool.GetBitmap(System.String)">
+            <summary>
+                获取bitmap
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IconTool.InitImageList(Common.Implement.Entity.Toolpars)">
+            <summary>
+                初始化Tool图标
+            </summary>
+            <param name="toolpars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.IconTool.InitImageList(Common.Implement.Entity.BuildeType[])">
+            <summary>
+                初始化图标
+            </summary>
+            <param name="bts"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.IconTool.SetExeIcon(System.String)">
+            <summary>
+                动态设置图标，从exe文件获取
+            </summary>
+            <param name="appPath"></param>
+        </member>
+        <member name="T:Common.Implement.Tools.IconHelp">
+            <summary>
+                图标获取类
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.IconHelp.SystemIcon(System.Boolean,System.Int32)">
+            <summary>
+                获取系统图标
+            </summary>
+            <param name="small"></param>
+            <param name="csidl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IconHelp.GetSmall(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+                获得小或大
+            </summary>
+            <param name="fileName"></param>
+            <param name="small"></param>
+            <param name="checkDisk"></param>
+            <param name="addOverlay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IconHelp.GetJumboIcon(System.String,System.Boolean,System.Boolean)">
+            <summary>
+                获得大或超大
+            </summary>
+            <param name="fileName"></param>
+            <param name="jumbo"></param>
+            <param name="checkDisk"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.NativeMethods.SHGetImageList(System.Int32,System.Guid@,Common.Implement.Tools.IImageList@)">
+            SHGetImageList is not exported correctly in XP.  See KB316931
+            http://support.microsoft.com/default.aspx?scid=kb;EN-US;Q316931
+            Apparently (and hopefully) ordinal 727 isn't going to change.
+        </member>
+        <member name="T:Common.Implement.Tools.Shfileinfo">
+            <summary>
+                句柄与图标信息
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Shfileinfo.HIcon">
+            <summary>
+                Handle to the icon representing the file
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Shfileinfo.Icon">
+            <summary>
+                Index of the icon within the image list
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Shfileinfo.DwAttributes">
+            <summary>
+                Various attributes of the file
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Shfileinfo.SzDisplayName">
+            <summary>
+                Path to the file
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Shfileinfo.SzTypeName">
+            <summary>
+                File type
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Tools.Imagelistdrawparams">
+            <summary>
+                获取图片信息
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.CbSize">
+            <summary>
+                尺寸
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.Himl">
+            <summary>
+                Himl
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.I">
+            <summary>
+                I
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.HdcDst">
+            <summary>
+                HdcDst
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.X">
+            <summary>
+                X
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.Y">
+            <summary>
+                Y
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.Cx">
+            <summary>
+                Cx
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.Cy">
+            <summary>
+                Cy
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.XBitmap">
+            <summary>
+                x offest from the upperleft of bitmap
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.YBitmap">
+            <summary>
+                y offset from the upperleft of bitmap
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.RgbBk">
+            <summary>
+                RgbBk
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.RgbFg">
+            <summary>
+                RgbFg
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.FStyle">
+            <summary>
+                FStyle
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.DwRop">
+            <summary>
+                DwRop
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.FState">
+            <summary>
+                FState
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.Frame">
+            <summary>
+                Frame
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imagelistdrawparams.CrEffect">
+            <summary>
+                CrEffect
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Tools.Imageinfo">
+            <summary>
+                获取图片信息
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imageinfo.hbmImage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imageinfo.hbmMask">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imageinfo.Unused1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imageinfo.Unused2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Common.Implement.Tools.Imageinfo.rcImage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Tools.IImageList">
+            <summary>
+                未知
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.Add(System.IntPtr,System.IntPtr,System.Int32@)">
+            <summary>
+            </summary>
+            <param name="hbmImage"></param>
+            <param name="hbmMask"></param>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.ReplaceIcon(System.Int32,System.IntPtr,System.Int32@)">
+            <summary>
+            </summary>
+            <param name="i"></param>
+            <param name="hicon"></param>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.SetOverlayImage(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="iImage"></param>
+            <param name="iOverlay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.Replace(System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="hbmImage"></param>
+            <param name="hbmMask"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.AddMasked(System.IntPtr,System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="hbmImage"></param>
+            <param name="crMask"></param>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.Draw(Common.Implement.Tools.Imagelistdrawparams@)">
+            <summary>
+            
+            </summary>
+            <param name="pimldp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.Remove(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetIcon(System.Int32,System.Int32,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="flags"></param>
+            <param name="picon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetImageInfo(System.Int32,Common.Implement.Tools.Imageinfo@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="pImageInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.Copy(System.Int32,Common.Implement.Tools.IImageList,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="iDst"></param>
+            <param name="punkSrc"></param>
+            <param name="iSrc"></param>
+            <param name="uFlags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.Merge(System.Int32,Common.Implement.Tools.IImageList,System.Int32,System.Int32,System.Int32,System.Guid@,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="i1"></param>
+            <param name="punk2"></param>
+            <param name="i2"></param>
+            <param name="dx"></param>
+            <param name="dy"></param>
+            <param name="riid"></param>
+            <param name="ppv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.Clone(System.Guid@,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="riid"></param>
+            <param name="ppv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetImageRect(System.Int32,System.Windows.Rect@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="prc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetIconSize(System.Int32@,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="cx"></param>
+            <param name="cy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.SetIconSize(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="cx"></param>
+            <param name="cy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetImageCount(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.SetImageCount(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="uNewCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.SetBkColor(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="clrBk"></param>
+            <param name="pclr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetBkColor(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="pclr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.BeginDrag(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="iTrack"></param>
+            <param name="dxHotspot"></param>
+            <param name="dyHotspot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.EndDrag">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.DragEnter(System.IntPtr,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="hwndLock"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.DragLeave(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="hwndLock"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.DragMove(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.SetDragCursorImage(Common.Implement.Tools.IImageList@,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="punk"></param>
+            <param name="iDrag"></param>
+            <param name="dxHotspot"></param>
+            <param name="dyHotspot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.DragShowNolock(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="fShow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetDragImage(System.Drawing.Point@,System.Drawing.Point@,System.Guid@,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="ppt"></param>
+            <param name="pptHotspot"></param>
+            <param name="riid"></param>
+            <param name="ppv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetItemFlags(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="dwFlags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.IImageList.GetOverlayImage(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="iOverlay"></param>
+            <param name="piIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.Implement.Tools.MyPair">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Tools.MyPair.Icon">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Tools.MyPair.IconHandleToDestroy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Common.Implement.Tools.LogTool">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.LogTool.WriteLogByTreeView(Common.Implement.Entity.Toolpars,Common.Implement.UI.MyTreeView)">
+            <summary>
+                日志
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.LogTool.WriteToFile(System.String,System.String)">
+            <summary>
+            记录到文件
+            </summary>
+            <param name="path"></param>
+            <param name="fileStr"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.LogTool.WriteToServer(Common.Implement.Entity.Toolpars,System.Collections.Generic.IEnumerable{Common.Implement.Entity.FileInfos})">
+            <summary>
+            记录到Server
+            </summary>
+            <param name="toolpars"></param>
+            <param name="fileInfos"></param>
+        </member>
+        <member name="T:Common.Implement.Tools.MyTool">
+            <summary>
+                工具类
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.InitToolpars(Common.Implement.Entity.Toolpars,System.String[])">
+            <summary>
+                初始化窗体参数
+            </summary>
+            <param name="toolpars"></param>
+            <param name="pToIni"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CopyTo(Common.Implement.Entity.Toolpars,System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+                把文件拷入指定的文件夹
+            </summary>
+            <param name="toolpars"></param>
+            <param name="fromDir"></param>
+            <param name="toDir"></param>
+            <param name="fileNames"></param>
+            <param name="fromTypeKey"></param>
+            <param name="toTypeKey"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.GetFilePath(System.String)">
+            <summary>
+                递归获取指定文件夹内所有文件全路径
+            </summary>
+            <param name="dirpath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ChangeText(System.String,System.String,System.String)">
+            <summary>
+                指定文件文本替换
+            </summary>
+            <param name="path"></param>
+            <param name="fromName"></param>
+            <param name="toName"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CopyUIdll(Common.Implement.Entity.Toolpars)">
+            <summary>
+                將dll 考入平臺目錄
+            </summary>
+            <param name="toolpar"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CopyDll(Common.Implement.Entity.Toolpars)">
+            <summary>
+                CopyDll
+            </summary>
+            <param name="toolpars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CheckCanCopyDll(System.String[])">
+            <summary>
+                检查dll是否被占用
+            </summary>
+            <param name="processNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.KillProcess(System.String[])">
+            <summary>
+                kill the process
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.GetPropNameByEntity(Common.Implement.Entity.MetadataContainer,System.String)">
+            <summary>
+            获取实体属性名称
+            </summary>
+            <param name="metadataContainer"></param>
+            <param name="typeKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.SetToolsPath(Common.Implement.Entity.BuildeType)">
+            <summary>
+                设置第三方工具的路径
+            </summary>
+            <param name="bt"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.OpenTools(Common.Implement.Entity.BuildeType)">
+            <summary>
+                打开第三方工具
+            </summary>
+            <param name="bt"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CallModule(Common.Implement.Entity.BuildeType,Common.Implement.Entity.Toolpars)">
+            <summary>
+            呼叫第三方模块
+            </summary>
+            <param name="bt"></param>
+            <param name="toolpars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.OpenWord(System.String)">
+            <summary>
+            打开Word
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.OpenDir(System.String)">
+            <summary>
+            打开文件夹
+            </summary>
+            <param name="targetDir"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.FindCSproj(System.IO.DirectoryInfo)">
+            <summary>
+                找到文件所属第一个CSproj,这有问题！！
+            </summary>
+            <param name="dir"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.GetExistedMsg(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{Common.Implement.Entity.FileInfos}})">
+            <summary>
+                查看文件是否生成
+            </summary>
+            <param name="pathDic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CreateFile(Common.Implement.UI.MyTreeView,Common.Implement.Entity.Toolpars)">
+            <summary>
+                根据选择生成项目文件
+            </summary>
+            <param name="treeView"></param>
+            <param name="toolPars"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.InitBuilderEntity(Common.Implement.Entity.Toolpars)">
+            <summary>
+                初始化，创建完成之后 清空按钮 选择项
+            </summary>
+            <param name="toolPars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.InitBuildeTypies(Common.Implement.Entity.BuildeType[],Common.Implement.Entity.Toolpars)">
+            <summary>
+                初始化主界面
+            </summary>
+            <param name="buildeTypies"></param>
+            <param name="toolPars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ReplaceByRegex(System.String,System.String,System.String)">
+            <summary>
+                根据Regex替换文本
+            </summary>
+            <param name="filePath"></param>
+            <param name="matchStr"></param>
+            <param name="toStr"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.FindPartAndInsert(Common.Implement.Entity.FileInfos)">
+            <summary>
+                查找代码片段，插入指定文件内
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CreateBaseItem(Common.Implement.Entity.Toolpars)">
+            <summary>
+                一些必考项目,模板目录
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ModiFiles(Common.Implement.Entity.Toolpars,System.String,System.String)">
+            <summary>
+                修改个案文件的typeKey
+            </summary>
+            <param name="toolpars"></param>
+            <param name="oldKey"></param>
+            <param name="newKey"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.GetTreeViewFilePath(System.Windows.Forms.TreeNodeCollection,Common.Implement.Entity.Toolpars)">
+            <summary>
+                获取节点地址与文件地址
+            </summary>
+            <param name="nodes"></param>
+            <param name="toolPars"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.UpdatePath(System.Collections.Generic.List{Common.Implement.Entity.FileInfos},Common.Implement.Entity.Toolpars)">
+            <summary>
+                当中途更改typekey时，更新个案路径
+            </summary>
+            <param name="fileInfos"></param>
+            <param name="toolPars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CreateFileMappingInfo(Common.Implement.Entity.Toolpars,Common.Implement.Entity.BuildeType)">
+            <summary>
+                创建项目的模板文件映射
+            </summary>
+            <param name="toolpars"></param>
+            <param name="bt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CopyPkg(System.String,System.String,System.Collections.Generic.List{Common.Implement.Entity.FileInfos})">
+            <summary>
+                目录下的文件copy至另一目录 ,先copy 再替换 typekey
+            </summary>
+            <param name="pFileName"></param>
+            <param name="pDistFolder"></param>
+            <param name="filesinfo"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CopyModi(System.Windows.Forms.TreeNodeCollection,Common.Implement.Entity.Toolpars)">
+            <summary>
+                修改代码
+            </summary>
+            <param name="nodes"></param>
+            <param name="toolpars"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ModiName(Common.Implement.Entity.Toolpars)">
+            <summary>
+                批量修改个案cs文件
+            </summary>
+            <param name="toolpars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.GetTreeViewPath(System.Windows.Forms.TreeNodeCollection)">
+            <summary>
+                获取生成文件的路径
+            </summary>
+            <param name="nodes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CopyAllPkG(Common.Implement.Entity.Toolpars,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="toolpars"></param>
+            <param name="pkgPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ServerOn(Common.Implement.Entity.Toolpars,System.String)">
+            <summary>
+            打开服务器
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ClientOn(Common.Implement.Entity.Toolpars,System.String)">
+            <summary>
+            打开服务器
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.ExecuteCmd(System.String,System.String)">
+            <summary>
+            不知何用
+            </summary>
+            <param name="pFileName"></param>
+            <param name="pArguments"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.MyTool.CheckProcessOn(System.String)">
+            <summary>
+            检查进程是否启动
+            </summary>
+            <param name="processName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.PathTools.GetPathEntity(Common.Implement.Entity.Toolpars)">
+            <summary>
+                獲取各種路徑
+            </summary>
+            <param name="toolpars"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.PathTools.CheckFile(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Common.Implement.Tools.ReadToEntityTools">
+            <summary>
+            Model辅助类
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.ReadToEntity``1(System.String,Common.Implement.Tools.ModelType)">
+            <summary>
+            读取文件到类
+            </summary>
+            <param name="path"></param>
+            <param name="modelType">文件类型</param>
+            <typeparam name="T"></typeparam>
+            <returns>T</returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.BinarySerialize``1(``0)">
+            <summary>
+                将类转化到二进制
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.BinarySave``1(``0,System.String)">
+            <summary>
+                将二进制保存到文件
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.BinaryDeSerializer``1(System.String)">
+            <summary>
+                将二进制读取到类中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.XmlSerialize``1(``0)">
+            <summary>
+                将类转化到xml
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.SaveSerialize``1(``0,Common.Implement.Tools.ModelType,System.String)">
+            <summary>
+                将类序列化保存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="modelType"></param>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.DeSerializer``1(System.String)">
+            <summary>
+                将xml读取到类中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.SerializeObject``1(``0)">
+            <summary>
+                将类转化为json
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.DeserializeObject``1(System.String)">
+            <summary>
+                将json读取到类中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.ReadToEntityTools.GetXml(System.String)">
+            <summary>
+                功能:读取XML到DataSet中
+            </summary>
+            <param name="xmlPath">xml路径</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="T:Common.Implement.Tools.TreeViewTool">
+            <summary>
+                treeView生成辅助
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateRightView(Common.Implement.UI.MyTreeView,Common.Implement.Entity.Toolpars)">
+            <summary>
+                创建右面板
+            </summary>
+            <param name="myTreeView5"></param>
+            <param name="toolpars"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.Entity.Toolpars,Common.Implement.UI.MyTreeView,System.Collections.Generic.List{Common.Implement.Entity.BuildeType},System.Boolean)">
+            <summary>
+            </summary>
+            <param name="toolpars"></param>
+            <param name="mytree"></param>
+            <param name="buildeEntity"></param>
+            <param name="showCheck"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.Entity.Toolpars,Common.Implement.Entity.BuildeType,System.Boolean,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="toolpars"></param>
+            <param name="buildeType"></param>
+            <param name="showCheck"></param>
+            <param name="readSubView"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.TreeViewTool.MyPaintTreeView(Common.Implement.Entity.Toolpars,System.String)">
+            <summary>
+                根据标准路径生成结点
+            </summary>
+            <param name="toolpars"></param>
+            <param name="fullPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateRightView(Common.Implement.Entity.Toolpars,System.Windows.Forms.TreeNodeCollection)">
+            <summary>
+                创建右面板
+            </summary>
+            <param name="toolPar"></param>
+            <param name="nodes"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.TreeViewTool.CreateTree(Common.Implement.Entity.BuildeType)">
+            <summary>
+            创建右侧message
+            </summary>
+            <param name="buildeType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.Implement.Tools.SqlTools">
+            <summary>
+            sql辅助类
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Tools.SqlTools.Connection">
+            <summary>
+            Connection
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Tools.SqlTools.Builder">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.SqlTools.GetConnectionStr">
+            <summary>
+            获取连接字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.SqlTools.InsertToolInfo(System.String,System.String,System.String)">
+            <summary>
+            单笔插入
+            </summary>
+            <param name="pDemandId"></param>
+            <param name="pUseYear"></param>
+            <param name="pTheMemo"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.SqlTools.InsertToolInfo(System.String,System.Collections.Generic.IEnumerable{Common.Implement.Entity.FileInfos})">
+            <summary>
+            批量插入
+            </summary>
+            <param name="typekey"></param>
+            <param name="fileInfos"></param>
+        </member>
+        <member name="T:Common.Implement.Tools.OldTools">
+            <summary>
+                旧版用到的一些方法
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.OldTools.DeleteAll(System.Object)">
+            <summary>
+                刪除文件夾及其子項
+            </summary>
+            <param name="pArgs"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.OldTools.CopyAllPkg(System.String,System.String)">
+            <summary>
+                目录下的文件copy至另一目录
+            </summary>
+            <param name="pFileName"></param>
+            <param name="pDistFolder"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.OldTools.CopyFileAndRetry(System.String,System.String,System.Boolean)">
+            <summary>
+            防断路
+            </summary>
+            <param name="pFrom"></param>
+            <param name="pTo"></param>
+            <param name="pOverWriteOrNot"></param>
+        </member>
+        <member name="T:Common.Implement.Tools.XmlTools">
+            <summary>
+            xml辅助类
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.XmlTools.ModiXml(System.String,System.String,System.String)">
+            <summary>
+            修改菜单项，设置第三方工具的url
+            </summary>
+            <param name="xmlPath"></param>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.XmlTools.XmlNodeByXPath(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+                删除节点
+            </summary>
+        </member>
+        <member name="M:Common.Implement.Tools.XmlTools.GetPathByXpath(System.String,System.String)">
+            <summary>
+            获取模板
+            </summary>
+            <param name="xmlFileName"></param>
+            <param name="xpath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.Tools.XmlTools.ModiCs(System.String,System.String)">
+            <summary>
+                修改解决方案
+            </summary>
+            <param name="xmlPath"></param>
+            <param name="csName"></param>
+        </member>
+        <member name="M:Common.Implement.Tools.XmlTools.CheckXmlNode(System.Xml.XmlNode,System.String)">
+            <summary>
+                判断节点是否存在
+            </summary>
+            <param name="root"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.Implement.EventHandler.EventHelper">
+            <summary>
+            事件帮助类
+            </summary>
+        </member>
+        <member name="M:Common.Implement.EventHandler.EventHelper.MyTreeView_Leave(System.Object,System.EventArgs)">
+            <summary>
+                防止重获焦点时，选择项瞬间跳离的问题
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Common.Implement.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ClientRunning">
+            <summary>
+              查找类似 客户端正在运行 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.Copy">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.Copy_Client">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.CopyFailed">
+            <summary>
+              查找类似 复制失败 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.CopySucess">
+            <summary>
+              查找类似 复制成功 !!! 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.CreateFileName">
+            <summary>
+              查找类似 Create{0} 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.CustomerNameNotNull">
+            <summary>
+              查找类似 客户名称不可为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.DirExisted">
+            <summary>
+              查找类似 目录已存在，是否覆盖?? 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.DirNotExisted">
+            <summary>
+              查找类似 文件夹{0}不存在，请查看！！！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.DllUsedMsg">
+            <summary>
+              查找类似 当前DLL被占用，是否结束进程以复制？ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.down_arrow">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ErrorMsg">
+            <summary>
+              查找类似 Error 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ExeAlreadyExe">
+            <summary>
+              查找类似 已启动！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ExeExeError">
+            <summary>
+              查找类似 启动应用程序时出错！原因： 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.FileExisted">
+            <summary>
+              查找类似 文件已存在是否覆盖？ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.GenerateSucess">
+            <summary>
+              查找类似 生成成功 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.HelpDocNotExiested">
+            <summary>
+              查找类似 帮助文档不存在！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ModuleNotExisted">
+            <summary>
+              查找类似 未指定模块信息或模块名 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.NotFind">
+            <summary>
+              查找类似 没有找到 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.NotFindFile">
+            <summary>
+              查找类似 找不到文件{0} 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.notNull">
+            <summary>
+              查找类似 不可为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.OpenDocError">
+            <summary>
+              查找类似 打开Word文档出错 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.PkgDirNotExisted">
+            <summary>
+              查找类似 借用目录不存在！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.pkgNotNull">
+            <summary>
+              查找类似 借用TypeKey不可为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ReadEntityError">
+            <summary>
+              查找类似 读取实体文件时发生错误 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.Refresh">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.right_arrow">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ServerNotRunning">
+            <summary>
+              查找类似 服务端未启动 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.ServerRunning">
+            <summary>
+              查找类似 服务端正在运行 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.Start">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.Start_Client">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.Stop">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.TemplateNotExisted">
+            <summary>
+              查找类似 {0}/{1}模板不存在，请检查 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.TreeNodeChecked">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.TreeNodeUnchecked">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.TypekeyNotExisted">
+            <summary>
+              查找类似 请输入创建地址及名称 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Common.Implement.Properties.Resources.WarningMsg">
+            <summary>
+              查找类似 Warning 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.ToolBarManger">
+            <summary>
+                ToolBar控件
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.#ctor">
+            <summary>
+                构造
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.ToolBarManger.Toolpar">
+            <summary>
+                主窗体参数
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.ServerOn">
+            <summary>
+                打开服务器
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.AutoOnServerAndClient">
+            <summary>
+                打开服务端/客户端
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.StartBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+                开启服务端按钮
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.InitCombox">
+            <summary>
+                初始化调试选择项
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.StartClientBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+                开始客户端
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.OnAutoOpenClientTimedEvent(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+                偵測SERVER是否啟動完畢
+            </summary>
+            <param name="source"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.KillProcess">
+            <summary>
+                消灭进程
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.RefreshBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+                重启客户端 服务端
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.CopyClientBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+                Copy客户端Dll
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.CopyBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+                Copy客户端服务端Dll
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Common.Implement.UI.ToolBarManger.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:Common.Implement.UI.ToolBarManger.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.ComboxInfo">
+            <summary>
+                邦定调试选项
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.ComboxInfo.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.ComboxInfo.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.CreateToolForm">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.CreateToolForm.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.CreateToolForm.#ctor(System.String,Common.Implement.Entity.Toolpars)">
+            <summary>
+            
+            </summary>
+            <param name="toolPath"></param>
+            <param name="toolpar"></param>
+        </member>
+        <member name="P:Common.Implement.UI.CreateToolForm.Toolpar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.CreateToolForm.ToolPath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.CreateToolForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.CreateToolForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Common.Implement.UI.CreateToolForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.InsertForm">
+            <summary>
+            插单示例窗口
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.InsertForm.Toolpars">
+            <summary>
+            主窗体参数
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.InsertForm.#ctor(Common.Implement.Entity.Toolpars)">
+            <summary>
+            窗体构造
+            </summary>
+            <param name="toolpars"></param>
+        </member>
+        <member name="M:Common.Implement.UI.InsertForm.#ctor">
+            <summary>
+            构造器
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.InsertForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.InsertForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Common.Implement.UI.InsertForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.ModiName">
+            <summary>
+                新项目参数窗体
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ModiName.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ModiName.#ctor(Common.Implement.Entity.BuildeType,Common.Implement.Entity.Toolpars)">
+            <summary>
+            </summary>
+            <param name="itemBuildeType"></param>
+            <param name="toolpars"></param>
+        </member>
+        <member name="P:Common.Implement.UI.ModiName.BuildeType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.ModiName.FileInfos">
+            <summary>
+            模板文件信息
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.ModiName.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ModiName.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Common.Implement.UI.ModiName.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.ActionPoint">
+            <summary>
+            时机点，暂时不用
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.ActionPoint.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.ActionPoint.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.ModiPkgForm">
+            <summary>
+            借用标准
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ModiPkgForm.#ctor">
+            <summary>
+            构造
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ModiPkgForm.#ctor(Common.Implement.Entity.Toolpars)">
+            <summary>
+            构造
+            </summary>
+            <param name="toolpars"></param>
+        </member>
+        <member name="P:Common.Implement.UI.ModiPkgForm.Toolpars">
+            <summary>
+            主窗体参数
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.ModiPkgForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.ModiPkgForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Common.Implement.UI.ModiPkgForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.MyPanel.ScrollToControl(System.Windows.Forms.Control)">
+            <summary>
+                解决 当pannel里的控件重获焦点时，自动滚动到最上面
+            </summary>
+            <param name="activeControl"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.Implement.UI.MyTreeView">
+            <summary>
+            自定义TreeView
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.MyTreeView.SetAutoScrollHandler">
+            <summary>
+            相应外部滚动事件
+            </summary>
+            <param name="sender"></param>
+            <param name="upAndDown"></param>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeView.#ctor">
+            <summary>
+            构造
+            </summary>
+        </member>
+        <member name="E:Common.Implement.UI.MyTreeView.SetAutoScrollEvent">
+            <summary>
+            相应外部滚动事件
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeView.OnNodeMouseDoubleClick(System.Windows.Forms.TreeNodeMouseClickEventArgs)">
+            <summary>
+            双击
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeView.WndProc(System.Windows.Forms.Message@)">
+            <summary>
+            自定义消息
+            </summary>
+            <param name="m"></param>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeView.Loword(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeView.Hiword(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.NodeImages">
+            <summary>
+            节点图片
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.NodeFont">
+            <summary>
+            显示字体
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.BackgroundBrush">
+            <summary>
+            选择TreeView TreeNode时的背景色 
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.BackgroundPen">
+            <summary>
+            选择TreeView TreeNode时背景色的边框画笔  
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.NodeCheckBoxSize">
+            <summary>
+            TreeView中TreeNode的节点CheckBox的大小 
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.NodeImageSize">
+            <summary>
+            程序图标按钮
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.DescriptionColor">
+            <summary>
+            描述字体颜色
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.IsCard">
+            <summary>
+                是否以卡片形式绘制
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.ShowDescription">
+            <summary>
+                是否显示说明
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeView.PaddingSetting">
+            <summary>
+            外部间距
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.MyTreeView.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeView.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeView.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.MyTreeNode">
+            <summary>
+            自定义TreeNode
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.MyTreeNode.CheckBoxStyleEnum">
+            <summary>
+            checkBoxOrRadioBox
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.MyTreeNode.CheckBoxStyleEnum.RadioButton">
+            <summary>
+            单选
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.MyTreeNode.CheckBoxStyleEnum.CheckBox">
+            <summary>
+            复选
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.MyTreeNode.#ctor(System.String)">
+            <summary>
+            构造
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeNode.CheckBoxVisible">
+            <summary>
+            checkbox是否可见
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeNode.CheckBoxStyle">
+            <summary>
+            box是否可见
+            </summary>
+        </member>
+        <member name="P:Common.Implement.UI.MyTreeNode.BuildeType">
+            <summary>
+            外部参数
+            </summary>
+        </member>
+        <member name="T:Common.Implement.UI.SetToolPath">
+            <summary>
+            设置外部工具链接地址
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.SetToolPath.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.SetToolPath.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="P:Common.Implement.UI.SetToolPath.Path">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Common.Implement.UI.SetToolPath.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Common.Implement.UI.SetToolPath.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Common.Implement.UI.SetToolPath.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

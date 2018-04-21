@@ -10,16 +10,28 @@ using Common.Implement.Properties;
 using Common.Implement.Tools;
 
 namespace Common.Implement.UI {
+    /// <summary>
+    /// 借用标准
+    /// </summary>
     public partial class ModiPkgForm : Form {
+        /// <summary>
+        /// 构造
+        /// </summary>
         public ModiPkgForm() {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="toolpars"></param>
         public ModiPkgForm(Toolpars toolpars) {
             InitializeComponent();
             Toolpars = toolpars;
         }
 
+        /// <summary>
+        /// 主窗体参数
+        /// </summary>
         public Toolpars Toolpars { get; set; }
 
         private void ModiPKGForm_Load(object sender, EventArgs e) {
@@ -29,8 +41,8 @@ namespace Common.Implement.UI {
                 DataSourceUpdateMode.OnPropertyChanged));
             if (!TypeKeyText.Text.Equals(string.Empty))
                 return;
-            if (Toolpars.FormEntity.txtNewTypeKey.Length > 1)
-                TypeKeyText.Text = Toolpars.FormEntity.txtNewTypeKey.Substring(1);
+            if (Toolpars.FormEntity.TxtNewTypeKey.Length > 1)
+                TypeKeyText.Text = Toolpars.FormEntity.TxtNewTypeKey.Substring(1);
         }
 
         private string WdPr { get; set; }
@@ -38,9 +50,11 @@ namespace Common.Implement.UI {
         private string Spec { get; set; }
 
         private void BtnOpenTo_Click(object sender, EventArgs e) {
-            var txtPkGpath = Toolpars.FormEntity.txtPKGpath;
+            var txtPkGpath = Toolpars.FormEntity.TxtPkGpath;
+            var pathInfo = Toolpars.PathEntity;
+            var pkgFullPath = pathInfo.PkgTypeKeyFullRootDir;
             var targetDir = (Toolpars.FormEntity.PkgTypekey==null|| Toolpars.FormEntity.PkgTypekey.Equals(string.Empty))?
-                txtPkGpath: FromServer.Checked ? $@"{txtPkGpath}":$@"{txtPkGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                txtPkGpath: FromServer.Checked ? $@"{txtPkGpath}": pkgFullPath;
 
             if (FromServer.Checked) {
                 targetDir = GetServerDirPath();
@@ -69,7 +83,7 @@ namespace Common.Implement.UI {
             if (FromServer.Checked)
             {
 
-                Toolpars.FormEntity.txtPKGpath =
+                Toolpars.FormEntity.TxtPkGpath =
                     customerName.Equals(empStr) ?
                         $@"\\192.168.168.15\PKG_Source\{Toolpars.MVersion}\{WdPr}\SRC"
                         : $@"\\192.168.168.15\E10_Shadow\{Toolpars.MVersion}\{customerName}\{WdPr}\SRC";
@@ -77,7 +91,7 @@ namespace Common.Implement.UI {
             }
             else
             {
-                Toolpars.FormEntity.txtPKGpath =
+                Toolpars.FormEntity.TxtPkGpath =
                     customerName.Equals(empStr) ?
                         $@"{Toolpars.MdesignPath}\{WdPr}\SRC"
                         : $@"{Toolpars.MdesignPath}\{customerName}\{WdPr}\SRC";
@@ -86,8 +100,9 @@ namespace Common.Implement.UI {
         }
 
         private void Button1_Click(object sender, EventArgs e) {
-            var pkgPath = Toolpars.FormEntity.txtPKGpath;
-          
+            var pkgPath = Toolpars.FormEntity.TxtPkGpath;
+            var pathInfo = Toolpars.PathEntity;
+            var pkgFullPath = pathInfo.PkgTypeKeyFullRootDir;
             if (!Directory.Exists(pkgPath)) {
                 MessageBox.Show(Resources.PkgDirNotExisted);
                 return;
@@ -96,7 +111,7 @@ namespace Common.Implement.UI {
             if (FromServer.Checked) {
                 var typeKeyDir = GetServerDirPath();
                 var pkgTypeKeyDir = $@"{pkgPath}\{WdPr}\SRC";
-                var pkgTypeKeyPath = $@"{pkgTypeKeyDir}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                var pkgTypeKeyPath = pkgFullPath;// $@"{pkgTypeKeyDir}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
                 //不存在TypeKey配置，直接copy代码
                 if (!Directory.Exists(typeKeyDir)) {
                    
@@ -109,7 +124,7 @@ namespace Common.Implement.UI {
                     if (index > -1) {
                         targetDir = Toolpars.FormEntity.TxtToPath.Substring(0,index);
                     }
-                    targetDir = $@"{targetDir}\{Toolpars.FormEntity.txtNewTypeKey}";
+                    targetDir = $@"{targetDir}\{Toolpars.FormEntity.TxtNewTypeKey}";
 
                     OldTools.CopyAllPkg(typeKeyDir, targetDir);
 
@@ -121,12 +136,12 @@ namespace Common.Implement.UI {
                     var xPath = @"AssemblyQualifiedName";
                     if (clientFunctionName.Length > 0)
                     {
-                        var pkgList = XmlTools.GetPkgPath(clientFunctionName[0].FullName, xPath);
+                        var pkgList = XmlTools.GetPathByXpath(clientFunctionName[0].FullName, xPath);
                         listPath.AddRange(pkgList);
                     }
                     if (serverFunctionName.Length > 0)
                     {
-                        var pkgList = XmlTools.GetPkgPath(clientFunctionName[0].FullName, xPath);
+                        var pkgList = XmlTools.GetPathByXpath(clientFunctionName[0].FullName, xPath);
                         listPath.AddRange(pkgList);
                     }
                     var pkgTypePathList = listPath.Distinct().ToList().Select(path => new
@@ -148,7 +163,7 @@ namespace Common.Implement.UI {
 
             }
             else {
-                var pkgTypeKeyPath = $@"{Toolpars.FormEntity.txtPKGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                var pkgTypeKeyPath = pkgFullPath;//$@"{Toolpars.FormEntity.TxtPkGpath}\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
 
                 CopyPkg(pkgTypeKeyPath);
             }
@@ -164,7 +179,7 @@ namespace Common.Implement.UI {
 
         private string GetServerDirPath() {
             var path = string.Empty;
-            var pkgPath = Toolpars.FormEntity.txtPKGpath;
+            var pkgPath = Toolpars.FormEntity.TxtPkGpath;
             var typeKeyDir = $@"{pkgPath}\{Wd}";
 
             var batchObjectsDir = $@"{typeKeyDir}\BatchObjects";
@@ -208,7 +223,7 @@ namespace Common.Implement.UI {
             Spec = isPkg ? "SPEC" : "SPEC_C";
             if (FromServer.Checked) {
                
-                Toolpars.FormEntity.txtPKGpath = 
+                Toolpars.FormEntity.TxtPkGpath = 
                     customerName.Equals(empStr) ?
                     $@"\\192.168.168.15\PKG_Source\{Toolpars.MVersion}"
                     : $@"\\192.168.168.15\E10_Shadow\{Toolpars.MVersion}\{customerName}";
@@ -216,7 +231,7 @@ namespace Common.Implement.UI {
             }
             else
             {
-                Toolpars.FormEntity.txtPKGpath =
+                Toolpars.FormEntity.TxtPkGpath =
                     customerName.Equals(empStr) ?
                         $@"{Toolpars.MdesignPath}\{WdPr}\SRC"
                         : $@"{Toolpars.MdesignPath}\{customerName}\{WdPr}\SRC";

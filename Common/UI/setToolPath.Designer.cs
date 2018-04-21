@@ -81,7 +81,7 @@
             this.btnOpenTo.TabIndex = 10;
             this.btnOpenTo.Text = "...";
             this.btnOpenTo.UseVisualStyleBackColor = true;
-            this.btnOpenTo.Click += new System.EventHandler(this.btnOpenTo_Click);
+            this.btnOpenTo.Click += new System.EventHandler(this.BtnOpenTo_Click);
             // 
             // label1
             // 

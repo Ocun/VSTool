@@ -8,6 +8,9 @@ using Common.Implement.Entity;
 using Common.Implement.UI;
 
 namespace Common.Implement.Tools {
+    /// <summary>
+    /// 日志
+    /// </summary>
     public static class LogTool {
         #region 日志
 
@@ -16,7 +19,7 @@ namespace Common.Implement.Tools {
         /// </summary>
         public static void WriteLogByTreeView(Toolpars toolpars, MyTreeView treeView) {
             var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes, toolpars);
-            var txtNewTypeKey = toolpars.FormEntity.txtNewTypeKey;
+            var txtNewTypeKey = toolpars.FormEntity.TxtNewTypeKey;
             var varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
             if (!Directory.Exists(varAppPath))
                 Directory.CreateDirectory(varAppPath);
@@ -46,6 +49,11 @@ namespace Common.Implement.Tools {
             WriteToFile(logPath, logStr.ToString());
         }
 
+        /// <summary>
+        /// 记录到文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileStr"></param>
         public static void WriteToFile(string path,string fileStr) {
             using (var sw = new StreamWriter(path, true, Encoding.UTF8))
             {
@@ -54,8 +62,13 @@ namespace Common.Implement.Tools {
             }
         }
 
+        /// <summary>
+        /// 记录到Server
+        /// </summary>
+        /// <param name="toolpars"></param>
+        /// <param name="fileInfos"></param>
         public static void WriteToServer(Toolpars toolpars, IEnumerable<FileInfos> fileInfos) {
-            SqlTools.InsertToolInfo(toolpars.FormEntity.txtNewTypeKey, fileInfos);
+            SqlTools.InsertToolInfo(toolpars.FormEntity.TxtNewTypeKey, fileInfos);
         }
 
         #endregion

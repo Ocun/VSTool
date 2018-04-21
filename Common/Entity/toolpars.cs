@@ -1,156 +1,135 @@
 // create By 08628 20180411
-using Common.Implement.Entity;
+
+using System;
 using Common.Implement.Tools;
 
 namespace Common.Implement.Entity {
+    /// <summary>
+    ///     窗体参数
+    /// </summary>
     public class Toolpars {
-        private string _oldTypekey;
-        private string _mAll;
-        private string _mcodepath; //代码
-        private string _gToIni;
-        private bool _mIndustry;
-        private string _mVsToolpath;
-        private bool _mDistince = false;
-        private string _mpath;
-        private string _mInpath;
-        private string _mplatform; //平台
-        private string _mdesignPath;
-        private string _mVersion;
-        private string _customerName;
+        private BuildeEntity _builderEntity;
+        private MappingEntity _fileMappingEntity;
         private FormEntity _formEntity;
         private PathEntity _pathEntity;
         private SettingPathEntity _settingPathEntity;
-        private BuildeEntity _builderEntity;
-        private MappingEntity _fileMappingEntity;
 
+        /// <summary>
+        /// 配置类型
+        /// </summary>
+        public ModelType ModelType { get; set; }
+
+        /// <summary>
+        /// </summary>
+        public Toolpars() {
+            MvsToolpath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        }
+
+        /// <summary>
+        ///     文件映射
+        /// </summary>
         public MappingEntity FileMappingEntity {
             get {
-                if (_fileMappingEntity != null) return _fileMappingEntity;
-                var path = $@"{MVSToolpath}Config\FileMapping.xml";
-                if (ValidateTool.CheckFile(path)) {
-                    _fileMappingEntity = ReadToEntityTools.ReadToEntity<MappingEntity>(path);
-                }
-                return _fileMappingEntity;
+                return _fileMappingEntity = GetEntity(_fileMappingEntity, "FileMapping");
             }
             set => _fileMappingEntity = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="fileName"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetEntity<T>(T obj,string fileName) where T:class {
+            if (obj != null)
+                return obj;
+            var path = PathTools.GetSettingPath(fileName, this);
+            if (PathTools.CheckFile(path))
+                obj = ReadToEntityTools.ReadToEntity<T>(path, ModelType);
+            return obj;
+        }
+
+        /// <summary>
+        ///     一些路径中常用字符配置
+        /// </summary>
         public SettingPathEntity SettingPathEntity {
             get {
-                if (_settingPathEntity != null) return _settingPathEntity;
-                var settingPath = $@"{MVSToolpath}Config\SettingPathEntity.xml";
-                if (ValidateTool.CheckFile(settingPath)) {
-                    _settingPathEntity = ReadToEntityTools.ReadToEntity<SettingPathEntity>(settingPath);
-                }
-                return _settingPathEntity;
+                return _settingPathEntity = GetEntity(_settingPathEntity, "SettingPathEntity"); 
             }
             set => _settingPathEntity = value;
         }
 
+        /// <summary>
+        ///     菜单项目实体
+        /// </summary>
         public BuildeEntity BuilderEntity {
             get {
-                if (_builderEntity != null) return _builderEntity;
-                var path = $@"{MVSToolpath}Config\BuildeEntity.xml";
-                if (ValidateTool.CheckFile(path)) {
-                    _builderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path);
-                }
-                return _builderEntity;
+                return _builderEntity = GetEntity(_builderEntity, "BuildeEntity"); 
             }
             set => _builderEntity = value;
         }
 
 
-
-        public Toolpars() {
-            _mVsToolpath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-        }
-
-
         /// <summary>
-        /// 要复制的typekey
+        ///     要复制的typekey
         /// </summary>
-        public string OldTypekey {
-            get => _oldTypekey;
-            set => _oldTypekey = value;
-        }
+        public string OldTypekey { get; set; }
 
         /// <summary>
-        /// 全部参数信息，平台路径，设计器路径，个案路径，客户名，行业包
+        ///     全部参数信息，平台路径，设计器路径，个案路径，客户名，行业包
         /// </summary>
-        public string MALL {
-            get => _mAll;
-            set => _mAll = value;
-        }
-
-        public string Mcodepath {
-            get => _mcodepath;
-            set => _mcodepath = value;
-        }
-
-        public string CustomerName {
-            get => _customerName;
-            set => _customerName = value;
-        }
+        public string Mall { get; set; }
 
         /// <summary>
-        /// 個案目錄
         /// </summary>
-        public string GToIni {
-            get => _gToIni;
-            set => _gToIni = value;
-        }
+        public string Mcodepath { get; set; }
 
         /// <summary>
-        /// 行業包
+        ///     客户名
         /// </summary>
-        public bool MIndustry {
-            get => _mIndustry;
-            set => _mIndustry = value;
-        }
+        public string CustomerName { get; set; }
 
         /// <summary>
-        /// VS当前路径
+        ///     行業包
         /// </summary>
-        public string MVSToolpath {
-            get => _mVsToolpath;
-            set => _mVsToolpath = value;
-        }
-
-        public bool MDistince {
-            get => _mDistince;
-            set => _mDistince = value;
-        }
-
-        public string Mpath {
-            get => _mpath;
-            set => _mpath = value;
-        }
-
-        public string MInpath {
-            get => _mInpath;
-            set => _mInpath = value;
-        }
-
-        public string Mplatform {
-            get => _mplatform;
-            set => _mplatform = value;
-        }
-
-        public string MdesignPath {
-            get => _mdesignPath;
-            set => _mdesignPath = value;
-        }
+        public bool MIndustry { get; set; }
 
         /// <summary>
-        /// 版本
+        ///     VS当前路径
         /// </summary>
-        public string MVersion {
-            get => _mVersion;
-            set => _mVersion = value;
-        }
+        public string MvsToolpath { get; set; }
 
         /// <summary>
-        /// 窗體參數
+        /// </summary>
+        public bool MDistince { get; set; }
+
+        /// <summary>
+        /// </summary>
+        public string Mpath { get; set; }
+
+        /// <summary>
+        /// </summary>
+        public string MInpath { get; set; }
+
+        /// <summary>
+        ///     平台路径
+        /// </summary>
+        public string Mplatform { get; set; }
+
+        /// <summary>
+        ///     设计器路径
+        /// </summary>
+        public string MdesignPath { get; set; }
+
+        /// <summary>
+        ///     版本
+        /// </summary>
+        public string MVersion { get; set; }
+
+        /// <summary>
+        ///     窗體參數
         /// </summary>
         public FormEntity FormEntity {
             get => _formEntity ?? (_formEntity = new FormEntity());
@@ -158,7 +137,7 @@ namespace Common.Implement.Entity {
         }
 
         /// <summary>
-        /// 各個路徑
+        ///     生成路徑
         /// </summary>
         public PathEntity PathEntity {
             get {

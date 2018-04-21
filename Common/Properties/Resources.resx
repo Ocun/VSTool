@@ -223,4 +223,10 @@
   <data name="ServerRunning" xml:space="preserve">
     <value>服务端正在运行</value>
   </data>
+  <data name="NotFind" xml:space="preserve">
+    <value>没有找到</value>
+  </data>
+  <data name="ServerNotRunning" xml:space="preserve">
+    <value>服务端未启动</value>
+  </data>
 </root>
