@@ -82,77 +82,77 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\BuildeEntity.cs" />
-    <Compile Include="Tools\EnumHelper.cs" />
-    <Compile Include="Entity\FileMappingEntity.cs" />
-    <Compile Include="Entity\MetadataContainer.cs" />
-    <Compile Include="Entity\SettingEntity.cs" />
+    <Compile Include="Model\BuildeEntity.cs" />
+    <Compile Include="Controller\EnumHelper.cs" />
+    <Compile Include="Model\FileMappingEntity.cs" />
+    <Compile Include="Model\MetadataContainer.cs" />
+    <Compile Include="Model\SettingEntity.cs" />
     <Compile Include="EventHandler\EventHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Tools\CallUpdate.cs" />
-    <Compile Include="Tools\IconTool.cs" />
-    <Compile Include="Tools\LogTool.cs" />
-    <Compile Include="Tools\MyTool.cs" />
-    <Compile Include="Tools\PathTools.cs" />
-    <Compile Include="Tools\ReadToEntityTools.cs" />
-    <Compile Include="Tools\TreeViewTool.cs" />
-    <Compile Include="Entity\FormEntity.cs" />
-    <Compile Include="Entity\PathEntity.cs" />
-    <Compile Include="Entity\Toolpars.cs" />
-    <Compile Include="Tools\SqlTools.cs" />
-    <Compile Include="Tools\OldTools.cs" />
+    <Compile Include="Controller\CallUpdate.cs" />
+    <Compile Include="Controller\IconTool.cs" />
+    <Compile Include="Controller\LogTool.cs" />
+    <Compile Include="Controller\MyTool.cs" />
+    <Compile Include="Controller\PathTools.cs" />
+    <Compile Include="Controller\ReadToEntityTools.cs" />
+    <Compile Include="Controller\TreeViewTool.cs" />
+    <Compile Include="Model\FormEntity.cs" />
+    <Compile Include="Model\PathEntity.cs" />
+    <Compile Include="Model\Toolpars.cs" />
+    <Compile Include="Controller\SqlTools.cs" />
+    <Compile Include="Controller\OldTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\XmlTools.cs" />
-    <Compile Include="UI\ToolBarManger.cs">
+    <Compile Include="Controller\XmlTools.cs" />
+    <Compile Include="Views\ToolBarManger.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ToolBarManger.Designer.cs">
+    <Compile Include="Views\ToolBarManger.Designer.cs">
       <DependentUpon>ToolBarManger.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\CreateToolForm.cs">
+    <Compile Include="Views\CreateToolForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\CreateToolForm.Designer.cs">
+    <Compile Include="Views\CreateToolForm.Designer.cs">
       <DependentUpon>CreateToolForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InsertForm.cs">
+    <Compile Include="Views\InsertForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InsertForm.Designer.cs">
+    <Compile Include="Views\InsertForm.Designer.cs">
       <DependentUpon>InsertForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ModiName.cs">
+    <Compile Include="Views\ModiName.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ModiName.Designer.cs">
+    <Compile Include="Views\ModiName.Designer.cs">
       <DependentUpon>ModiName.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ModiPKGForm.cs">
+    <Compile Include="Views\ModiPKGForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ModiPKGForm.Designer.cs">
+    <Compile Include="Views\ModiPKGForm.Designer.cs">
       <DependentUpon>ModiPKGForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MyPanel.cs">
+    <Compile Include="Views\MyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\MyTreeView.cs">
+    <Compile Include="Views\MyTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\MyTreeView.Designer.cs">
+    <Compile Include="Views\MyTreeView.Designer.cs">
       <DependentUpon>MyTreeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ScrollerBar.cs">
+    <Compile Include="Views\ScrollerBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SetToolPath.cs">
+    <Compile Include="Views\SetToolPath.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\SetToolPath.Designer.cs">
+    <Compile Include="Views\SetToolPath.Designer.cs">
       <DependentUpon>SetToolPath.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -178,56 +178,57 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ToolBarManger.resx">
+    <EmbeddedResource Include="Views\ToolBarManger.resx">
       <DependentUpon>ToolBarManger.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\CreateToolForm.resx">
+    <EmbeddedResource Include="Views\CreateToolForm.resx">
       <DependentUpon>CreateToolForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InsertForm.resx">
+    <EmbeddedResource Include="Views\InsertForm.resx">
       <DependentUpon>InsertForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ModiName.resx">
+    <EmbeddedResource Include="Views\ModiName.resx">
       <DependentUpon>ModiName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ModiPKGForm.resx">
+    <EmbeddedResource Include="Views\ModiPKGForm.resx">
       <DependentUpon>ModiPKGForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SetToolPath.resx">
+    <EmbeddedResource Include="Views\SetToolPath.resx">
       <DependentUpon>SetToolPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\checked_.png" />
+    <None Include="Resources\checked_.png" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\left-arrow.png" />
+    <None Include="Resources\left-arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\right-arrow.png" />
+    <None Include="Resources\right-arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\unchecked.png" />
+    <None Include="Resources\unchecked.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Start.png" />
+    <None Include="Resources\Start.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Stop.png" />
+    <None Include="Resources\Stop.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Copy.png" />
+    <None Include="Resources\Copy.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Refresh.png" />
+    <None Include="Resources\Refresh.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Copy_Client.png" />
+    <None Include="Resources\Copy_Client.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Start_Client.png" />
+    <None Include="Resources\Start_Client.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
