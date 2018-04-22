@@ -1,8 +1,10 @@
 ﻿// create By 08628 20180411
 
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using Digiwin.Chun.Common.Model;
 using Digiwin.Chun.Common.Properties;
@@ -104,8 +106,16 @@ namespace Digiwin.Chun.Common.Controller {
        /// </summary>
        /// <param name="str"></param>
        /// <returns></returns>
-       public static bool CheckTrueOrFalse(string str) {
-           return str != null && str.Trim().Equals("True");
+       public static bool IsTrue(string str) {
+           return str != null && str.Trim().ToUpper().Equals("TRUE") ;
+       }
+       /// <summary>
+       /// 检查是否为False
+       /// </summary>
+       /// <param name="str"></param>
+       /// <returns></returns>
+       public static bool IsFasle(string str) {
+           return str != null && str.Trim().ToUpper().Equals("FALSE") ;
        }
 
         /// <summary>
@@ -178,7 +188,11 @@ namespace Digiwin.Chun.Common.Controller {
             if(f) return true;
             // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
             if (value is string) {
-                f = ((string) value).Trim().Equals(string.Empty);
+                f = string.Equals(((string) value).Trim(),string.Empty, StringComparison.Ordinal);
+            }
+            if (value is Array) {
+               f = (value as Array).Length==0;
+
             }
             return f;
         }
@@ -195,14 +209,14 @@ namespace Digiwin.Chun.Common.Controller {
             return true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        public static string GetSettingPath(string fileName) {
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="fileName"></param>
+       /// <param name="modelType"></param>
+       /// <returns></returns>
+       public static string GetSettingPath(string fileName,ModelType modelType) {
             var toolPars = MyTools.Toolpars;
-            var modelType= toolPars.ModelType;
             var path = string.Empty;
             var mvsToolpath = toolPars.MvsToolpath;
             switch (modelType) {

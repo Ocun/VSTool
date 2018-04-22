@@ -71,7 +71,7 @@ namespace Digiwin.Chun.Common.Views {
             });
 
 
-            var xmlPath = PathTools.GetSettingPath("BuildeEntity");
+            var xmlPath = PathTools.GetSettingPath("BuildeEntity", Toolpar.ModelType);
             ReadToEntityTools.SaveSerialize(Toolpar.BuilderEntity, Toolpar.ModelType, xmlPath);
 
             IconTools.SetExeIcon(bt.Url);

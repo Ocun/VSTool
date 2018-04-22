@@ -24,43 +24,54 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
+        /// 创建主视图TreeNode
         /// </summary>
         /// <param name="mytree"></param>
         /// <param name="buildeEntity"></param>
         /// <param name="showCheck"></param>
-        public static void CreateTree(MyTreeView mytree, List<BuildeType> buildeEntity,
-            bool showCheck) {
+        public static void CreateMainTreeNode(MyTreeView mytree, List<BuildeType> buildeEntity,
+            bool showCheck ) {
             mytree.Nodes.Clear();
             if (buildeEntity == null || buildeEntity.Count <= 0)
                 return;
             var item = buildeEntity.ToList();
+
             item.ForEach(buildeType => {
-                var node = CreateTree(buildeType, showCheck, false);
+                var node = SetNodeInfo(buildeType, showCheck, false);
                 if (node != null)
                     mytree.Nodes.Add(node);
             });
+            //if (!editState)
+            //    return;
+            //var newBt = new BuildeType
+            //{
+            //    Id = "MainAddItemID",
+            //    Description = "单击添加你的项目",
+            //    EditState = "True"
+            //};
+
+            //var newChild = new MyTreeNode("添加你的选项") { BuildeType = newBt };
+            //mytree.Nodes.Add(newChild);
         }
 
         /// <summary>
+        /// 设置节点信息
         /// </summary>
         /// <param name="buildeType"></param>
         /// <param name="showCheck"></param>
         /// <param name="readSubView"></param>
         /// <returns></returns>
-        public static TreeNode CreateTree(BuildeType buildeType, bool showCheck, bool readSubView) {
+        public static TreeNode SetNodeInfo(BuildeType buildeType, bool showCheck, bool readSubView) {
             var text = buildeType.Name ?? string.Empty;
-            if (buildeType.Visiable != null && buildeType.Visiable.Equals("False") && buildeType.BuildeItems == null)
+            if (PathTools.IsFasle(buildeType.Visiable) && buildeType.BuildeItems == null)
                 return null;
             var newChild = new MyTreeNode(text) {BuildeType = buildeType};
             if (showCheck)
-                if (buildeType.ShowCheckedBox != null
-                    && buildeType.ShowCheckedBox.Equals("False")) {
+                if (PathTools.IsFasle(buildeType.ShowCheckedBox)) {
                 }
                 else {
-                    if (buildeType.Checked != null &&
-                        buildeType.Checked.Equals("True") &&
-                        buildeType.ReadOnly != null &&
-                        buildeType.ReadOnly.Equals("True")
+                    if (PathTools.IsTrue(buildeType.Checked) &&
+                        PathTools.IsTrue(buildeType.ReadOnly)
                     )
                         newChild.BuildeType.FileInfos = MyTools.CreateFileMappingInfo(newChild.BuildeType);
                     newChild.CheckBoxVisible = true;
@@ -68,7 +79,7 @@ namespace Digiwin.Chun.Common.Controller {
             //读下层目录
             else if (readSubView && buildeType.BuildeItems != null && buildeType.BuildeItems.Length > 0)
                 buildeType.BuildeItems.ToList().ForEach(buildeItem => {
-                    newChild.Nodes.Add(CreateTree(buildeItem, false, true));
+                    newChild.Nodes.Add(SetNodeInfo(buildeItem, false, true));
                 });
             return newChild;
         }
@@ -132,10 +143,10 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="nodes"></param>
         public static void CreateRightView(TreeNodeCollection nodes) {
             var toolPar = MyTools.Toolpars;
-            var buildeEntity = toolPar.BuilderEntity.BuildeTypies.Where(builderItem=> builderItem.Visiable==null||!builderItem.Visiable.Equals("True")).ToList();
+            var buildeEntity = toolPar.BuilderEntity.BuildeTypies.Where(builderItem=>!PathTools.IsFasle(builderItem.Visiable)).ToList();
             var item = buildeEntity.ToList();
             item.ForEach(buildeType => {
-                var node = CreateTree(buildeType);
+                var node = CreateMainTreeNode(buildeType);
                 if (node != null)
                     nodes.Add(node);
             });
@@ -146,7 +157,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="buildeType"></param>
         /// <returns></returns>
-        public static MyTreeNode CreateTree(BuildeType buildeType) {
+        public static MyTreeNode CreateMainTreeNode(BuildeType buildeType) {
             var text = buildeType.Name ?? string.Empty;
             var newChild = new MyTreeNode(text);
             var existedFile = true;
@@ -156,9 +167,11 @@ namespace Digiwin.Chun.Common.Controller {
                 if (buildeType.BuildeItems != null
                     && buildeType.BuildeItems.Length > 0)
                     buildeType.BuildeItems.ToList().ForEach(buildeItem => {
-                        var node = CreateTree(buildeItem);
-                        if (node != null)
-                            newChild.Nodes.Add(node);
+                        if (!PathTools.IsFasle(buildeItem.Visiable)) {
+                            var node = CreateMainTreeNode(buildeItem);
+                            if (node != null)
+                                newChild.Nodes.Add(node);
+                        }
                     });
                 else
                     existedFile = false;

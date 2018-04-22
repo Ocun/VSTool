@@ -127,7 +127,7 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 设置流式布局，最大3列。
+        /// 设置流式布局，最大可设定
         /// 因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
         /// </summary>
         /// <param name="sender"></param>
@@ -378,14 +378,12 @@ namespace Digiwin.Chun.Common.Controller {
                 var form1 = new ModiPkgForm(Toolpars);
                 if (form1.ShowDialog() == DialogResult.OK)
                 {
-
-                    var empStr = string.Empty;
                     TreeView1.Visible = true;
                     ScrollPanel.Controls[0].Visible = false;
                     ScrollPanel.Visible = false;
-                    if (!string.Equals(Toolpars.FormEntity.TxtToPath, empStr, StringComparison.Ordinal)
-                        && !string.Equals(Toolpars.FormEntity.TxtNewTypeKey, empStr, StringComparison.Ordinal)
-                        && !string.Equals(Toolpars.FormEntity.PkgTypekey, empStr, StringComparison.Ordinal))
+                    if (!PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath) 
+                        && !PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey) 
+                        && !PathTools.IsNullOrEmpty(Toolpars.FormEntity.PkgTypekey))
                     {
                         var pathInfo = Toolpars.PathEntity;
                         var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
@@ -705,8 +703,7 @@ namespace Digiwin.Chun.Common.Controller {
             if (e.Node is MyTreeNode node)
             {
                 var builderType = node.BuildeType;
-                if (builderType.ReadOnly != null
-                    && builderType.ReadOnly.Equals(trueStr))
+                if (PathTools.IsTrue(builderType.ReadOnly))
                 {
                     return;
                 }
@@ -717,8 +714,7 @@ namespace Digiwin.Chun.Common.Controller {
                     builderType.Checked = trueStr;
                     if (!ModiCkb.Checked)
                     {
-                        if ((builderType.ShowParWindow != null
-                             && builderType.ShowParWindow.Equals(falseStr))
+                        if (PathTools.IsFasle(builderType.ShowParWindow)
                         )
                         {
                             fileInfos = MyTools.CreateFileMappingInfo(builderType);
@@ -796,23 +792,13 @@ namespace Digiwin.Chun.Common.Controller {
             if (node == null) return;
             var bt = node.BuildeType;
             if (bt?.IsPlug != null &&
-                bt.IsPlug.Equals("True")
+                PathTools.IsTrue(bt.IsPlug)
             )
             {
                 MyTools.CallModule(bt);
             }
-            else if (bt?.IsTools == null
-                     || !bt.IsTools.Equals("True"))
-            {
-                if (bt?.Checked != null
-                    && bt.Checked.Equals("True"))
-                {
-                    node.Checked = false;
-                }
-                else
-                {
-                    node.Checked = true;
-                }
+            else if (!PathTools.IsTrue(bt?.IsTools)  ) {
+                node.Checked = !PathTools.IsTrue(bt?.Checked);
             }
         }
 
@@ -831,12 +817,20 @@ namespace Digiwin.Chun.Common.Controller {
             var buildeEntity = Toolpars.BuilderEntity;
 
             var item = buildeEntity.BuildeTypies.Where(et => et.Id.Equals(id) || id.Equals("RootView")).ToList();
-
+            var editState = Toolpars.FormEntity.EditState;
+            if (editState)
+            {
+                var bt = GetEditItem();
+                item.Add(bt);
+                if (!IconTools.ImageList.Contains(bt.Id)) {
+                    IconTools.ImageList.Add(bt.Id, Resources.defautApp);
+                }
+            }
             if (item.Count <= 0)
                 return;
             if (id.Equals("RootView"))
             {
-                MyTreeViewTools.CreateTree(MyTreeView1, item, false);
+                MyTreeViewTools.CreateMainTreeNode(MyTreeView1, item, false);
                 return;
             }
             if (item[0].BuildeItems == null) return;
@@ -861,62 +855,71 @@ namespace Digiwin.Chun.Common.Controller {
             }
 
         }
-      
+
+        /// <summary>
+        /// 获取每一列菜单数据
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="splitCount"></param>
+        /// <param name="currentColmuns"></param>
+        /// <returns></returns>
+        public static List<BuildeType> GetColmunData(IReadOnlyList<BuildeType> items,int splitCount, int currentColmuns) {
+            var resItem= new List<BuildeType>();
+            var count = items.Count;
+            if (currentColmuns >= count)
+                return resItem;
+            resItem.Add(items[currentColmuns]);
+            if (currentColmuns + splitCount < count) {
+                resItem.AddRange(GetColmunData(items, splitCount, currentColmuns + splitCount));
+            }
+            return resItem;
+
+        }
+
+        /// <summary>
+        /// 增加编辑项
+        /// </summary>
+        /// <returns></returns>
+        public static BuildeType GetEditItem( ) {
+
+            return new BuildeType {
+                Id = "MainAddItemID",
+                Name = "添加你的选项",
+                Description = "单击添加你的项目",
+                EditState = "True",
+                ShowCheckedBox = "False",
+                ShowIcon = "True"
+            };
+        }
+
         /// <summary>
         /// 创建视图
         /// </summary>
         /// <param name="splitCount"></param>
-        /// <param name="item"></param>
-        public static void CreateTreeView(int splitCount, IReadOnlyList<BuildeType> item
+        /// <param name="items"></param>
+        public static void CreateTreeView(int splitCount, IReadOnlyList<BuildeType> items
         )
         {
-
-            var buildeItems = item[0].BuildeItems
-                .Where(builderItem => builderItem.Visiable == null || !builderItem.Visiable.Equals("False")).ToList();
-            var count = buildeItems.Count;
-            var skipSeq = 0;
-            var evgCount = count / splitCount;
-            var surplusCount = count % splitCount;
+       
+            var buildeItems = items[0].BuildeItems
+                .Where(builderItem =>!PathTools.IsFasle(builderItem.Visiable)).ToList();
             var splitContainers = MySplitContainers;
-            var subSurplusCount = surplusCount % splitCount;
-            foreach (var splitContainer in splitContainers)
-            {
+            var editState = Toolpars.FormEntity.EditState;
+            if (editState) {
+                var bt = GetEditItem();
+                buildeItems.Add(bt);
+                if (!IconTools.ImageList.Contains(bt.Id))
+                {
+                    IconTools.ImageList.Add(bt.Id, Resources.defautApp);
+                }
+              
+            }
+            for (var i = 0; i < splitCount; i++) {
+                var splitContainer = splitContainers[i];
                 var tv = splitContainer.Panel1.Controls[0] as MyTreeView;
-                //项目小于分列数量，每项取一个
-                if (evgCount == 0 && count < splitCount)
-                {
-                    if (skipSeq <= count - 1)
-                    {
-                        var item2 = buildeItems.Skip(skipSeq++).Take(1).ToList();
-                        MyTreeViewTools.CreateTree(tv, item2, true);
-                    }
-                }
-                //均分
-                else if (surplusCount == 0)
-                {
-                    var item2 = buildeItems.Skip(skipSeq).Take(evgCount).ToList();
-                    skipSeq += evgCount;
-                    MyTreeViewTools.CreateTree(tv, item2, true);
-                }
-                //有余项
-                else
-                {
-                    var subCount = evgCount;
-                    if (subSurplusCount != 0)
-                    {
-                        subSurplusCount--;
-                        subCount = evgCount + 1;
-                    }
-
-                    var item2 = buildeItems.Skip(skipSeq).Take(subCount).ToList();
-
-                    skipSeq += subCount;
-                    MyTreeViewTools.CreateTree(tv, item2, true);
-                }
-                if (splitContainer.Panel2Collapsed)
-                {
-                    break;
-                }
+                var item= GetColmunData(buildeItems, splitCount,i);
+             
+                MyTreeViewTools.CreateMainTreeNode(tv, item, true);
             }
 
         }

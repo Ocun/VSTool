@@ -143,7 +143,7 @@ namespace Digiwin.Chun.Common.Views
 
             var imageVisiable = false;
             var showIcon  = bt.ShowIcon;
-            if (PathTools.CheckTrueOrFalse(showIcon)) {
+            if (PathTools.IsTrue(showIcon)) {
                 //var urlPath = bt.Url;
                 //if (urlPath != null && !urlPath.Trim().Equals(string.Empty)) {
                     imageVisiable = true;
@@ -245,14 +245,27 @@ namespace Digiwin.Chun.Common.Views
                     }
                    
                 }
+            }
+            if (EditState)
+            {
+                var imgRect1 = new Rectangle(Width - 30, node.Bounds.Y+5, 25, 25);
 
+                graphics.DrawImage(DelImage,
+                    imgRect1);
 
             }
-
 
             graphics.Dispose();
         }
 
+        /// <summary>
+        /// 删除按钮
+        /// </summary>
+        public Image DelImage { get; set; } = Resources.delete;
+        /// <summary>
+        /// 指示编辑状态
+        /// </summary>
+        public bool EditState { get; set; } = MyTools.Toolpars.FormEntity.EditState;
         /// <summary>
         /// 相应外部滚动事件
         /// </summary>
@@ -266,9 +279,9 @@ namespace Digiwin.Chun.Common.Views
             base.OnNodeMouseDoubleClick(e);
             var node = e.Node as MyTreeNode;
             var bt = node?.BuildeType;
-            if (bt?.IsTools == null || !bt.IsTools.Equals("True"))
+            if (!PathTools.IsTrue(bt?.IsTools))
                 return;
-            if (bt.Url == null || bt.Url.Trim().Equals(string.Empty)) {
+            if (PathTools.IsNullOrEmpty(bt?.Url)) {
                 MyTools.SetToolsPath(bt);
             }
             else {

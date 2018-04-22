@@ -106,6 +106,11 @@ namespace Digiwin.Chun.Common.Model {
         ///     是否显示Icon
         /// </summary>
         public string ShowIcon { get; set; }
+
+        /// <summary>
+        ///     编辑状态
+        /// </summary>
+        public string EditState { get; set; }
     }
 
     /// <remarks />

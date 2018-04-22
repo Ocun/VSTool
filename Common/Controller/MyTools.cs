@@ -60,6 +60,7 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.MaxSplitCount = 6;
             Toolpars.OldTypekey = Toolpars.SettingPathEntity.TemplateTypeKey;
             Toolpars.ModelType = ModelType.Json;
+            Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
         }
@@ -358,7 +359,7 @@ namespace Digiwin.Chun.Common.Controller {
                 return;
             bt.Url = (form.Path??string.Empty).Trim();
             var modelType = Toolpars.ModelType;
-            var settingPath = PathTools.GetSettingPath("BuildeEntity");
+            var settingPath = PathTools.GetSettingPath("BuildeEntity", modelType);
             switch (modelType) {
                 case ModelType.Binary:
                 case ModelType.Json:
@@ -674,7 +675,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         public static void InitBuilderEntity() {
             try {
-                var path = PathTools.GetSettingPath("BuildeEntity");
+                var path = PathTools.GetSettingPath("BuildeEntity", Toolpars.ModelType);
                 Toolpars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path, Toolpars.ModelType);
                 InitBuildeTypies(Toolpars.BuilderEntity.BuildeTypies);
             }

@@ -44,5 +44,10 @@ namespace Digiwin.Chun.Common.Model {
         /// 最大分割列数
         /// </summary>
         public int MaxSplitCount { get; set; }
+
+        /// <summary>
+        /// 是否出现编辑菜单
+        /// </summary>
+        public bool EditState { get; set; }
     }
 }

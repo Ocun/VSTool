@@ -137,6 +137,23 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
+        /// 将当前配置保存成其他格式
+        /// </summary>
+        /// <param name="modelType"></param>
+        public static void ConvertToModelType(ModelType modelType) {
+            var toolpars = MyTools.Toolpars;
+            var xmlPath = PathTools.GetSettingPath("BuildeEntity", modelType);
+            SaveSerialize(toolpars.BuilderEntity, modelType, xmlPath);
+            xmlPath = PathTools.GetSettingPath("FileMappingEntity", modelType);
+            SaveSerialize(toolpars.FileMappingEntity, modelType, xmlPath);
+            xmlPath = PathTools.GetSettingPath("SettingPathEntity", modelType);
+            SaveSerialize(toolpars.SettingPathEntity, modelType, xmlPath);
+        }
+
+    
+
+
+        /// <summary>
         ///     将类序列化保存
         /// </summary>
         /// <typeparam name="T"></typeparam>

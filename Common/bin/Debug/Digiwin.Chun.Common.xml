@@ -95,6 +95,11 @@
                 是否显示Icon
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.EditState">
+            <summary>
+                编辑状态
+            </summary>
+        </member>
         <member name="T:Digiwin.Chun.Common.Model.FileInfos">
             <remarks />
         </member>
@@ -536,6 +541,11 @@
             最大分割列数
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.EditState">
+            <summary>
+            是否出现编辑菜单
+            </summary>
+        </member>
         <member name="T:Digiwin.Chun.Common.Model.PathEntity">
             <summary>
                 路径相关
@@ -823,7 +833,7 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_ClientSizeChanged(System.Object,System.EventArgs)">
             <summary>
-            设置流式布局，最大3列。
+            设置流式布局，最大可设定
             因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
             </summary>
             <param name="sender"></param>
@@ -972,12 +982,27 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetColmunData(System.Collections.Generic.IReadOnlyList{Digiwin.Chun.Common.Model.BuildeType},System.Int32,System.Int32)">
+            <summary>
+            获取每一列菜单数据
+            </summary>
+            <param name="items"></param>
+            <param name="splitCount"></param>
+            <param name="currentColmuns"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetEditItem">
+            <summary>
+            增加编辑项
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CreateTreeView(System.Int32,System.Collections.Generic.IReadOnlyList{Digiwin.Chun.Common.Model.BuildeType})">
             <summary>
             创建视图
             </summary>
             <param name="splitCount"></param>
-            <param name="item"></param>
+            <param name="items"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetSplitCount">
             <summary>
@@ -1841,9 +1866,16 @@
             <param name="toolpars"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.PathTools.CheckTrueOrFalse(System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.PathTools.IsTrue(System.String)">
             <summary>
             检查是否为True
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.PathTools.IsFasle(System.String)">
+            <summary>
+            检查是否为False
             </summary>
             <param name="str"></param>
             <returns></returns>
@@ -1877,11 +1909,12 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.PathTools.GetSettingPath(System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.PathTools.GetSettingPath(System.String,Digiwin.Chun.Common.Controller.ModelType)">
             <summary>
             
             </summary>
             <param name="fileName"></param>
+            <param name="modelType"></param>
             <returns></returns>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.ReadToEntityTools">
@@ -1930,6 +1963,12 @@
             <typeparam name="T"></typeparam>
             <param name="obj"></param>
             <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ReadToEntityTools.ConvertToModelType(Digiwin.Chun.Common.Controller.ModelType)">
+            <summary>
+            将当前配置保存成其他格式
+            </summary>
+            <param name="modelType"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ReadToEntityTools.SaveSerialize``1(``0,Digiwin.Chun.Common.Controller.ModelType,System.String)">
             <summary>
@@ -1983,15 +2022,17 @@
             </summary>
             <param name="myTreeView5"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTreeViewTools.CreateTree(Digiwin.Chun.Common.Views.MyTreeView,System.Collections.Generic.List{Digiwin.Chun.Common.Model.BuildeType},System.Boolean)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTreeViewTools.CreateMainTreeNode(Digiwin.Chun.Common.Views.MyTreeView,System.Collections.Generic.List{Digiwin.Chun.Common.Model.BuildeType},System.Boolean)">
             <summary>
+            创建主视图TreeNode
             </summary>
             <param name="mytree"></param>
             <param name="buildeEntity"></param>
             <param name="showCheck"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTreeViewTools.CreateTree(Digiwin.Chun.Common.Model.BuildeType,System.Boolean,System.Boolean)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTreeViewTools.SetNodeInfo(Digiwin.Chun.Common.Model.BuildeType,System.Boolean,System.Boolean)">
             <summary>
+            设置节点信息
             </summary>
             <param name="buildeType"></param>
             <param name="showCheck"></param>
@@ -2011,7 +2052,7 @@
             </summary>
             <param name="nodes"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTreeViewTools.CreateTree(Digiwin.Chun.Common.Model.BuildeType)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTreeViewTools.CreateMainTreeNode(Digiwin.Chun.Common.Model.BuildeType)">
             <summary>
                 创建右侧message
             </summary>
@@ -2187,6 +2228,11 @@
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.defautApp">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.delete">
             <summary>
               查找 System.Drawing.Bitmap 类型的本地化资源。
             </summary>
@@ -2655,6 +2701,16 @@
         <member name="M:Digiwin.Chun.Common.Views.MyTreeView.#ctor">
             <summary>
             构造
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Views.MyTreeView.DelImage">
+            <summary>
+            删除按钮
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Views.MyTreeView.EditState">
+            <summary>
+            指示编辑状态
             </summary>
         </member>
         <member name="E:Digiwin.Chun.Common.Views.MyTreeView.SetAutoScrollEvent">

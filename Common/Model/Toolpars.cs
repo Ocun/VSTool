@@ -45,7 +45,7 @@ namespace Digiwin.Chun.Common.Model {
         public T GetEntity<T>(T obj,string fileName) where T:class {
             if (obj != null)
                 return obj;
-            var path = PathTools.GetSettingPath(fileName);
+            var path = PathTools.GetSettingPath(fileName,ModelType);
             if (PathTools.CheckFile(path))
                 obj = ReadToEntityTools.ReadToEntity<T>(path, ModelType);
             return obj;

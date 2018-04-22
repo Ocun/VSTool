@@ -16,4 +16,3 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Vi
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiName.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiPkgForm.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.SetToolPath.resources
-G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csprojResolveAssemblyReference.cache

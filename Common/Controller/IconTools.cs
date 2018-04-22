@@ -60,13 +60,13 @@ namespace Digiwin.Chun.Common.Controller {
                 var isTools = buildeType.IsTools;
                 var showIcon = buildeType.ShowIcon;
                 var url = buildeType.Url;
-                if (PathTools.CheckTrueOrFalse(isTools) 
-                    && PathTools.CheckTrueOrFalse(showIcon)
+                if (PathTools.IsTrue(isTools) 
+                    && PathTools.IsTrue(showIcon)
                     &&!PathTools.IsNullOrEmpty(url)) {
                     var exeName = Path.GetFileNameWithoutExtension(url);
                     if (exeName != null && !ImageList.Contains(exeName))
                         SetExeIcon(url);
-                }else if (PathTools.CheckTrueOrFalse(showIcon)) {
+                }else if (PathTools.IsTrue(showIcon)) {
                     ImageList.Add(buildeType.Id,Resources.defautApp);
                 }
                 InitImageList(buildeType.BuildeItems);
@@ -90,13 +90,6 @@ namespace Digiwin.Chun.Common.Controller {
                 var exeName = Path.GetFileNameWithoutExtension(appPath);
                 if (exeName != null && !ImageList.Contains(exeName))
                     ImageList.Add(exeName, imageGet);
-                //var images = new List<Image> {imageGet};
-                //foreach (var image in images)
-                //    using (var fs =
-                //        new FileStream($"{Application.StartupPath}\\Images\\{exeName}.png", FileMode.OpenOrCreate)) {
-                //        image.Save(fs, ImageFormat.Png);
-                //        image.Dispose();
-                //    }
             }
             catch (Exception) {
                 // ignored
