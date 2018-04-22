@@ -675,7 +675,7 @@ namespace Digiwin.Chun.Common.Controller {
         public static void InitBuilderEntity() {
             try {
                 var path = PathTools.GetSettingPath("BuildeEntity");
-                Toolpars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path, ModelType.Json);
+                Toolpars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path, Toolpars.ModelType);
                 InitBuildeTypies(Toolpars.BuilderEntity.BuildeTypies);
             }
             catch (Exception ex) {

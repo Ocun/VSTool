@@ -1841,6 +1841,13 @@
             <param name="toolpars"></param>
             <returns></returns>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.PathTools.CheckTrueOrFalse(System.String)">
+            <summary>
+            检查是否为True
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.PathTools.CombineStr(System.String[])">
             <summary>
             连接字符串
@@ -2177,6 +2184,11 @@
         <member name="P:Digiwin.Chun.Common.Properties.Resources.CustomerNameNotNull">
             <summary>
               查找类似 客户名称不可为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.defautApp">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.DirExisted">

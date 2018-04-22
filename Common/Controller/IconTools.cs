@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Properties;
 using Point = System.Drawing.Point;
 
 namespace Digiwin.Chun.Common.Controller {
@@ -59,14 +60,14 @@ namespace Digiwin.Chun.Common.Controller {
                 var isTools = buildeType.IsTools;
                 var showIcon = buildeType.ShowIcon;
                 var url = buildeType.Url;
-                if (isTools != null && showIcon != null
-                    && isTools.Equals("True")
-                    && showIcon.Equals("True")
-                    && url != null
-                    && !url.Trim().Equals(string.Empty)) {
+                if (PathTools.CheckTrueOrFalse(isTools) 
+                    && PathTools.CheckTrueOrFalse(showIcon)
+                    &&!PathTools.IsNullOrEmpty(url)) {
                     var exeName = Path.GetFileNameWithoutExtension(url);
-                    if (!ImageList.Contains(exeName))
+                    if (exeName != null && !ImageList.Contains(exeName))
                         SetExeIcon(url);
+                }else if (PathTools.CheckTrueOrFalse(showIcon)) {
+                    ImageList.Add(buildeType.Id,Resources.defautApp);
                 }
                 InitImageList(buildeType.BuildeItems);
             }

@@ -126,6 +126,16 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap defautApp {
+            get {
+                object obj = ResourceManager.GetObject("defautApp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 目录已存在，是否覆盖?? 的本地化字符串。
         /// </summary>
         internal static string DirExisted {

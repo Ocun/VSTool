@@ -303,17 +303,19 @@
           "Description": "提供查单实例",
           "ShowCheckedBox": "False",
           "IsPlug": "True",
-          "PlugPath": "Common.Implement.dll",
-          "ModuleName": "Common.Implement.UI.InsertForm"
+          "PlugPath": "Digiwin.Chun.Common.dll",
+          "ModuleName": "Digiwin.Chun.Common.Views.InsertForm",
+          "ShowIcon": "True"
         },
         {
-          "Id": "Insert",
+          "Id": "oneCopy",
           "Name": "一键借用",
           "Description": "复制标准或客户作业",
           "ShowCheckedBox": "False",
           "IsPlug": "True",
-          "PlugPath": "Common.Implement.dll",
-          "ModuleName": "Common.Implement.UI.ModiPkgForm"
+          "PlugPath": "Digiwin.Chun.Common.dll",
+          "ModuleName": "Digiwin.Chun.Common.Views.ModiPkgForm",
+          "ShowIcon": "True"
         }
       ]
     }

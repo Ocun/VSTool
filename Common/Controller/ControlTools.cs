@@ -370,9 +370,9 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-           
+        public static void CheckBox1_CheckedChanged(object sender, EventArgs e) {
+          
+          
             if (ModiCkb.Checked)
             {
                 var form1 = new ModiPkgForm(Toolpars);
@@ -423,6 +423,7 @@ namespace Digiwin.Chun.Common.Controller {
                 TreeView1.Visible = false;
                 ScrollPanel.Visible = true;
                 ScrollPanel.Controls[0].Visible = true;
+                MyTools.InitBuilderEntity();
                 if (MyTreeView1.SelectedNode is MyTreeNode node)
                     CreateTree(node.BuildeType.Id);
             }

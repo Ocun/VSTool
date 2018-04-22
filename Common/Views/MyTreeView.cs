@@ -142,16 +142,13 @@ namespace Digiwin.Chun.Common.Views
                 textRec = new Rectangle(nodeRect.X + 15, nodeRect.Y, Width - 30, node.Bounds.Height);
 
             var imageVisiable = false;
-            var isTools  = bt.IsTools;
             var showIcon  = bt.ShowIcon;
-            if (isTools != null && isTools.Equals("True") &&
-             (showIcon != null && showIcon.Equals("True"))) {
-
-                var urlPath = bt.Url;
-                if (urlPath != null && !urlPath.Trim().Equals(string.Empty)) {
+            if (PathTools.CheckTrueOrFalse(showIcon)) {
+                //var urlPath = bt.Url;
+                //if (urlPath != null && !urlPath.Trim().Equals(string.Empty)) {
                     imageVisiable = true;
                     textRec.X += NodeImageSize.Width + 15;
-                }
+               // }
             }
 
             var nodeFont = e.Node.NodeFont ?? ((TreeView) sender).Font;
@@ -229,16 +226,24 @@ namespace Digiwin.Chun.Common.Views
             if (imageVisiable) {
                 var imgPoint = node.CheckBoxVisible ? new Point(nodeRect.X + NodeCheckBoxSize.Width + 15, nodeRect.Y) : new Point(nodeRect.X + 15, nodeRect.Y);
                 var imgRect = new Rectangle(imgPoint, NodeImageSize);
-                    var exeName = Path.GetFileNameWithoutExtension(bt.Url);
-                if (exeName != null && NodeImages.Contains(exeName))
-                {
+                var exeName = Path.GetFileNameWithoutExtension(bt.Url);
+                if (exeName != null && NodeImages.Contains(exeName)) {
                     var exeImg = NodeImages[exeName];
-                    if (exeImg is Image)
-                    {
+                    if (exeImg is Image) {
                         graphics.DrawImage(exeImg as Image,
-                        imgRect);
+                            imgRect);
                     }
-
+                }
+                else {
+                    if (NodeImages.Contains(bt.Id)) {
+                        var exeImg = NodeImages[bt.Id];
+                        if (exeImg is Image)
+                        {
+                            graphics.DrawImage(exeImg as Image,
+                                imgRect);
+                        }
+                    }
+                   
                 }
 
 

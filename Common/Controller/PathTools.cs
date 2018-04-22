@@ -99,6 +99,14 @@ namespace Digiwin.Chun.Common.Controller {
             return pathEntity;
         }
 
+       /// <summary>
+       /// 检查是否为True
+       /// </summary>
+       /// <param name="str"></param>
+       /// <returns></returns>
+       public static bool CheckTrueOrFalse(string str) {
+           return str != null && str.Trim().Equals("True");
+       }
 
         /// <summary>
         /// 连接字符串
