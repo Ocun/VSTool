@@ -11,6 +11,12 @@
           "Description": "搭建一个服务的框架"
         },
         {
+          "Id": "Service",
+          "Name": "服务",
+          "Description": "搭建一个服务的框架",
+          "Visiable": "False"
+        },
+        {
           "Id": "Tools",
           "Name": "工具类",
           "Description": "提供常用的方法",

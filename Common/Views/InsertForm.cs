@@ -76,7 +76,7 @@ namespace Digiwin.Chun.Common.Views
                         }
                     });
                     if (isCurrect) {
-                        var propies = MyTool.GetPropNameByEntity(metadataContainer, lastTypeKey);
+                        var propies = MyTools.GetPropNameByEntity(metadataContainer, lastTypeKey);
                        richTextBox1.Text = CreateInsert(propies, fulltypeKey);
                     }
                     else {
@@ -85,7 +85,7 @@ namespace Digiwin.Chun.Common.Views
                    
                 }
                 else {
-                    var propies = MyTool.GetPropNameByEntity(metadataContainer, fulltypeKey);
+                    var propies = MyTools.GetPropNameByEntity(metadataContainer, fulltypeKey);
                     richTextBox1.Text = CreateInsert(propies, fulltypeKey);
                 }
 

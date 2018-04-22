@@ -20,7 +20,7 @@ namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     工具类
     /// </summary>
-    public static class MyTool {
+    public static class MyTools {
         /// <summary>
         /// </summary>
         public static Toolpars Toolpars { get; } = new Toolpars();
@@ -54,9 +54,13 @@ namespace Digiwin.Chun.Common.Controller {
                     && !Toolpars.MIndustry)
                     Toolpars.FormEntity.TxtToPath = $@"{Toolpars.MdesignPath}\WD_PR\SRC\";
             }
+            //分割宽度
+            Toolpars.FormEntity.SpiltWidth = 200;
+            //最大分割列
+            Toolpars.FormEntity.MaxSplitCount = 6;
             Toolpars.OldTypekey = Toolpars.SettingPathEntity.TemplateTypeKey;
             Toolpars.ModelType = ModelType.Json;
-            IconTool.InitImageList();
+            IconTools.InitImageList();
             InitBuilderEntity();
         }
 
@@ -369,7 +373,7 @@ namespace Digiwin.Chun.Common.Controller {
            
          
             //获取Exe图标
-            IconTool.SetExeIcon(bt.Url);
+            IconTools.SetExeIcon(bt.Url);
         }
 
         /// <summary>
@@ -658,7 +662,7 @@ namespace Digiwin.Chun.Common.Controller {
             }
             if (!success)
                 return false;
-            LogTool.WriteLogByTreeView(treeView);
+            LogTools.WriteLogByTreeView(treeView);
             InitBuilderEntity();
             MessageBox.Show(Resources.GenerateSucess);
             return true;

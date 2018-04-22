@@ -2,11 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Digiwin.Chun.Common.EventHandler;
 using Digiwin.Chun.Common.Model;
 using Digiwin.Chun.Common.Views;
 
@@ -14,7 +12,7 @@ namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     treeView生成辅助
     /// </summary>
-    public static class ControlTool {
+    public static class MyTreeViewTools {
         /// <summary>
         ///     创建右面板
         /// </summary>
@@ -64,7 +62,7 @@ namespace Digiwin.Chun.Common.Controller {
                         buildeType.ReadOnly != null &&
                         buildeType.ReadOnly.Equals("True")
                     )
-                        newChild.BuildeType.FileInfos = MyTool.CreateFileMappingInfo(newChild.BuildeType);
+                        newChild.BuildeType.FileInfos = MyTools.CreateFileMappingInfo(newChild.BuildeType);
                     newChild.CheckBoxVisible = true;
                 }
             //读下层目录
@@ -133,10 +131,8 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="nodes"></param>
         public static void CreateRightView(TreeNodeCollection nodes) {
-            var toolPar = MyTool.Toolpars;
-            var buildeEntity = toolPar.BuilderEntity.BuildeTypies;
-            if (buildeEntity == null)
-                return;
+            var toolPar = MyTools.Toolpars;
+            var buildeEntity = toolPar.BuilderEntity.BuildeTypies.Where(builderItem=> builderItem.Visiable==null||!builderItem.Visiable.Equals("True")).ToList();
             var item = buildeEntity.ToList();
             item.ForEach(buildeType => {
                 var node = CreateTree(buildeType);
@@ -146,7 +142,7 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 创建右侧message
+        ///     创建右侧message
         /// </summary>
         /// <param name="buildeType"></param>
         /// <returns></returns>
@@ -177,38 +173,33 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 获取全部TreeView
+        ///     获取全部TreeView
         /// </summary>
         /// <param name="control"></param>
         /// <returns></returns>
-        public  static  List<MyTreeView> GetTreeViews(Control control)
-        {
-            if (control == null) throw new ArgumentNullException(nameof(control));
+        public static List<MyTreeView> GetTreeViews(Control control) {
+            if (control == null)
+                throw new ArgumentNullException(nameof(control));
             var treeViewList = new List<MyTreeView>();
             var container = control as SplitContainer;
             if (container == null)
                 return treeViewList;
             var treeViewControl = container.Panel1.Controls[0];
             if (treeViewControl is MyTreeView)
-            {
                 treeViewList.Add(treeViewControl as MyTreeView);
-            }
             var splitContainerControl = container.Panel2.Controls[0];
             if (splitContainerControl is SplitContainer)
-            {
                 treeViewList.AddRange(GetTreeViews(splitContainerControl));
-            }
             return treeViewList;
         }
 
 
         /// <summary>
-        /// 获取全部SpiltContainer
+        ///     获取全部SpiltContainer
         /// </summary>
         /// <param name="control"></param>
         /// <returns></returns>
-        public static List<SplitContainer> GetSplitContainerList(IDisposable control)
-        {
+        public static List<SplitContainer> GetSplitContainerList(IDisposable control) {
             var splitContainerList = new List<SplitContainer>();
             var container = control as SplitContainer;
             if (container == null)
@@ -216,13 +207,10 @@ namespace Digiwin.Chun.Common.Controller {
             splitContainerList.Add(container);
             var panel2Control = container.Panel2.Controls[0];
             if (panel2Control is SplitContainer)
-            {
                 splitContainerList.AddRange(GetSplitContainerList(panel2Control));
-            }
             return splitContainerList;
         }
-        #endregion
-        
 
+        #endregion
     }
 }

@@ -67,12 +67,12 @@ namespace Digiwin.Chun.Common.Views {
                 targetDir = GetServerDirPath();
                 var codeDir = $@"{txtPkGpath}\{WdPr}\SRC\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
                 var specDir = $@"{txtPkGpath}\{Spec}";
-                MyTool.OpenDir(codeDir);
-                MyTool.OpenDir(targetDir);
-                MyTool.OpenDir(specDir);
+                MyTools.OpenDir(codeDir);
+                MyTools.OpenDir(targetDir);
+                MyTools.OpenDir(specDir);
             }
             else {
-                MyTool.OpenDir(targetDir);
+                MyTools.OpenDir(targetDir);
             }
         }
 
@@ -173,8 +173,6 @@ namespace Digiwin.Chun.Common.Views {
                     #endregion
 
                 }
-
-
             }
             else {
                 var pkgTypeKeyPath = pkgFullPath;
@@ -213,7 +211,7 @@ namespace Digiwin.Chun.Common.Views {
         }
 
         private void CopyPkg(string pkgTypeKeyPath) {
-            var success = MyTool.CopyAllPkG(pkgTypeKeyPath);
+            var success = MyTools.CopyAllPkG(pkgTypeKeyPath);
             if (!success) return;
             FromServer.Checked = false;
             DialogResult = DialogResult.Yes;
@@ -242,7 +240,10 @@ namespace Digiwin.Chun.Common.Views {
                     : PathTools.PathCombine(@"\\192.168.168.15\E10_Shadow", Toolpars.MVersion, customerName);
             }
             else {
-                var customerDir =Path.GetDirectoryName(Path.GetDirectoryName(PkgPathOld));
+                var customerDir = string.Empty;
+                if (!PkgPathOld.Equals(string.Empty)) {
+                  customerDir =Path.GetDirectoryName(Path.GetDirectoryName(PkgPathOld));
+                }
                 Toolpars.FormEntity.TxtPkGpath =
                     isPkg ? PkgPathOld  : $@"{customerDir}\{customerName}\{WdPr}\SRC";
             }
@@ -250,6 +251,10 @@ namespace Digiwin.Chun.Common.Views {
           
         }
 
-      
+        private void ModiPkgForm_FormClosed(object sender, FormClosedEventArgs e) {
+            CustomerText.Text = string.Empty;
+            FromServer.Checked = false;
+            SetPkgPath();
+        }
     }
 }

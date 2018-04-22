@@ -11,15 +11,15 @@ namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     /// 日志
     /// </summary>
-    public static class LogTool {
+    public static class LogTools {
         #region 日志
 
         /// <summary>
         ///     日志
         /// </summary>
         public static void WriteLogByTreeView(MyTreeView treeView) {
-            var toolpars = MyTool.Toolpars;
-            var pathDic = MyTool.GetTreeViewFilePath(treeView.Nodes);
+            var toolpars = MyTools.Toolpars;
+            var pathDic = MyTools.GetTreeViewFilePath(treeView.Nodes);
             var txtNewTypeKey = toolpars.FormEntity.TxtNewTypeKey;
             var varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
             if (!Directory.Exists(varAppPath))
@@ -68,7 +68,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="fileInfos"></param>
         public static void WriteToServer(IEnumerable<FileInfos> fileInfos) {
-            var toolpars = MyTool.Toolpars;
+            var toolpars = MyTools.Toolpars;
             SqlTools.InsertToolInfo(toolpars.FormEntity.TxtNewTypeKey, fileInfos);
         }
 

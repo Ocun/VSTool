@@ -193,7 +193,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="fileName"></param>
         /// <returns></returns>
         public static string GetSettingPath(string fileName) {
-            var toolPars = MyTool.Toolpars;
+            var toolPars = MyTools.Toolpars;
             var modelType= toolPars.ModelType;
             var path = string.Empty;
             var mvsToolpath = toolPars.MvsToolpath;

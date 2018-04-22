@@ -1,0 +1,941 @@
+﻿// create By 08628 20180411
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
+using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Properties;
+using Digiwin.Chun.Common.Views;
+
+namespace Digiwin.Chun.Common.Controller {
+    /// <summary>
+    ///     事件帮助类
+    /// </summary>
+    public class ControlTools {
+        /// <summary>
+        /// </summary>
+        public static Form VsForm { get; set; }
+        private static SplitContainer _splitContainer1;
+        private static SplitContainer _splitContainer2;
+        private static MyPanel _scrollPanel ;
+        private static MyTreeView _myTreeView1 ;
+        private static MyTreeView _myTreeView5 ;
+        private static MyTreeView _treeView1 ;
+        private static TextBox _txtPkGpath;
+        private static CheckBox _modiCkb;
+        private static readonly Toolpars Toolpars = MyTools.Toolpars ;
+        /// <summary>
+        /// 窗体控件SplitContainer1
+        /// </summary>
+        public static SplitContainer SplitContainer1 => _splitContainer1 ?? (_splitContainer1 = GetControlByName<SplitContainer>("SplitContainer1"));
+
+        /// <summary>
+        /// 窗体控件SplitContainer2
+        /// </summary>
+        public static SplitContainer SplitContainer2 => _splitContainer2 ?? (_splitContainer2 = GetControlByName<SplitContainer>("SplitContainer2"));
+        /// <summary>
+        /// 窗体控件ScrollPanel
+        /// </summary>
+        public static MyPanel ScrollPanel => _scrollPanel ?? (_scrollPanel = GetControlByName<MyPanel>("ScrollPanel"));
+        /// <summary>
+        /// 窗体控件MyTreeView1
+        /// </summary>
+        public static MyTreeView MyTreeView1 => _myTreeView1 ?? (_myTreeView1 = GetControlByName<MyTreeView>("MyTreeView1"));
+        /// <summary>
+        /// 窗体控件myTreeView5
+        /// </summary>
+        public static MyTreeView MyTreeView5 => _myTreeView5 ?? (_myTreeView5 = GetControlByName<MyTreeView>("MyTreeView5"));
+        /// <summary>
+        /// 窗体控件treeView1
+        /// </summary>
+        public static MyTreeView TreeView1 => _treeView1 ?? (_treeView1 = GetControlByName<MyTreeView>("TreeView1"));
+        /// <summary>
+        /// 窗体控件TxtPKGpath
+        /// </summary>
+        public static TextBox TxtPkGpath => _txtPkGpath ?? (_txtPkGpath = GetControlByName<TextBox>("TxtPkGpath"));
+        /// <summary>
+        /// 窗体控件TxtPKGpath
+        /// </summary>
+        public static CheckBox ModiCkb => _modiCkb ?? (_modiCkb = GetControlByName<CheckBox>("ModiCkb"));
+        
+
+        private static List<MyTreeView> _myTreeViews;
+
+        /// <summary>
+        /// 当前创建TreeView
+        /// </summary>
+        public static List<MyTreeView> MyTreeViews => _myTreeViews ?? (_myTreeViews = MyTreeViewTools.GetTreeViews(ScrollPanel.Controls[0]));
+
+        private static List<SplitContainer> _mySplitContainers;
+
+        /// <summary>
+        /// 当前创建SplitContainers
+        /// </summary>
+        public static List<SplitContainer> MySplitContainers => _mySplitContainers ?? (_mySplitContainers = MyTreeViewTools.GetSplitContainerList(ScrollPanel.Controls[0]));
+
+        /// <summary>
+        ///     防止重获焦点时，选择项瞬间跳离的问题
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void MyTreeView_Leave(object sender, EventArgs e) {
+            var mytreeView = sender as MyTreeView;
+            if (mytreeView != null)
+                mytreeView.SelectedNode = null;
+        }
+    
+        /// <summary>
+        /// 获取指定控件
+        /// </summary>
+        /// <param name="name"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T GetControlByName<T>(string name) where T : class {
+            try {
+                var controls = VsForm.Controls.Find(name, true);
+                T tagertControl = null;
+                foreach (var c in controls) {
+                    tagertControl = c as T;
+                    if (tagertControl != null)
+                        break;
+                }
+                return tagertControl;
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        #region 事件
+
+        /// <summary>
+        ///  主界面加载时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void VSTOOL_Load(object sender, EventArgs e)
+        {
+            MyTreeViewTools.CreateRightView(MyTreeView5);
+            CreateTree("RootView");
+            CreateMainView();
+        }
+
+        /// <summary>
+        /// 设置流式布局，最大3列。
+        /// 因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void VSTOOL_ClientSizeChanged(object sender, EventArgs e)
+        {
+            if (MyTreeView1.SelectedNode is MyTreeNode node)
+                CreateTree(node.BuildeType.Id);
+        }
+
+        /// <summary>
+        /// 创建动作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void BtnCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var pathInfo = Toolpars.PathEntity;
+                if (!ModiCkb.Checked)
+                {
+                    var dicPath = MyTools.GetTreeViewFilePath(MyTreeView5.Nodes);
+                    var fileInfos = new List<FileInfos>();
+                    foreach (var kv in dicPath)
+                    {
+                        fileInfos.AddRange(kv.Value);
+                    }
+                    new Thread(() => LogTools.WriteToServer(fileInfos)
+                    ).Start();
+
+                    if ((string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal))
+                        || (string.Equals(Toolpars.FormEntity.TxtNewTypeKey, string.Empty, StringComparison.Ordinal)))
+                    {
+                        MessageBox.Show(Resources.TypekeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    var success = MyTools.CreateFile(MyTreeView5);
+
+                    if (!success) return;
+                    if (MyTreeView1.SelectedNode != null)
+                    {
+                        var node = MyTreeView1.SelectedNode as MyTreeNode;
+                        ShowTreeView(node);
+                    }
+                    MyTreeViewTools.CreateRightView(MyTreeView5);
+                }
+                else
+                {
+                    var fileInfos = MyTools.GetTreeViewPath(TreeView1.Nodes);
+                    //new Thread( ()=> {
+                    //        Invoke(new Action(()=>{
+                    //            LogTool.WriteToServer(Toolpars, fileInfos);
+                    //        }));
+                    //    }
+                    //).Start();
+                    new Thread(() => LogTools.WriteToServer(fileInfos)
+
+                    ).Start();
+
+                    if ((string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal))
+                        || (string.Equals(Toolpars.FormEntity.TxtNewTypeKey, string.Empty, StringComparison.Ordinal))
+                    )
+                    {
+                        MessageBox.Show(Resources.TypekeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
+
+                    if (!Directory.Exists(pkgDir))
+                    {
+                        MessageBox.Show(string.Format(Resources.DirNotExisted, pkgDir), Resources.ErrorMsg, MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        return;
+                    }
+                    var flag = true;
+
+                    var targetDir = pathInfo.TypeKeyFullRootDir;
+                    if (Directory.Exists(targetDir))
+                    {
+                        var result =
+                            MessageBox.Show(targetDir + Environment.NewLine + Resources.DirExisted,
+                                Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result == DialogResult.Yes)
+                        {
+                            OldTools.DeleteAll(targetDir);
+                        }
+                        else
+                        {
+                            flag = false;
+                        }
+                    }
+                    if (!flag) return;
+                    flag = MyTools.CopyModi(TreeView1.Nodes);
+                    if (!flag)
+                        return;
+                    MessageBox.Show(Resources.GenerateSucess);
+                    ModiCkb.Checked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 清空按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void BtnClear_Click(object sender, EventArgs e)
+        {
+            MyTools.InitBuilderEntity();
+            if (MyTreeView1.SelectedNode != null)
+            {
+                var node = MyTreeView1.SelectedNode as MyTreeNode;
+                ShowTreeView(node);
+            }
+            MyTreeViewTools.CreateRightView(MyTreeView5);
+
+        }
+
+
+        /// <summary>
+        ///     打开文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void BtnOpenTo_Click(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            var name = btn?.Name;
+            if (name != null && name.Equals("BtnOpenTo"))
+            {
+                var targetDir = Toolpars.FormEntity.TxtToPath;
+                MyTools.OpenDir(targetDir);
+            }
+            else if (name != null && name.Equals("PkgOpenTo"))
+            {
+                var targetDir = Toolpars.FormEntity.TxtPkGpath;
+                MyTools.OpenDir(targetDir);
+            }
+        }
+
+        /// <summary>
+        /// 打开个案目录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void BtnOpen_Click(object sender, EventArgs e) //打开文件夹
+        {
+            var targetDir = Toolpars.PathEntity.TypeKeyFullRootDir;
+            MyTools.OpenDir(targetDir);
+        }
+
+        /// <summary>
+        /// 动态改变借用typekey
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void TxtNewTypeKey_TextChanged(object sender, EventArgs e)
+        {
+            if (!ModiCkb.Checked)
+                return;
+             var typeKeyTbBox = sender as TextBox;
+            if (typeKeyTbBox == null)
+                // ReSharper disable once RedundantJumpStatement
+                return;
+            //if (!string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal)
+            //    && !string.Equals(typeKeyTbBox.Text.Trim(), string.Empty, StringComparison.Ordinal)
+            //    && !string.Equals(Toolpars.FormEntity.PkgTypekey, string.Empty, StringComparison.Ordinal)
+            //)
+            //{
+            //    var pathInfo = Toolpars.PathEntity;
+            //    var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
+            //    if (Directory.Exists(pkgDir))
+            //        MyTreeViewTools.MyPaintTreeView(pkgDir);
+            //    else
+            //        TreeView1.Nodes.Clear();
+            //}
+            //else
+            //{
+            //    TreeView1.Nodes.Clear();
+            //}
+        }
+
+        /// <summary>
+        /// 行业包选中时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void Industry_CheckedChanged(object sender, EventArgs e) {
+            var control = sender as CheckBox;
+            if (control == null)
+                return;
+            Toolpars.MIndustry = control.Checked;
+            Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
+            if (Toolpars.MIndustry)
+                Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void BtnP_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(@"\\192.168.168.15\E10_Shadow"))
+                Process.Start(@"\\192.168.168.15\E10_Shadow");
+            else
+                MessageBox.Show(string.Format(Resources.DirNotExisted, string.Empty), Resources.WarningMsg,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void BtnG_Click(object sender, EventArgs e)
+        {
+            if (Toolpars.FormEntity.PkgTypekey == "")
+                return;
+            var pathInfo = Toolpars.PathEntity;
+            var targetDir = pathInfo.PkgTypeKeyFullRootDir;
+            if (Directory.Exists(targetDir))
+                Process.Start(targetDir);
+            else
+                MessageBox.Show(string.Format(Resources.DirNotExisted, string.Empty), Resources.WarningMsg,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        #region 借用按钮
+
+        /// <summary>
+        /// 修改按钮，点击弹出窗口，指示将借用的TYPEKEY与新的TypeKey
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+           
+            if (ModiCkb.Checked)
+            {
+                var form1 = new ModiPkgForm(Toolpars);
+                if (form1.ShowDialog() == DialogResult.OK)
+                {
+
+                    var empStr = string.Empty;
+                    TreeView1.Visible = true;
+                    ScrollPanel.Controls[0].Visible = false;
+                    ScrollPanel.Visible = false;
+                    if (!string.Equals(Toolpars.FormEntity.TxtToPath, empStr, StringComparison.Ordinal)
+                        && !string.Equals(Toolpars.FormEntity.TxtNewTypeKey, empStr, StringComparison.Ordinal)
+                        && !string.Equals(Toolpars.FormEntity.PkgTypekey, empStr, StringComparison.Ordinal))
+                    {
+                        var pathInfo = Toolpars.PathEntity;
+                        var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
+
+                        if (Directory.Exists(pkgDir))
+                        {
+                            MyTreeView5.Nodes.Clear();
+                            TreeView1.Nodes.Clear();
+                            TreeView1.Nodes.Add(MyTreeViewTools.MyPaintTreeView(pkgDir)); //mfroma
+                            TreeView1.ExpandAll();
+                        }
+                        else
+                        {
+                            MessageBox.Show(string.Format(Resources.DirNotExisted, pkgDir), Resources.WarningMsg, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ModiCkb.Checked = !ModiCkb.Checked;
+                            MyTreeView5.Nodes.Clear();
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(Resources.TypekeyNotExisted);
+                        ModiCkb.Checked = !ModiCkb.Checked;
+                    }
+                }
+                else
+                {
+                    ModiCkb.Checked = !ModiCkb.Checked;
+                }
+
+            }
+            else
+            {
+                TreeView1.Nodes.Clear();
+                TreeView1.Visible = false;
+                ScrollPanel.Visible = true;
+                ScrollPanel.Controls[0].Visible = true;
+                if (MyTreeView1.SelectedNode is MyTreeNode node)
+                    CreateTree(node.BuildeType.Id);
+            }
+            TxtPkGpath.Text = Toolpars.FormEntity.TxtPkGpath;
+        }
+        #endregion
+
+
+        /// <summary>
+        /// 帮助按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new Thread(() => { MyTools.OpenWord("Help.docx"); }).Start();
+        }
+
+        /// <summary>
+        /// 左侧导航TreeView单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void MyTreeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            //预防非法跳转
+            ModiCkb.Checked = false;
+            var node = e.Node as MyTreeNode;
+            MyTreeView1.SelectedNode = node;
+            ShowTreeView(node);
+        }
+
+
+        #region 拖拽事件
+
+        /// <summary>
+        /// 拖拽事件进入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void ScrollPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            if (MyTreeView1.SelectedNode == null)
+                return;
+            var node = MyTreeView1.SelectedNode as MyTreeNode;
+            var b = node?.BuildeType.Id.Equals("MYTools");
+            if (b == null || !(bool)b)
+                return;
+            var fileList = ((Array)e.Data.GetData(DataFormats.FileDrop));
+            var f = true;
+            foreach (var filePath in fileList)
+            {
+                string[] extName = { ".lnk", ".exe" };
+                var exeExtension = Path.GetExtension(filePath.ToString());
+                if (!extName.Contains(exeExtension))
+                    f = false;
+            }
+            if (!f) return;
+
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
+        }
+
+        /// <summary>
+        /// 拖拽事件结束
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void ScrollPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            var fileList = ((Array)e.Data.GetData(DataFormats.FileDrop));
+            foreach (var file in fileList)
+            {
+                var filePath = file.ToString();
+                if (!File.Exists(filePath))
+                    return;
+                var form = new CreateToolForm(filePath, Toolpars);
+                if (form.ShowDialog() != DialogResult.OK)
+                    continue;
+                if (MyTreeView1.SelectedNode == null)
+                {
+                    return;
+                }
+                var node = MyTreeView1.SelectedNode as MyTreeNode;
+                if (node != null)
+                    CreateTree(node.BuildeType.Id);
+            }
+
+        }
+
+        #endregion
+
+        #endregion
+        
+        /// <summary>
+        /// 切换主视图与修改视图
+        /// </summary>
+        /// <param name="node"></param>
+        public static void ShowTreeView(MyTreeNode node)
+        {
+            TreeView1.Visible = false;
+            ScrollPanel.Visible = true;
+            ScrollPanel.Controls[0].Visible = true;
+            CreateTree(node.BuildeType.Id);
+        }
+        
+        #region 创建主视图
+
+        /// <summary>
+        /// 创建主视图SplitContainer
+        /// </summary>
+        public static void CreateMainView()
+        {
+            var iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
+            var width = iActulaWidth * 3 / 4;
+            var spiltWidth = Toolpars.FormEntity.SpiltWidth;
+            var maxSplitCount = Toolpars.FormEntity.MaxSplitCount;
+            var count = width / spiltWidth;
+            count = count == 0 ? 1 : count;
+            count = count > maxSplitCount ? maxSplitCount : count;
+            var mySpilterContaniers = new List<SplitContainer>();
+            for (var i = 0; i < count; i++)
+            {
+                var mySplitContainer = new SplitContainer
+                {
+                    IsSplitterFixed = true,
+                    Location = new Point(0, 0),
+                    Name = "MySplitContainer" + i + 1,
+                    SplitterWidth = 1
+
+                };
+                var myTreeView = CreateMyTreeView(i);
+                mySplitContainer.Panel1.Controls.Add(myTreeView);
+                if (i == 0)
+                {
+                    mySplitContainer.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                              | AnchorStyles.Right;
+                    mySplitContainer.Size = new Size(ScrollPanel.ClientSize.Width, ScrollPanel.ClientSize.Height);
+                }
+                else if (i <= count - 1)
+                {
+                    mySplitContainer.Dock = DockStyle.Fill;
+                    mySpilterContaniers[i - 1].Panel2.Controls.Add(mySplitContainer);
+                }
+                if (i == count - 1)
+                {
+                    var lastmyTreeView = CreateMyTreeView(i + 1);
+                    mySplitContainer.Panel2.Controls.Add(lastmyTreeView);
+                }
+
+                mySpilterContaniers.Add(mySplitContainer);
+            }
+
+            ScrollPanel.Controls.Clear();
+            ScrollPanel.Controls.Add(mySpilterContaniers[0]);
+
+
+        }
+
+
+        /// <summary>
+        /// 创建主视图TreeView
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public static MyTreeView CreateMyTreeView(int i)
+        {
+            var myTreeView = new MyTreeView
+            {
+                BackColor = SystemColors.Window,
+                BorderStyle = BorderStyle.None,
+                DescriptionColor = Color.DimGray,
+                Dock = DockStyle.Fill,
+                DrawMode = TreeViewDrawMode.OwnerDrawText,
+                Font = new Font("新宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134),
+                ForeColor = Color.Black,
+                FullRowSelect = true,
+                HotTracking = true,
+                ImeMode = ImeMode.On,
+                IsCard = false,
+                ItemHeight = 85,
+                Location = new Point(0, 0),
+                Margin = new Padding(4, 4, 4, 4),
+                Name = "myTreeView" + i,
+                NodeFont = null,
+                NodeCheckBoxSize = new Size(20, 20),
+                PaddingSetting = new Point(5, 15),
+                Scrollable = false,
+                ShowDescription = true,
+                ShowLines = false,
+                ShowPlusMinus = false,
+                Size = new Size(333, 584),
+                TabIndex = 35
+            };
+            myTreeView.SetAutoScrollEvent -= MyTreeView2_SetAutoScrollEvent;
+            myTreeView.SetAutoScrollEvent += MyTreeView2_SetAutoScrollEvent;
+            myTreeView.AfterCheck -= MyTreeView2_AfterCheck;
+            myTreeView.AfterCheck += MyTreeView2_AfterCheck;
+            myTreeView.NodeMouseDoubleClick -= MyTreeView2_NodeMouseDoubleClick;
+            myTreeView.NodeMouseDoubleClick += MyTreeView2_NodeMouseDoubleClick;
+            myTreeView.Leave -= MyTreeView_Leave;
+            myTreeView.Leave += MyTreeView_Leave;
+            return myTreeView;
+        }
+
+
+        /// <summary>
+        /// 设置分割尺寸
+        /// </summary>
+        /// <returns></returns>
+        public static int SetSplitSize()
+        {
+            var clientSize = SplitContainer2.Panel2.ClientSize;
+            var width = clientSize.Width;
+            if (ScrollPanel.Controls.Count == 0)
+            {
+                return 0;
+            }
+            var splitContainerList = MySplitContainers;
+            var splitContainer3 = ScrollPanel.Controls[0];
+            splitContainer3.Size = new Size(clientSize.Width, clientSize.Height);
+            var count = GetSplitCount(); //显示的个数
+            width /= count;
+            for (var i = 0; i < count; i++)
+            {
+                var splitContainer = splitContainerList[i];
+                splitContainer.SplitterDistance = width;
+                splitContainer.Panel2Collapsed = i == count - 1;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 设置3个treeview外部panel  响应treeview滚动事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="upAndDown"></param>
+        public static void MyTreeView2_SetAutoScrollEvent(object sender, int upAndDown)
+        {
+            var vscroll = ScrollPanel.VerticalScroll.Visible;
+            if (!vscroll)
+                return;
+            var splitContainer = ScrollPanel.Controls[0] as SplitContainer;
+            var myTreeView2 = splitContainer?.Panel1.Controls[0] as MyTreeView;
+            if (myTreeView2 == null)
+                return;
+            var growbase = myTreeView2.Nodes.Count / 20;
+            var growNum = growbase == 0 ? 40 : growbase * 40;
+
+            var minNum = ScrollPanel.VerticalScroll.Minimum;
+            var cnum = ScrollPanel.VerticalScroll.Value;
+            if (upAndDown == 1)
+            {
+                ScrollPanel.VerticalScroll.Value += growNum;
+            }
+            else
+            {
+                if (cnum - growNum > minNum)
+                {
+                    ScrollPanel.VerticalScroll.Value -= growNum;
+                }
+                else
+                {
+                    ScrollPanel.VerticalScroll.Value = minNum;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 单击选择,选择后将建立对应的文件信息，
+        /// 指示模版文件位置与将要创建的文件位置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void MyTreeView2_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            Toolpars.MDistince = false;
+            var trueStr = "True";
+            var falseStr = "False";
+            if (e.Node is MyTreeNode node)
+            {
+                var builderType = node.BuildeType;
+                if (builderType.ReadOnly != null
+                    && builderType.ReadOnly.Equals(trueStr))
+                {
+                    return;
+                }
+
+                var fileInfos = new List<FileInfos>();
+                if (e.Node.Checked)
+                {
+                    builderType.Checked = trueStr;
+                    if (!ModiCkb.Checked)
+                    {
+                        if ((builderType.ShowParWindow != null
+                             && builderType.ShowParWindow.Equals(falseStr))
+                        )
+                        {
+                            fileInfos = MyTools.CreateFileMappingInfo(builderType);
+
+                        }
+                        else
+                        {
+                            var myForm =
+                                new ModiName(builderType, Toolpars)
+                                { StartPosition = FormStartPosition.CenterParent };
+                            if (myForm.ShowDialog() == DialogResult.OK)
+                            {
+                                fileInfos = myForm.FileInfos;
+                            }
+                            else
+                            {
+                                builderType.Checked = falseStr;
+                                e.Node.Checked = false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    builderType.Checked = falseStr;
+                }
+                if (MyTreeView1.SelectedNode != null)
+                {
+                    var parNode = MyTreeView1.SelectedNode as MyTreeNode;
+                    var parItem = Toolpars.BuilderEntity.BuildeTypies.ToList()
+                        .Where(et => parNode != null && et.Id.Equals(parNode.BuildeType.Id)).ToList();
+                    if (parItem.Count > 0)
+                    {
+                        var citem = parItem[0].BuildeItems
+                            .Where(et =>
+                            {
+                                var myTreeNode = e.Node as MyTreeNode;
+                                return myTreeNode != null && et.Id.Equals(myTreeNode.BuildeType.Id);
+                            }).ToList();
+                        if (citem.Count > 0)
+                        {
+                            if (e.Node.Checked)
+                            {
+                                citem.ForEach(ee =>
+                                    {
+                                        ee.Checked = trueStr;
+                                        ee.FileInfos = fileInfos;
+                                    }
+
+                                );
+                            }
+                            else
+                            {
+                                citem.ForEach(ee =>
+                                {
+                                    ee.Checked = falseStr;
+                                    ee.FileInfos = fileInfos;
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            MyTreeViewTools.CreateRightView(MyTreeView5);
+        }
+
+        /// <summary>
+        /// 主界面双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void MyTreeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            var node = e.Node as MyTreeNode;
+            if (node == null) return;
+            var bt = node.BuildeType;
+            if (bt?.IsPlug != null &&
+                bt.IsPlug.Equals("True")
+            )
+            {
+                MyTools.CallModule(bt);
+            }
+            else if (bt?.IsTools == null
+                     || !bt.IsTools.Equals("True"))
+            {
+                if (bt?.Checked != null
+                    && bt.Checked.Equals("True"))
+                {
+                    node.Checked = false;
+                }
+                else
+                {
+                    node.Checked = true;
+                }
+            }
+        }
+
+
+
+
+        #endregion
+        
+
+        /// <summary>
+        /// 绘制左侧导航及主视图区
+        /// </summary>
+        /// <param name="id"></param>
+        public static void CreateTree(string id)
+        {
+            var buildeEntity = Toolpars.BuilderEntity;
+
+            var item = buildeEntity.BuildeTypies.Where(et => et.Id.Equals(id) || id.Equals("RootView")).ToList();
+
+            if (item.Count <= 0)
+                return;
+            if (id.Equals("RootView"))
+            {
+                MyTreeViewTools.CreateTree(MyTreeView1, item, false);
+                return;
+            }
+            if (item[0].BuildeItems == null) return;
+
+            var splitContainers = MySplitContainers;
+            if (!splitContainers[0].Visible) return;
+            var splitCount = SetSplitSize();
+            var mainViews = MyTreeViews;
+            mainViews.ForEach(tv => tv.Nodes.Clear());
+
+            CreateTreeView(splitCount, item);
+            var nodeCount = mainViews[0].Nodes.Count;
+            var hight = nodeCount * mainViews[0].ItemHeight;
+            if (hight > SplitContainer2.Panel2.ClientSize.Height)
+            {
+                splitContainers[0].Size = new Size(SplitContainer2.Panel2.ClientSize.Width, hight);
+            }
+            else
+            {
+                splitContainers[0].Size = new Size(SplitContainer2.Panel2.ClientSize.Width,
+                    SplitContainer2.Panel2.ClientSize.Height);
+            }
+
+        }
+      
+        /// <summary>
+        /// 创建视图
+        /// </summary>
+        /// <param name="splitCount"></param>
+        /// <param name="item"></param>
+        public static void CreateTreeView(int splitCount, IReadOnlyList<BuildeType> item
+        )
+        {
+
+            var buildeItems = item[0].BuildeItems
+                .Where(builderItem => builderItem.Visiable == null || !builderItem.Visiable.Equals("False")).ToList();
+            var count = buildeItems.Count;
+            var skipSeq = 0;
+            var evgCount = count / splitCount;
+            var surplusCount = count % splitCount;
+            var splitContainers = MySplitContainers;
+            var subSurplusCount = surplusCount % splitCount;
+            foreach (var splitContainer in splitContainers)
+            {
+                var tv = splitContainer.Panel1.Controls[0] as MyTreeView;
+                //项目小于分列数量，每项取一个
+                if (evgCount == 0 && count < splitCount)
+                {
+                    if (skipSeq <= count - 1)
+                    {
+                        var item2 = buildeItems.Skip(skipSeq++).Take(1).ToList();
+                        MyTreeViewTools.CreateTree(tv, item2, true);
+                    }
+                }
+                //均分
+                else if (surplusCount == 0)
+                {
+                    var item2 = buildeItems.Skip(skipSeq).Take(evgCount).ToList();
+                    skipSeq += evgCount;
+                    MyTreeViewTools.CreateTree(tv, item2, true);
+                }
+                //有余项
+                else
+                {
+                    var subCount = evgCount;
+                    if (subSurplusCount != 0)
+                    {
+                        subSurplusCount--;
+                        subCount = evgCount + 1;
+                    }
+
+                    var item2 = buildeItems.Skip(skipSeq).Take(subCount).ToList();
+
+                    skipSeq += subCount;
+                    MyTreeViewTools.CreateTree(tv, item2, true);
+                }
+                if (splitContainer.Panel2Collapsed)
+                {
+                    break;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 获得分割数量
+        /// </summary>
+        /// <returns></returns>
+        public static int GetSplitCount()
+        {
+            var spiltWidth = Toolpars.FormEntity.SpiltWidth;
+            var maxSplitCount = Toolpars.FormEntity.MaxSplitCount;
+            var clientSize = SplitContainer2.Panel2.ClientSize;
+            var currentWidth = clientSize.Width;
+            var count = currentWidth / spiltWidth; //显示的个数
+            count = count == 0 ? 1 : count;
+            var splitCount = MySplitContainers.Count();
+            count = count > splitCount ? splitCount : count;
+            count = count > maxSplitCount ? maxSplitCount : count;
+            return count;
+        }
+    }
+}

@@ -29,7 +29,7 @@ namespace Digiwin.Chun.Common.Views {
         /// <summary>
         ///     主窗体参数
         /// </summary>
-        public Toolpars Toolpar { get; set; } = MyTool.Toolpars;
+        public Toolpars Toolpar { get; set; } = MyTools.Toolpars;
 
         private Hashtable CheckServerTable { get; set; }
 
@@ -49,7 +49,7 @@ namespace Digiwin.Chun.Common.Views {
                 args += " /r:false";
                 args += " /l:false";
             }
-            MyTool.ServerOn(args);
+            MyTools.ServerOn(args);
         }
 
         /// <summary>
@@ -59,10 +59,10 @@ namespace Digiwin.Chun.Common.Views {
             ServerOn();
 
             try {
-                var isServerOn = MyTool.CheckProcessOn("Digiwin.Mars.ServerStart");
+                var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
                 if (!isServerOn)
                     return;
-                var isOn = MyTool.CheckProcessOn("Digiwin.Mars.ClientStart");
+                var isOn = MyTools.CheckProcessOn("Digiwin.Mars.ClientStart");
                 if (isOn) {
                     MessageBox.Show(Resources.ClientRunning);
                     return;
@@ -130,7 +130,7 @@ namespace Digiwin.Chun.Common.Views {
             var args = string.Empty;
             if (comboBox1.SelectedValue.Equals(1))
                 args += " /d";
-            MyTool.ClientOn(Toolpar, args);
+            MyTools.ClientOn(Toolpar, args);
         }
 
         //^_^20160511 add by nicknt9095 for 自動偵測SERVER啟動CLIENT<S00349_20160505_02>--begin
@@ -140,7 +140,7 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="source"></param>
         /// <param name="e"></param>
         private void OnAutoOpenClientTimedEvent(object source, ElapsedEventArgs e) {
-            var tIsServerOpen = MyTool.CheckProcessOn("Digiwin.Mars.ServerStart");
+            var tIsServerOpen = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
 
             if (!tIsServerOpen) {
                 _aTimer.Enabled = false;
@@ -186,7 +186,7 @@ namespace Digiwin.Chun.Common.Views {
         private static void KillProcess() {
             var killProcessName = new[]
                 {"Digiwin.Mars.ClientStart", "Digiwin.Mars.ServerStart", "Digiwin.Mars.AccountSetStart"};
-            MyTool.KillProcess(killProcessName);
+            MyTools.KillProcess(killProcessName);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CopyClientBtn_Click(object sender, EventArgs e) {
-            MyTool.CopyUIdll();
+            MyTools.CopyUIdll();
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="e"></param>
         private void CopyBtn_Click(object sender, EventArgs e) {
             try {
-                MyTool.CopyDll();
+                MyTools.CopyDll();
                 MessageBox.Show(Resources.CopySucess);
             }
             catch (Exception ex) {
@@ -225,7 +225,7 @@ namespace Digiwin.Chun.Common.Views {
                     "Digiwin.Mars.ServerStart",
                     "Digiwin.Mars.AccountSetStart"
                 };
-                var f = MyTool.CheckCanCopyDll(processNames);
+                var f = MyTools.CheckCanCopyDll(processNames);
                 if (f)
                     CopyBtn_Click(null, null);
                 else

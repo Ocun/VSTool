@@ -13,7 +13,7 @@ namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     ///     获取应用程序图标
     /// </summary>
-    public class IconTool {
+    public class IconTools {
         /// <summary>
         ///     存储图标
         /// </summary>
@@ -44,7 +44,7 @@ namespace Digiwin.Chun.Common.Controller {
         ///     初始化Tool图标
         /// </summary>
         public static void InitImageList() {
-            var bts =MyTool.Toolpars.BuilderEntity.BuildeTypies;
+            var bts =MyTools.Toolpars.BuilderEntity.BuildeTypies;
             InitImageList(bts);
         }
 

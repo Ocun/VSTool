@@ -19,6 +19,6 @@
         Binary
     }
 
-    internal class EnumHelper {
+    internal class EnumTools {
     }
 }

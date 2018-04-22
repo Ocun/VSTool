@@ -264,10 +264,10 @@ namespace Digiwin.Chun.Common.Views
             if (bt?.IsTools == null || !bt.IsTools.Equals("True"))
                 return;
             if (bt.Url == null || bt.Url.Trim().Equals(string.Empty)) {
-                MyTool.SetToolsPath(bt);
+                MyTools.SetToolsPath(bt);
             }
             else {
-                MyTool.OpenTools(bt);
+                MyTools.OpenTools(bt);
             }
         }
 
@@ -425,7 +425,7 @@ namespace Digiwin.Chun.Common.Views
         /// <summary>
         /// 节点图片
         /// </summary>
-        public  Hashtable NodeImages => _nodeImages ?? (_nodeImages = IconTool.ImageList);
+        public  Hashtable NodeImages => _nodeImages ?? (_nodeImages = IconTools.ImageList);
 
         /// <summary>
         /// 显示字体
