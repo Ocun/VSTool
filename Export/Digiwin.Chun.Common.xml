@@ -831,6 +831,13 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            增加快捷键编辑菜单
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_ClientSizeChanged(System.Object,System.EventArgs)">
             <summary>
             设置流式布局，最大可设定
@@ -2706,9 +2713,9 @@
             删除按钮
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Views.MyTreeView.EditState">
+        <member name="P:Digiwin.Chun.Common.Views.MyTreeView.Toolpars">
             <summary>
-            指示编辑状态
+            主窗体参数
             </summary>
         </member>
         <member name="E:Digiwin.Chun.Common.Views.MyTreeView.SetAutoScrollEvent">

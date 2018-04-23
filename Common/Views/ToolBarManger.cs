@@ -24,7 +24,7 @@ namespace Digiwin.Chun.Common.Views {
         public ToolBarManger() {
             InitializeComponent();
             InitCombox();
-            Toolpars = MyTools.Toolpars;
+          
         }
 
         /// <summary>
@@ -34,6 +34,7 @@ namespace Digiwin.Chun.Common.Views {
         private Hashtable CheckServerTable { get; set; }
 
         private void ButtonManger_Load(object sender, EventArgs e) {
+            Toolpars = MyTools.Toolpars;
         }
 
         /// <summary>

@@ -36,7 +36,7 @@ namespace VSTool {
 
         #region 屬性
 
-        public Toolpars Toolpars { get; } = MyTools.Toolpars;
+        private Toolpars Toolpars { get; } = MyTools.Toolpars;
 
         #endregion
 
@@ -56,6 +56,9 @@ namespace VSTool {
 
         private void AddEventHandler() {
             ControlTools.VsForm = this;
+            Load += ControlTools.VSTOOL_Load;
+            ClientSizeChanged += ControlTools.VSTOOL_ClientSizeChanged;
+            KeyDown += ControlTools.VSTOOL_KeyDown;
             BtnCreate.Click += ControlTools.BtnCreate_Click;
             btnClear.Click += ControlTools.BtnClear_Click;
             BtnOpenTo.Click += ControlTools.BtnOpenTo_Click;
@@ -70,8 +73,6 @@ namespace VSTool {
             linkLabel1.LinkClicked += ControlTools.LinkLabel1_LinkClicked;
             ScrollPanel.DragDrop += ControlTools.ScrollPanel_DragDrop;
             ScrollPanel.DragEnter += ControlTools.ScrollPanel_DragEnter;
-            ClientSizeChanged += ControlTools.VSTOOL_ClientSizeChanged;
-            Load += ControlTools.VSTOOL_Load;
         }
 
 
@@ -87,5 +88,6 @@ namespace VSTool {
                 borderColor, borderWidth, borderLineStyleNo);
         }
 
+      
     }
 }

@@ -36,6 +36,7 @@ namespace Digiwin.Chun.Common.Views
 
 
         private void InitPars() {
+            Toolpars = MyTools.Toolpars;
             DoubleBuffered = true;
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw |
@@ -246,7 +247,8 @@ namespace Digiwin.Chun.Common.Views
                    
                 }
             }
-            if (EditState)
+            var editState = Toolpars.FormEntity.EditState;
+            if (editState)
             {
                 var imgRect1 = new Rectangle(Width - 30, node.Bounds.Y+5, 25, 25);
 
@@ -263,9 +265,9 @@ namespace Digiwin.Chun.Common.Views
         /// </summary>
         public Image DelImage { get; set; } = Resources.delete;
         /// <summary>
-        /// 指示编辑状态
+        /// 主窗体参数
         /// </summary>
-        public bool EditState { get; set; } = MyTools.Toolpars.FormEntity.EditState;
+        public Toolpars Toolpars { private get; set; } 
         /// <summary>
         /// 相应外部滚动事件
         /// </summary>
@@ -443,7 +445,7 @@ namespace Digiwin.Chun.Common.Views
         /// <summary>
         /// 节点图片
         /// </summary>
-        public  Hashtable NodeImages => _nodeImages ?? (_nodeImages = IconTools.ImageList);
+        private Hashtable NodeImages => _nodeImages ?? (_nodeImages = IconTools.ImageList);
 
         /// <summary>
         /// 显示字体

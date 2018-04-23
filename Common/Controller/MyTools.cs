@@ -75,6 +75,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="fileNames"></param>
         /// <param name="fromTypeKey"></param>
         /// <param name="toTypeKey"></param>
+        // ReSharper disable once UnusedMember.Global
         public static void CopyTo(string fromDir, string toDir, List<string> fileNames,
             string fromTypeKey, string toTypeKey) {
             var formFiles = GetFilePath(fromDir);
@@ -383,7 +384,8 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="items"></param>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        public static void ModiBuilderById(BuildeType[] items,string id, string value) {
+        private static void ModiBuilderById(BuildeType[] items,string id, string value) {
+            if (items == null) return;
             foreach (var buildeType in items)
             {
                 if (buildeType.Id.Equals(id)) {
@@ -470,8 +472,7 @@ namespace Digiwin.Chun.Common.Controller {
         public static void OpenWord(string fileName) {
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             var dirInfo = new DirectoryInfo(basePath);
-            var fileMatch = "Help.docx";
-            var matchFile = dirInfo.GetFiles(fileMatch, SearchOption.AllDirectories);
+            var matchFile = dirInfo.GetFiles(fileName, SearchOption.AllDirectories);
             if (matchFile.Any()) {
                 var path = matchFile[0].FullName;
 
@@ -509,7 +510,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
-        public static string FindCSproj(DirectoryInfo dir) {
+        private static string FindCSproj(DirectoryInfo dir) {
             var csproj = String.Empty;
             if (!dir.Exists)
                 return csproj;
@@ -524,7 +525,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="pathDic"></param>
         /// <returns></returns>
-        public static List<string> GetExistedMsg(Dictionary<string, List<FileInfos>> pathDic) {
+        private static List<string> GetExistedMsg(Dictionary<string, List<FileInfos>> pathDic) {
             var msgList = new List<string>();
             foreach (var kv in pathDic) {
                 var msg = kv.Key + ":" + Environment.NewLine;
@@ -786,7 +787,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         ///     一些必考项目,模板目录
         /// </summary>
-        public static void CreateBaseItem() {
+        private static void CreateBaseItem() {
             var templateType = Toolpars.SettingPathEntity.TemplateTypeKey;
             var newTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
             var fileMapping = Toolpars.FileMappingEntity;
@@ -812,7 +813,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         ///     修改个案文件的typeKey
         /// </summary>
-        public static void ModiFiles() {
+        private static void ModiFiles() {
             //个案路径
             var oldKey = Toolpars.OldTypekey;
             var pathInfo = Toolpars.PathEntity;
@@ -987,7 +988,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="pFileName"></param>
         /// <param name="pDistFolder"></param>
         /// <param name="filesinfo"></param>
-        public static void CopyPkg(string pFileName, string pDistFolder, List<FileInfos> filesinfo) {
+        private static void CopyPkg(string pFileName, string pDistFolder, List<FileInfos> filesinfo) {
             //文件夹替换，递归
             if (Directory.Exists(pFileName)) {
                 // Folder
@@ -1055,7 +1056,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         ///     批量修改个案cs文件
         /// </summary>
-        public static void ModiName() {
+        private static void ModiName() {
             var pkgTypekey = Toolpars.FormEntity.PkgTypekey;
             var txtNewTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
             var pathInfo = Toolpars.PathEntity;
@@ -1281,6 +1282,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="pFileName"></param>
         /// <param name="pArguments"></param>
+        // ReSharper disable once UnusedMember.Local
         private static void ExecuteCmd(string pFileName, string pArguments) {
             var process = new Process {
                 StartInfo = {

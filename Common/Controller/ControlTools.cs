@@ -127,6 +127,25 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
+        /// 增加快捷键编辑菜单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void VSTOOL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode != Keys.E)
+                || !e.Alt
+                || !e.Control) return;
+            Toolpars.FormEntity.EditState = !Toolpars.FormEntity.EditState;
+            var selectNode = MyTreeView1.SelectedNode;
+            CreateTree("RootView");
+            var myTreeNode = selectNode as MyTreeNode;
+            if (myTreeNode != null) {
+                CreateTree(myTreeNode.BuildeType.Id);
+            }
+        }
+
+        /// <summary>
         /// 设置流式布局，最大可设定
         /// 因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
         /// </summary>
