@@ -30,7 +30,7 @@ namespace Digiwin.Chun.Common.Views {
         /// <summary>
         /// 主窗体参数
         /// </summary>
-        public Toolpars Toolpars { get; set; }
+        private Toolpars Toolpars { get; set; }
         private Hashtable CheckServerTable { get; set; }
 
         private void ButtonManger_Load(object sender, EventArgs e) {

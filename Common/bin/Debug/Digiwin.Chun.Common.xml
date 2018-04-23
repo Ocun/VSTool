@@ -761,52 +761,56 @@
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.SplitContainer1">
             <summary>
-            窗体控件SplitContainer1
+                窗体控件SplitContainer1
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.SplitContainer2">
             <summary>
-            窗体控件SplitContainer2
+                窗体控件SplitContainer2
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.ScrollPanel">
             <summary>
-            窗体控件ScrollPanel
+                窗体控件ScrollPanel
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Controller.ControlTools.MyTreeView1">
+        <member name="P:Digiwin.Chun.Common.Controller.ControlTools.NavTreeView">
             <summary>
-            窗体控件MyTreeView1
+                窗体控件MyTreeView1
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Controller.ControlTools.MyTreeView5">
+        <member name="P:Digiwin.Chun.Common.Controller.ControlTools.RighteTreeView">
             <summary>
-            窗体控件myTreeView5
+                窗体控件myTreeView5
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.TreeView1">
             <summary>
-            窗体控件treeView1
+                窗体控件treeView1
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.TxtPkGpath">
             <summary>
-            窗体控件TxtPKGpath
+                窗体控件TxtPKGpath
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.ModiCkb">
             <summary>
-            窗体控件TxtPKGpath
+                窗体控件TxtPKGpath
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Controller.ControlTools.HeaderPanel">
+            <summary>
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.MyTreeViews">
             <summary>
-            当前创建TreeView
+                当前创建TreeView
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.MySplitContainers">
             <summary>
-            当前创建SplitContainers
+                当前创建SplitContainers
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.MyTreeView_Leave(System.Object,System.EventArgs)">
@@ -818,44 +822,84 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetControlByName``1(System.String)">
             <summary>
-            获取指定控件
+                获取指定控件
             </summary>
             <param name="name"></param>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.ShowTreeView(Digiwin.Chun.Common.Views.MyTreeNode)">
+            <summary>
+                切换主视图与修改视图
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CreateTree(System.String)">
+            <summary>
+                绘制左侧导航及主视图区
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetColmunData(System.Collections.Generic.IReadOnlyList{Digiwin.Chun.Common.Model.BuildeType},System.Int32,System.Int32)">
+            <summary>
+                获取每一列菜单数据
+            </summary>
+            <param name="items"></param>
+            <param name="splitCount"></param>
+            <param name="currentColmuns"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetEditItem">
+            <summary>
+                增加编辑项
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CreateTreeView(System.Int32,System.Collections.Generic.IReadOnlyList{Digiwin.Chun.Common.Model.BuildeType})">
+            <summary>
+                创建视图
+            </summary>
+            <param name="splitCount"></param>
+            <param name="items"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetSplitCount">
+            <summary>
+                获得分割数量
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_Load(System.Object,System.EventArgs)">
             <summary>
-             主界面加载时
+                主界面加载时
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
             <summary>
-            增加快捷键编辑菜单
+                增加快捷键编辑菜单
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_ClientSizeChanged(System.Object,System.EventArgs)">
             <summary>
-            设置流式布局，最大可设定
-            因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
+                设置流式布局，最大可设定
+                因为没有找到较好的前端实现方式，此方法不妥，winform程序不太自由
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.BtnCreate_Click(System.Object,System.EventArgs)">
             <summary>
-            创建动作
+                创建动作
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.BtnClear_Click(System.Object,System.EventArgs)">
             <summary>
-            清空按钮
+                清空按钮
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
@@ -869,153 +913,111 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.BtnOpen_Click(System.Object,System.EventArgs)">
             <summary>
-            打开个案目录
+                打开个案目录
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.TxtNewTypeKey_TextChanged(System.Object,System.EventArgs)">
             <summary>
-            动态改变借用typekey
+                动态改变借用typekey
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.Industry_CheckedChanged(System.Object,System.EventArgs)">
             <summary>
-            行业包选中时
+                行业包选中时
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.BtnP_Click(System.Object,System.EventArgs)">
             <summary>
-            
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.BtnG_Click(System.Object,System.EventArgs)">
             <summary>
-            
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CheckBox1_CheckedChanged(System.Object,System.EventArgs)">
             <summary>
-            修改按钮，点击弹出窗口，指示将借用的TYPEKEY与新的TypeKey
+                修改按钮，点击弹出窗口，指示将借用的TYPEKEY与新的TypeKey
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.LinkLabel1_LinkClicked(System.Object,System.Windows.Forms.LinkLabelLinkClickedEventArgs)">
             <summary>
-            帮助按钮
+                帮助按钮
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.MyTreeView1_NodeMouseClick(System.Object,System.Windows.Forms.TreeNodeMouseClickEventArgs)">
             <summary>
-            左侧导航TreeView单击
+                左侧导航TreeView单击
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.ScrollPanel_DragEnter(System.Object,System.Windows.Forms.DragEventArgs)">
             <summary>
-            拖拽事件进入
+                拖拽事件进入
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.ScrollPanel_DragDrop(System.Object,System.Windows.Forms.DragEventArgs)">
             <summary>
-            拖拽事件结束
+                拖拽事件结束
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.ShowTreeView(Digiwin.Chun.Common.Views.MyTreeNode)">
-            <summary>
-            切换主视图与修改视图
-            </summary>
-            <param name="node"></param>
-        </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CreateMainView">
             <summary>
-            创建主视图SplitContainer
+                创建主视图SplitContainer
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CreateMyTreeView(System.Int32)">
             <summary>
-            创建主视图TreeView
+                创建主视图TreeView
             </summary>
             <param name="i"></param>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.SetSplitSize">
             <summary>
-            设置分割尺寸
+                设置分割尺寸
             </summary>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.MyTreeView2_SetAutoScrollEvent(System.Object,System.Int32)">
             <summary>
-            设置3个treeview外部panel  响应treeview滚动事件
+                设置3个treeview外部panel  响应treeview滚动事件
             </summary>
             <param name="sender"></param>
             <param name="upAndDown"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.MyTreeView2_AfterCheck(System.Object,System.Windows.Forms.TreeViewEventArgs)">
             <summary>
-            单击选择,选择后将建立对应的文件信息，
-            指示模版文件位置与将要创建的文件位置
+                单击选择,选择后将建立对应的文件信息，
+                指示模版文件位置与将要创建的文件位置
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.MyTreeView2_NodeMouseDoubleClick(System.Object,System.Windows.Forms.TreeNodeMouseClickEventArgs)">
             <summary>
-            主界面双击事件
+                主界面双击事件
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CreateTree(System.String)">
-            <summary>
-            绘制左侧导航及主视图区
-            </summary>
-            <param name="id"></param>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetColmunData(System.Collections.Generic.IReadOnlyList{Digiwin.Chun.Common.Model.BuildeType},System.Int32,System.Int32)">
-            <summary>
-            获取每一列菜单数据
-            </summary>
-            <param name="items"></param>
-            <param name="splitCount"></param>
-            <param name="currentColmuns"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetEditItem">
-            <summary>
-            增加编辑项
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CreateTreeView(System.Int32,System.Collections.Generic.IReadOnlyList{Digiwin.Chun.Common.Model.BuildeType})">
-            <summary>
-            创建视图
-            </summary>
-            <param name="splitCount"></param>
-            <param name="items"></param>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.GetSplitCount">
-            <summary>
-            获得分割数量
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.CallUpdate">
             <summary>

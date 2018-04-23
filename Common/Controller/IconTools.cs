@@ -60,12 +60,20 @@ namespace Digiwin.Chun.Common.Controller {
                 var isTools = buildeType.IsTools;
                 var showIcon = buildeType.ShowIcon;
                 var url = buildeType.Url;
+                
+
                 if (PathTools.IsTrue(isTools) 
                     && PathTools.IsTrue(showIcon)
                     &&!PathTools.IsNullOrEmpty(url)) {
                     var exeName = Path.GetFileNameWithoutExtension(url);
-                    if (exeName != null && !ImageList.Contains(exeName))
-                        SetExeIcon(url);
+                    if (exeName != null && !ImageList.Contains(exeName)) {
+                        if (File.Exists(url)) {
+                            SetExeIcon(url);
+                        }
+                        else {
+                         ImageList.Add(buildeType.Id,Resources.defautApp);
+                        }
+                    }
                 }else if (PathTools.IsTrue(showIcon)) {
                     ImageList.Add(buildeType.Id,Resources.defautApp);
                 }
