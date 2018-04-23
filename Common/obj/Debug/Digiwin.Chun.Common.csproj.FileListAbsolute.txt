@@ -16,3 +16,21 @@ G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Vi
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiName.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiPkgForm.resources
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.SetToolPath.resources
+E:\MyProject\VSTool\Common\bin\Debug\Digiwin.Chun.Common.xml
+E:\MyProject\VSTool\Common\bin\Debug\Digiwin.Chun.Common.dll
+E:\MyProject\VSTool\Common\bin\Debug\Digiwin.Chun.Common.pdb
+E:\MyProject\VSTool\Common\bin\Debug\Newtonsoft.Json.dll
+E:\MyProject\VSTool\Common\bin\Debug\Newtonsoft.Json.xml
+E:\MyProject\VSTool\Common\obj\Debug\Interop.IWshRuntimeLibrary.dll
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.ResolveComReference.cache
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Properties.Resources.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ToolBarManger.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.CreateToolForm.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.InsertForm.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiName.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiPkgForm.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.SetToolPath.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.GenerateResource.Cache
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.dll
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.pdb

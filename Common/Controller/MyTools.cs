@@ -1249,7 +1249,7 @@ namespace Digiwin.Chun.Common.Controller {
                 return;
             }
             var tServerPath = Toolpars.Mplatform + "\\Server\\Control\\Digiwin.Mars.ServerStart.exe";
-            ExecuteCmd("IISRESET", "");
+          
 
             if (!File.Exists(tServerPath)) {
                 MessageBox.Show(string.Format(Resources.NotFindFile, tServerPath));
@@ -1261,7 +1261,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         ///     打开服务器
         /// </summary>
-        public static void ClientOn(Toolpars toolpar, string args) {
+        public static void ClientOn(string args) {
             if (!CheckProcessOn("Digiwin.Mars.ServerStart")) {
                 MessageBox.Show(Resources.ServerNotRunning);
                 return;
@@ -1270,14 +1270,14 @@ namespace Digiwin.Chun.Common.Controller {
                 MessageBox.Show(Resources.ClientRunning);
                 return;
             }
-            var tClientPath = toolpar.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
+            var tClientPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
             Process.Start(tClientPath, args);
         }
 
         #region executeCmd
 
         /// <summary>
-        ///     不知何用
+        ///     打开cmd执行bat命令，本项目未用到 mark
         /// </summary>
         /// <param name="pFileName"></param>
         /// <param name="pArguments"></param>

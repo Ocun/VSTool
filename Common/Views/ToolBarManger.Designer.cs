@@ -49,10 +49,9 @@
             this.StopBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StopBtn.Font = new System.Drawing.Font("宋体", 10F);
             this.StopBtn.ForeColor = System.Drawing.Color.DarkGreen;
-            this.StopBtn.Location = new System.Drawing.Point(275, 0);
-            this.StopBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StopBtn.Location = new System.Drawing.Point(206, 0);
             this.StopBtn.Name = "StopBtn";
-            this.StopBtn.Size = new System.Drawing.Size(19, 26);
+            this.StopBtn.Size = new System.Drawing.Size(14, 21);
             this.StopBtn.TabIndex = 43;
             this.StopBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.StopBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -68,10 +67,9 @@
             this.StartBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartBtn.Font = new System.Drawing.Font("宋体", 10F);
             this.StartBtn.ForeColor = System.Drawing.Color.DarkGreen;
-            this.StartBtn.Location = new System.Drawing.Point(95, 0);
-            this.StartBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartBtn.Location = new System.Drawing.Point(71, 0);
             this.StartBtn.Name = "StartBtn";
-            this.StartBtn.Size = new System.Drawing.Size(19, 26);
+            this.StartBtn.Size = new System.Drawing.Size(14, 21);
             this.StartBtn.TabIndex = 42;
             this.StartBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.StartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -87,10 +85,10 @@
             this.CopyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CopyBtn.Font = new System.Drawing.Font("宋体", 10F);
             this.CopyBtn.ForeColor = System.Drawing.Color.DarkGreen;
-            this.CopyBtn.Location = new System.Drawing.Point(328, 0);
-            this.CopyBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CopyBtn.Location = new System.Drawing.Point(248, 0);
+            this.CopyBtn.Margin = new System.Windows.Forms.Padding(5);
             this.CopyBtn.Name = "CopyBtn";
-            this.CopyBtn.Size = new System.Drawing.Size(19, 26);
+            this.CopyBtn.Size = new System.Drawing.Size(14, 21);
             this.CopyBtn.TabIndex = 44;
             this.CopyBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CopyBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -106,10 +104,10 @@
             this.RefreshBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RefreshBtn.Font = new System.Drawing.Font("宋体", 10F);
             this.RefreshBtn.ForeColor = System.Drawing.Color.DarkGreen;
-            this.RefreshBtn.Location = new System.Drawing.Point(301, 0);
-            this.RefreshBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RefreshBtn.Location = new System.Drawing.Point(226, 0);
+            this.RefreshBtn.Margin = new System.Windows.Forms.Padding(5);
             this.RefreshBtn.Name = "RefreshBtn";
-            this.RefreshBtn.Size = new System.Drawing.Size(19, 26);
+            this.RefreshBtn.Size = new System.Drawing.Size(14, 21);
             this.RefreshBtn.TabIndex = 45;
             this.RefreshBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.RefreshBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -125,10 +123,9 @@
             this.StartClientBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartClientBtn.Font = new System.Drawing.Font("宋体", 10F);
             this.StartClientBtn.ForeColor = System.Drawing.Color.DarkGreen;
-            this.StartClientBtn.Location = new System.Drawing.Point(185, 0);
-            this.StartClientBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartClientBtn.Location = new System.Drawing.Point(139, 0);
             this.StartClientBtn.Name = "StartClientBtn";
-            this.StartClientBtn.Size = new System.Drawing.Size(19, 26);
+            this.StartClientBtn.Size = new System.Drawing.Size(14, 21);
             this.StartClientBtn.TabIndex = 47;
             this.StartClientBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.StartClientBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -144,10 +141,10 @@
             this.CopyClientBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CopyClientBtn.Font = new System.Drawing.Font("宋体", 10F);
             this.CopyClientBtn.ForeColor = System.Drawing.Color.DarkGreen;
-            this.CopyClientBtn.Location = new System.Drawing.Point(355, 0);
-            this.CopyClientBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CopyClientBtn.Location = new System.Drawing.Point(272, 0);
+            this.CopyClientBtn.Margin = new System.Windows.Forms.Padding(5);
             this.CopyClientBtn.Name = "CopyClientBtn";
-            this.CopyClientBtn.Size = new System.Drawing.Size(19, 26);
+            this.CopyClientBtn.Size = new System.Drawing.Size(14, 21);
             this.CopyClientBtn.TabIndex = 48;
             this.CopyClientBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CopyClientBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -161,34 +158,31 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(0, 0);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(85, 23);
+            this.comboBox1.Size = new System.Drawing.Size(65, 20);
             this.comboBox1.TabIndex = 46;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(121, 4);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(91, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 15);
+            this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 49;
             this.label1.Text = "Server";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(212, 4);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(159, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 50;
             this.label2.Text = "Client";
             // 
             // ToolBarManger
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.label2);
@@ -200,9 +194,8 @@
             this.Controls.Add(this.CopyBtn);
             this.Controls.Add(this.StopBtn);
             this.Controls.Add(this.StartBtn);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ToolBarManger";
-            this.Size = new System.Drawing.Size(376, 24);
+            this.Size = new System.Drawing.Size(291, 20);
             this.Load += new System.EventHandler(this.ButtonManger_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

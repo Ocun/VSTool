@@ -1835,14 +1835,14 @@
                 打开服务器
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ClientOn(Digiwin.Chun.Common.Model.Toolpars,System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ClientOn(System.String)">
             <summary>
                 打开服务器
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.ExecuteCmd(System.String,System.String)">
             <summary>
-                不知何用
+                打开cmd执行bat命令，本项目未用到 mark
             </summary>
             <param name="pFileName"></param>
             <param name="pArguments"></param>
@@ -2397,9 +2397,9 @@
                 构造
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Views.ToolBarManger.Toolpar">
+        <member name="P:Digiwin.Chun.Common.Views.ToolBarManger.Toolpars">
             <summary>
-                主窗体参数
+            主窗体参数
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Views.ToolBarManger.ServerOn">
@@ -2488,12 +2488,10 @@
         </member>
         <member name="P:Digiwin.Chun.Common.Views.ComboxInfo.Id">
             <summary>
-            
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Views.ComboxInfo.Name">
             <summary>
-            
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Views.CreateToolForm">

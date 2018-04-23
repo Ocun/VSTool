@@ -1,99 +1,101 @@
-{"MappingItems":[
-                    {
-                    "Id": "Service",
-                    "Description": "服务",
-                    "Paths":                     [
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\InterFace\\ITestsService.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Implement\\TestsService.cs"
-                    ]
-          },
-                    {
-                    "Id": "Tools",
-                    "Description": "工具类",
-                    "Paths":                     [
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\MyTools.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\ServiceTools.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Tools\\MyUITools.cs"
-                    ]
-          },
-                    {
-                    "Id": "FreeBatchService",
-                    "Description": "一般批次",
-                    "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\MyBatchService.cs"]
-          },
-                    {
-                    "Id": "GuideInterceptor",
-                    "Description": "向导式批次",
-                    "Paths":                     [
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\QueryResultAction.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\GConditionAction.cs"
-                    ]
-          },
-                    {
-                    "Id": "commonInterceptor",
-                    "Description": "通用切片，审核/撤审/保存/删除/作废生失效",
-                    "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\commonInterceptor.cs"]
-          },
-                    {
-                    "Id": "Validator",
-                    "Description": "校验",
-                    "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\testValidate.cs"]
-          },
-                    {
-                    "Id": "DataEntityChanged",
-                    "Description": "数据跟踪",
-                    "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\DefaultInterceptor.cs"]
-          },
-                    {
-                    "Id": "SelectWindowDialogEx",
-                    "Description": "功能开窗",
-                    "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\FunctionWindowOpener\\FWOpener.cs"]
-          },
-                    {
-                    "Id": "EditControllerCommand",
-                    "Description": "菜单",
-                    "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\testCommand.cs"]
-          },
-                    {
-                    "Id": "ImportExcel",
-                    "Description": "导入Excel",
-                    "Paths":                     [
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelCommand.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.Designer.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.resx",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.zh-CHT.resx",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.cs"
-                    ]
-          },
-                    {
-                    "Id": "ExportExcel",
-                    "Description": "导入Excel",
-                    "Paths":                     [
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelCommand.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.Designer.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.resx",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.zh-CHT.resx",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Properties\\Resources.Designer.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Properties\\Resources.resx"
-                    ]
-          },
-                    {
-                    "Id": "LowFill",
-                    "Description": "向下填充",
-                    "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Tools\\LowFill.cs"]
-          },
-                    {
-                    "Id": "BaseItem",
-                    "Description": "必拷项目",
-                    "Paths":                     [
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.sln",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\Properties\\AssemblyInfo.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\Digiwin.ERP.XTEST.Business.csproj",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Properties\\AssemblyInfo.cs",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Digiwin.ERP.XTEST.Business.Implement.csproj",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Digiwin.ERP.XTEST.UI.Implement.csproj",
-                              "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Properties\\AssemblyInfo.cs"
-                    ]
-          }
-]}
+{
+    "MappingItems": [{
+            "Id": "Service",
+            "Description": "服务",
+            "Paths": [
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\InterFace\\ITestsService.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Implement\\TestsService.cs"
+            ]
+        },
+        {
+            "Id": "Tools",
+            "Description": "工具类",
+            "Paths": [
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\MyTools.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\ServiceTools.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Tools\\MyUITools.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Tools\\UIServiceTools.cs"
+            ]
+        },
+        {
+            "Id": "FreeBatchService",
+            "Description": "一般批次",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\MyBatchService.cs"]
+        },
+        {
+            "Id": "GuideInterceptor",
+            "Description": "向导式批次",
+            "Paths": [
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\QueryResultAction.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\GConditionAction.cs"
+            ]
+        },
+        {
+            "Id": "commonInterceptor",
+            "Description": "通用切片，审核/撤审/保存/删除/作废生失效",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\commonInterceptor.cs"]
+        },
+        {
+            "Id": "Validator",
+            "Description": "校验",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\testValidate.cs"]
+        },
+        {
+            "Id": "DataEntityChanged",
+            "Description": "数据跟踪",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\DefaultInterceptor.cs"]
+        },
+        {
+            "Id": "SelectWindowDialogEx",
+            "Description": "功能开窗",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\FunctionWindowOpener\\FWOpener.cs"]
+        },
+        {
+            "Id": "EditControllerCommand",
+            "Description": "菜单",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\testCommand.cs"]
+        },
+        {
+            "Id": "ImportExcel",
+            "Description": "导入Excel",
+            "Paths": [
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelCommand.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.Designer.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.resx",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.zh-CHT.resx",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ImportExcelForm.cs"
+            ]
+        },
+        {
+            "Id": "ExportExcel",
+            "Description": "导入Excel",
+            "Paths": [
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelCommand.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.Designer.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.resx",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.zh-CHT.resx",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\ExportExcelForm.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Properties\\Resources.Designer.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Properties\\Resources.resx"
+            ]
+        },
+        {
+            "Id": "LowFill",
+            "Description": "向下填充",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Tools\\LowFill.cs"]
+        },
+        {
+            "Id": "BaseItem",
+            "Description": "必拷项目",
+            "Paths": [
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.sln",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\Properties\\AssemblyInfo.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\Digiwin.ERP.XTEST.Business.csproj",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Properties\\AssemblyInfo.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Digiwin.ERP.XTEST.Business.Implement.csproj",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Digiwin.ERP.XTEST.UI.Implement.csproj",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Properties\\AssemblyInfo.cs"
+            ]
+        }
+    ]
+}

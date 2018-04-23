@@ -24,13 +24,13 @@ namespace Digiwin.Chun.Common.Views {
         public ToolBarManger() {
             InitializeComponent();
             InitCombox();
+            Toolpars = MyTools.Toolpars;
         }
 
         /// <summary>
-        ///     主窗体参数
+        /// 主窗体参数
         /// </summary>
-        public Toolpars Toolpar { get; set; } = MyTools.Toolpars;
-
+        public Toolpars Toolpars { get; set; }
         private Hashtable CheckServerTable { get; set; }
 
         private void ButtonManger_Load(object sender, EventArgs e) {
@@ -44,6 +44,7 @@ namespace Digiwin.Chun.Common.Views {
 
             if (comboBox1.SelectedValue.Equals(1)) {
                 args += " /d";
+                args += " /l:true";
             }
             else {
                 args += " /r:false";
@@ -57,7 +58,7 @@ namespace Digiwin.Chun.Common.Views {
         /// </summary>
         private void AutoOnServerAndClient() {
             ServerOn();
-
+         
             try {
                 var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
                 if (!isServerOn)
@@ -68,14 +69,13 @@ namespace Digiwin.Chun.Common.Views {
                     return;
                 }
                 var tSerFolPath =
-                    Toolpar.Mplatform
+                    Toolpars.Mplatform
                     + @"\Server\Control"; //^_^20160511 add by nicknt9095 for 啟動前關閉所有SERVER、CLIENT<S00349_20160505_02>
                 var myDate = DateTime.Now;
                 var tToDayDate = myDate.ToString("yyyyMMdd");
                 Thread.Sleep(3000);
-                var dirs = Directory.GetFiles(tSerFolPath, tToDayDate + "*.log", SearchOption.AllDirectories);
+                var dirs = Directory.GetFiles(tSerFolPath, tToDayDate + "*.log", SearchOption.TopDirectoryOnly);
                 var index = dirs.Length - 1;
-                index = index > 0 ? index : 0;
                 if (index < 0)
                     return;
                 var tSerFolLogName = dirs[index];
@@ -130,7 +130,7 @@ namespace Digiwin.Chun.Common.Views {
             var args = string.Empty;
             if (comboBox1.SelectedValue.Equals(1))
                 args += " /d";
-            MyTools.ClientOn(Toolpar, args);
+            MyTools.ClientOn(args);
         }
 
         //^_^20160511 add by nicknt9095 for 自動偵測SERVER啟動CLIENT<S00349_20160505_02>--begin
@@ -159,7 +159,7 @@ namespace Digiwin.Chun.Common.Views {
                     if (line.IndexOf("服務端啟動完畢，輸入q結束", StringComparison.Ordinal) == -1
                         && line.IndexOf("服务端启动完毕，输入q结束", StringComparison.Ordinal) == -1)
                         continue;
-                    var tClientPath = Toolpar.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
+                    var tClientPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
                     var args = string.Empty;
                     if (!File.Exists(tClientPath)) {
                         _aTimer.Enabled = false;
@@ -241,12 +241,10 @@ namespace Digiwin.Chun.Common.Views {
     /// </summary>
     public class ComboxInfo {
         /// <summary>
-        /// 
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public string Name { get; set; }
     }
