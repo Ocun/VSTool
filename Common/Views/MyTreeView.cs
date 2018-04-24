@@ -78,6 +78,16 @@ namespace Digiwin.Chun.Common.Views
                 || !node.CheckBoxVisible
                 || !node.IsVisible)
                 return;
+            var delRect = new Rectangle(Width - 40, node.Bounds.Y + 5, 25, 25);
+            if (Toolpars.FormEntity.EditState) {
+                if (delRect.Contains(e.X, e.Y)) {
+                    if (MessageBox.Show($@"确定删除项目{node.Text}吗？", Resources.WarningMsg, MessageBoxButtons.YesNo) ==
+                        DialogResult.OK) {
+                        
+                    }
+                    return;
+                }
+            }
 
             //设置Image绘制Rectangle  
             var checkboxImgRect = new Rectangle(node.Bounds.X + PaddingSetting.X, node.Bounds.Y + PaddingSetting.Y + 3,
@@ -87,6 +97,11 @@ namespace Digiwin.Chun.Common.Views
             // 如果点击的是checkbox图片  
             if (!checkboxImgRect.Contains(e.X, e.Y))
                 return;
+            if (Toolpars.FormEntity.EditState)
+            {
+                node.Checked = !node.Checked;
+                return;
+            }
             var bt = node.BuildeType;
             if (bt.Checked != null
                 && bt.Checked.Equals("True")) {
@@ -250,7 +265,7 @@ namespace Digiwin.Chun.Common.Views
             var editState = Toolpars.FormEntity.EditState;
             if (editState)
             {
-                var imgRect1 = new Rectangle(Width - 30, node.Bounds.Y+5, 25, 25);
+                var imgRect1 = new Rectangle(Width - 40, node.Bounds.Y+5, 25, 25);
 
                 graphics.DrawImage(DelImage,
                     imgRect1);

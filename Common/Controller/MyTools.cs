@@ -409,6 +409,8 @@ namespace Digiwin.Chun.Common.Controller {
                 var path = bt.Url;
                 if (!File.Exists(path))
                     SetToolsPath(bt);
+                if(!File.Exists(bt.Url))
+                    return;
                 path = bt.Url;
                 var exeName = Path.GetFileName(path);
                 var f = infos.All(info => exeName != null && !info.ProcessName.ToUpper().Contains(exeName.ToUpper()));
@@ -690,7 +692,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="buildeTypies"></param>
         // ReSharper disable once MemberCanBePrivate.Global
-        public static void InitBuildeTypies(BuildeType[] buildeTypies) {
+        private static void InitBuildeTypies(BuildeType[] buildeTypies) {
             buildeTypies?.ToList().ForEach(item => {
                 if (item.Checked != null
                     && item.Checked.Equals("True")

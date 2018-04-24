@@ -68,7 +68,7 @@ namespace VSTool {
             txtNewTypeKey.TextChanged += ControlTools.TxtNewTypeKey_TextChanged;
             Industry.CheckedChanged += ControlTools.Industry_CheckedChanged;
             PkgOpenTo.Click += ControlTools.BtnOpenTo_Click;
-            MyTreeView1.NodeMouseClick += ControlTools.MyTreeView1_NodeMouseClick;
+            NavTreeView.NodeMouseClick += ControlTools.MyTreeView1_NodeMouseClick;
             ModiCkb.CheckedChanged += ControlTools.CheckBox1_CheckedChanged;
             linkLabel1.LinkClicked += ControlTools.LinkLabel1_LinkClicked;
             ScrollPanel.DragDrop += ControlTools.ScrollPanel_DragDrop;
