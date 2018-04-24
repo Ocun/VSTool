@@ -64,14 +64,19 @@ namespace Digiwin.Chun.Common.Views {
                 txtPkGpath: FromServer.Checked ? $@"{txtPkGpath}": pkgFullPath;
 
             if (FromServer.Checked) {
+                //配置
                 targetDir = GetServerDirPath();
-                var codeDir = $@"{txtPkGpath}\{WdPr}\SRC\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                //代码
+                var codeDir =PathTools.IsNullOrEmpty(Toolpars.FormEntity.PkgTypekey) ? $@"{txtPkGpath}\{WdPr}\SRC":
+                    $@"{txtPkGpath}\{WdPr}\SRC\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
+                //规格
                 var specDir = $@"{txtPkGpath}\{Spec}";
                 MyTools.OpenDir(codeDir);
                 MyTools.OpenDir(targetDir);
                 MyTools.OpenDir(specDir);
             }
             else {
+
                 MyTools.OpenDir(targetDir);
             }
         }
@@ -104,11 +109,14 @@ namespace Digiwin.Chun.Common.Views {
                 }
             }
             else {
-                var customerBaseDir = Path.GetDirectoryName(Path.GetDirectoryName(PkgPathOld));
-                var customerFullPathDir = PathTools.PathCombine(customerBaseDir, customerName, WdPr, "SRC");
+                var customerDir = string.Empty;
+                if (!PkgPathOld.Equals(string.Empty))
+                {
+                    customerDir = Path.GetDirectoryName(Path.GetDirectoryName(PkgPathOld));
+                }
+                var customerFullPathDir = PathTools.PathCombine(customerDir, customerName, WdPr, "SRC");
                 Toolpars.FormEntity.TxtPkGpath =
                     isPkg ? PkgPathOld : customerFullPathDir;
-                
             }
             DialogResult = DialogResult.OK;
         }

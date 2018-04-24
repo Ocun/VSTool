@@ -210,7 +210,16 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
-        ///   查找类似 文件已存在是否覆盖？ 的本地化字符串。
+        ///   查找类似 文件{0}已复制，是否覆盖？ 的本地化字符串。
+        /// </summary>
+        internal static string FileAlreadyCopy {
+            get {
+                return ResourceManager.GetString("FileAlreadyCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件已存在，是否覆盖？ 的本地化字符串。
         /// </summary>
         internal static string FileExisted {
             get {
@@ -415,7 +424,7 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Warning 的本地化字符串。
+        ///   查找类似 警告 的本地化字符串。
         /// </summary>
         internal static string WarningMsg {
             get {

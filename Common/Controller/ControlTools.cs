@@ -382,16 +382,16 @@ namespace Digiwin.Chun.Common.Controller {
 
                     var targetDir = pathInfo.TypeKeyFullRootDir;
                     if (Directory.Exists(targetDir)) {
-                        var result =
-                            MessageBox.Show(targetDir + Environment.NewLine + Resources.DirExisted,
-                                Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        if (result == DialogResult.Yes)
-                            OldTools.DeleteAll(targetDir);
-                        else
-                            flag = false;
+                        //var result =
+                        //    MessageBox.Show(targetDir + Environment.NewLine + Resources.DirExisted,
+                        //        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        //if (result == DialogResult.Yes)
+                        //    OldTools.DeleteAll(targetDir);
+                        //else
+                        //    flag = false;
                     }
-                    if (!flag)
-                        return;
+                    //if (!flag)
+                    //    return;
                     flag = MyTools.CopyModi(TreeView1.Nodes);
                     if (!flag)
                         return;

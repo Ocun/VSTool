@@ -1639,15 +1639,15 @@
             </summary>
             <param name="pToIni"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{Digiwin.Chun.Common.Model.FileInfos})">
             <summary>
                 把文件拷入指定的文件夹
             </summary>
             <param name="fromDir"></param>
             <param name="toDir"></param>
-            <param name="fileNames"></param>
             <param name="fromTypeKey"></param>
             <param name="toTypeKey"></param>
+            <param name="filterfilesinfo"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.GetFilePath(System.String)">
             <summary>
@@ -1806,14 +1806,6 @@
             <param name="bt"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyPkg(System.String,System.String,System.Collections.Generic.List{Digiwin.Chun.Common.Model.FileInfos})">
-            <summary>
-                目录下的文件copy至另一目录 ,先copy 再替换 typekey
-            </summary>
-            <param name="pFileName"></param>
-            <param name="pDistFolder"></param>
-            <param name="filesinfo"></param>
-        </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyModi(System.Windows.Forms.TreeNodeCollection)">
             <summary>
                 修改代码
@@ -1821,9 +1813,9 @@
             <param name="nodes"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ModiName">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ModiFile">
             <summary>
-                批量修改个案cs文件
+            修改文件 新的typekey
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.GetTreeViewPath(System.Windows.Forms.TreeNodeCollection)">
@@ -2281,9 +2273,14 @@
               查找类似 启动应用程序时出错！原因： 的本地化字符串。
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.FileAlreadyCopy">
+            <summary>
+              查找类似 文件{0}已复制，是否覆盖？ 的本地化字符串。
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.FileExisted">
             <summary>
-              查找类似 文件已存在是否覆盖？ 的本地化字符串。
+              查找类似 文件已存在，是否覆盖？ 的本地化字符串。
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.GenerateSucess">
@@ -2393,7 +2390,7 @@
         </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.WarningMsg">
             <summary>
-              查找类似 Warning 的本地化字符串。
+              查找类似 警告 的本地化字符串。
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Views.ToolBarManger">
