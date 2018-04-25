@@ -61,16 +61,20 @@ namespace Digiwin.Chun.Common.Controller
         {
             try
             {
-                Connection.Open();
-                Builder.Length = 0;
-                Builder.AppendFormat(
-                    "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1:yyyyMMddHHmmss}',{2:},'{3}','{4}',{5},'{6}','{7}',{8})", "VSTool", DateTime.Now, DateTime.Now.ToString("yyyyMMddHHmmss")
-                        .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8), Environment.MachineName, "N", 1, pTheMemo, pDemandId, pUseYear);
-                new SqlCommand(Builder.ToString(), Connection).ExecuteNonQuery();
-                Connection.Close();
+                using (var connection = Connection) {
+                    connection.Open();
+                    Builder.Length = 0;
+                    Builder.AppendFormat(
+                        "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1:yyyyMMddHHmmss}',{2:},'{3}','{4}',{5},'{6}','{7}',{8})",
+                        "VSTool", DateTime.Now, DateTime.Now.ToString("yyyyMMddHHmmss")
+                            .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8), Environment.MachineName,
+                        "N", 1, pTheMemo, pDemandId, pUseYear);
+                    new SqlCommand(Builder.ToString(), Connection).ExecuteNonQuery();
+                 
+                }
             }
-            catch
-            {
+            catch(Exception ex) {
+                LogTools.LogError($"InsertToolInfo Error! Detail:{ex.Message}");
                 Connection.Close();
             }
         }
@@ -129,8 +133,9 @@ namespace Digiwin.Chun.Common.Controller
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogTools.LogError($"InsertToolInfo Error! Detail:{ex.Message}");
                 Connection.Close();
             }
         }

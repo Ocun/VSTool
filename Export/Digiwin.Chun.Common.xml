@@ -944,6 +944,13 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.TreeView1_AfterSelect(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+            <summary>
+            借用界面
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.CheckBox1_CheckedChanged(System.Object,System.EventArgs)">
             <summary>
                 修改按钮，点击弹出窗口，指示将借用的TYPEKEY与新的TypeKey
@@ -1606,6 +1613,12 @@
             日志
             </summary>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.GetLogDir(System.String)">
+            <summary>
+            获取log日志目录
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.WriteLogByTreeView(Digiwin.Chun.Common.Views.MyTreeView)">
             <summary>
                 日志
@@ -1613,10 +1626,16 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.WriteToFile(System.String,System.String)">
             <summary>
-            记录到文件
+            记录到文件,已存在则追加
             </summary>
             <param name="path"></param>
-            <param name="fileStr"></param>
+            <param name="logMsg"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.LogError(System.String)">
+            <summary>
+            记录错误信息
+            </summary>
+            <param name="msg"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.WriteToServer(System.Collections.Generic.IEnumerable{Digiwin.Chun.Common.Model.FileInfos})">
             <summary>
@@ -1641,13 +1660,20 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{Digiwin.Chun.Common.Model.FileInfos})">
             <summary>
-                把文件拷入指定的文件夹
+                把文件拷入指定的文件夹,并修改文件名
             </summary>
             <param name="fromDir"></param>
             <param name="toDir"></param>
             <param name="fromTypeKey"></param>
             <param name="toTypeKey"></param>
             <param name="filterfilesinfo"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyFile(System.String,System.String)">
+            <summary>
+            流形式copyFile
+            </summary>
+            <param name="fromPath"></param>
+            <param name="tagerPath"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.GetFilePath(System.String)">
             <summary>
@@ -1676,6 +1702,12 @@
             <summary>
                 將dll 考入平臺目錄
             </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.InsertInfo(System.String)">
+            <summary>
+            操作插入数据库
+            </summary>
+            <param name="operationName"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyDll">
             <summary>
@@ -2138,33 +2170,53 @@
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.XmlTools">
             <summary>
-            xml辅助类
+                xml辅助类
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.ModiXml(System.String,System.String,System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.LoadXml(System.String)">
             <summary>
-            修改菜单项，设置第三方工具的url
+                读取并返回一个文档对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.GetXmlNodeByXpath(System.Xml.XmlDocument,System.String)">
+            <summary>
+                获取xml结点，这里依据文档根目录处理命名空间的问题
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.GetXmlNodeListByXpath(System.Xml.XmlDocument,System.String)">
+            <summary>
+                获取xml结点，这里依据文档根目录处理命名空间的问题
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.ModiXmlByXpath(System.String,System.String,System.String)">
+            <summary>
+                根据xpath，修改xml某项的值
             </summary>
             <param name="xmlPath"></param>
-            <param name="id"></param>
+            <param name="xpath"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.XmlNodeByXPath(System.String,System.String,System.Collections.Generic.List{System.String})">
+        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.DeleteXmlNodeByXPath(System.String,System.String)">
             <summary>
-                删除节点
+                根据xmlNode删除Node结点
             </summary>
+            <param name="xmlFileName"></param>
+            <param name="xpath"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.XmlTools.GetPathByXpath(System.String,System.String)">
             <summary>
-            获取模板
+                获取模板
             </summary>
             <param name="xmlFileName"></param>
             <param name="xpath"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.ModiCs(System.String,System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.XmlTools.AddCsproj(System.String,System.String)">
             <summary>
-                修改解决方案
+             添加解决方案
             </summary>
             <param name="xmlPath"></param>
             <param name="csName"></param>

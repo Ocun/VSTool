@@ -8,126 +8,146 @@ using System.Xml;
 
 namespace Digiwin.Chun.Common.Controller {
     /// <summary>
-    /// xml辅助类
+    ///     xml辅助类
     /// </summary>
     public static class XmlTools {
         /// <summary>
-        /// 修改菜单项，设置第三方工具的url
+        ///     读取并返回一个文档对象
+        /// </summary>
+        /// <returns></returns>
+        public static XmlDocument LoadXml(string xmlPath) {
+            XmlDocument xmlDocument;
+            try {
+                xmlDocument = new XmlDocument();
+                xmlDocument.Load(xmlPath);
+            }
+            catch (Exception exception) {
+                LogTools.LogError($"LoadXml Error! Detail{exception.Message}");
+                return null;
+            }
+            return xmlDocument;
+        }
+
+        /// <summary>
+        ///     获取xml结点，这里依据文档根目录处理命名空间的问题
+        /// </summary>
+        /// <returns></returns>
+        public static XmlNode GetXmlNodeByXpath(XmlDocument xmlDoc, string xpath) {
+            XmlNode selectedNode = null;
+            try {
+                //处理命名空间
+
+                if (!xmlDoc.HasChildNodes) return null;
+                var namespaceUri = xmlDoc.ChildNodes[1].NamespaceURI;
+                if (!namespaceUri.Equals(string.Empty)) {
+                    var mnamespce = new XmlNamespaceManager(xmlDoc.NameTable);
+                    mnamespce.AddNamespace("nhb", namespaceUri);
+                    xpath = $@"//nhb:{xpath}";
+                    selectedNode = xmlDoc.SelectSingleNode(xpath, mnamespce);
+                }
+                else {
+                    selectedNode = xmlDoc.SelectSingleNode(xpath);
+                }
+            }
+            catch (Exception ex) {
+                LogTools.LogError($"GetXmlNode Error! Detail {ex.Message}");
+            }
+
+            return selectedNode;
+        }
+
+        /// <summary>
+        ///     获取xml结点，这里依据文档根目录处理命名空间的问题
+        /// </summary>
+        /// <returns></returns>
+        public static XmlNodeList GetXmlNodeListByXpath(XmlDocument xmlDoc, string xpath) {
+            XmlNodeList selectedNode = null;
+            try {
+                //处理命名空间
+
+                if (!xmlDoc.HasChildNodes) return null;
+                var namespaceUri = xmlDoc.ChildNodes[1].NamespaceURI;
+                if (!namespaceUri.Equals(string.Empty)) {
+                    var mnamespce = new XmlNamespaceManager(xmlDoc.NameTable);
+                    mnamespce.AddNamespace("nhb", namespaceUri);
+                    xpath = $@"//nhb:{xpath}";
+                    selectedNode = xmlDoc.SelectNodes(xpath, mnamespce);
+                }
+                else {
+                    selectedNode = xmlDoc.SelectNodes(xpath);
+                }
+            }
+            catch (Exception ex) {
+                LogTools.LogError($"GetXmlNodeList Error! Detail {ex.Message}");
+            }
+
+            return selectedNode;
+        }
+
+        /// <summary>
+        ///     根据xpath，修改xml某项的值
         /// </summary>
         /// <param name="xmlPath"></param>
-        /// <param name="id"></param>
+        /// <param name="xpath"></param>
         /// <param name="value"></param>
-        public static void ModiXml(string xmlPath, string id, string value) {
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            var xns = xmlDoc.SelectNodes("//BuildeItem");
-            if (xns != null)
-                foreach (XmlNode xn in xns) {
-                    var childNodes = xn.ChildNodes;
-                    var f = true;
-                    foreach (XmlNode node in childNodes)
-                        if (node.Name == "Id"
-                            && node.InnerText.Equals(id)) {
-                            f = false;
-                            break;
-                        }
-                        else {
-                            break;
-                        }
-                    if (f)
-                        continue;
-                    {
-                        foreach (XmlNode node in childNodes)
-                            if (node.Name == "Url") {
-                                node.InnerText = value;
-                                break;
-                            }
-
-                        break;
-                    }
-                }
+        public static void ModiXmlByXpath(string xmlPath, string xpath, string value) {
+            var xmlDoc = LoadXml(xmlPath);
+            //$@"//BuildeItem[Id='{id}']/Url"
+            if (xmlDoc == null) return;
+            var selectedNode = GetXmlNodeByXpath(xmlDoc, xpath);
+            if (selectedNode == null) return;
+            selectedNode.InnerText = value;
             xmlDoc.Save(xmlPath);
         }
 
         #region  修改解决方案的csproj文件 添加类文件
 
         /// <summary>
-        ///     删除节点
+        ///     根据xmlNode删除Node结点
         /// </summary>
-        public static void XmlNodeByXPath(string xmlFileName, string xpath, List<string> pathList) {
-            var basePath = Path.GetDirectoryName(xmlFileName) + @"\";
-            var abPathList = new List<string>();
-            pathList.ForEach(f => {
-                    var fpath = f;
-                    var index = fpath.IndexOf(basePath, StringComparison.Ordinal);
-                    if (index > -1)
-                        abPathList.Add(fpath.Substring(index + basePath.Length));
-                }
-            );
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlFileName);
-            var mnamespce = new XmlNamespaceManager(xmlDoc.NameTable);
-            var namespaceUri = xmlDoc.ChildNodes[1].NamespaceURI;
-            mnamespce.AddNamespace("nhb", namespaceUri);
-            xpath = $@"//nhb:{xpath}";
-            var xNodes = xmlDoc.SelectNodes(xpath, mnamespce);
-
+        /// <param name="xmlFileName"></param>
+        /// <param name="xpath"></param>
+        public static void DeleteXmlNodeByXPath(string xmlFileName, string xpath) {
+            var xmlDoc = LoadXml(xmlFileName);
+            if (xmlDoc == null) return;
+            if (!xmlDoc.HasChildNodes)
+                return;
+            var xNodes = GetXmlNodeListByXpath(xmlDoc, xpath);
             if (xNodes == null)
                 return;
             for (var i = xNodes.Count - 1; i >= 0; i--) {
                 var xmlAttributeCollection = xNodes[i].Attributes;
                 if (xmlAttributeCollection?["Include"] == null)
                     continue;
-                if (abPathList.Contains(xmlAttributeCollection["Include"].Value))
-                    continue;
                 var parentNode = xNodes[i].ParentNode;
                 parentNode?.RemoveChild(xNodes[i]);
             }
             xmlDoc.Save(xmlFileName);
         }
-
+    
         /// <summary>
-        /// 获取模板
+        ///     获取模板
         /// </summary>
         /// <param name="xmlFileName"></param>
         /// <param name="xpath"></param>
         /// <returns></returns>
-        public static IEnumerable<string> GetPathByXpath(string xmlFileName,string xpath) {
+        public static IEnumerable<string> GetPathByXpath(string xmlFileName, string xpath) {
             var pathList = new List<string>();
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlFileName);
-            var mnamespce = new XmlNamespaceManager(xmlDoc.NameTable);
+            var xmlDoc = LoadXml(xmlFileName);
             if (!xmlDoc.HasChildNodes) return pathList;
-            var namespaceUri = xmlDoc.ChildNodes[1].NamespaceURI;
-            if (!namespaceUri.Equals(string.Empty)) {
-                mnamespce.AddNamespace("nhb", namespaceUri);
-                xpath = $@"//nhb:{xpath}";
-                var xNodes = xmlDoc.SelectNodes(xpath, mnamespce);
-                if (xNodes != null) {
-                    pathList.AddRange(from XmlNode node in xNodes select node.InnerText);
-                }
-                   
-            }
-            else {
-                var xNodes = xmlDoc.SelectNodes(xpath);
-                if (xNodes != null)
-                {
-                    pathList.AddRange(from XmlNode node in xNodes select node.InnerText);
-                }
-            }
+            var xNodes = GetXmlNodeListByXpath(xmlDoc, xpath);
+            if (xNodes != null) pathList.AddRange(from XmlNode node in xNodes select node.InnerText);
             return pathList;
-
-
         }
+
         /// <summary>
-        ///     修改解决方案
+        ///  添加解决方案
         /// </summary>
         /// <param name="xmlPath"></param>
         /// <param name="csName"></param>
-        public static void ModiCs(string xmlPath, string csName) {
-            if (csName.Contains(".designer.cs")) {
-                var xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlPath);
+        public static void AddCsproj(string xmlPath, string csName) {
+            var xmlDoc = LoadXml(xmlPath);
+            if (csName.ToLower().Contains(".designer.cs")) {
                 if (xmlDoc.DocumentElement != null) {
                     var root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
                     var xe1 = xmlDoc.CreateElement("Compile", xmlDoc.DocumentElement.NamespaceURI); //创建一个<book>节点
@@ -137,11 +157,9 @@ namespace Digiwin.Chun.Common.Controller {
                         var msname = csName.Substring(csName.LastIndexOf("\\", StringComparison.Ordinal) + 1);
                         msname = msname.Substring(0, msname.IndexOf(".", StringComparison.Ordinal));
                         msname = msname + ".cs";
-                        //loc.InnerText = model.loc;
                         loc.InnerText = msname;
                         xe1.AppendChild(loc);
                     }
-                    //xe1.InnerText = "WPF";
                     var notExisted = CheckXmlNode(root, csName);
                     if (notExisted)
                         root.AppendChild(xe1);
@@ -149,9 +167,7 @@ namespace Digiwin.Chun.Common.Controller {
 
                 xmlDoc.Save(xmlPath);
             }
-            else if (csName.Contains(".resx")) {
-                var xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlPath);
+            else if (csName.ToLower().Contains(".resx")) {
                 if (xmlDoc.DocumentElement != null) {
                     var root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
                     var xe1 = xmlDoc.CreateElement("EmbeddedResource", xmlDoc.DocumentElement.NamespaceURI);
@@ -162,11 +178,9 @@ namespace Digiwin.Chun.Common.Controller {
                         var msname = csName.Substring(csName.LastIndexOf("\\", StringComparison.Ordinal) + 1);
                         msname = msname.Substring(0, msname.IndexOf(".", StringComparison.Ordinal));
                         msname = msname + ".cs";
-                        //loc.InnerText = model.loc;
                         loc.InnerText = msname;
                         xe1.AppendChild(loc);
                     }
-                    //xe1.InnerText = "WPF";
                     var notExisted = CheckXmlNode(root, csName);
                     if (notExisted)
                         root.AppendChild(xe1);
@@ -176,8 +190,6 @@ namespace Digiwin.Chun.Common.Controller {
             }
 
             else {
-                var xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlPath);
                 if (xmlDoc.DocumentElement != null) {
                     var root = xmlDoc.DocumentElement.ChildNodes[4]; //查找<bookstore>
                     var xe1 = xmlDoc.CreateElement("Compile", xmlDoc.DocumentElement.NamespaceURI); //创建一个<book>节点

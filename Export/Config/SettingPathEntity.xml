@@ -9,7 +9,7 @@
 	<ExportDir>\\Export\\</ExportDir>
 	<BusinessDirExtention>.Business</BusinessDirExtention>
 	<ImplementDirExtention>.Implement</ImplementDirExtention>
-	<UIDirExtention>.UI</UIDirExtention>
+	<UiDirExtention>.UI</UiDirExtention>
 	<DllExtention>.dll</DllExtention>
 	<PackageBaseName>Digiwin.ERP.</PackageBaseName>
 	<TemplateDir>Digiwin.ERP.XTEST</TemplateDir>

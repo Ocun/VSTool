@@ -65,6 +65,7 @@ namespace VSTool {
             btnOpen.Click += ControlTools.BtnOpen_Click;
             btnP.Click += ControlTools.BtnP_Click;
             btnG.Click += ControlTools.BtnG_Click;
+            TreeView1.AfterCheck += ControlTools.TreeView1_AfterSelect;
             txtNewTypeKey.TextChanged += ControlTools.TxtNewTypeKey_TextChanged;
             Industry.CheckedChanged += ControlTools.Industry_CheckedChanged;
             PkgOpenTo.Click += ControlTools.BtnOpenTo_Click;

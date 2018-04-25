@@ -444,7 +444,13 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="e"></param>
         public static void BtnOpen_Click(object sender, EventArgs e) //打开文件夹
         {
+          
+            var typekey = Toolpars.FormEntity.TxtNewTypeKey;
             var targetDir = Toolpars.PathEntity.TypeKeyFullRootDir;
+            if (typekey.Equals(string.Empty)) {
+                targetDir = Path.GetDirectoryName(targetDir);
+            }
+            
             MyTools.OpenDir(targetDir);
         }
 
@@ -523,7 +529,16 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         #region 借用按钮
-
+        /// <summary>
+        /// 借用界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void TreeView1_AfterSelect(object sender, TreeViewEventArgs e) {
+             var node =e.Node as MyTreeNode;
+            if (node == null) return;
+            node.BuildeType.Checked = node.Checked ? "True" : "False";
+        }
         /// <summary>
         ///     修改按钮，点击弹出窗口，指示将借用的TYPEKEY与新的TypeKey
         /// </summary>

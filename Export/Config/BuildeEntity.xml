@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <BuildeEntity>
   <BuildeTypies>
     <BuildeType>
@@ -14,12 +14,12 @@
         <BuildeItem>
           <Id>Tools</Id>
           <Name>工具类</Name>
-          <Visiable>True</Visiable>
-          <ShowCheckedBox>True</ShowCheckedBox>
+          <Description>提供常用的方法</Description>
           <Checked>False</Checked>
           <ReadOnly>False</ReadOnly>
           <ShowParWindow>False</ShowParWindow>
-          <Description>提供常用的方法</Description>
+          <ShowCheckedBox>True</ShowCheckedBox>
+          <Visiable>True</Visiable>
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
@@ -29,39 +29,36 @@
       <Description>干涉程序运行时，加入自定义功能</Description>
       <BuildeItems>
         <BuildeItem>
-          <Id>SaveInterceptor</Id>
-          <PartId>commonInterceptor</PartId>
           <IsMerge>False</IsMerge>
+          <Id>SaveInterceptor</Id>
           <Name>保存</Name>
           <Description>涉及保存操作时</Description>
+          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
+          <IsMerge>False</IsMerge>
           <Id>ApproveInterceptor</Id>
           <Name>审核</Name>
-          <PartId>commonInterceptor</PartId>
-          <IsMerge>False</IsMerge>
           <Description>涉及审核操作时</Description>
+          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>IDisconfirmInterceptor</Id>
-          <PartId>commonInterceptor</PartId>
-          <PartId>False</PartId>
           <Name>撤销审核</Name>
           <Description>涉及撤销审核操作时</Description>
+          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>DeleteInterceptor</Id>
-          <PartId>commonInterceptor</PartId>
-          <PartId>False</PartId>
           <Name>删除</Name>
           <Description>涉及删除操作时</Description>
+          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>ApproveStatusInterceptor</Id>
-          <PartId>commonInterceptor</PartId>
-          <PartId>False</PartId>
           <Name>作废/生失效</Name>
           <Description>涉及作废/生失效操作时</Description>
+          <PartId>commonInterceptor</PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>Validator</Id>
@@ -70,10 +67,10 @@
         </BuildeItem>
         <BuildeItem>
           <Id>DataEntityChanged</Id>
-          <PartId>
-          </PartId>
           <Name>数据跟踪</Name>
           <Description>涉及数据跟踪操作时，字段改变带值，界面实体刷新</Description>
+          <PartId>
+          </PartId>
         </BuildeItem>
         <BuildeItem>
           <Id>SelectWindowDialogEx</Id>
@@ -99,9 +96,9 @@
         </BuildeItem>
         <BuildeItem>
           <Id>GuideInterceptor</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>向导式批次</Name>
           <Description>客户端，可分步处理</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
@@ -117,9 +114,9 @@
         </BuildeItem>
         <BuildeItem>
           <Id>GuideInterceptor</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>向导式批次</Name>
           <Description>一组命令，批量操作，分为向导式批次，普通批次</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
@@ -130,39 +127,39 @@
       <BuildeItems>
         <BuildeItem>
           <Id>ImportExcel</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>导入Excel</Name>
           <Description>故名思议</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>ExportExcel</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>导出Excel</Name>
           <Description>故名思议</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>LowFill</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>向下填充</Name>
           <Description>故名思议</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>PrintPreview</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>打印预览</Name>
           <Description>故名思议</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>Print</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>打印</Name>
           <Description>故名思议</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
         <BuildeItem>
           <Id>AllChoose</Id>
-          <ShowParWindow>False</ShowParWindow>
           <Name>全选</Name>
           <Description>提供表格全选,撤销功能</Description>
+          <ShowParWindow>False</ShowParWindow>
         </BuildeItem>
       </BuildeItems>
     </BuildeType>
@@ -173,66 +170,75 @@
       <BuildeItems>
         <BuildeItem>
           <Id>Insert</Id>
+          <Name>插单</Name>
+          <Description>提供查单实例</Description>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsPlug>True</IsPlug>
           <PlugPath>Common.Implement.dll</PlugPath>
           <ModuleName>Common.Implement.UI.InsertForm</ModuleName>
-          <Name>插单</Name>
-          <Description>提供查单实例</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>OnkeyCopy</Id>
+          <Name>一键借用</Name>
+          <Description>复制标准或客户作业</Description>
           <ShowCheckedBox>False</ShowCheckedBox>
           <IsPlug>True</IsPlug>
           <PlugPath>Common.Implement.dll</PlugPath>
           <ModuleName>Common.Implement.UI.ModiPkgForm</ModuleName>
-          <Name>一键借用</Name>
-          <Description>复制标准或客户作业</Description>
         </BuildeItem>
         <BuildeItem>
           <Id>DesignTool</Id>
-          <ShowCheckedBox>False</ShowCheckedBox>
-          <IsTools>True</IsTools>
-          <ShowIcon>True</ShowIcon>
-          <Url>D:\Program Files\Tencent\QQ\Bin\maLauncher.exe</Url>
           <Name>设计器</Name>
           <Description>就是设计器</Description>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsTools>True</IsTools>
+          <Url>D:\Program Files\Tencent\QQ\Bin\maLauncher.exe</Url>
+          <ShowIcon>True</ShowIcon>
         </BuildeItem>
         <BuildeItem>
           <Id>OOQLDesign</Id>
-          <ShowCheckedBox>False</ShowCheckedBox>
-          <ShowIcon>True</ShowIcon>
-          <IsTools>True</IsTools>
-          <Url>D:\Program Files\Tencent\QQ\Bin\QQ.exe</Url>
           <Name>OOQL转换工具</Name>
           <Description>将OOQL转换为SQL</Description>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsTools>True</IsTools>
+          <Url>D:\Program Files\Tencent\QQ\Bin\QQ.exe</Url>
+          <ShowIcon>True</ShowIcon>
         </BuildeItem>
         <BuildeItem>
           <Id>GUIDSHOW</Id>
-          <IsTools>True</IsTools>
-          <ShowIcon>True</ShowIcon>
-          <Url>C:\Users\a2863\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Url>
-          <ShowCheckedBox>False</ShowCheckedBox>
           <Name>GUID_SHOW</Name>
           <Description>跟踪当前客户SQL</Description>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsTools>True</IsTools>
+          <Url>C:\Users\zychu\AppData\Local\GitHubDesktop\GitHubDesktop.exe</Url>
+          <ShowIcon>True</ShowIcon>
         </BuildeItem>
         <BuildeItem>
           <Id>ColligateQuery</Id>
-          <IsTools>True</IsTools>
-          <ShowIcon>True</ShowIcon>
-          <Url>D:\Program Files\Tencent\QQ\txupd.exe</Url>
-          <ShowCheckedBox>False</ShowCheckedBox>
           <Name>综合查询工具</Name>
           <Description>查询</Description>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsTools>True</IsTools>
+          <Url>D:\Program Files\Tencent\QQ\txupd.exe</Url>
+          <ShowIcon>True</ShowIcon>
         </BuildeItem>
         <BuildeItem>
           <Id>E10Search</Id>
-          <IsTools>True</IsTools>
-          <ShowIcon>True</ShowIcon>
-          <Url>D:\Program Files\Tencent\QQ\Bin\bugreport.exe</Url>
-          <ShowCheckedBox>False</ShowCheckedBox>
           <Name>E10Search</Name>
           <Description>常用服务方法查询</Description>
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsTools>True</IsTools>
+          <Url>D:\Program Files\Tencent\QQ\Bin\bugreport.exe</Url>
+          <ShowIcon>True</ShowIcon>
+        </BuildeItem>
+        <BuildeItem>
+          <Id>CreateXMenu_NodeID</Id>
+          <Name>XMenu_Node</Name>
+          <Description />
+          <ShowCheckedBox>False</ShowCheckedBox>
+          <IsTools>True</IsTools>
+          <Url>C:\Users\zychu\Desktop\XMenu_Node.exe</Url>
+          <ShowIcon>True</ShowIcon>
         </BuildeItem>
       </BuildeItems>
     </BuildeType>

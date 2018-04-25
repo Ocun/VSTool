@@ -45,8 +45,8 @@ namespace Digiwin.Chun.Common.Views {
             TypeKeyText.DataBindings.Add(new Binding("Text", Toolpars.FormEntity, "PkgTypekey", true,
                 DataSourceUpdateMode.OnPropertyChanged));
             PkgPathOld = Toolpars.FormEntity.TxtPkGpath;
-            if (!TypeKeyText.Text.Equals(string.Empty))
-                return;
+            //if (!TypeKeyText.Text.Equals(string.Empty))
+            //    return;
             if (Toolpars.FormEntity.TxtNewTypeKey.Length > 1)
                 TypeKeyText.Text = Toolpars.FormEntity.TxtNewTypeKey.Substring(1);
          

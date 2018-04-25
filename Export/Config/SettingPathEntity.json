@@ -8,7 +8,7 @@
           "ExportDir": "\\Export\\",
           "BusinessDirExtention": ".Business",
           "ImplementDirExtention": ".Implement",
-          "UIDirExtention": ".UI",
+          "UiDirExtention": ".UI",
           "DllExtention": ".dll",
           "PackageBaseName": "Digiwin.ERP.",
           "TemplateDir": "Digiwin.ERP.XTEST",

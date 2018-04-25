@@ -67,7 +67,7 @@ namespace Digiwin.Chun.Common.Controller {
 
 
         /// <summary>
-        ///     把文件拷入指定的文件夹
+        ///     把文件拷入指定的文件夹,并修改文件名
         /// </summary>
         /// <param name="fromDir"></param>
         /// <param name="toDir"></param>
@@ -78,21 +78,21 @@ namespace Digiwin.Chun.Common.Controller {
         public static void CopyTo(string fromDir, string toDir,
             string fromTypeKey, string toTypeKey, IReadOnlyCollection<FileInfos> filterfilesinfo) {
             var formFiles = GetFilePath(fromDir);
+            string[] extensions = {
+                ".sln", ".csproj"
+            };
             foreach (var file in formFiles) {
                 var fileinfo = new FileInfo(file);
                 var extensionName = Path.GetExtension(file);
-
-              
+               
                 var frompath = fileinfo.FullName;
                 if (filterfilesinfo != null
                     && filterfilesinfo.Count > 0) {
                     var selected = filterfilesinfo.FirstOrDefault(f => f.FromPath.Equals(frompath));
                     var extionName = Path.GetExtension(frompath);
-                    string[] filter = {
-                        ".sln", ".csproj"
-                    };
+                 
                     if (selected == null
-                        && !filter.Contains(extionName)
+                        && !extensions.Contains(extionName)
                     )
                     {
                         continue;
@@ -108,8 +108,6 @@ namespace Digiwin.Chun.Common.Controller {
 
                 if (!Directory.Exists(newFileDir))
                     Directory.CreateDirectory(newFileDir);
-                var extensions = new[] {".sln",".csproj" };
-
 
                 if (File.Exists(newFilePath)) {
                     if (extensions.Contains(extensionName)) {
@@ -120,11 +118,50 @@ namespace Digiwin.Chun.Common.Controller {
                         != DialogResult.Yes)
                         continue;
                 }
-                  
-                fileinfo.CopyTo(newFilePath,true);
+
+                CopyFile(frompath, newFilePath);
+                // 无法释放，所以用流形式
+                //  fileinfo.CopyTo(newFilePath, true);
+
+
+                //修改项目文件
+                if (!".csproj".Equals(extensionName)) continue;
+                XmlTools.DeleteXmlNodeByXPath(newFilePath, "Compile");
+                XmlTools.DeleteXmlNodeByXPath(newFilePath, "EmbeddedResource");
             }
         }
-        
+
+        /// <summary>
+        /// 流形式copyFile
+        /// </summary>
+        /// <param name="fromPath"></param>
+        /// <param name="tagerPath"></param>
+        public static void CopyFile(string fromPath, string tagerPath) {
+            //创建一个负责读取的流
+            using (var fsRead = new FileStream(fromPath, FileMode.Open, FileAccess.Read))
+            {
+                //创建一个负责写入的流
+                using (var fsWrite = new FileStream(tagerPath, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    var buffer = new byte[1024 * 1024 * 5];
+
+                    //因为文件可能比较大所以在读取的时候应该用循坏去读取
+                    while (true)
+                    {
+                        //返回本次实际读取到的字节数
+                        var r = fsRead.Read(buffer, 0, buffer.Length);
+
+                        if (r == 0)
+                        {
+                            break;
+                        }
+                        fsWrite.Write(buffer, 0, r); //写入
+                    }
+                    fsWrite.Flush();
+                }
+            }
+        }
+
 
         /// <summary>
         ///     递归获取指定文件夹内所有文件全路径
@@ -262,13 +299,21 @@ namespace Digiwin.Chun.Common.Controller {
                     MessageBox.Show(string.Format(Resources.DirNotExisted, fromPath));
                     return;
                 }
+                if (!Directory.Exists(toPath)) {
+                    MessageBox.Show(string.Format(Resources.DirNotExisted, toPath));
+                    return;
+                }
                 var filedir = Directory.GetFiles(fromPath, filterStr,
                     SearchOption.AllDirectories);
-                foreach (var mfile in filedir)
-                    File.Copy(mfile, mfile.Replace(fromPath, toPath), true);
+                foreach (var mfile in filedir) {
+                    var tagertDir = mfile.Replace(fromPath, toPath);
+                    File.Copy(mfile, tagertDir, true);
+
+                }
                 MessageBox.Show(Resources.CopySucess);
             }
             catch (Exception ex) {
+                LogTools.LogError($"CopyUIDll error! Detail:{ex.Message}");
                 string[] processNames = {
                     "Digiwin.Mars.ClientStart"
                 };
@@ -278,8 +323,17 @@ namespace Digiwin.Chun.Common.Controller {
                 else
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            new Thread(() => SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopyUIdll_Click")).Start();
+            InsertInfo("btncopyUIdll_Click");
         }
+
+        /// <summary>
+        /// 操作插入数据库
+        /// </summary>
+        /// <param name="operationName"></param>
+        public static void InsertInfo(string operationName) {
+            new Thread(() => SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",$"{ DateTime.Now:yyyyMMdd}" , operationName)).Start();
+        }
+
 
         /// <summary>
         ///     CopyDll
@@ -383,8 +437,9 @@ namespace Digiwin.Chun.Common.Controller {
                     ReadToEntityTools.SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, settingPath);
                     break;
                 case ModelType.Xml:
-                    XmlTools.ModiXml(settingPath,
-                        bt.Id, bt.Url);
+                    var xpath= $@"//BuildeItem[Id='{bt.Id}']/Url";
+                    XmlTools.ModiXmlByXpath(settingPath,
+                        xpath, bt.Url);
                     break;
             }
            
@@ -528,12 +583,13 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="dir"></param>
         /// <returns></returns>
         private static string FindCSproj(DirectoryInfo dir) {
-            var csproj = String.Empty;
+            var csproj = string.Empty;
             if (!dir.Exists)
                 return csproj;
             var fileInfo = dir.GetFiles();
             var fcs = fileInfo.FirstOrDefault(f => f.Extension.Equals(@".csproj"));
-            csproj = fcs?.FullName ?? FindCSproj(dir.Parent);
+           
+            csproj = fcs?.FullName ?? (dir.Parent!=null?FindCSproj(dir.Parent): csproj);
             return csproj;
         }
 
@@ -666,7 +722,7 @@ namespace Digiwin.Chun.Common.Controller {
                         var index = toPath.IndexOf(csDir, StringComparison.Ordinal);
 
                         if (index > -1)
-                            XmlTools.ModiCs(csPath, toPath.Substring(index + csDir.Length));
+                            XmlTools.AddCsproj(csPath, toPath.Substring(index + csDir.Length));
 
                         #endregion
                     }
@@ -997,7 +1053,7 @@ namespace Digiwin.Chun.Common.Controller {
 
         #endregion
 
-        #region 修改
+        #region 借用修改
         
         /// <summary>
         ///     修改代码
@@ -1043,11 +1099,11 @@ namespace Digiwin.Chun.Common.Controller {
                 "*xml",
                 "*.sln",
                 "*.repx",
+                "*.resx",
                 "*proj",
                 "*.complete",
                 "*.cs"
             });
-            var patList = GetFilePath(directoryPath);
             foreach (var t in tSearchPatternList)
             {
                 foreach (var f in tDes.GetFiles(t, SearchOption.AllDirectories))
@@ -1063,14 +1119,29 @@ namespace Digiwin.Chun.Common.Controller {
                         : text.Replace(tempTypeKeyRootDir,
                             newTypeKeyRootDir);
 
-                    text = text.Replace(@"<HintPath>..\..\", @"<HintPath>..\..\..\..\..\WD_PR\SRC\");
+
+                    const string bpath = @"<HintPath>..\..\";
+                    var hintPaths = new[] { "bin", "Export" };
+                    text = hintPaths.Aggregate(text, 
+                        (current, hitPath) => 
+                        current.Replace(bpath + hitPath, bpath + @"..\..\..\WD_PR\SRC\" + hintPaths));
                     File.SetAttributes(filePath, FileAttributes.Normal);
                     File.WriteAllText(filePath, text, Encoding.UTF8);
 
+                   // 添加编译选项
                     var extionName = Path.GetExtension(filePath);
-                    if (!extionName.Equals(".csproj")) continue;
-                    XmlTools.XmlNodeByXPath(filePath, @"Compile", patList);
-                    XmlTools.XmlNodeByXPath(filePath, @"EmbeddedResource", patList);
+                    var extionNames = new[]{".cs", ".resx"};
+                    if (!extionNames.Contains(extionName)) continue;
+
+                    var dirInfo = f.Directory;
+                    var csPath = FindCSproj(dirInfo);
+                    var csDir = $@"{Path.GetDirectoryName(csPath)}\";
+
+                    //找到相对位置
+                    var index = filePath.IndexOf(csDir, StringComparison.Ordinal);
+
+                    if (index > -1)
+                        XmlTools.AddCsproj(csPath, filePath.Substring(index + csDir.Length));
                 }
             }
         }
@@ -1170,10 +1241,10 @@ namespace Digiwin.Chun.Common.Controller {
             }
             catch (Exception ex) {
                 success = false;
+                LogTools.LogError($"CopyAllPkg Error! Detail {ex.Message}");
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            new Thread(() => SqlTools.InsertToolInfo(string.Format($@"S01231_{DateTime.Now:yyyyMMdd}_01"), $@"{DateTime.Now:yyyyMMdd}", "COPY PKG SOURCE")
-            ).Start();
+            InsertInfo("COPY PKG SOURCE");
             return success;
         }
 

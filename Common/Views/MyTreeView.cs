@@ -103,13 +103,19 @@ namespace Digiwin.Chun.Common.Views
                 return;
             }
             var bt = node.BuildeType;
-            if (bt.Checked != null
-                && bt.Checked.Equals("True")) {
-                node.Checked = false;
+            if (bt != null) {
+                if (bt.Checked != null
+                    && bt.Checked.Equals("True")) {
+                    node.Checked = false;
+                }
+                else {
+                    node.Checked = true;
+                }
             }
             else {
-                node.Checked = true;
+                node.Checked = !node.Checked;
             }
+        
             //node.Checked = !node.Checked;
 
             // 如果是单选，则设置同级别的其它单选项为unchecked.  

@@ -15,53 +15,91 @@ namespace Digiwin.Chun.Common.Controller {
         #region 日志
 
         /// <summary>
+        /// 获取log日志目录
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLogDir(string operationLog) {
+            var toolpars = MyTools.Toolpars;
+            var varAppPath = PathTools.PathCombine(toolpars.MvsToolpath, "log");
+            if (!Directory.Exists(varAppPath))
+                Directory.CreateDirectory(varAppPath);
+            var logPath = $@"{varAppPath}\\{operationLog}.log";
+            return logPath;
+        }
+        /// <summary>
         ///     日志
         /// </summary>
         public static void WriteLogByTreeView(MyTreeView treeView) {
             var toolpars = MyTools.Toolpars;
             var pathDic = MyTools.GetTreeViewFilePath(treeView.Nodes);
             var txtNewTypeKey = toolpars.FormEntity.TxtNewTypeKey;
-            var varAppPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "log";
-            if (!Directory.Exists(varAppPath))
-                Directory.CreateDirectory(varAppPath);
-            var logPath = $@"{varAppPath}\\{
-                    (toolpars.CustomerName == null || toolpars.CustomerName.Equals(string.Empty)
-                        ? DateTime.Now.ToString("yyyyMMddhhmmss")
-                        : toolpars.CustomerName)
-                }.log";
-
+            var operationLog = (toolpars.CustomerName == null || toolpars.CustomerName.Equals(string.Empty)
+                ? DateTime.Now.ToString("yyyyMMddhhmmss")
+                : toolpars.CustomerName);
+            var logPath=GetLogDir(operationLog);
 
             var logStr = new StringBuilder();
             var headStr = string.Empty;
             for (var i = 0; i <= 80; i++)
                 headStr += "_";
+            const string empStr = @"      ";
             logStr.AppendLine(headStr).AppendLine(
-                    $"    # CREATEDATE   {DateTime.Now:yyyy-MM-dd hh:mm:ss:fff}")
-                .AppendLine($"    # CREATEBY  {Environment.MachineName}")
-                .AppendLine($"    # TYPEKEY  {txtNewTypeKey}").AppendLine();
-
+                    $"{empStr}# CREATEDATE{empStr}{DateTime.Now:yyyy-MM-dd hh:mm:ss:fff}")
+                .AppendLine($"{empStr}# CREATEBY{empStr}{Environment.MachineName}")
+                .AppendLine($"{empStr}# TYPEKEY{empStr}{txtNewTypeKey}")
+                .AppendLine($"{empStr}OperationTime{empStr}{DateTime.Now:yyyyMMdd}")
+                .AppendLine($"{empStr}OperationUser{empStr}{Environment.MachineName}")
+                .AppendLine($"{empStr}WinUser{empStr}{Environment.UserName}")
+                .AppendLine($"{empStr}WinverInfo{empStr}{Environment.OSVersion.VersionString}")
+                .AppendLine($"{empStr}CurrentDomain{empStr}{Environment.UserDomainName}").AppendLine();
             
             foreach (var kv in pathDic)
             {
                 foreach (var fileinfo in kv.Value)
-                logStr.AppendLine($"    # {kv.Key} {fileinfo.FileName}");
+                logStr.AppendLine($"{empStr}# {kv.Key} {empStr}{fileinfo.FileName}");
             }
             logStr.AppendLine(headStr);
             WriteToFile(logPath, logStr.ToString());
         }
 
         /// <summary>
-        /// 记录到文件
+        /// 记录到文件,已存在则追加
         /// </summary>
         /// <param name="path"></param>
-        /// <param name="fileStr"></param>
-        public static void WriteToFile(string path,string fileStr) {
+        /// <param name="logMsg"></param>
+        public static void WriteToFile(string path,string logMsg) {
             using (var sw = new StreamWriter(path, true, Encoding.UTF8))
             {
-                sw.WriteLine(fileStr);
+                sw.WriteLine(logMsg);
                 sw.Flush();
             }
         }
+
+        /// <summary>
+        /// 记录错误信息
+        /// </summary>
+        /// <param name="msg"></param>
+        public static void LogError(string msg) {
+
+           var logPath = GetLogDir($@"error_{DateTime.Now:yyyyMMdd}");
+
+            var logStr = new StringBuilder();
+            var headStr = string.Empty;
+            for (var i = 0; i <= 100; i++)
+                headStr += "_";
+            logStr.AppendLine(headStr);
+            var empStr = "      ";
+            logStr.AppendLine($"{empStr}OperationTime{empStr}{DateTime.Now:yyyyMMdd}")
+            .AppendLine($"{empStr}OperationUser{empStr}{Environment.MachineName}")
+            .AppendLine($"{empStr}WinUser{empStr}{Environment.UserName}")
+            .AppendLine($"{empStr}WinverInfo{empStr}{Environment.OSVersion.VersionString}")
+            .AppendLine($"{empStr}CurrentDomain{empStr}{Environment.UserDomainName}")
+            .AppendLine($"{empStr}{msg}").AppendLine(headStr);
+
+
+            WriteToFile(logPath, logStr.ToString());
+        }
+
 
         /// <summary>
         /// 记录到Server
