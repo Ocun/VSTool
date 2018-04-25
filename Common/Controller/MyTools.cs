@@ -64,8 +64,7 @@ namespace Digiwin.Chun.Common.Controller {
             InitBuilderEntity();
 
         }
-
-
+        
         /// <summary>
         ///     把文件拷入指定的文件夹,并修改文件名
         /// </summary>
@@ -74,6 +73,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="fromTypeKey"></param>
         /// <param name="toTypeKey"></param>
         /// <param name="filterfilesinfo"></param>
+        /// <param name="copyAll"></param>
         // ReSharper disable once UnusedMember.Global
         public static void CopyTo(string fromDir, string toDir,
             string fromTypeKey, string toTypeKey, IReadOnlyCollection<FileInfos> filterfilesinfo, bool copyAll) {
@@ -1085,7 +1085,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         /// 修改文件 新的typekey
         /// </summary>
-        public static void ModiFile(bool ModiAll) {
+        public static void ModiFile(bool modiAll) {
             var oldTypekey = Toolpars.FormEntity.PkgTypekey;
             var newTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
             var pathInfo = Toolpars.PathEntity;
@@ -1130,7 +1130,7 @@ namespace Digiwin.Chun.Common.Controller {
                     File.SetAttributes(filePath, FileAttributes.Normal);
                     File.WriteAllText(filePath, text, Encoding.UTF8);
 
-                    if (!ModiAll) {
+                    if (!modiAll) {
                         // 添加编译选项
                         var extionName = Path.GetExtension(filePath);
                         var extionNames = new[] { ".cs", ".resx" };
@@ -1333,6 +1333,51 @@ namespace Digiwin.Chun.Common.Controller {
             return tIsOpen;
         }
 
+        #endregion
+
+        #region 删除菜单
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="bts"></param>
+        public static BuildeType[] FindBuilderTypeAndDelete(string id, BuildeType[] bts)
+        {
+            if (PathTools.IsNullOrEmpty(id) || bts == null) return bts;
+            var btsList= bts.ToList();
+            var findIndex = btsList.FirstOrDefault(bt => bt.Id.Equals(id));
+            if (findIndex != null) {
+                btsList.Remove(findIndex);
+            }
+            else {
+                btsList.ForEach(bt=> bt.BuildeItems =FindBuilderTypeAndDelete(id, bt.BuildeItems));
+              
+            }
+            return btsList.ToArray();
+        }
+
+
+        /// <summary>
+        ///  根据Id删除配置节点
+        /// </summary>
+        /// <param name="bt"></param>
+        public  static void DeleteById(BuildeType bt)
+        {
+            try {
+
+                if (bt == null)
+                    return;
+                Toolpars.BuilderEntity.BuildeTypies =
+                    FindBuilderTypeAndDelete(bt.Id, Toolpars.BuilderEntity.BuildeTypies);
+                var xmlPath = PathTools.GetSettingPath("BuilderEntity", Toolpars.ModelType);
+                ReadToEntityTools.SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, xmlPath);
+                ControlTools.InitMainView();
+            }
+            catch (Exception ex) {
+                LogTools.LogError($"Delete Menu Error! Detail:{ex.Message}");
+            }
+
+        } 
         #endregion
     }
 }

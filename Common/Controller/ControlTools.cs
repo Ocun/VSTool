@@ -293,21 +293,30 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = !Toolpars.FormEntity.EditState;
             HeaderPanel.Visible = !Toolpars.FormEntity.EditState;
             SplitContainer1.Panel2Collapsed = Toolpars.FormEntity.EditState;
+            InitMainView();
+        }
+
+        /// <summary>
+        /// 重新加载导航栏与主菜单画面
+        /// </summary>
+        public static void InitMainView() {
             var selectNode = NavTreeView.SelectedNode;
             CreateTree("RootView");
             var myTreeNode = selectNode as MyTreeNode;
             if (myTreeNode == null)
                 return;
-            MyTools.InitBuilderEntity();
-            CreateTree(myTreeNode.BuildeType.Id);
-            foreach (MyTreeNode node in NavTreeView.Nodes) {
+            foreach (MyTreeNode node in NavTreeView.Nodes)
+            {
                 var bt = node.BuildeType;
                 if (!bt.Id.Equals(myTreeNode.BuildeType.Id))
                     continue;
                 NavTreeView.SelectedNode = node;
                 break;
             }
+            CreateTree(myTreeNode.BuildeType.Id);
+           
         }
+
 
         /// <summary>
         ///     设置流式布局，最大可设定
@@ -354,12 +363,6 @@ namespace Digiwin.Chun.Common.Controller {
                 }
                 else {
                     var fileInfos = MyTools.GetTreeViewPath(TreeView1.Nodes);
-                    //new Thread( ()=> {
-                    //        Invoke(new Action(()=>{
-                    //            LogTool.WriteToServer(Toolpars, fileInfos);
-                    //        }));
-                    //    }
-                    //).Start();
                     new Thread(() => LogTools.WriteToServer(fileInfos)
                     ).Start();
 
@@ -378,21 +381,8 @@ namespace Digiwin.Chun.Common.Controller {
                             MessageBoxIcon.Error);
                         return;
                     }
-                    var flag = true;
-
-                    var targetDir = pathInfo.TypeKeyFullRootDir;
-                    if (Directory.Exists(targetDir)) {
-                        //var result =
-                        //    MessageBox.Show(targetDir + Environment.NewLine + Resources.DirExisted,
-                        //        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        //if (result == DialogResult.Yes)
-                        //    OldTools.DeleteAll(targetDir);
-                        //else
-                        //    flag = false;
-                    }
-                    //if (!flag)
-                    //    return;
-                    flag = MyTools.CopyModi(TreeView1.Nodes);
+                    
+                    var flag = MyTools.CopyModi(TreeView1.Nodes);
                     if (!flag)
                         return;
                     MessageBox.Show(Resources.GenerateSucess);

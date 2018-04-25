@@ -78,12 +78,14 @@ namespace Digiwin.Chun.Common.Views
                 || !node.CheckBoxVisible
                 || !node.IsVisible)
                 return;
+            var bt = node.BuildeType;
+            //编辑状态 删除按钮
             var delRect = new Rectangle(Width - 40, node.Bounds.Y + 5, 25, 25);
             if (Toolpars.FormEntity.EditState) {
                 if (delRect.Contains(e.X, e.Y)) {
                     if (MessageBox.Show($@"确定删除项目{node.Text}吗？", Resources.WarningMsg, MessageBoxButtons.YesNo) ==
-                        DialogResult.OK) {
-                        
+                        DialogResult.Yes) {
+                       MyTools.DeleteById(bt);
                     }
                     return;
                 }
@@ -97,12 +99,12 @@ namespace Digiwin.Chun.Common.Views
             // 如果点击的是checkbox图片  
             if (!checkboxImgRect.Contains(e.X, e.Y))
                 return;
+            //编辑状态时
             if (Toolpars.FormEntity.EditState)
             {
                 node.Checked = !node.Checked;
                 return;
             }
-            var bt = node.BuildeType;
             if (bt != null) {
                 if (bt.Checked != null
                     && bt.Checked.Equals("True")) {

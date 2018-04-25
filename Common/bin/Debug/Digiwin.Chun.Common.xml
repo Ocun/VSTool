@@ -182,6 +182,11 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.InitMainView">
+            <summary>
+            重新加载导航栏与主菜单画面
+            </summary>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_ClientSizeChanged(System.Object,System.EventArgs)">
             <summary>
                 设置流式布局，最大可设定
@@ -967,6 +972,7 @@
             <param name="fromTypeKey"></param>
             <param name="toTypeKey"></param>
             <param name="filterfilesinfo"></param>
+            <param name="copyAll"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyFile(System.String,System.String)">
             <summary>
@@ -1186,6 +1192,19 @@
             </summary>
             <param name="processName"></param>
             <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.FindBuilderTypeAndDelete(System.String,Digiwin.Chun.Common.Model.BuildeType[])">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="bts"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.DeleteById(Digiwin.Chun.Common.Model.BuildeType)">
+            <summary>
+             根据Id删除配置节点
+            </summary>
+            <param name="bt"></param>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.PathTools">
             <summary>
