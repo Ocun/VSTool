@@ -69,8 +69,7 @@ namespace Digiwin.Chun.Common.Controller
                         "VSTool", DateTime.Now, DateTime.Now.ToString("yyyyMMddHHmmss")
                             .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8), Environment.MachineName,
                         "N", 1, pTheMemo, pDemandId, pUseYear);
-                    new SqlCommand(Builder.ToString(), Connection).ExecuteNonQuery();
-                 
+                    new SqlCommand(Builder.ToString(), connection).ExecuteNonQuery();
                 }
             }
             catch(Exception ex) {
@@ -131,6 +130,7 @@ namespace Digiwin.Chun.Common.Controller
                         bulkCopy.BatchSize = dt.Rows.Count;
                         bulkCopy.WriteToServer(dt);
                     }
+                    Connection.Close();
                 }
             }
             catch (Exception ex)

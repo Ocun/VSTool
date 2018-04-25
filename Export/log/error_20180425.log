@@ -52,3 +52,12 @@ ________________________________________________________________________________
       InsertToolInfo COPY PKG SOURCE Error! Detail:ExecuteNonQuery 要求已打开且可用的 Connection。连接的当前状态为已关闭。
 _____________________________________________________________________________________________________
 
+_____________________________________________________________________________________________________
+      OperationTime      20180425
+      OperationUser      H-08628
+      WinUser      zychu
+      WinverInfo      Microsoft Windows NT 6.2.9200.0
+      CurrentDomain      H-08628
+      InsertToolInfo btncopydll_Click Error! Detail:ExecuteNonQuery 要求已打开且可用的 Connection。连接的当前状态为已关闭。
+_____________________________________________________________________________________________________
+

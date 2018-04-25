@@ -47,7 +47,7 @@ namespace Digiwin.Chun.Common.Controller {
                     $"{empStr}# CREATEDATE{empStr}{DateTime.Now:yyyy-MM-dd hh:mm:ss:fff}")
                 .AppendLine($"{empStr}# CREATEBY{empStr}{Environment.MachineName}")
                 .AppendLine($"{empStr}# TYPEKEY{empStr}{txtNewTypeKey}")
-                .AppendLine($"{empStr}OperationTime{empStr}{DateTime.Now:yyyyMMdd}")
+                .AppendLine($"{empStr}OperationTime{empStr}{DateTime.Now:yyyy-MM-dd hh:mm:ss:fff}")
                 .AppendLine($"{empStr}OperationUser{empStr}{Environment.MachineName}")
                 .AppendLine($"{empStr}WinUser{empStr}{Environment.UserName}")
                 .AppendLine($"{empStr}WinverInfo{empStr}{Environment.OSVersion.VersionString}")
@@ -89,7 +89,7 @@ namespace Digiwin.Chun.Common.Controller {
                 headStr += "_";
             logStr.AppendLine(headStr);
             var empStr = "      ";
-            logStr.AppendLine($"{empStr}OperationTime{empStr}{DateTime.Now:yyyyMMdd}")
+            logStr.AppendLine($"{empStr}OperationTime{empStr}{DateTime.Now:yyyy-MM-dd hh:mm:fff}")
             .AppendLine($"{empStr}OperationUser{empStr}{Environment.MachineName}")
             .AppendLine($"{empStr}WinUser{empStr}{Environment.UserName}")
             .AppendLine($"{empStr}WinverInfo{empStr}{Environment.OSVersion.VersionString}")

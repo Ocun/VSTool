@@ -4,730 +4,30 @@
         <name>Digiwin.Chun.Common</name>
     </assembly>
     <members>
-        <member name="T:Digiwin.Chun.Common.Model.BuildeEntity">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeEntity.BuildeTypies">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.BuildeType">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.IsMerge">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.CpuInfo">
             <summary>
-                来源自同一模板代码片段是否合并
+            Cpu信息
             </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Id">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Description">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.BuildeItems">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Checked">
-            <summary>
-                是否选中
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ReadOnly">
-            <summary>
-                是否可选
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.FileInfos">
-            <summary>
-              对应的模板文件
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ShowParWindow">
-            <summary>
-                点击是否显示参数框
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.PartId">
-            <summary>
-                指示所属代码片段
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ShowCheckedBox">
-            <summary>
-                是否显示复选框
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.IsTools">
-            <summary>
-                是否时外部工具
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Url">
-            <summary>
-                外部应用程序地址
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Visiable">
-            <summary>
-                项目是否可见，仅在无子项时生效
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.IsPlug">
-            <summary>
-                是否是插件
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.PlugPath">
-            <summary>
-                插件路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ModuleName">
-            <summary>
-                模块名
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ShowIcon">
-            <summary>
-                是否显示Icon
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.EditState">
-            <summary>
-                编辑状态
-            </summary>
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.FileInfos">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.ActionName">
-            <summary>
-                时机点
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.FunctionName">
-            <summary>
-                方法名
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.ClassName">
-            <summary>
-                类名
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.FileName">
-            <summary>
-                文件名
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.FromPath">
-            <summary>
-                模板路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.ToPath">
-            <summary>
-                个案路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.BasePath">
-            <summary>
-                模板路径（相对路径）
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.PartId">
-            <summary>
-                引用代码片段
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.IsMerge">
-            <summary>
-                来源自同一模板代码片段是否合并
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FileInfos.Id">
-            <summary>
-                Id唯一
-            </summary>
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.MappingEntity">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MappingEntity.MappingItems">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.MappingItem">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MappingItem.Id">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MappingItem.Description">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MappingItem.Paths">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.MetadataContainer">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.DataEntityTypes">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.FileVersion">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.ProductVersion">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.ProductName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.CopyRight">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.DataEntityType">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Alias">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.DataEntityTypeType">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.DisplayName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Description">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.PrimaryKey">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Domain">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.BusinessPrimaryKey">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Properties">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.DataEntityIndexes">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.InterfaceReferences">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.Properties">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Properties.Items">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.CollectionProperty">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.ItemDataEntityTypeName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.Alias">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.DisplayName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.Description">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.IsBrowsable">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.IsSystem">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.BusinessTypeName">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.ComplexProperty">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.DataEntityTypeName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.PickListType">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.Alias">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.DisplayName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.Description">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.IsBrowsable">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.IsSystem">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.ReferenceProperty">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.ReferenceToName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsIndex">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsUnique">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.AutoSync">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.DefaultValue">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.Alias">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.DisplayName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.Description">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsBrowsable">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsSystem">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.BusinessTypeName">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.SimpleProperty">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Size">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsIndex">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsUnique">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.AutoSync">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IgnoreUpdate">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.DefaultValue">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.PickListType">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.DbType">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Alias">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.DisplayName">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Description">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsBrowsable">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsSystem">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.BusinessTypeName">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.DataEntityIndex">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.DataEntityIndexId">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.Unique">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.RelatedProperties">
-            <remarks />
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.IndexesDataEntityIndex">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.Name">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.DataEntityIndexId">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.Clustered">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.Unique">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.RelatedProperties">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.InterfaceReference">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.InterfaceReference.Name">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.DataEntityTypeReference">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.DataEntityTypeReference.Name">
-            <remarks />
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.SettingPathEntity">
-            <remarks />
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.ServerDir">
-            <summary>
-                服务端部署路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.DeployServerDir">
-            <summary>
-                客户端部署路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.IndustryServerDir">
-            <summary>
-                行业包服务端部署路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.IndustryDeployDir">
-            <summary>
-                行业包客户端部署路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.Programs">
-            <summary>
-                平台dll目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.BasicDir">
-            <summary>
-                源码路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.ExportDir">
-            <summary>
-                导出路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.BusinessDirExtention">
-            <summary>
-                Business
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.ImplementDirExtention">
-            <summary>
-                Implement
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.UiDirExtention">
-            <summary>
-                UI
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.DllExtention">
-            <summary>
-                dll
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.PackageBaseName">
-            <summary>
-                包名前缀
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.TemplateDir">
-            <summary>
-                模版目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.TemplateTypeKey">
-            <summary>
-            模板typeKey
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.TemplateDirField">
-            <summary>
-            模板路径
-            </summary>
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.FormEntity">
-            <summary>
-                界面參數
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtToPath">
-            <summary>
-                個案路徑
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtPkGpath">
-            <summary>
-                借用路徑
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtNewTypeKey">
-            <summary>
-                個案typekey
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.Industry">
-            <summary>
-                行業包
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.IsModi">
-            <summary>
-                修改状态
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.PkgTypekey">
-            <summary>
-                借用TypeKey
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.SpiltWidth">
-            <summary>
-            分割宽度，每间隔此宽度分割一列
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.MaxSplitCount">
-            <summary>
-            最大分割列数
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.EditState">
-            <summary>
-            是否出现编辑菜单
-            </summary>
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.PathEntity">
-            <summary>
-                路径相关
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.BusinessDllName">
-            <summary>
-                產生接口dll名稱
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ImplementDllName">
-            <summary>
-                產生實現dll名稱
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiDllName">
-            <summary>
-                UI端接口dll名稱
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiImplementDllName">
-            <summary>
-                ui端實現dll名稱
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ExportFullPath">
-            <summary>
-                導出目錄
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.BusinessDir">
-            <summary>
-                个案源码之接口目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ImplementDir">
-            <summary>
-                个案源码之接口实现目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiDir">
-            <summary>
-                个案源码之接口目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiImplementDir">
-            <summary>
-                个案源码之客户端目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ServerProgramsFullPath">
-            <summary>
-                dll部署路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.DeployProgramsFullPath">
-            <summary>
-                dll部署路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeyRootDir">
-            <summary>
-                新typekey目录,相对目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeyFullRootDir">
-            <summary>
-                新typekey目录，绝对目录
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeyRootDir">
-            <summary>
-                借用typekey路径(代码)，相对路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeyFullRootDir">
-            <summary>
-                借用typekey路径(代码)，绝对路径
-            </summary>
-        </member>
-        <member name="T:Digiwin.Chun.Common.Model.Toolpars">
-            <summary>
-                窗体参数
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.ModelType">
-            <summary>
-            配置类型
-            </summary>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Model.Toolpars.#ctor">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.FileMappingEntity">
-            <summary>
-                文件映射
-            </summary>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Model.Toolpars.GetEntity``1(``0,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="obj"></param>
-            <param name="fileName"></param>
-            <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.SettingPathEntity">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.MainBoardInfo">
             <summary>
-                一些路径中常用字符配置
+            主板信息
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.BuilderEntity">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.DiskDriveInfo">
             <summary>
-                菜单项目实体
+            硬盘信息
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.OldTypekey">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.NetworkInfo">
             <summary>
-                要复制的typekey
+            网络连接信息
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mall">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.OsInfo">
             <summary>
-                全部参数信息，平台路径，设计器路径，个案路径，客户名，行业包
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mcodepath">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.CustomerName">
-            <summary>
-                客户名
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MIndustry">
-            <summary>
-                行業包
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MvsToolpath">
-            <summary>
-                VS当前路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MDistince">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mpath">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MInpath">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mplatform">
-            <summary>
-                平台路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MdesignPath">
-            <summary>
-                设计器路径
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MVersion">
-            <summary>
-                版本
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.FormEntity">
-            <summary>
-                窗體參數
-            </summary>
-        </member>
-        <member name="P:Digiwin.Chun.Common.Model.Toolpars.PathEntity">
-            <summary>
-                生成路徑
+            操作系统信息
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.ModelType">
@@ -946,7 +246,7 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.TreeView1_AfterSelect(System.Object,System.Windows.Forms.TreeViewEventArgs)">
             <summary>
-            借用界面
+                借用界面
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
@@ -2228,6 +1528,732 @@
             <param name="root"></param>
             <param name="name"></param>
             <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.BuildeEntity">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeEntity.BuildeTypies">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.BuildeType">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.IsMerge">
+            <summary>
+                来源自同一模板代码片段是否合并
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Id">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.BuildeItems">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Checked">
+            <summary>
+                是否选中
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ReadOnly">
+            <summary>
+                是否可选
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.FileInfos">
+            <summary>
+              对应的模板文件
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ShowParWindow">
+            <summary>
+                点击是否显示参数框
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.PartId">
+            <summary>
+                指示所属代码片段
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ShowCheckedBox">
+            <summary>
+                是否显示复选框
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.IsTools">
+            <summary>
+                是否时外部工具
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Url">
+            <summary>
+                外部应用程序地址
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.Visiable">
+            <summary>
+                项目是否可见，仅在无子项时生效
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.IsPlug">
+            <summary>
+                是否是插件
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.PlugPath">
+            <summary>
+                插件路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ModuleName">
+            <summary>
+                模块名
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ShowIcon">
+            <summary>
+                是否显示Icon
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.EditState">
+            <summary>
+                编辑状态
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.FileInfos">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.ActionName">
+            <summary>
+                时机点
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.FunctionName">
+            <summary>
+                方法名
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.ClassName">
+            <summary>
+                类名
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.FileName">
+            <summary>
+                文件名
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.FromPath">
+            <summary>
+                模板路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.ToPath">
+            <summary>
+                个案路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.BasePath">
+            <summary>
+                模板路径（相对路径）
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.PartId">
+            <summary>
+                引用代码片段
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.IsMerge">
+            <summary>
+                来源自同一模板代码片段是否合并
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FileInfos.Id">
+            <summary>
+                Id唯一
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.MappingEntity">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MappingEntity.MappingItems">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.MappingItem">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MappingItem.Id">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MappingItem.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MappingItem.Paths">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.MetadataContainer">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.DataEntityTypes">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.FileVersion">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.ProductVersion">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.ProductName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MetadataContainer.CopyRight">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.DataEntityType">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Alias">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.DataEntityTypeType">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.PrimaryKey">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Domain">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.BusinessPrimaryKey">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.Properties">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.DataEntityIndexes">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityType.InterfaceReferences">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.Properties">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Properties.Items">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.CollectionProperty">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.ItemDataEntityTypeName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CollectionProperty.BusinessTypeName">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.ComplexProperty">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.DataEntityTypeName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.PickListType">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ComplexProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.ReferenceProperty">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.ReferenceToName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsIndex">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsUnique">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.AutoSync">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.DefaultValue">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.ReferenceProperty.BusinessTypeName">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.SimpleProperty">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Size">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsIndex">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsUnique">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.AutoSync">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IgnoreUpdate">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.DefaultValue">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.PickListType">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.DbType">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Alias">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsBrowsable">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.IsSystem">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SimpleProperty.BusinessTypeName">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.DataEntityIndex">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.DataEntityIndexId">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.Unique">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityIndex.RelatedProperties">
+            <remarks />
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.IndexesDataEntityIndex">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.Name">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.DataEntityIndexId">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.Clustered">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.Unique">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.IndexesDataEntityIndex.RelatedProperties">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.InterfaceReference">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.InterfaceReference.Name">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.DataEntityTypeReference">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DataEntityTypeReference.Name">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.SettingPathEntity">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.ServerDir">
+            <summary>
+                服务端部署路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.DeployServerDir">
+            <summary>
+                客户端部署路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.IndustryServerDir">
+            <summary>
+                行业包服务端部署路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.IndustryDeployDir">
+            <summary>
+                行业包客户端部署路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.Programs">
+            <summary>
+                平台dll目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.BasicDir">
+            <summary>
+                源码路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.ExportDir">
+            <summary>
+                导出路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.BusinessDirExtention">
+            <summary>
+                Business
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.ImplementDirExtention">
+            <summary>
+                Implement
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.UiDirExtention">
+            <summary>
+                UI
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.DllExtention">
+            <summary>
+                dll
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.PackageBaseName">
+            <summary>
+                包名前缀
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.TemplateDir">
+            <summary>
+                模版目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.TemplateTypeKey">
+            <summary>
+            模板typeKey
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.SettingPathEntity.TemplateDirField">
+            <summary>
+            模板路径
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.FormEntity">
+            <summary>
+                界面參數
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtToPath">
+            <summary>
+                個案路徑
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtPkGpath">
+            <summary>
+                借用路徑
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtNewTypeKey">
+            <summary>
+                個案typekey
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.Industry">
+            <summary>
+                行業包
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.IsModi">
+            <summary>
+                修改状态
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.PkgTypekey">
+            <summary>
+                借用TypeKey
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.SpiltWidth">
+            <summary>
+            分割宽度，每间隔此宽度分割一列
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.MaxSplitCount">
+            <summary>
+            最大分割列数
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.EditState">
+            <summary>
+            是否出现编辑菜单
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.PathEntity">
+            <summary>
+                路径相关
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.BusinessDllName">
+            <summary>
+                產生接口dll名稱
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ImplementDllName">
+            <summary>
+                產生實現dll名稱
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiDllName">
+            <summary>
+                UI端接口dll名稱
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiImplementDllName">
+            <summary>
+                ui端實現dll名稱
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ExportFullPath">
+            <summary>
+                導出目錄
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.BusinessDir">
+            <summary>
+                个案源码之接口目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ImplementDir">
+            <summary>
+                个案源码之接口实现目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiDir">
+            <summary>
+                个案源码之接口目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.UiImplementDir">
+            <summary>
+                个案源码之客户端目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ServerProgramsFullPath">
+            <summary>
+                dll部署路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.DeployProgramsFullPath">
+            <summary>
+                dll部署路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeyRootDir">
+            <summary>
+                新typekey目录,相对目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeyFullRootDir">
+            <summary>
+                新typekey目录，绝对目录
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeyRootDir">
+            <summary>
+                借用typekey路径(代码)，相对路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeyFullRootDir">
+            <summary>
+                借用typekey路径(代码)，绝对路径
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.Toolpars">
+            <summary>
+                窗体参数
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.ModelType">
+            <summary>
+            配置类型
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Model.Toolpars.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.FileMappingEntity">
+            <summary>
+                文件映射
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Model.Toolpars.GetEntity``1(``0,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <param name="fileName"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.SettingPathEntity">
+            <summary>
+                一些路径中常用字符配置
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.BuilderEntity">
+            <summary>
+                菜单项目实体
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.OldTypekey">
+            <summary>
+                要复制的typekey
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mall">
+            <summary>
+                全部参数信息，平台路径，设计器路径，个案路径，客户名，行业包
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mcodepath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.CustomerName">
+            <summary>
+                客户名
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MIndustry">
+            <summary>
+                行業包
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MvsToolpath">
+            <summary>
+                VS当前路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MDistince">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mpath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MInpath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.Mplatform">
+            <summary>
+                平台路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MdesignPath">
+            <summary>
+                设计器路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.MVersion">
+            <summary>
+                版本
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.FormEntity">
+            <summary>
+                窗體參數
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.Toolpars.PathEntity">
+            <summary>
+                生成路徑
+            </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Properties.Resources">
             <summary>

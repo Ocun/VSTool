@@ -400,6 +400,7 @@ namespace Digiwin.Chun.Common.Controller {
                 }
             }
             catch (Exception ex) {
+                LogTools.LogError($"GenerClass Error! Detail {ex.Message}");
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -410,12 +411,17 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void BtnClear_Click(object sender, EventArgs e) {
-            MyTools.InitBuilderEntity();
-            if (NavTreeView.SelectedNode != null) {
-                var node = NavTreeView.SelectedNode as MyTreeNode;
-                ShowTreeView(node);
+            try {
+                MyTools.InitBuilderEntity();
+                if (NavTreeView.SelectedNode != null) {
+                    var node = NavTreeView.SelectedNode as MyTreeNode;
+                    ShowTreeView(node);
+                }
+                MyTreeViewTools.CreateRightView(RighteTreeView);
             }
-            MyTreeViewTools.CreateRightView(RighteTreeView);
+            catch (Exception ex) {
+                LogTools.LogError($"ClearSelect Error! Detail {ex.Message}");
+            }
         }
 
 
@@ -427,13 +433,20 @@ namespace Digiwin.Chun.Common.Controller {
         public static void BtnOpenTo_Click(object sender, EventArgs e) {
             var btn = sender as Button;
             var name = btn?.Name;
-            if (name != null && name.Equals("BtnOpenTo")) {
-                var targetDir = Toolpars.FormEntity.TxtToPath;
-                MyTools.OpenDir(targetDir);
+            try {
+                if (name != null
+                    && name.Equals("BtnOpenTo")) {
+                    var targetDir = Toolpars.FormEntity.TxtToPath;
+                    MyTools.OpenDir(targetDir);
+                }
+                else if (name != null
+                         && name.Equals("PkgOpenTo")) {
+                    var targetDir = Toolpars.FormEntity.TxtPkGpath;
+                    MyTools.OpenDir(targetDir);
+                }
             }
-            else if (name != null && name.Equals("PkgOpenTo")) {
-                var targetDir = Toolpars.FormEntity.TxtPkGpath;
-                MyTools.OpenDir(targetDir);
+            catch (Exception ex) {
+                LogTools.LogError($"OpenDir {name} Error! Detail {ex.Message}");
             }
         }
 
@@ -444,14 +457,16 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="e"></param>
         public static void BtnOpen_Click(object sender, EventArgs e) //打开文件夹
         {
-          
             var typekey = Toolpars.FormEntity.TxtNewTypeKey;
-            var targetDir = Toolpars.PathEntity.TypeKeyFullRootDir;
-            if (typekey.Equals(string.Empty)) {
-                targetDir = Path.GetDirectoryName(targetDir);
+            try {
+                var targetDir = Toolpars.PathEntity.TypeKeyFullRootDir;
+                if (typekey.Equals(string.Empty)) targetDir = Path.GetDirectoryName(targetDir);
+
+                MyTools.OpenDir(targetDir);
             }
-            
-            MyTools.OpenDir(targetDir);
+            catch (Exception ex) {
+                LogTools.LogError($"OpenDir {typekey} Error! Detail {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -529,16 +544,18 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         #region 借用按钮
+
         /// <summary>
-        /// 借用界面
+        ///     借用界面
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void TreeView1_AfterSelect(object sender, TreeViewEventArgs e) {
-             var node =e.Node as MyTreeNode;
+            var node = e.Node as MyTreeNode;
             if (node == null) return;
             node.BuildeType.Checked = node.Checked ? "True" : "False";
         }
+
         /// <summary>
         ///     修改按钮，点击弹出窗口，指示将借用的TYPEKEY与新的TypeKey
         /// </summary>
@@ -629,7 +646,8 @@ namespace Digiwin.Chun.Common.Controller {
                 return;
             var node = NavTreeView.SelectedNode as MyTreeNode;
             var b = node?.BuildeType.Id.Equals("MYTools");
-            if (b == null || !(bool) b)
+            if (b == null
+                || !(bool) b)
                 return;
             var fileList = (Array) e.Data.GetData(DataFormats.FileDrop);
             var f = true;
@@ -893,8 +911,8 @@ namespace Digiwin.Chun.Common.Controller {
             var bt = node.BuildeType;
             if (Toolpars.FormEntity.EditState)
                 return;
-            if (bt?.IsPlug != null &&
-                PathTools.IsTrue(bt.IsPlug)
+            if (bt?.IsPlug != null
+                && PathTools.IsTrue(bt.IsPlug)
             )
                 MyTools.CallModule(bt);
             else if (!PathTools.IsTrue(bt?.IsTools))
