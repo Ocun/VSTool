@@ -174,7 +174,8 @@ namespace Digiwin.Chun.Common.Views {
                     {
                         pkgTypePathList.ForEach(path =>
                         {
-                            pkgTypeKeyPath = PathTools.PathCombine(pkgTypeKeyDir,path.pkgTypePath);
+                            if (!path.pkgTypePath.Equals(Toolpars.FormEntity.PkgTypekey)) return;
+                            pkgTypeKeyPath = PathTools.PathCombine(pkgTypeKeyDir, path.pkgTypePath);
                             CopyPkg(pkgTypeKeyPath);
                         });
                     } 
@@ -192,6 +193,7 @@ namespace Digiwin.Chun.Common.Views {
             var pkgTypePath = string.Empty;
             var filterPath = path.Split('.');
             if (filterPath.Length <= 3) return pkgTypePath;
+
             pkgTypePath =  $@"{filterPath[0]}.{filterPath[1]}.{filterPath[2]}";
             return pkgTypePath;
         }

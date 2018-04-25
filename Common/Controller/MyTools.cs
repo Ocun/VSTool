@@ -76,7 +76,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="filterfilesinfo"></param>
         // ReSharper disable once UnusedMember.Global
         public static void CopyTo(string fromDir, string toDir,
-            string fromTypeKey, string toTypeKey, IReadOnlyCollection<FileInfos> filterfilesinfo) {
+            string fromTypeKey, string toTypeKey, IReadOnlyCollection<FileInfos> filterfilesinfo, bool copyAll) {
             var formFiles = GetFilePath(fromDir);
             string[] extensions = {
                 ".sln", ".csproj"
@@ -123,7 +123,7 @@ namespace Digiwin.Chun.Common.Controller {
                 // 无法释放，所以用流形式
                 //  fileinfo.CopyTo(newFilePath, true);
 
-
+                if (copyAll) continue;
                 //修改项目文件
                 if (!".csproj".Equals(extensionName)) continue;
                 XmlTools.DeleteXmlNodeByXPath(newFilePath, "Compile");
@@ -331,7 +331,9 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="operationName"></param>
         public static void InsertInfo(string operationName) {
-            new Thread(() => SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",$"{ DateTime.Now:yyyyMMdd}" , operationName)).Start();
+       
+                new Thread(() => SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",
+                    $"{DateTime.Now:yyyyMMdd}", operationName)).Start();
         }
 
 
@@ -1067,8 +1069,8 @@ namespace Digiwin.Chun.Common.Controller {
                 var pathInfo = Toolpars.PathEntity;
                  var formDir = pathInfo.PkgTypeKeyFullRootDir;
                 var toDir = pathInfo.TypeKeyFullRootDir;
-                CopyTo(formDir, toDir, Toolpars.FormEntity.PkgTypekey, Toolpars.FormEntity.TxtNewTypeKey, fileInfos);
-                ModiFile();
+                CopyTo(formDir, toDir, Toolpars.FormEntity.PkgTypekey, Toolpars.FormEntity.TxtNewTypeKey, fileInfos,false);
+                ModiFile(false);
             }
             catch (Exception) {
                 sucess = false;
@@ -1083,7 +1085,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         /// 修改文件 新的typekey
         /// </summary>
-        public static void ModiFile() {
+        public static void ModiFile(bool ModiAll) {
             var oldTypekey = Toolpars.FormEntity.PkgTypekey;
             var newTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
             var pathInfo = Toolpars.PathEntity;
@@ -1128,20 +1130,23 @@ namespace Digiwin.Chun.Common.Controller {
                     File.SetAttributes(filePath, FileAttributes.Normal);
                     File.WriteAllText(filePath, text, Encoding.UTF8);
 
-                   // 添加编译选项
-                    var extionName = Path.GetExtension(filePath);
-                    var extionNames = new[]{".cs", ".resx"};
-                    if (!extionNames.Contains(extionName)) continue;
+                    if (!ModiAll) {
+                        // 添加编译选项
+                        var extionName = Path.GetExtension(filePath);
+                        var extionNames = new[] { ".cs", ".resx" };
+                        if (!extionNames.Contains(extionName)) continue;
 
-                    var dirInfo = f.Directory;
-                    var csPath = FindCSproj(dirInfo);
-                    var csDir = $@"{Path.GetDirectoryName(csPath)}\";
+                        var dirInfo = f.Directory;
+                        var csPath = FindCSproj(dirInfo);
+                        var csDir = $@"{Path.GetDirectoryName(csPath)}\";
 
-                    //找到相对位置
-                    var index = filePath.IndexOf(csDir, StringComparison.Ordinal);
+                        //找到相对位置
+                        var index = filePath.IndexOf(csDir, StringComparison.Ordinal);
 
-                    if (index > -1)
-                        XmlTools.AddCsproj(csPath, filePath.Substring(index + csDir.Length));
+                        if (index > -1)
+                            XmlTools.AddCsproj(csPath, filePath.Substring(index + csDir.Length));
+                    }
+                   
                 }
             }
         }
@@ -1213,7 +1218,7 @@ namespace Digiwin.Chun.Common.Controller {
                                 }
                             }
                             if (success)
-                                CopyTo(pkgPath, newTypeKeyFullRootDir, oldTypeKey,newTypeKey,null);
+                                CopyTo(pkgPath, newTypeKeyFullRootDir, oldTypeKey,newTypeKey,null,true);
                         }
                     }
                     else {
@@ -1233,7 +1238,7 @@ namespace Digiwin.Chun.Common.Controller {
                 #region 修改命名
 
                 if (success) {
-                    ModiFile();
+                    ModiFile(true);
                     MessageBox.Show(Resources.GenerateSucess);
                 }
 

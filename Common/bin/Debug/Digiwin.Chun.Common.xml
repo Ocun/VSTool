@@ -1658,7 +1658,7 @@
             </summary>
             <param name="pToIni"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{Digiwin.Chun.Common.Model.FileInfos})">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{Digiwin.Chun.Common.Model.FileInfos},System.Boolean)">
             <summary>
                 把文件拷入指定的文件夹,并修改文件名
             </summary>
@@ -1845,7 +1845,7 @@
             <param name="nodes"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ModiFile">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ModiFile(System.Boolean)">
             <summary>
             修改文件 新的typekey
             </summary>

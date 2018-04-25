@@ -74,7 +74,7 @@ namespace Digiwin.Chun.Common.Controller
                 }
             }
             catch(Exception ex) {
-                LogTools.LogError($"InsertToolInfo Error! Detail:{ex.Message}");
+                LogTools.LogError($"InsertToolInfo {pTheMemo} Error! Detail:{ex.Message}");
                 Connection.Close();
             }
         }
