@@ -25,14 +25,18 @@ namespace Digiwin.Chun.Common.Model
         /// DiskDriveInfo
         /// </summary>
         public List<DiskDriveInfo> DiskDriveInfos { get; set; }
-    /// <summary>
-    /// NetworkInfo
-    /// </summary>
-    public List<NetworkInfo> NetworkInfos { get; set; }
+         /// <summary>
+         /// NetworkInfo
+         /// </summary>
+        public List<NetworkInfo> NetworkInfos { get; set; }
         /// <summary>
         /// OsInfo
         /// </summary>
         public List<OsInfo> OsInfo { get; set; }
+        /// <summary>
+        /// MemoryInfo
+        /// </summary>
+        public List<MemoryInfo> MemoryInfo { get; set; }
     }
 
     /// <summary>
@@ -156,6 +160,46 @@ namespace Digiwin.Chun.Common.Model
         /// 系统目录
         /// </summary>
         public string SystemDirectory { get; set; }
+    }
+    /// <summary>
+    /// 内存信息
+    /// </summary>
+    public class MemoryInfo
+    {
+        /// <summary>
+        /// 总大小
+        /// </summary>
+        public string Size { get; set; }
+        /// <summary>
+        /// 可用
+        /// </summary>
+        public string AvailableSize { get; set; }
+
+        /// <summary>
+        /// 生产商
+        /// </summary>
+        public string Manufacturer { get; set; }
+
+        /// <summary>
+        /// 内存类型
+        /// </summary>
+        public string MemoryType { get; set; }
+        /// <summary>
+        /// 内存类型
+        /// </summary>
+        public string Model { get; set; }
+        /// <summary>
+        /// 名字
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// 速率
+        /// </summary>
+        public string Speed { get; set; }
+        /// <summary>
+        /// 版本信息
+        /// </summary>
+        public string Version { get; set; }
     }
 
 }

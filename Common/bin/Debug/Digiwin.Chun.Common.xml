@@ -6,45 +6,49 @@
     <members>
         <member name="T:Digiwin.Chun.Common.Controller.HardwareTools">
             <summary>
-            获取系统硬件信息
+                获取系统硬件信息
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetHardwareInfo">
             <summary>
-            
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetManagementObjectCollection(System.String)">
             <summary>
-            獲取硬件信息集合
+                獲取硬件信息集合
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetCpuInfo">
             <summary>
-            Cpu信息
+                Cpu信息
             </summary>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetMainBoardInfo">
             <summary>
-            主板信息
+                主板信息
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetDiskDriveInfo">
             <summary>
-            硬盘信息
+                硬盘信息
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetNetworkInfo">
             <summary>
-            网络连接信息
+                网络连接信息
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetOsInfo">
             <summary>
-            操作系统信息
+                操作系统信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetMemoryInfo">
+            <summary>
+                内存信息
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.ModelType">
@@ -940,16 +944,29 @@
             日志
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.LogTools.GetLogDir(System.String)">
-            <summary>
-            获取log日志目录
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.WriteLogByTreeView(Digiwin.Chun.Common.Views.MyTreeView)">
             <summary>
                 日志
             </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.LogError(System.String)">
+            <summary>
+            记录错误信息
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.LogMsg(System.String,System.String)">
+            <summary>
+            记录日志
+            </summary>
+            <param name="msg"></param>
+            <param name="logPath"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.GetHardInfo">
+            <summary>
+            硬件信息
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.WriteToFile(System.String,System.String)">
             <summary>
@@ -958,6 +975,12 @@
             <param name="path"></param>
             <param name="logMsg"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.GetLogDir(System.String)">
+            <summary>
+            获取log日志目录
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.GetHeadStr(System.String,System.Int32)">
             <summary>
             生成一段指定长度的字符
@@ -965,12 +988,6 @@
             <param name="targetStr"></param>
             <param name="len"></param>
             <returns></returns>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Controller.LogTools.LogMsg(System.String)">
-            <summary>
-            记录错误信息
-            </summary>
-            <param name="msg"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.WriteToServer(System.Collections.Generic.IEnumerable{Digiwin.Chun.Common.Model.FileInfos})">
             <summary>
@@ -1779,6 +1796,11 @@
             OsInfo
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Model.HardwareEntity.MemoryInfo">
+            <summary>
+            MemoryInfo
+            </summary>
+        </member>
         <member name="T:Digiwin.Chun.Common.Model.CpuInfo">
             <summary>
             CPU信息
@@ -1912,6 +1934,51 @@
         <member name="P:Digiwin.Chun.Common.Model.OsInfo.SystemDirectory">
             <summary>
             系统目录
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.MemoryInfo">
+            <summary>
+            内存信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.Size">
+            <summary>
+            总大小
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.AvailableSize">
+            <summary>
+            可用
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.Manufacturer">
+            <summary>
+            生产商
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.MemoryType">
+            <summary>
+            内存类型
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.Model">
+            <summary>
+            内存类型
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.Name">
+            <summary>
+            名字
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.Speed">
+            <summary>
+            速率
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MemoryInfo.Version">
+            <summary>
+            版本信息
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Model.MetadataContainer">

@@ -47,9 +47,14 @@ namespace Digiwin.Chun.Common.Views {
                 args += " /d";
                 args += " /l:true";
             }
-            else {
+            else if(comboBox1.SelectedValue.Equals(2))
+            {
                 args += " /r:false";
-                args += " /l:false";
+                args += " /l:true";
+            }
+            else {
+                args += " /r:true";
+                args += " /l:true";
             }
             MyTools.ServerOn(args);
         }
@@ -114,7 +119,8 @@ namespace Digiwin.Chun.Common.Views {
         private void InitCombox() {
             var infoList = new List<ComboxInfo> {
                 new ComboxInfo {Id = 1, Name = "调试"},
-                new ComboxInfo {Id = 2, Name = "全启动"}
+                new ComboxInfo {Id = 2, Name = "修复数据库"},
+                new ComboxInfo {Id = 3, Name = "全启动"}
             };
             comboBox1.DataSource = infoList;
             comboBox1.ValueMember = "Id";
@@ -218,19 +224,26 @@ namespace Digiwin.Chun.Common.Views {
         private void CopyBtn_Click(object sender, EventArgs e) {
             try {
                 MyTools.CopyDll();
-                MessageBox.Show(Resources.CopySucess);
+                
             }
             catch (Exception ex) {
-                string[] processNames = {
-                    "Digiwin.Mars.ClientStart",
-                    "Digiwin.Mars.ServerStart",
-                    "Digiwin.Mars.AccountSetStart"
-                };
-                var f = MyTools.CheckCanCopyDll(processNames);
-                if (f)
-                    CopyBtn_Click(null, null);
-                else
+                if (sender == null) {
+
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else {
+                    string[] processNames = {
+                        "Digiwin.Mars.ClientStart",
+                        "Digiwin.Mars.ServerStart",
+                        "Digiwin.Mars.AccountSetStart"
+                    };
+                    var f = MyTools.CheckCanCopyDll(processNames);
+                    if (f)
+                        CopyBtn_Click(null, null);
+                    else
+                        MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+               
             }
             new Thread(() => SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopydll_Click")).Start();
         }
