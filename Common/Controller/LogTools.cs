@@ -76,25 +76,47 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
+        /// 生成一段指定长度的字符
+        /// </summary>
+        /// <param name="targetStr"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static string GetHeadStr(string targetStr,int len) {
+            var headStr = string.Empty;
+            for (var i = 0; i <= len; i++)
+                headStr += targetStr;
+            return headStr;
+        }
+        /// <summary>
         /// 记录错误信息
         /// </summary>
         /// <param name="msg"></param>
-        public static void LogError(string msg) {
-
-           var logPath = GetLogDir($@"error_{DateTime.Now:yyyyMMdd}");
-
+        public static void LogMsg(string msg) {
+            var hardwareInfo =MyTools.HardwareInfo;
+            var logPath = GetLogDir($@"error_{DateTime.Now:yyyyMMdd}");
+        
             var logStr = new StringBuilder();
-            var headStr = string.Empty;
-            for (var i = 0; i <= 100; i++)
-                headStr += "_";
+            var headStr = GetHeadStr(@"_",100);
             logStr.AppendLine(headStr);
             var empStr = "      ";
-            logStr.AppendLine($"{empStr}OperationTime{empStr}{DateTime.Now:yyyy-MM-dd hh:mm:fff}")
-            .AppendLine($"{empStr}OperationUser{empStr}{Environment.MachineName}")
-            .AppendLine($"{empStr}WinUser{empStr}{Environment.UserName}")
-            .AppendLine($"{empStr}WinverInfo{empStr}{Environment.OSVersion.VersionString}")
-            .AppendLine($"{empStr}CurrentDomain{empStr}{Environment.UserDomainName}")
-            .AppendLine($"{empStr}{msg}").AppendLine(headStr);
+            logStr.AppendLine($"{empStr}#OperationTime#{empStr}{DateTime.Now:yyyy-MM-dd hh:mm:fff}")
+            .AppendLine($"{empStr}#OperationUser#{empStr}{Environment.MachineName}")
+            .AppendLine($"{empStr}#WinUser#{empStr}{Environment.UserName}")
+            .AppendLine($"{empStr}#WinverInfo#{empStr}{Environment.OSVersion.VersionString}")
+            .AppendLine($"{empStr}#CurrentDomain#{empStr}{Environment.UserDomainName}");
+
+            if (hardwareInfo != null) {
+                logStr.AppendLine($"{empStr}#CpuCount#{empStr}{hardwareInfo.CpuInfos.Count}");
+                for (var i=0;i<  hardwareInfo.NetworkInfos.Count;i++) {
+                    var netInfo = hardwareInfo.NetworkInfos[i];
+                    logStr.AppendLine($"{empStr}#Description#{empStr}{netInfo.Description}");
+                    logStr.AppendLine($"{empStr}#IpAddress{i}#{empStr}{netInfo.IpAddress}");
+                    logStr.AppendLine($"{empStr}#MacAddress{i}#{empStr}{netInfo.MacAddress}");
+                }
+            
+            }
+
+            logStr.AppendLine($"{empStr}{msg}").AppendLine(headStr);
 
 
             WriteToFile(logPath, logStr.ToString());

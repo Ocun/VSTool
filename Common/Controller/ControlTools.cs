@@ -390,7 +390,7 @@ namespace Digiwin.Chun.Common.Controller {
                 }
             }
             catch (Exception ex) {
-                LogTools.LogError($"GenerClass Error! Detail {ex.Message}");
+                LogTools.LogMsg($"GenerClass Error! Detail {ex.Message}");
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -410,7 +410,7 @@ namespace Digiwin.Chun.Common.Controller {
                 MyTreeViewTools.CreateRightView(RighteTreeView);
             }
             catch (Exception ex) {
-                LogTools.LogError($"ClearSelect Error! Detail {ex.Message}");
+                LogTools.LogMsg($"ClearSelect Error! Detail {ex.Message}");
             }
         }
 
@@ -436,7 +436,7 @@ namespace Digiwin.Chun.Common.Controller {
                 }
             }
             catch (Exception ex) {
-                LogTools.LogError($"OpenDir {name} Error! Detail {ex.Message}");
+                LogTools.LogMsg($"OpenDir {name} Error! Detail {ex.Message}");
             }
         }
 
@@ -455,7 +455,7 @@ namespace Digiwin.Chun.Common.Controller {
                 MyTools.OpenDir(targetDir);
             }
             catch (Exception ex) {
-                LogTools.LogError($"OpenDir {typekey} Error! Detail {ex.Message}");
+                LogTools.LogMsg($"OpenDir {typekey} Error! Detail {ex.Message}");
             }
         }
 

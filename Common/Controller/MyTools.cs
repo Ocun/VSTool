@@ -26,15 +26,14 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         /// 硬件信息
         /// </summary>
-        public static HardwareEntity HardwareInfo { get; } = new HardwareEntity();
+        public static HardwareEntity HardwareInfo { get; } =  HardwareTools.GetHardwareInfo();
 
         /// <summary>
         ///     初始化窗体参数
         /// </summary>
         /// <param name="pToIni"></param>
         public static void InitToolpars(string[] pToIni) {
-            new Thread(() => HardwareTools.GetHardwareInfo()).Start();
-           
+            //获取系统信息
             if (pToIni == null) {
                 Toolpars.FormEntity.TxtToPath = String.Empty;
             }
@@ -319,7 +318,7 @@ namespace Digiwin.Chun.Common.Controller {
                 MessageBox.Show(Resources.CopySucess);
             }
             catch (Exception ex) {
-                LogTools.LogError($"CopyUIDll error! Detail:{ex.Message}");
+                LogTools.LogMsg($"CopyUIDll error! Detail:{ex.Message}");
                 string[] processNames = {
                     "Digiwin.Mars.ClientStart"
                 };
@@ -606,7 +605,7 @@ namespace Digiwin.Chun.Common.Controller {
                 }
             }
             catch (Exception ex) {
-                LogTools.LogError($@"Find csProj Error! Detail:{ex.Message}");
+                LogTools.LogMsg($@"Find csProj Error! Detail:{ex.Message}");
             }
 
 
@@ -749,7 +748,7 @@ namespace Digiwin.Chun.Common.Controller {
                     ModiFiles();
                 }
                 catch (Exception ex) {
-                    LogTools.LogError($@"GenerFile Error ! Detail {ex.Message}");
+                    LogTools.LogMsg($@"GenerFile Error ! Detail {ex.Message}");
                     success = false;
                 }
 
@@ -1274,7 +1273,7 @@ namespace Digiwin.Chun.Common.Controller {
             }
             catch (Exception ex) {
                 success = false;
-                LogTools.LogError($"CopyAllPkg Error! Detail {ex.Message}");
+                LogTools.LogMsg($"CopyAllPkg Error! Detail {ex.Message}");
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             InsertInfo("COPY PKG SOURCE");
@@ -1402,7 +1401,7 @@ namespace Digiwin.Chun.Common.Controller {
                 ControlTools.InitMainView();
             }
             catch (Exception ex) {
-                LogTools.LogError($"Delete Menu Error! Detail:{ex.Message}");
+                LogTools.LogMsg($"Delete Menu Error! Detail:{ex.Message}");
             }
 
         } 

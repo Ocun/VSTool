@@ -22,7 +22,7 @@ namespace Digiwin.Chun.Common.Controller {
                 xmlDocument.Load(xmlPath);
             }
             catch (Exception exception) {
-                LogTools.LogError($"LoadXml Error! Detail{exception.Message}");
+                LogTools.LogMsg($"LoadXml Error! Detail{exception.Message}");
                 return null;
             }
             return xmlDocument;
@@ -50,7 +50,7 @@ namespace Digiwin.Chun.Common.Controller {
                 }
             }
             catch (Exception ex) {
-                LogTools.LogError($"GetXmlNode Error! Detail {ex.Message}");
+                LogTools.LogMsg($"GetXmlNode Error! Detail {ex.Message}");
             }
 
             return selectedNode;
@@ -78,7 +78,7 @@ namespace Digiwin.Chun.Common.Controller {
                 }
             }
             catch (Exception ex) {
-                LogTools.LogError($"GetXmlNodeList Error! Detail {ex.Message}");
+                LogTools.LogMsg($"GetXmlNodeList Error! Detail {ex.Message}");
             }
 
             return selectedNode;

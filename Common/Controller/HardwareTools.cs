@@ -15,23 +15,26 @@ namespace Digiwin.Chun.Common.Controller
         /// <summary>
         /// 
         /// </summary>
-        public static void GetHardwareInfo() {
+        public static HardwareEntity GetHardwareInfo() {
+            HardwareEntity hardwareInfo = null ;
             try {
                 var cpuInfo = GetCpuInfo();
                 var mainBoardInfo = GetMainBoardInfo();
                 var diskDriveInfo = GetDiskDriveInfo();
                 var networkInfo = GetNetworkInfo();
                 var osInfo = GetOsInfo();
-                MyTools.HardwareInfo.CpuInfos = cpuInfo;
-                MyTools. HardwareInfo.MainBoardInfos = mainBoardInfo;
-                MyTools. HardwareInfo.DiskDriveInfos = diskDriveInfo;
-                MyTools. HardwareInfo.NetworkInfos = networkInfo;
-                MyTools. HardwareInfo.OsInfo = osInfo;
+                 hardwareInfo = new HardwareEntity {
+                    CpuInfos = cpuInfo,
+                    MainBoardInfos = mainBoardInfo,
+                    DiskDriveInfos = diskDriveInfo,
+                    NetworkInfos = networkInfo,
+                    OsInfo = osInfo
+                };
             }
             catch (Exception ex) {
-                LogTools.LogError($"GetHardwareInfo error! detail {ex.Message}");
+                LogTools.LogMsg($"GetHardwareInfo error! detail {ex.Message}");
             }
-       
+            return hardwareInfo;
         }
 
         /// <summary>
@@ -66,7 +69,7 @@ namespace Digiwin.Chun.Common.Controller
                 }
             }
             catch(Exception ex) {
-                LogTools.LogError($"GetCpuInfo Error! Detail:{ex.Message}");
+                LogTools.LogMsg($"GetCpuInfo Error! Detail:{ex.Message}");
             }
             return cpuInfos;
         }
@@ -97,7 +100,7 @@ namespace Digiwin.Chun.Common.Controller
             }
             catch(Exception ex)
             {
-                LogTools.LogError($"GetMainBoardInfo Error! Detail:{ex.Message}");
+                LogTools.LogMsg($"GetMainBoardInfo Error! Detail:{ex.Message}");
             }
             return mainBoardInfos;
         }
@@ -124,7 +127,7 @@ namespace Digiwin.Chun.Common.Controller
             }
             catch(Exception ex)
             {
-                LogTools.LogError($"GetDiskDriveInfo Error! Detail:{ex.Message}");
+                LogTools.LogMsg($"GetDiskDriveInfo Error! Detail:{ex.Message}");
             }
             return diskDriverInfos;
         }
@@ -162,7 +165,7 @@ namespace Digiwin.Chun.Common.Controller
             }
             catch(Exception ex)
             {
-                LogTools.LogError($"GetNetworkInfo Error! Detail:{ex.Message}");
+                LogTools.LogMsg($"GetNetworkInfo Error! Detail:{ex.Message}");
             }
             return networkInfos;
         }
@@ -187,7 +190,7 @@ namespace Digiwin.Chun.Common.Controller
             }
             catch(Exception ex)
             {
-                LogTools.LogError($"GetOsInfo Error! Detail:{ex.Message}");
+                LogTools.LogMsg($"GetOsInfo Error! Detail:{ex.Message}");
             }
             return osInfos;
         }

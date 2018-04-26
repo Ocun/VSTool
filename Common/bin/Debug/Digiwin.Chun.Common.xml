@@ -958,7 +958,15 @@
             <param name="path"></param>
             <param name="logMsg"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.LogTools.LogError(System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.GetHeadStr(System.String,System.Int32)">
+            <summary>
+            生成一段指定长度的字符
+            </summary>
+            <param name="targetStr"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.LogMsg(System.String)">
             <summary>
             记录错误信息
             </summary>
