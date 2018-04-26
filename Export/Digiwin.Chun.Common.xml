@@ -4,28 +4,45 @@
         <name>Digiwin.Chun.Common</name>
     </assembly>
     <members>
-        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.CpuInfo">
+        <member name="T:Digiwin.Chun.Common.Controller.HardwareTools">
+            <summary>
+            获取系统硬件信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetHardwareInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetManagementObjectCollection(System.String)">
+            <summary>
+            獲取硬件信息集合
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetCpuInfo">
             <summary>
             Cpu信息
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.MainBoardInfo">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetMainBoardInfo">
             <summary>
             主板信息
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.DiskDriveInfo">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetDiskDriveInfo">
             <summary>
             硬盘信息
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.NetworkInfo">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetNetworkInfo">
             <summary>
             网络连接信息
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.OsInfo">
+        <member name="M:Digiwin.Chun.Common.Controller.HardwareTools.GetOsInfo">
             <summary>
             操作系统信息
             </summary>
@@ -48,6 +65,11 @@
         <member name="F:Digiwin.Chun.Common.Controller.ModelType.Binary">
             <summary>
                 二进制
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Controller.WMIPath">
+            <summary>
+            系统硬件信息
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.ControlTools">
@@ -197,7 +219,7 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.BtnCreate_Click(System.Object,System.EventArgs)">
             <summary>
-                创建动作
+                生成
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
@@ -957,6 +979,11 @@
             <summary>
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Controller.MyTools.HardwareInfo">
+            <summary>
+            硬件信息
+            </summary>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.InitToolpars(System.String[])">
             <summary>
                 初始化窗体参数
@@ -976,7 +1003,7 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyFile(System.String,System.String)">
             <summary>
-            流形式copyFile
+            流形式copyFile，媒体文件亦可
             </summary>
             <param name="fromPath"></param>
             <param name="tagerPath"></param>
@@ -1054,7 +1081,7 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CallModule(Digiwin.Chun.Common.Model.BuildeType)">
             <summary>
-                呼叫第三方模块
+                呼叫第三方模块,反射比直接调用慢数百倍
             </summary>
             <param name="bt"></param>
         </member>
@@ -1069,11 +1096,10 @@
             </summary>
             <param name="targetDir"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.FindCSproj(System.IO.DirectoryInfo)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.FindCSproj(System.String)">
             <summary>
-                找到文件所属第一个CSproj,这有问题！！
+                找到文件所属第一个CSproj
             </summary>
-            <param name="dir"></param>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.GetExistedMsg(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{Digiwin.Chun.Common.Model.FileInfos}})">
@@ -1714,6 +1740,171 @@
         </member>
         <member name="P:Digiwin.Chun.Common.Model.MappingItem.Paths">
             <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.HardwareEntity">
+            <summary>
+            硬件信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.HardwareEntity.CpuInfos">
+            <summary>
+            CpuInfo
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.HardwareEntity.MainBoardInfos">
+            <summary>
+            MainBoardInfo
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.HardwareEntity.DiskDriveInfos">
+            <summary>
+            DiskDriveInfo
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.HardwareEntity.NetworkInfos">
+            <summary>
+            NetworkInfo
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.HardwareEntity.OsInfo">
+            <summary>
+            OsInfo
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.CpuInfo">
+            <summary>
+            CPU信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CpuInfo.ProcessorId">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CpuInfo.Name">
+            <summary>
+            CPU型号
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CpuInfo.Status">
+            <summary>
+            CPU状态
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CpuInfo.SystemName">
+            <summary>
+            主机名称
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.MainBoardInfo">
+            <summary>
+            主板信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MainBoardInfo.SerialNumber">
+            <summary>
+            主板ID
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MainBoardInfo.Manufacturer">
+            <summary>
+            制造商
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MainBoardInfo.Product">
+            <summary>
+            型号
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.MainBoardInfo.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.DiskDriveInfo">
+            <summary>
+            硬盘信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DiskDriveInfo.SerialNumber">
+            <summary>
+            硬盘SN
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DiskDriveInfo.Model">
+            <summary>
+            型号
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DiskDriveInfo.Size">
+            <summary>
+            大小
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.NetworkInfo">
+            <summary>
+            网络信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.MacAddress">
+            <summary>
+            MAC地址
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.IpAddress">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.HostName">
+            <summary>
+            主机名
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.Caption">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.IPSubnet">
+            <summary>
+            子网掩码
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.DefaultIPGateway">
+            <summary>
+            网关
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.DNSServerSearchOrder">
+            <summary>
+            DNS
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.NetworkInfo.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Model.OsInfo">
+            <summary>
+            操作系统信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.OsInfo.Name">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.OsInfo.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.OsInfo.SystemDirectory">
+            <summary>
+            系统目录
+            </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Model.MetadataContainer">
             <remarks />

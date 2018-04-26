@@ -87,6 +87,7 @@
     <Compile Include="Model\BuildeEntity.cs" />
     <Compile Include="Controller\EnumTools.cs" />
     <Compile Include="Model\FileMappingEntity.cs" />
+    <Compile Include="Model\HardwareEntity.cs" />
     <Compile Include="Model\MetadataContainer.cs" />
     <Compile Include="Model\SettingEntity.cs" />
     <Compile Include="Controller\ControlTools.cs" />

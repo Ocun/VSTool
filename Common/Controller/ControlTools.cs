@@ -330,7 +330,7 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        ///     创建动作
+        ///     生成
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

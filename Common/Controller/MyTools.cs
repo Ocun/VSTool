@@ -23,12 +23,18 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         /// </summary>
         public static Toolpars Toolpars { get; } = new Toolpars();
+        /// <summary>
+        /// 硬件信息
+        /// </summary>
+        public static HardwareEntity HardwareInfo { get; } = new HardwareEntity();
 
         /// <summary>
         ///     初始化窗体参数
         /// </summary>
         /// <param name="pToIni"></param>
         public static void InitToolpars(string[] pToIni) {
+            new Thread(() => HardwareTools.GetHardwareInfo()).Start();
+           
             if (pToIni == null) {
                 Toolpars.FormEntity.TxtToPath = String.Empty;
             }
@@ -62,7 +68,6 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-
         }
         
         /// <summary>
@@ -110,6 +115,7 @@ namespace Digiwin.Chun.Common.Controller {
                     Directory.CreateDirectory(newFileDir);
 
                 if (File.Exists(newFilePath)) {
+                    //项目文件已存在则忽略
                     if (extensions.Contains(extensionName)) {
                         continue;
                     }
@@ -122,9 +128,9 @@ namespace Digiwin.Chun.Common.Controller {
                 CopyFile(frompath, newFilePath);
                 // 无法释放，所以用流形式
                 //  fileinfo.CopyTo(newFilePath, true);
-
+                //一键copy先copy文件，再统一改变typekey
                 if (copyAll) continue;
-                //修改项目文件
+                //若是修改时，则先清空项目文件，再逐一添加
                 if (!".csproj".Equals(extensionName)) continue;
                 XmlTools.DeleteXmlNodeByXPath(newFilePath, "Compile");
                 XmlTools.DeleteXmlNodeByXPath(newFilePath, "EmbeddedResource");
@@ -132,7 +138,7 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 流形式copyFile
+        /// 流形式copyFile，媒体文件亦可
         /// </summary>
         /// <param name="fromPath"></param>
         /// <param name="tagerPath"></param>
@@ -501,16 +507,16 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        ///     呼叫第三方模块
+        ///     呼叫第三方模块,反射比直接调用慢数百倍
         /// </summary>
         /// <param name="bt"></param>
         public static void CallModule(BuildeType bt) {
             var plugPath = bt.PlugPath;
             var moduleName = bt.ModuleName;
             if (plugPath == null
-                || plugPath.Trim().Equals(String.Empty)
+                || plugPath.Trim().Equals(string.Empty)
                 || moduleName == null
-                || moduleName.Trim().Equals(String.Empty)
+                || moduleName.Trim().Equals(string.Empty)
             ) {
                 MessageBox.Show(Resources.ModuleNotExisted);
                 return;
@@ -578,21 +584,34 @@ namespace Digiwin.Chun.Common.Controller {
         #endregion
 
         #region CopyFile
-
+        
         /// <summary>
-        ///     找到文件所属第一个CSproj,这有问题！！
+        ///     找到文件所属第一个CSproj
         /// </summary>
-        /// <param name="dir"></param>
         /// <returns></returns>
-        private static string FindCSproj(DirectoryInfo dir) {
-            var csproj = string.Empty;
-            if (!dir.Exists)
-                return csproj;
-            var fileInfo = dir.GetFiles();
-            var fcs = fileInfo.FirstOrDefault(f => f.Extension.Equals(@".csproj"));
-           
-            csproj = fcs?.FullName ?? (dir.Parent!=null?FindCSproj(dir.Parent): csproj);
-            return csproj;
+        private static string FindCSproj(string filePath) {
+            var csPath = string.Empty;
+            try {
+                var pathInfo = Toolpars.PathEntity;
+                var typeKeyFullRootDir = pathInfo.TypeKeyFullRootDir;
+                var dirInfo = new DirectoryInfo(typeKeyFullRootDir);
+                var csFiles = dirInfo.GetFiles("*.csproj", SearchOption.AllDirectories);
+                foreach(var file in csFiles)
+                {
+                    if (file.Directory == null) continue;
+                    var pathDir = file.Directory.FullName;
+                    if (!filePath.Contains(pathDir)) continue;
+                    csPath = file.FullName;
+                    break;
+                }
+            }
+            catch (Exception ex) {
+                LogTools.LogError($@"Find csProj Error! Detail:{ex.Message}");
+            }
+
+
+            return csPath;
+
         }
 
         /// <summary>
@@ -715,9 +734,7 @@ namespace Digiwin.Chun.Common.Controller {
 
                         #region 修改解决方案
 
-                        fileinfo = new FileInfo(toPath);
-                        var dirInfo = fileinfo.Directory;
-                        var csPath = FindCSproj(dirInfo);
+                        var csPath = FindCSproj(toPath); 
                         var csDir = $@"{Path.GetDirectoryName(csPath)}\";
 
                         //找到相对位置
@@ -731,7 +748,8 @@ namespace Digiwin.Chun.Common.Controller {
                     //修改文件内容，替换typekey
                     ModiFiles();
                 }
-                catch (Exception) {
+                catch (Exception ex) {
+                    LogTools.LogError($@"GenerFile Error ! Detail {ex.Message}");
                     success = false;
                 }
 
@@ -744,6 +762,7 @@ namespace Digiwin.Chun.Common.Controller {
             MessageBox.Show(Resources.GenerateSucess);
             return true;
         }
+
 
 
         /// <summary>
@@ -1115,11 +1134,20 @@ namespace Digiwin.Chun.Common.Controller {
                         continue;
 
                     var text = File.ReadAllText(filePath);
-                    text = t.Equals("*.sln")
-                        ? text.Replace(oldTypekey,
-                            newTypeKey)
-                        : text.Replace(tempTypeKeyRootDir,
-                            newTypeKeyRootDir);
+                    var oldStr = t.Equals("*.sln")
+                        ? oldTypekey
+                        : tempTypeKeyRootDir; 
+                    var newStr = t.Equals("*.sln")
+                        ? newTypeKey
+                        : newTypeKeyRootDir;
+                    var matchStr = $@"\b{oldStr}\b";
+                    var regex = new Regex(matchStr);
+                    text = regex.Replace(text, newStr);
+                    //text = t.Equals("*.sln")
+                    //    ? text.Replace(oldTypekey,
+                    //        newTypeKey)
+                    //    : text.Replace(tempTypeKeyRootDir,
+                    //        newTypeKeyRootDir);
 
 
                     const string bpath = @"<HintPath>..\..\";
@@ -1130,14 +1158,14 @@ namespace Digiwin.Chun.Common.Controller {
                     File.SetAttributes(filePath, FileAttributes.Normal);
                     File.WriteAllText(filePath, text, Encoding.UTF8);
 
+                    //
                     if (!modiAll) {
                         // 添加编译选项
                         var extionName = Path.GetExtension(filePath);
                         var extionNames = new[] { ".cs", ".resx" };
                         if (!extionNames.Contains(extionName)) continue;
-
-                        var dirInfo = f.Directory;
-                        var csPath = FindCSproj(dirInfo);
+                        
+                        var csPath =FindCSproj(filePath);
                         var csDir = $@"{Path.GetDirectoryName(csPath)}\";
 
                         //找到相对位置
@@ -1204,7 +1232,7 @@ namespace Digiwin.Chun.Common.Controller {
                             success = false;
                         }
                         else {
-                            //已借用，是否覆盖
+                            //已借用，是否覆盖,直接删除全部
                             if (Directory.Exists(newTypeKeyFullRootDir)) {
                                 if (MessageBox.Show(
                                         newTypeKeyFullRootDir
