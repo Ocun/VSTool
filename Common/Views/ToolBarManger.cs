@@ -80,6 +80,8 @@ namespace Digiwin.Chun.Common.Views {
                 var myDate = DateTime.Now;
                 var tToDayDate = myDate.ToString("yyyyMMdd");
                 Thread.Sleep(3000);
+                if (!Directory.Exists(tSerFolPath))
+                    return;
                 var dirs = Directory.GetFiles(tSerFolPath, tToDayDate + "*.log", SearchOption.TopDirectoryOnly);
                 var index = dirs.Length - 1;
                 if (index < 0)
@@ -119,7 +121,7 @@ namespace Digiwin.Chun.Common.Views {
         private void InitCombox() {
             var infoList = new List<ComboxInfo> {
                 new ComboxInfo {Id = 1, Name = "调试"},
-                new ComboxInfo {Id = 2, Name = "修复数据库"},
+                new ComboxInfo {Id = 2, Name = "数据库"},
                 new ComboxInfo {Id = 3, Name = "全启动"}
             };
             comboBox1.DataSource = infoList;
@@ -137,6 +139,9 @@ namespace Digiwin.Chun.Common.Views {
             var args = string.Empty;
             if (comboBox1.SelectedValue.Equals(1))
                 args += " /d";
+            else {
+                args += " /d:false";
+            }
             MyTools.ClientOn(args);
         }
 
@@ -222,30 +227,7 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CopyBtn_Click(object sender, EventArgs e) {
-            try {
-                MyTools.CopyDll();
-                
-            }
-            catch (Exception ex) {
-                if (sender == null) {
-
-                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else {
-                    string[] processNames = {
-                        "Digiwin.Mars.ClientStart",
-                        "Digiwin.Mars.ServerStart",
-                        "Digiwin.Mars.AccountSetStart"
-                    };
-                    var f = MyTools.CheckCanCopyDll(processNames);
-                    if (f)
-                        CopyBtn_Click(null, null);
-                    else
-                        MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-               
-            }
-            new Thread(() => SqlTools.InsertToolInfo("S01231_20160503_01", "20160503", "btncopydll_Click")).Start();
+            MyTools.CopyDll();
         }
     }
 

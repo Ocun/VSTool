@@ -59,6 +59,14 @@ namespace Digiwin.Chun.Common.Model
         /// 主机名称
         /// </summary>
         public string SystemName { get; set; }
+        /// <summary>
+        /// 厂商
+        /// </summary>
+        public string Manufacturer { get; set; }
+        /// <summary>
+        /// 最大速率
+        /// </summary>
+        public string MaxClockSpeed { get; set; }
     }
 
     /// <summary>
@@ -100,6 +108,15 @@ namespace Digiwin.Chun.Common.Model
         /// 大小
         /// </summary>
         public string Size { get; set; }
+        /// <summary>
+        /// 可用空间
+        /// </summary>
+        public string FreeSpace { get; set; }
+        /// <summary>
+        /// 已用空间
+        /// </summary>
+        public string UsedSpace { get; set; }
+
     }
 
     /// <summary>

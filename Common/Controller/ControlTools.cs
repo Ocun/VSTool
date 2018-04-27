@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Model;
 using Digiwin.Chun.Common.Properties;
@@ -17,6 +18,7 @@ namespace Digiwin.Chun.Common.Controller {
     ///     事件帮助类
     /// </summary>
     public class ControlTools {
+        #region 主界面控件属性
         private static SplitContainer _splitContainer1;
         private static SplitContainer _splitContainer2;
         private static MyPanel _scrollPanel;
@@ -102,6 +104,8 @@ namespace Digiwin.Chun.Common.Controller {
                                                                     MyTreeViewTools.GetSplitContainerList(ScrollPanel
                                                                         .Controls[0]));
 
+        #endregion
+       
         /// <summary>
         ///     防止重获焦点时，选择项瞬间跳离的问题
         /// </summary>
@@ -335,6 +339,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void BtnCreate_Click(object sender, EventArgs e) {
+
             try {
                 var pathInfo = Toolpars.PathEntity;
                 if (!ModiCkb.Checked) {
@@ -342,8 +347,10 @@ namespace Digiwin.Chun.Common.Controller {
                     var fileInfos = new List<FileInfos>();
                     foreach (var kv in dicPath)
                         fileInfos.AddRange(kv.Value);
-                    new Thread(() => LogTools.WriteToServer(fileInfos)
-                    ).Start();
+                    Task.Factory.StartNew(() => {
+                        Thread.CurrentThread.IsBackground = false;
+                        LogTools.WriteToServer(fileInfos);
+                    });
 
                     if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
                         || PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
@@ -363,8 +370,10 @@ namespace Digiwin.Chun.Common.Controller {
                 }
                 else {
                     var fileInfos = MyTools.GetTreeViewPath(TreeView1.Nodes);
-                    new Thread(() => LogTools.WriteToServer(fileInfos)
-                    ).Start();
+                    Task.Factory.StartNew(() => {
+                        Thread.CurrentThread.IsBackground = false;
+                        LogTools.WriteToServer(fileInfos);
+                    });
 
                     if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
                         || PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)
@@ -446,6 +455,21 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void BtnOpen_Click(object sender, EventArgs e) //打开文件夹
+        {
+            try {
+                var openDirForm = new OpenDirForm();
+                openDirForm.ShowDialog();
+            }
+            catch (Exception ex) {
+                LogTools.LogError($"openDirForm Error! Detail {ex.Message}");
+            }
+        }  
+        /// <summary>
+        ///     打开个案目录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void OpenCode_Click(object sender, EventArgs e) //打开文件夹
         {
             var typekey = Toolpars.FormEntity.TxtNewTypeKey;
             try {
@@ -607,7 +631,9 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            new Thread(() => { MyTools.OpenWord("Help.docx"); }).Start();
+            Task.Factory.StartNew(() => 
+                MyTools.OpenWord("Help.docx")
+            );
         }
 
         /// <summary>

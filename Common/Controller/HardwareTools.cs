@@ -20,7 +20,8 @@ namespace Digiwin.Chun.Common.Controller {
                 var networkInfo = GetNetworkInfo();
                 var osInfo = GetOsInfo();
                 var memoryInfo = GetMemoryInfo();
-                hardwareInfo = new HardwareEntity {
+                hardwareInfo = new HardwareEntity
+                {
                     CpuInfos = cpuInfo,
                     MainBoardInfos = mainBoardInfo,
                     DiskDriveInfos = diskDriveInfo,
@@ -28,6 +29,7 @@ namespace Digiwin.Chun.Common.Controller {
                     OsInfo = osInfo,
                     MemoryInfo = memoryInfo
                 };
+
             }
             catch (Exception ex) {
                 LogTools.LogError($"GetHardwareInfo error! detail {ex.Message}");
@@ -106,12 +108,17 @@ namespace Digiwin.Chun.Common.Controller {
             try {
                 var empStr = string.Empty;
                 var moc = GetManagementObjectCollection(WMIPath.Win32_DiskDrive.ToString());
+                long gb = 1024 * 1024 * 1024;
                 foreach (var mo in moc) {
+                    var size = Convert.ToDouble(mo.Properties["Size"].Value ?? 0) / gb;
+                    //var freeSpace = Convert.ToDouble(mo["FreeSpace"]?? 0) / gb;
                     var diskDriverInfo = new DiskDriveInfo {
                         SerialNumber = (mo.Properties["SerialNumber"].Value ?? empStr).ToString(),
                         Model = (mo.Properties["Model"].Value ?? empStr).ToString(),
-                        Size = (Convert.ToDouble(mo.Properties["Size"].Value ?? 0) / (1024 * 1024 * 1024)).ToString(
-                            CultureInfo.InvariantCulture)
+                        Size = size.ToString("#"),
+                        //FreeSpace = freeSpace.ToString("#"),
+                        //UsedSpace = (size -
+                        //            freeSpace).ToString("#")
                     };
                     diskDriverInfos.Add(diskDriverInfo);
                 }

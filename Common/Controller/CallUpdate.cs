@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Management;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
@@ -38,7 +39,6 @@ namespace Digiwin.Chun.Common.Controller {
 
             return svrIp.ToString();
         }
-
         
         /// <summary>
         /// 取得電腦所在地

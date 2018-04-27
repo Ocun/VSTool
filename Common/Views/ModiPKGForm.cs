@@ -148,7 +148,7 @@ namespace Digiwin.Chun.Common.Views {
                     }
                     targetDir = PathTools.PathCombine(targetDir,Toolpars.FormEntity.TxtNewTypeKey);
 
-                    OldTools.CopyAllPkg(typeKeyDir, targetDir);
+                   // CopyPkg(typeKeyDir, targetDir);
 
                     #region 从功能包copy对应的代码
                    

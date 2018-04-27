@@ -78,50 +78,59 @@ namespace Digiwin.Chun.Common.Controller {
             var empStr = "      ";
             var logStr = new StringBuilder();
             var headContentStr = GetHeadStr(@"_", 50);
-            if (hardwareInfo == null)
-                return logStr.ToString();
             logStr.AppendLine($"{headContentStr}PCInfo{headContentStr}");
+            if (hardwareInfo != null) {
+                logStr.AppendLine($"{empStr}#CpuCount#{empStr}{hardwareInfo.CpuInfos?.Count}");
 
-            logStr.AppendLine($"{empStr}#CpuCount#{empStr}{hardwareInfo.CpuInfos.Count}");
-            for (var i = 0; i < hardwareInfo.OsInfo.Count; i++)
-            {
-                var osInfo = hardwareInfo.OsInfo[i];
-                logStr.AppendLine($"{empStr}#OSName{i}#{empStr}{osInfo.Name}")
-                    .AppendLine($"{empStr}#OSVersion{i}#{empStr}{osInfo.Version}")
-                    .AppendLine($"{empStr}#WinverInfo#{empStr}{Environment.OSVersion.VersionString}")
-                    .AppendLine($"{empStr}#CurrentDomain#{empStr}{Environment.UserDomainName}");
-            }
-            for (var i = 0; i < hardwareInfo.NetworkInfos.Count; i++)
-            {
-                var netInfo = hardwareInfo.NetworkInfos[i];
-                logStr.AppendLine($"{empStr}#Description#{empStr}{netInfo.Description}");
-                logStr.AppendLine($"{empStr}#IpAddress{i}#{empStr}{netInfo.IpAddress}");
-                logStr.AppendLine($"{empStr}#MacAddress{i}#{empStr}{netInfo.MacAddress}");
-            }
+                for (var i = 0; i < hardwareInfo.CpuInfos?.Count; i++)
+                {
+                    var cpuInfos = hardwareInfo.CpuInfos[i];
 
-            for (var i = 0; i < hardwareInfo.MemoryInfo.Count; i++)
-            {
-                var memoryInfos = hardwareInfo.MemoryInfo[i];
-                logStr.AppendLine($"{empStr}#Manufacturer{i}#{empStr}{memoryInfos.Manufacturer}");
-                logStr.AppendLine($"{empStr}#Size{i}#{empStr}{memoryInfos.Size}");
-                logStr.AppendLine($"{empStr}#Speed{i}#{empStr}{memoryInfos.Speed}");
-            }
-            for (var i = 0; i < hardwareInfo.MainBoardInfos.Count; i++)
-            {
-                var mainBoardInfos = hardwareInfo.MainBoardInfos[i];
-                logStr.AppendLine($"{empStr}#Manufacturer{i}#{empStr}{mainBoardInfos.Manufacturer}");
-                logStr.AppendLine($"{empStr}#Product{i}#{empStr}{mainBoardInfos.Product}");
-                logStr.AppendLine($"{empStr}#SerialNumber{i}#{empStr}{mainBoardInfos.SerialNumber}");
-                logStr.AppendLine($"{empStr}#Version{i}#{empStr}{mainBoardInfos.Version}");
-            }
-            for (var i = 0; i < hardwareInfo.DiskDriveInfos.Count; i++)
-            {
-                var diskDriveInfo = hardwareInfo.DiskDriveInfos[i];
-                logStr.AppendLine($"{empStr}#Model{i}#{empStr}{diskDriveInfo.Model}");
-                logStr.AppendLine($"{empStr}#SerialNumber{i}#{empStr}{diskDriveInfo.SerialNumber}");
-                logStr.AppendLine($"{empStr}#Size{i}#{empStr}{diskDriveInfo.Size}M");
-            }
+                    logStr.AppendLine($"{empStr}#Manufacturer{i}#{empStr}{cpuInfos.Manufacturer}")
+                        .AppendLine($"{empStr}#CpuName{i}#{empStr}{cpuInfos.Name}")
+                        .AppendLine($"{empStr}#Speed#{empStr}{cpuInfos.MaxClockSpeed}");
+                }
+                for (var i = 0; i < hardwareInfo.OsInfo?.Count; i++)
+                {
+                    var osInfo = hardwareInfo.OsInfo[i];
+                    logStr.AppendLine($"{empStr}#OSName{i}#{empStr}{osInfo.Name}")
+                        .AppendLine($"{empStr}#OSVersion{i}#{empStr}{osInfo.Version}")
+                        .AppendLine($"{empStr}#WinverInfo#{empStr}{Environment.OSVersion.VersionString}")
+                        .AppendLine($"{empStr}#CurrentDomain#{empStr}{Environment.UserDomainName}");
+                }
+                for (var i = 0; i < hardwareInfo.NetworkInfos?.Count; i++)
+                {
+                    var netInfo = hardwareInfo.NetworkInfos[i];
+                    logStr.AppendLine($"{empStr}#Description#{empStr}{netInfo.Description}");
+                    logStr.AppendLine($"{empStr}#IpAddress{i}#{empStr}{netInfo.IpAddress}");
+                    logStr.AppendLine($"{empStr}#MacAddress{i}#{empStr}{netInfo.MacAddress}");
+                }
 
+                for (var i = 0; i < hardwareInfo.MemoryInfo?.Count; i++)
+                {
+                    var memoryInfos = hardwareInfo.MemoryInfo[i];
+                    logStr.AppendLine($"{empStr}#Manufacturer{i}#{empStr}{memoryInfos.Manufacturer}");
+                    logStr.AppendLine($"{empStr}#Size{i}#{empStr}{memoryInfos.Size}G");
+                    logStr.AppendLine($"{empStr}#Speed{i}#{empStr}{memoryInfos.Speed}MHz");
+                }
+                for (var i = 0; i < hardwareInfo.MainBoardInfos?.Count; i++)
+                {
+                    var mainBoardInfos = hardwareInfo.MainBoardInfos[i];
+                    logStr.AppendLine($"{empStr}#Manufacturer{i}#{empStr}{mainBoardInfos.Manufacturer}");
+                    logStr.AppendLine($"{empStr}#Product{i}#{empStr}{mainBoardInfos.Product}");
+                    logStr.AppendLine($"{empStr}#SerialNumber{i}#{empStr}{mainBoardInfos.SerialNumber}");
+                    logStr.AppendLine($"{empStr}#Version{i}#{empStr}{mainBoardInfos.Version}");
+                }
+                for (var i = 0; i < hardwareInfo.DiskDriveInfos?.Count; i++)
+                {
+                    var diskDriveInfo = hardwareInfo.DiskDriveInfos[i];
+                    logStr.AppendLine($"{empStr}#Model{i}#{empStr}{diskDriveInfo.Model}");
+                    logStr.AppendLine($"{empStr}#SerialNumber{i}#{empStr}{diskDriveInfo.SerialNumber}");
+                    logStr.AppendLine($"{empStr}#Size{i}#{empStr}{diskDriveInfo.Size}GB");
+                    logStr.AppendLine($"{empStr}#UsedSpace{i}#{empStr}{diskDriveInfo.UsedSpace}GB");
+                    logStr.AppendLine($"{empStr}#FreeSpace{i}#{empStr}{diskDriveInfo.FreeSpace}GB");
+                }
+            }
             logStr.AppendLine($"{headContentStr}PCInfo{headContentStr}");
             return logStr.ToString();
         }
@@ -167,6 +176,7 @@ namespace Digiwin.Chun.Common.Controller {
                 headStr += targetStr;
             return headStr;
         }
+      
         /// <summary>
         /// 记录到Server
         /// </summary>

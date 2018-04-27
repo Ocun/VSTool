@@ -2,9 +2,7 @@
 
 using System;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
-using Digiwin.Chun.Common.Properties;
 
 namespace Digiwin.Chun.Common.Controller {
     /// <summary>
@@ -36,7 +34,6 @@ namespace Digiwin.Chun.Common.Controller {
                 File.SetAttributes(pFileName, FileAttributes.Normal);
                 try {
                     File.Delete(pFileName);
-                    Application.DoEvents();
                 }
                 catch {
                     // ignored
@@ -44,76 +41,42 @@ namespace Digiwin.Chun.Common.Controller {
             }
         }
 
-        #region 复制
-
         /// <summary>
-        ///     目录下的文件copy至另一目录
         /// </summary>
         /// <param name="pFileName"></param>
         /// <param name="pDistFolder"></param>
-        public static void CopyAllPkg(string pFileName, string pDistFolder) {
+        public static void CopynewVsTool(string pFileName, string pDistFolder) {
             if (Directory.Exists(pFileName)) {
                 // Folder
                 var di = new DirectoryInfo(pFileName);
-
-                Directory.CreateDirectory(pDistFolder); // + "/" +di.Name);
+                if (!Directory.Exists(pDistFolder))
+                    Directory.CreateDirectory(pDistFolder);
                 foreach (var d in di.GetDirectories()) {
-                    //string tFolderPath = pDistFolder + "/" + d.Name;
                     var tFolderPath = pDistFolder + @"\" + d.Name;
                     if (!Directory.Exists(tFolderPath))
                         Directory.CreateDirectory(tFolderPath);
-                    CopyAllPkg(d.FullName, tFolderPath);
+                    CopynewVsTool(d.FullName, tFolderPath);
                 }
                 foreach (var f in di.GetFiles())
-                    CopyAllPkg(f.FullName, pDistFolder + @"\" + f.Name);
+                    CopynewVsTool(f.FullName, pDistFolder + @"\" + f.Name);
             }
             else if (File.Exists(pFileName)) {
-                if (!Directory.Exists(pDistFolder.Remove(pDistFolder.LastIndexOf("\\", StringComparison.Ordinal))))
+                if (
+                    !Directory.Exists(
+                        pDistFolder.Remove(pDistFolder.LastIndexOf("\\", StringComparison.Ordinal))))
                     Directory.CreateDirectory(
                         pDistFolder.Remove(pDistFolder.LastIndexOf("\\", StringComparison.Ordinal)));
                 if (File.Exists(pDistFolder))
                     File.SetAttributes(pDistFolder, FileAttributes.Normal);
                 try {
-                    File.Copy(pFileName, pDistFolder, true);
+                    if (pFileName.Substring(pFileName.LastIndexOf("\\", StringComparison.Ordinal) + 1)
+                        != "VSTool.exe")
+                        File.Copy(pFileName, pDistFolder, true);
                 }
-                catch {
-                    CopyFileAndRetry(pFileName, pDistFolder, true);
-                }
-                Application.DoEvents();
-            }
-        }
-
-        /// <summary>
-        /// 防断路
-        /// </summary>
-        /// <param name="pFrom"></param>
-        /// <param name="pTo"></param>
-        /// <param name="pOverWriteOrNot"></param>
-        public static void CopyFileAndRetry(string pFrom, string pTo, bool pOverWriteOrNot)
-            //^_^20140521 add by sunny for 防網路順斷，暫停三秒後繼續作業，並重試三次
-        {
-            Thread.Sleep(3000);
-            try {
-                File.Copy(pFrom, pTo, pOverWriteOrNot);
-            }
-            catch {
-                Thread.Sleep(3000);
-                try {
-                    File.Copy(pFrom, pTo, pOverWriteOrNot);
-                }
-                catch {
-                    Thread.Sleep(3000);
-                    try {
-                        File.Copy(pFrom, pTo, pOverWriteOrNot);
-                    }
-                    catch {
-                        MessageBox.Show(Resources.CopyFailed, Resources.ErrorMsg, MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.ToString());
                 }
             }
         }
-
-        #endregion
     }
 }

@@ -1,10 +1,8 @@
 ﻿// create By 08628 20180411
 
 using System;
-using System.Collections;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using Digiwin.Chun.Common.Model;
 using Digiwin.Chun.Common.Properties;
@@ -21,12 +19,19 @@ namespace Digiwin.Chun.Common.Controller {
         /// <returns></returns>
         public static PathEntity GetPathEntity(Toolpars toolpars) {
             var settingPathEntity = toolpars.SettingPathEntity;
+
+            var serverFullPath = CombineStr(new[] {
+                toolpars.Mplatform, settingPathEntity.ServerDir
+            }); //平台\\Server\\Application\\Customization
+            var clientFullPath = CombineStr(new[] {
+                toolpars.Mplatform, settingPathEntity.DeployServerDir
+            }); //平台\\DeployServer\\Shared\\Customization\\
             var serverProgramsFullPath = CombineStr(new[] {
-                toolpars.Mplatform, settingPathEntity.ServerDir,
+                serverFullPath,
                 settingPathEntity.Programs
             }); //平台\\Server\\Application\\Customization\\Programs\\
             var clientProgramsFullPath = CombineStr(new[] {
-                toolpars.Mplatform, settingPathEntity.DeployServerDir,
+                clientFullPath,
                 settingPathEntity.Programs
             }); //平台\\DeployServer\\Shared\\Customization\\Programs\\
             var exportFullPath = CombineStr(new[]
@@ -76,12 +81,20 @@ namespace Digiwin.Chun.Common.Controller {
 
 
             if (toolpars.MIndustry) {
+                 serverFullPath = CombineStr(new[] {
+                    toolpars.Mplatform, settingPathEntity.IndustryServerDir
+                }); //平台\\Server\\Application\\IndustryServerDir
+                clientFullPath = CombineStr(new[] {
+                    toolpars.Mplatform, settingPathEntity.IndustryDeployDir
+                }); //平台\\DeployServer\\Shared\\IndustryDeployDir
                 serverProgramsFullPath = CombineStr(new[]
-                    {toolpars.Mplatform, settingPathEntity.IndustryServerDir, settingPathEntity.Programs});
+                    {serverFullPath, settingPathEntity.Programs});
                 clientProgramsFullPath = CombineStr(new[]
-                    {toolpars.Mplatform, settingPathEntity.IndustryDeployDir, settingPathEntity.Programs});
+                    {clientFullPath, settingPathEntity.Programs});
             }
             var pathEntity = new PathEntity {
+                ServerFullPath = serverFullPath,
+                DeployFullPath = clientFullPath,
                 ServerProgramsFullPath = serverProgramsFullPath,
                 DeployProgramsFullPath = clientProgramsFullPath,
                 ExportFullPath = exportFullPath,

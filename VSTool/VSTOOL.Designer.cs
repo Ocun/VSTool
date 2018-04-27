@@ -47,6 +47,7 @@ namespace VSTool
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.Version = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.ToolsDescrition = new System.Windows.Forms.Label();
             this.PkgOpenTo = new System.Windows.Forms.Button();
@@ -61,6 +62,7 @@ namespace VSTool
             this.TreeView1 = new Digiwin.Chun.Common.Views.MyTreeView();
             this.RighteTreeView = new Digiwin.Chun.Common.Views.MyTreeView();
             this.HeaderPanel = new Digiwin.Chun.Common.Views.MyPanel();
+            this.OpenCode = new System.Windows.Forms.Button();
             this.MyToolbar = new Digiwin.Chun.Common.Views.ToolBarManger();
             this.ModiCkb = new System.Windows.Forms.CheckBox();
             this.txtNewTypeKey = new System.Windows.Forms.TextBox();
@@ -102,7 +104,7 @@ namespace VSTool
             this.BtnOpenTo.ForeColor = System.Drawing.Color.DarkCyan;
             this.BtnOpenTo.Location = new System.Drawing.Point(754, 42);
             this.BtnOpenTo.Name = "BtnOpenTo";
-            this.BtnOpenTo.Size = new System.Drawing.Size(38, 20);
+            this.BtnOpenTo.Size = new System.Drawing.Size(27, 20);
             this.BtnOpenTo.TabIndex = 9;
             this.BtnOpenTo.Text = "○";
             this.BtnOpenTo.UseVisualStyleBackColor = true;
@@ -218,7 +220,7 @@ namespace VSTool
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(220, 467);
+            this.panel3.Size = new System.Drawing.Size(214, 467);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3_Paint);
             // 
@@ -236,6 +238,7 @@ namespace VSTool
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.Menu;
+            this.panel4.Controls.Add(this.Version);
             this.panel4.Controls.Add(this.linkLabel1);
             this.panel4.Controls.Add(this.ToolsDescrition);
             this.panel4.Controls.Add(this.PkgOpenTo);
@@ -254,6 +257,18 @@ namespace VSTool
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(968, 156);
             this.panel4.TabIndex = 35;
+            // 
+            // Version
+            // 
+            this.Version.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Version.AutoSize = true;
+            this.Version.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Version.ForeColor = System.Drawing.Color.DimGray;
+            this.Version.Location = new System.Drawing.Point(865, 132);
+            this.Version.Name = "Version";
+            this.Version.Size = new System.Drawing.Size(49, 15);
+            this.Version.TabIndex = 35;
+            this.Version.Text = "1.0.0.0.2";
             // 
             // linkLabel1
             // 
@@ -286,7 +301,7 @@ namespace VSTool
             this.PkgOpenTo.ForeColor = System.Drawing.Color.DarkCyan;
             this.PkgOpenTo.Location = new System.Drawing.Point(754, 95);
             this.PkgOpenTo.Name = "PkgOpenTo";
-            this.PkgOpenTo.Size = new System.Drawing.Size(38, 20);
+            this.PkgOpenTo.Size = new System.Drawing.Size(27, 20);
             this.PkgOpenTo.TabIndex = 33;
             this.PkgOpenTo.Text = "○";
             this.PkgOpenTo.UseVisualStyleBackColor = true;
@@ -331,7 +346,7 @@ namespace VSTool
             // 
             this.SplitContainer1.Panel2.Controls.Add(this.panel3);
             this.SplitContainer1.Size = new System.Drawing.Size(982, 467);
-            this.SplitContainer1.SplitterDistance = 761;
+            this.SplitContainer1.SplitterDistance = 767;
             this.SplitContainer1.SplitterWidth = 1;
             this.SplitContainer1.TabIndex = 36;
             // 
@@ -342,7 +357,7 @@ namespace VSTool
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(761, 467);
+            this.panel2.Size = new System.Drawing.Size(767, 467);
             this.panel2.TabIndex = 33;
             // 
             // SplitContainer2
@@ -362,7 +377,7 @@ namespace VSTool
             // 
             this.SplitContainer2.Panel2.Controls.Add(this.ScrollPanel);
             this.SplitContainer2.Panel2.Controls.Add(this.TreeView1);
-            this.SplitContainer2.Size = new System.Drawing.Size(761, 467);
+            this.SplitContainer2.Size = new System.Drawing.Size(767, 467);
             this.SplitContainer2.SplitterDistance = 245;
             this.SplitContainer2.SplitterWidth = 1;
             this.SplitContainer2.TabIndex = 14;
@@ -406,7 +421,7 @@ namespace VSTool
             this.ScrollPanel.Location = new System.Drawing.Point(0, 0);
             this.ScrollPanel.Margin = new System.Windows.Forms.Padding(2);
             this.ScrollPanel.Name = "ScrollPanel";
-            this.ScrollPanel.Size = new System.Drawing.Size(515, 467);
+            this.ScrollPanel.Size = new System.Drawing.Size(521, 467);
             this.ScrollPanel.TabIndex = 35;
             // 
             // TreeView1
@@ -434,7 +449,7 @@ namespace VSTool
             this.TreeView1.ShowDescription = false;
             this.TreeView1.ShowLines = false;
             this.TreeView1.ShowPlusMinus = false;
-            this.TreeView1.Size = new System.Drawing.Size(515, 467);
+            this.TreeView1.Size = new System.Drawing.Size(521, 467);
             this.TreeView1.TabIndex = 13;
             this.TreeView1.Visible = false;
             // 
@@ -465,13 +480,14 @@ namespace VSTool
             this.RighteTreeView.ShowDescription = false;
             this.RighteTreeView.ShowLines = false;
             this.RighteTreeView.ShowPlusMinus = false;
-            this.RighteTreeView.Size = new System.Drawing.Size(205, 444);
+            this.RighteTreeView.Size = new System.Drawing.Size(199, 444);
             this.RighteTreeView.TabIndex = 15;
             // 
             // HeaderPanel
             // 
             this.HeaderPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.HeaderPanel.Controls.Add(this.OpenCode);
             this.HeaderPanel.Controls.Add(this.MyToolbar);
             this.HeaderPanel.Controls.Add(this.ModiCkb);
             this.HeaderPanel.Controls.Add(this.txtNewTypeKey);
@@ -481,6 +497,20 @@ namespace VSTool
             this.HeaderPanel.Name = "HeaderPanel";
             this.HeaderPanel.Size = new System.Drawing.Size(737, 66);
             this.HeaderPanel.TabIndex = 43;
+            // 
+            // OpenCode
+            // 
+            this.OpenCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.OpenCode.FlatAppearance.BorderSize = 0;
+            this.OpenCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenCode.Font = new System.Drawing.Font("新宋体", 9.5F);
+            this.OpenCode.ForeColor = System.Drawing.Color.DarkCyan;
+            this.OpenCode.Location = new System.Drawing.Point(572, 16);
+            this.OpenCode.Name = "OpenCode";
+            this.OpenCode.Size = new System.Drawing.Size(28, 20);
+            this.OpenCode.TabIndex = 36;
+            this.OpenCode.Text = "○";
+            this.OpenCode.UseVisualStyleBackColor = true;
             // 
             // MyToolbar
             // 
@@ -495,7 +525,7 @@ namespace VSTool
             // 
             this.ModiCkb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ModiCkb.AutoSize = true;
-            this.ModiCkb.Location = new System.Drawing.Point(637, 20);
+            this.ModiCkb.Location = new System.Drawing.Point(523, 42);
             this.ModiCkb.Name = "ModiCkb";
             this.ModiCkb.Size = new System.Drawing.Size(48, 16);
             this.ModiCkb.TabIndex = 39;
@@ -516,7 +546,7 @@ namespace VSTool
             // 
             this.Industry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Industry.AutoSize = true;
-            this.Industry.Location = new System.Drawing.Point(575, 20);
+            this.Industry.Location = new System.Drawing.Point(461, 42);
             this.Industry.Name = "Industry";
             this.Industry.Size = new System.Drawing.Size(60, 16);
             this.Industry.TabIndex = 28;
@@ -593,6 +623,8 @@ namespace VSTool
         private System.Windows.Forms.ToolTip toolTip1;
         private ToolBarManger MyToolbar;
         private MyPanel HeaderPanel;
+        private System.Windows.Forms.Label Version;
+        private System.Windows.Forms.Button OpenCode;
     }
 }
 

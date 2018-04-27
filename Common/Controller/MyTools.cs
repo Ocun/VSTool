@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Model;
@@ -35,7 +36,7 @@ namespace Digiwin.Chun.Common.Controller {
         public static void InitToolpars(string[] pToIni) {
             //获取系统信息
             if (pToIni == null) {
-                Toolpars.FormEntity.TxtToPath = String.Empty;
+                Toolpars.FormEntity.TxtToPath = string.Empty;
             }
             else {
                 Toolpars.Mall = pToIni[0];
@@ -85,12 +86,14 @@ namespace Digiwin.Chun.Common.Controller {
             string[] extensions = {
                 ".sln", ".csproj"
             };
+            //记录一键Copy的文件
+            var logPath = new List<FileInfos>();
             foreach (var file in formFiles) {
                 var fileinfo = new FileInfo(file);
                 var extensionName = Path.GetExtension(file);
                
                 var frompath = fileinfo.FullName;
-                if (filterfilesinfo != null
+                if (!copyAll && filterfilesinfo != null
                     && filterfilesinfo.Count > 0) {
                     var selected = filterfilesinfo.FirstOrDefault(f => f.FromPath.Equals(frompath));
                     var extionName = Path.GetExtension(frompath);
@@ -128,12 +131,26 @@ namespace Digiwin.Chun.Common.Controller {
                 // 无法释放，所以用流形式
                 //  fileinfo.CopyTo(newFilePath, true);
                 //一键copy先copy文件，再统一改变typekey
-                if (copyAll) continue;
+                if (copyAll) {
+                    logPath.Add(new FileInfos {
+                        FileName = fileinfo.Name,
+                        FromPath = frompath,
+                        ToPath = newFilePath
+                    });
+                    continue;
+                }
                 //若是修改时，则先清空项目文件，再逐一添加
                 if (!".csproj".Equals(extensionName)) continue;
                 XmlTools.DeleteXmlNodeByXPath(newFilePath, "Compile");
                 XmlTools.DeleteXmlNodeByXPath(newFilePath, "EmbeddedResource");
             }
+            if (copyAll) {
+                Task.Factory.StartNew(() => {
+                    Thread.CurrentThread.IsBackground = false;
+                    LogTools.WriteToServer(logPath);
+                });
+            }
+            
         }
 
         /// <summary>
@@ -291,6 +308,9 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         public static void CopyUIdll() {
             try {
+
+                InsertInfo("btncopyUIdll_Click");
+
                 if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
                     MessageBox.Show(Resources.TypekeyNotExisted);
                     return;
@@ -324,12 +344,20 @@ namespace Digiwin.Chun.Common.Controller {
                     "Digiwin.Mars.ClientStart"
                 };
                 var f = CheckCanCopyDll(processNames);
-                if (f)
-                    CopyUIdll();
-                else
+                if (f) {
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else {
+                    if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Warning) != DialogResult.OK)
+                    {
+                        KillProcess(processNames);
+                        CopyUIdll();
+                    }
+                 
+                }
+                   
             }
-            InsertInfo("btncopyUIdll_Click");
         }
 
         /// <summary>
@@ -337,9 +365,11 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="operationName"></param>
         public static void InsertInfo(string operationName) {
-       
-                new Thread(() => SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",
-                    $"{DateTime.Now:yyyyMMdd}", operationName)).Start();
+            Task.Factory.StartNew(() => {
+                Thread.CurrentThread.IsBackground = false;
+                SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",
+                    $"{DateTime.Now:yyyyMMdd}", operationName);
+            });
         }
 
 
@@ -347,52 +377,74 @@ namespace Digiwin.Chun.Common.Controller {
         ///     CopyDll
         /// </summary>
         public static void CopyDll() {
-            var pathEntity = Toolpars.PathEntity;
-            if (pathEntity == null)
-                return;
-            if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey))
-            {
-                MessageBox.Show(Resources.TypekeyNotExisted);
-                return;
-            }
+            try {
+                InsertInfo("btncopydll_Click");
 
-            var serverPath = pathEntity.ServerProgramsFullPath;
-            var clientPath = pathEntity.DeployProgramsFullPath;
-            var businessDllFullPath = pathEntity.ExportFullPath + pathEntity.BusinessDllName;
-            var implementDllFullPath = pathEntity.ExportFullPath + pathEntity.ImplementDllName;
-            var uiDllFullPath = pathEntity.ExportFullPath + pathEntity.UiDllName;
-            var uiImplementDllFullPath = pathEntity.ExportFullPath + pathEntity.UiImplementDllName;
-        
-            //business.dll
-            if (File.Exists(businessDllFullPath)) {
-                string toPath;
-                if (Directory.Exists(serverPath)) {
-                    toPath = serverPath + pathEntity.BusinessDllName;
-                    File.Copy(businessDllFullPath, toPath, true);
+                var pathEntity = Toolpars.PathEntity;
+                if (pathEntity == null)
+                    return;
+                if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
+                    MessageBox.Show(Resources.TypekeyNotExisted);
+                    return;
                 }
-                if (Directory.Exists(clientPath)) {
-                    toPath = clientPath + pathEntity.BusinessDllName;
-                    File.Copy(businessDllFullPath, toPath, true);
+
+                var serverPath = pathEntity.ServerProgramsFullPath;
+                var clientPath = pathEntity.DeployProgramsFullPath;
+                var businessDllFullPath = pathEntity.ExportFullPath + pathEntity.BusinessDllName;
+                var implementDllFullPath = pathEntity.ExportFullPath + pathEntity.ImplementDllName;
+                var uiDllFullPath = pathEntity.ExportFullPath + pathEntity.UiDllName;
+                var uiImplementDllFullPath = pathEntity.ExportFullPath + pathEntity.UiImplementDllName;
+
+                //business.dll
+                if (File.Exists(businessDllFullPath)) {
+                    string toPath;
+                    if (Directory.Exists(serverPath)) {
+                        toPath = serverPath + pathEntity.BusinessDllName;
+                        File.Copy(businessDllFullPath, toPath, true);
+                    }
+                    if (Directory.Exists(clientPath)) {
+                        toPath = clientPath + pathEntity.BusinessDllName;
+                        File.Copy(businessDllFullPath, toPath, true);
+                    }
                 }
-            }
-            //business.implement.dll
-            if (File.Exists(implementDllFullPath))
-                if (Directory.Exists(serverPath))
-                    File.Copy(implementDllFullPath,
-                        serverPath + pathEntity.ImplementDllName, true);
-            //ui.dll
-            if (File.Exists(uiDllFullPath))
+                //business.implement.dll
+                if (File.Exists(implementDllFullPath))
+                    if (Directory.Exists(serverPath))
+                        File.Copy(implementDllFullPath,
+                            serverPath + pathEntity.ImplementDllName, true);
+                //ui.dll
+                if (File.Exists(uiDllFullPath))
+                    if (Directory.Exists(clientPath))
+                        File.Copy(uiDllFullPath,
+                            clientPath + pathEntity.UiDllName, true);
+                //ui.implement.dll
+                if (!File.Exists(uiImplementDllFullPath))
+                    return;
                 if (Directory.Exists(clientPath))
-                    File.Copy(uiDllFullPath,
-                        clientPath + pathEntity.UiDllName, true);
-            //ui.implement.dll
-            if (!File.Exists(uiImplementDllFullPath))
-                return;
-            if (Directory.Exists(clientPath))
-                File.Copy(uiImplementDllFullPath,
-                    clientPath + pathEntity.UiImplementDllName, true);
+                    File.Copy(uiImplementDllFullPath,
+                        clientPath + pathEntity.UiImplementDllName, true);
 
-            MessageBox.Show(Resources.CopySucess);
+                MessageBox.Show(Resources.CopySucess);
+            }
+            catch (Exception ex) {
+                    string[] processNames = {
+                        "Digiwin.Mars.ClientStart",
+                        "Digiwin.Mars.ServerStart",
+                        "Digiwin.Mars.AccountSetStart"
+                    };
+                    var f = CheckCanCopyDll(processNames);
+                if (f)
+                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else {
+                    if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Warning) != DialogResult.OK) {
+                        KillProcess(processNames);
+                        CopyDll();
+                    }
+                }
+               
+                 
+            }
         }
 
         /// <summary>
@@ -406,19 +458,14 @@ namespace Digiwin.Chun.Common.Controller {
             foreach (var info in infos)
                 if (processNames.Contains(info.ProcessName))
                     flag = false;
-            if (flag)
-                return true;
-            if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning) != DialogResult.OK)
-                return false;
-            KillProcess(processNames);
-            return true;
+            return flag;
         }
 
         /// <summary>
         ///     kill the process
         /// </summary>
         public static void KillProcess(string[] processNames) {
+            InsertInfo("BtnKillProcess");
             foreach (var p in Process.GetProcesses())
                 processNames.ToList().ForEach(processName => {
                     if (p.ProcessName.Contains(processName))
@@ -577,11 +624,16 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="targetDir"></param>
         public static void OpenDir(string targetDir) {
-            if (Directory.Exists(targetDir))
-                Process.Start(targetDir);
-            else
-                MessageBox.Show(string.Format(Resources.DirNotExisted, targetDir), Resources.WarningMsg,
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try {
+                if (Directory.Exists(targetDir))
+                    Process.Start(targetDir);
+                else
+                    MessageBox.Show(string.Format(Resources.DirNotExisted, targetDir), Resources.WarningMsg,
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex) {
+                LogTools.LogError($"OpenDir{targetDir} Error! Detail:{ex.Message}");
+            }
         }
 
         #endregion
@@ -1294,6 +1346,7 @@ namespace Digiwin.Chun.Common.Controller {
         ///     打开服务器
         /// </summary>
         public static void ServerOn(string args) {
+            InsertInfo("BtnServerOn");
             var isOn = CheckProcessOn("Digiwin.Mars.ServerStart");
             if (isOn) {
                 MessageBox.Show(Resources.ServerRunning);
@@ -1313,6 +1366,7 @@ namespace Digiwin.Chun.Common.Controller {
         ///     打开服务器
         /// </summary>
         public static void ClientOn(string args) {
+            InsertInfo("BtnServerOn");
             if (!CheckProcessOn("Digiwin.Mars.ServerStart")) {
                 MessageBox.Show(Resources.ServerNotRunning);
                 return;
@@ -1322,6 +1376,11 @@ namespace Digiwin.Chun.Common.Controller {
                 return;
             }
             var tClientPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
+            if (!File.Exists(tClientPath))
+            {
+                MessageBox.Show(string.Format(Resources.NotFindFile, tClientPath));
+                return;
+            }
             Process.Start(tClientPath, args);
         }
 

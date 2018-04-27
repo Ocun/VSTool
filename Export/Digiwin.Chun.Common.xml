@@ -249,6 +249,13 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.OpenCode_Click(System.Object,System.EventArgs)">
+            <summary>
+                打开个案目录
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.TxtNewTypeKey_TextChanged(System.Object,System.EventArgs)">
             <summary>
                 动态改变借用typekey
@@ -1523,20 +1530,11 @@
             </summary>
             <param name="pArgs"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.OldTools.CopyAllPkg(System.String,System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.OldTools.CopynewVsTool(System.String,System.String)">
             <summary>
-                目录下的文件copy至另一目录
             </summary>
             <param name="pFileName"></param>
             <param name="pDistFolder"></param>
-        </member>
-        <member name="M:Digiwin.Chun.Common.Controller.OldTools.CopyFileAndRetry(System.String,System.String,System.Boolean)">
-            <summary>
-            防断路
-            </summary>
-            <param name="pFrom"></param>
-            <param name="pTo"></param>
-            <param name="pOverWriteOrNot"></param>
         </member>
         <member name="T:Digiwin.Chun.Common.Controller.XmlTools">
             <summary>
@@ -1826,6 +1824,16 @@
             主机名称
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Model.CpuInfo.Manufacturer">
+            <summary>
+            厂商
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.CpuInfo.MaxClockSpeed">
+            <summary>
+            最大速率
+            </summary>
+        </member>
         <member name="T:Digiwin.Chun.Common.Model.MainBoardInfo">
             <summary>
             主板信息
@@ -1869,6 +1877,16 @@
         <member name="P:Digiwin.Chun.Common.Model.DiskDriveInfo.Size">
             <summary>
             大小
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DiskDriveInfo.FreeSpace">
+            <summary>
+            可用空间
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.DiskDriveInfo.UsedSpace">
+            <summary>
+            已用空间
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Model.NetworkInfo">
@@ -2406,9 +2424,19 @@
                 个案源码之客户端目录
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.ServerFullPath">
+            <summary>
+                服务端部署路径
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Model.PathEntity.ServerProgramsFullPath">
             <summary>
                 dll部署路径
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.DeployFullPath">
+            <summary>
+               客户端部署路径
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Model.PathEntity.DeployProgramsFullPath">
@@ -2754,6 +2782,37 @@
         <member name="P:Digiwin.Chun.Common.Properties.Resources.WarningMsg">
             <summary>
               查找类似 警告 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Views.OpenDirForm">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Views.OpenDirForm.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Views.OpenDirForm.#ctor(Digiwin.Chun.Common.Model.Toolpars)">
+            <summary>
+            </summary>
+            <param name="toolpars"></param>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Views.OpenDirForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Views.OpenDirForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Views.OpenDirForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Views.ToolBarManger">

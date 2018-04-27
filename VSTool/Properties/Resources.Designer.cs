@@ -142,6 +142,15 @@ namespace VSTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 版本:{0} 的本地化字符串。
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 警告 的本地化字符串。
         /// </summary>
         internal static string Warning {

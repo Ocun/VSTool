@@ -102,7 +102,7 @@ namespace Digiwin.Chun.Common.Controller
                         dt.Columns.Add("TheMemo", typeof(object));
                         dt.Columns.Add("DemandID", typeof(object));
                         dt.Columns.Add("UseYear", typeof(object));
-                        int count = 1;
+                        var count = 1;
                         fileInfos.ToList().ForEach(fileInfo => {
                             
                             var nowDate = DateTime.Now;

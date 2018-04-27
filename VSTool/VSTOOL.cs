@@ -4,25 +4,26 @@ using System.Drawing;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Controller;
 using Digiwin.Chun.Common.Model;
+using VSTool.Properties;
 
 namespace VSTool {
     // ReSharper disable once InconsistentNaming
     public partial class VSTOOL : Form {
         public VSTOOL(string[] pToIni) {
             InitializeComponent();
+            Version.Text = string.Format(Resources.Version, Version.Text);
             ControlDataBingding();
 
             #region 自動更新
 
-            //CallUpdate.autoUpgrade();
-
+            //CallUpdate.AutoUpgrade();
             #endregion
 
             #region 複製最新的佈署dll
 
             try {
-                //string mServerExePath = CallUpdate.GetExeFolder(CallUpdate.GetServerExePath("VSTool"));
-                //OldTools.CopynewVSTool(mServerExePath, Toolpars.MVSToolpath);
+                //var mServerExePath = CallUpdate.GetExeFolder(CallUpdate.GetServerExePath("VSTool"));
+                //OldTools.CopynewVsTool(mServerExePath, Toolpars.MvsToolpath);
             }
             catch {
                 // ignored
@@ -63,6 +64,7 @@ namespace VSTool {
             btnClear.Click += ControlTools.BtnClear_Click;
             BtnOpenTo.Click += ControlTools.BtnOpenTo_Click;
             btnOpen.Click += ControlTools.BtnOpen_Click;
+            OpenCode.Click += ControlTools.OpenCode_Click;
             btnP.Click += ControlTools.BtnP_Click;
             btnG.Click += ControlTools.BtnG_Click;
             TreeView1.AfterCheck += ControlTools.TreeView1_AfterSelect;

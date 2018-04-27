@@ -52,10 +52,18 @@ namespace Digiwin.Chun.Common.Model {
         public string UiImplementDir { get; set; } = string.Empty;
 
         /// <summary>
+        ///     服务端部署路径
+        /// </summary>
+        public string ServerFullPath { get; set; } = string.Empty;
+        /// <summary>
         ///     dll部署路径
         /// </summary>
         public string ServerProgramsFullPath { get; set; } = string.Empty;
 
+        /// <summary>
+        ///    客户端部署路径
+        /// </summary>
+        public string DeployFullPath { get; set; } = string.Empty;
         /// <summary>
         ///     dll部署路径
         /// </summary>
