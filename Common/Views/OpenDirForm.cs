@@ -96,8 +96,7 @@ namespace Digiwin.Chun.Common.Views {
                 }
                 else {
                     var shadowDir = ShadowTB.Text.Trim();
-                    shadowDir = PathTools.PathCombine(shadowDir, Wd);
-                    dirPath = PathTools.IsNullOrEmpty(typeKey) ? dirPath : FindTypekeyDir(shadowDir, typeKey);
+                    dirPath = PathTools.PathCombine(shadowDir, WdPr, "SRC", $"Digiwin.Erp.{typeKey}");
                 }
             }
             else if (name.Equals(BtnOpenClient.Name)) {

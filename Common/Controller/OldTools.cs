@@ -9,6 +9,7 @@ namespace Digiwin.Chun.Common.Controller {
     ///     旧版用到的一些方法
     /// </summary>
     public class OldTools {
+
         /// <summary>
         ///     刪除文件夾及其子項
         /// </summary>
