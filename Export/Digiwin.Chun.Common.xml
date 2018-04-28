@@ -375,8 +375,19 @@
             </summary>
             <param name="exeFileName"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.CallUpdate.GetPcHostName">
+        <member name="M:Digiwin.Chun.Common.Controller.CallUpdate.CheckAndUpdate(System.String)">
             <summary>
+            检查自动更新
+            </summary>
+            <param name="oldVer"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.CallUpdate.MyCallUpdate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.CallUpdate.GetPcHostName">
+            <summary>E
             取得電腦名稱
             </summary>
             <returns></returns>
@@ -1110,6 +1121,12 @@
                 打开第三方工具
             </summary>
             <param name="bt"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.OpenExe(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="path"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CallModule(Digiwin.Chun.Common.Model.BuildeType)">
             <summary>

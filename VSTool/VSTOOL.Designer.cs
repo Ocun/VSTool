@@ -67,6 +67,7 @@ namespace VSTool
             this.ModiCkb = new System.Windows.Forms.CheckBox();
             this.txtNewTypeKey = new System.Windows.Forms.TextBox();
             this.Industry = new System.Windows.Forms.CheckBox();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -220,7 +221,7 @@ namespace VSTool
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(214, 467);
+            this.panel3.Size = new System.Drawing.Size(211, 467);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3_Paint);
             // 
@@ -238,6 +239,7 @@ namespace VSTool
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.Menu;
+            this.panel4.Controls.Add(this.linkLabel2);
             this.panel4.Controls.Add(this.Version);
             this.panel4.Controls.Add(this.linkLabel1);
             this.panel4.Controls.Add(this.ToolsDescrition);
@@ -346,7 +348,7 @@ namespace VSTool
             // 
             this.SplitContainer1.Panel2.Controls.Add(this.panel3);
             this.SplitContainer1.Size = new System.Drawing.Size(982, 467);
-            this.SplitContainer1.SplitterDistance = 767;
+            this.SplitContainer1.SplitterDistance = 770;
             this.SplitContainer1.SplitterWidth = 1;
             this.SplitContainer1.TabIndex = 36;
             // 
@@ -357,7 +359,7 @@ namespace VSTool
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(767, 467);
+            this.panel2.Size = new System.Drawing.Size(770, 467);
             this.panel2.TabIndex = 33;
             // 
             // SplitContainer2
@@ -377,7 +379,7 @@ namespace VSTool
             // 
             this.SplitContainer2.Panel2.Controls.Add(this.ScrollPanel);
             this.SplitContainer2.Panel2.Controls.Add(this.TreeView1);
-            this.SplitContainer2.Size = new System.Drawing.Size(767, 467);
+            this.SplitContainer2.Size = new System.Drawing.Size(770, 467);
             this.SplitContainer2.SplitterDistance = 245;
             this.SplitContainer2.SplitterWidth = 1;
             this.SplitContainer2.TabIndex = 14;
@@ -421,7 +423,7 @@ namespace VSTool
             this.ScrollPanel.Location = new System.Drawing.Point(0, 0);
             this.ScrollPanel.Margin = new System.Windows.Forms.Padding(2);
             this.ScrollPanel.Name = "ScrollPanel";
-            this.ScrollPanel.Size = new System.Drawing.Size(521, 467);
+            this.ScrollPanel.Size = new System.Drawing.Size(524, 467);
             this.ScrollPanel.TabIndex = 35;
             // 
             // TreeView1
@@ -449,7 +451,7 @@ namespace VSTool
             this.TreeView1.ShowDescription = false;
             this.TreeView1.ShowLines = false;
             this.TreeView1.ShowPlusMinus = false;
-            this.TreeView1.Size = new System.Drawing.Size(521, 467);
+            this.TreeView1.Size = new System.Drawing.Size(524, 467);
             this.TreeView1.TabIndex = 13;
             this.TreeView1.Visible = false;
             // 
@@ -480,7 +482,7 @@ namespace VSTool
             this.RighteTreeView.ShowDescription = false;
             this.RighteTreeView.ShowLines = false;
             this.RighteTreeView.ShowPlusMinus = false;
-            this.RighteTreeView.Size = new System.Drawing.Size(199, 444);
+            this.RighteTreeView.Size = new System.Drawing.Size(196, 444);
             this.RighteTreeView.TabIndex = 15;
             // 
             // HeaderPanel
@@ -552,6 +554,22 @@ namespace VSTool
             this.Industry.TabIndex = 28;
             this.Industry.Text = "行业包";
             this.Industry.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.ActiveLinkColor = System.Drawing.Color.DarkRed;
+            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkLabel2.LinkColor = System.Drawing.Color.Red;
+            this.linkLabel2.Location = new System.Drawing.Point(816, 132);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(43, 15);
+            this.linkLabel2.TabIndex = 36;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "有更新";
+            this.linkLabel2.Visible = false;
             // 
             // VSTOOL
             // 
@@ -625,6 +643,7 @@ namespace VSTool
         private MyPanel HeaderPanel;
         private System.Windows.Forms.Label Version;
         private System.Windows.Forms.Button OpenCode;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }
 

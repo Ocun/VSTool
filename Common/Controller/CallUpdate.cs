@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
+using Digiwin.Chun.Common.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Digiwin.Chun.Common.Controller {
     /// <summary>
@@ -21,8 +25,47 @@ namespace Digiwin.Chun.Common.Controller {
                 p.Kill();
         }
 
-        
         /// <summary>
+        /// 检查自动更新
+        /// </summary>
+        /// <param name="oldVer"></param>
+        public static bool CheckAndUpdate(string oldVer) {
+            var existedUpdate = false;
+            try {
+                var updatePath = @"\\192.168.168.15\E10_Tools\E10_Switch\VSTOOL\version.json";
+                if (File.Exists(updatePath)) {
+                    var jsonText = File.ReadAllText(updatePath);
+                    //var jo = JObject.Parse(jsonText);
+                    var jo = (JArray)JsonConvert.DeserializeObject(jsonText);
+                    var version = jo[0]["Version"].ToString();
+                    if (string.Compare(oldVer, version, StringComparison.Ordinal) >= 1) {
+                        existedUpdate = true;
+                    }
+                  
+                }
+              
+            }
+            catch (Exception ex) {
+                LogTools.LogError($@"CheckAndUpdate Error！ Detail:{ex.Message}");
+            }
+            return existedUpdate;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void MyCallUpdate() {
+            var path = $@"{MyTools.Toolpars.MvsToolpath}\AutoUpdateVsTool.exe";
+            if (File.Exists(path))
+            {
+                MyTools.OpenExe(path);
+            }
+            else
+            {
+                MessageBox.Show($@"Can't Find AutoUpdate.exe!");
+            }
+        }
+        /// <summary>E
         /// 取得電腦名稱
         /// </summary>
         /// <returns></returns>

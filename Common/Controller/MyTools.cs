@@ -34,7 +34,6 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="pToIni"></param>
         public static void InitToolpars(string[] pToIni) {
-            //获取系统信息
             if (pToIni == null) {
                 Toolpars.FormEntity.TxtToPath = string.Empty;
             }
@@ -532,7 +531,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="bt"></param>
         public static void OpenTools(BuildeType bt) {
             try {
-                var p = new Process();
+              
                 var infos = Process.GetProcesses();
                 var path = bt.Url;
                 if (!File.Exists(path))
@@ -543,9 +542,7 @@ namespace Digiwin.Chun.Common.Controller {
                 var exeName = Path.GetFileName(path);
                 var f = infos.All(info => exeName != null && !info.ProcessName.ToUpper().Contains(exeName.ToUpper()));
                 if (f) {
-                    p.StartInfo.FileName = path;
-
-                    p.Start();
+                    OpenExe(path);
                 }
                 else {
                     MessageBox.Show(Resources.ExeAlreadyExe);
@@ -556,6 +553,20 @@ namespace Digiwin.Chun.Common.Controller {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        public static void OpenExe(string path) {
+            try {
+                var p = new Process {StartInfo = {FileName = path}};
+
+                p.Start();
+            }
+            catch (Exception ex) {
+                LogTools.LogError($"Open{path} Error! Detail:{ex.Message}");
+            }
+        }
         /// <summary>
         ///     呼叫第三方模块,反射比直接调用慢数百倍
         /// </summary>

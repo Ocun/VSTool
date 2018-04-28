@@ -35,5 +35,5 @@ E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.CoreCompileInput
 E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.dll
 E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.pdb
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csprojResolveAssemblyReference.cache
-E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csprojResolveAssemblyReference.cache
 E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.OpenDirForm.resources
+E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csprojResolveAssemblyReference.cache

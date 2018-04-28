@@ -1,6 +1,7 @@
 ﻿// create By 08628 20180411
 
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Controller;
 using Digiwin.Chun.Common.Model;
@@ -16,6 +17,12 @@ namespace VSTool {
 
             #region 自動更新
 
+            Task.Factory.StartNew(() => {
+               var existedUpdate= CallUpdate.CheckAndUpdate(Version.Text);
+                if (existedUpdate) {
+                    CallUpdate.MyCallUpdate();
+                }
+            });
             //CallUpdate.AutoUpgrade();
             #endregion
 
