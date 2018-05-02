@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Management;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
-using Digiwin.Chun.Common.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Digiwin.Chun.Common.Controller {
     /// <summary>
-    /// 自动升级辅助类
+    ///     自动升级辅助类
     /// </summary>
     public class CallUpdate {
-        
         /// <summary>
-        /// Kill執行緒
+        ///     Kill執行緒
         /// </summary>
         /// <param name="exeFileName"></param>
         public static void KillTask(string exeFileName) {
@@ -26,24 +22,19 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 检查自动更新
+        ///     检查自动更新
         /// </summary>
         /// <param name="oldVer"></param>
         public static bool CheckAndUpdate(string oldVer) {
             var existedUpdate = false;
+            var updatePath = @"\\192.168.168.15\E10_Tools\E10_Switch\VSTOOL\version.json";
             try {
-                var updatePath = @"\\192.168.168.15\E10_Tools\E10_Switch\VSTOOL\version.json";
                 if (File.Exists(updatePath)) {
                     var jsonText = File.ReadAllText(updatePath);
-                    //var jo = JObject.Parse(jsonText);
-                    var jo = (JArray)JsonConvert.DeserializeObject(jsonText);
+                    var jo = (JArray) JsonConvert.DeserializeObject(jsonText);
                     var version = jo[0]["Version"].ToString();
-                    if (string.Compare(oldVer, version, StringComparison.Ordinal) >= 1) {
-                        existedUpdate = true;
-                    }
-                  
+                    if (string.Compare(oldVer, version, StringComparison.Ordinal) >= 1) existedUpdate = true;
                 }
-              
             }
             catch (Exception ex) {
                 LogTools.LogError($@"CheckAndUpdate Error！ Detail:{ex.Message}");
@@ -52,29 +43,26 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         public static void MyCallUpdate() {
             var path = $@"{MyTools.Toolpars.MvsToolpath}\AutoUpdateVsTool.exe";
             if (File.Exists(path))
-            {
                 MyTools.OpenExe(path);
-            }
             else
-            {
                 MessageBox.Show($@"Can't Find AutoUpdate.exe!");
-            }
         }
-        /// <summary>E
-        /// 取得電腦名稱
+
+        /// <summary>
+        ///     E
+        ///     取得電腦名稱
         /// </summary>
         /// <returns></returns>
         public static string GetPcHostName() {
             return Environment.MachineName;
         }
-        
+
         /// <summary>
-        /// 取得電腦IP
+        ///     取得電腦IP
         /// </summary>
         /// <returns></returns>
         public static string GetIpAddress() {
@@ -82,9 +70,9 @@ namespace Digiwin.Chun.Common.Controller {
 
             return svrIp.ToString();
         }
-        
+
         /// <summary>
-        /// 取得電腦所在地
+        ///     取得電腦所在地
         /// </summary>
         /// <returns></returns>
         public static string GetLocation() {
@@ -99,9 +87,9 @@ namespace Digiwin.Chun.Common.Controller {
             return ip.IndexOf("192.168.168", StringComparison.Ordinal) != -1 ? "NJVM" : "NJ";
         }
 
-        
+
         /// <summary>
-        /// 取得執行檔執行資料夾路徑
+        ///     取得執行檔執行資料夾路徑
         /// </summary>
         /// <param name="fullFilePath"></param>
         /// <returns></returns>
@@ -110,9 +98,9 @@ namespace Digiwin.Chun.Common.Controller {
             return exeFolder;
         }
 
-        
+
         /// <summary>
-        /// 取得執行檔名稱
+        ///     取得執行檔名稱
         /// </summary>
         /// <param name="fullFilePath"></param>
         /// <returns></returns>
@@ -123,9 +111,9 @@ namespace Digiwin.Chun.Common.Controller {
             return fullFilePath;
         }
 
-        
+
         /// <summary>
-        /// 取得本地workday連線字串
+        ///     取得本地workday連線字串
         /// </summary>
         /// <param name="getLocation"></param>
         /// <returns></returns>
@@ -139,9 +127,9 @@ namespace Digiwin.Chun.Common.Controller {
                 "Provider=SQLOLEDB.1;Password=518518;Persist Security Info=True;User ID=sa;Initial Catalog=NJWF;Data Source=172.16.1.28;Application Name=NEWDB";
         }
 
-        
+
         /// <summary>
-        /// 取得Workday Insert指令
+        ///     取得Workday Insert指令
         /// </summary>
         /// <param name="isWfTool"></param>
         /// <param name="toolName"></param>
@@ -165,9 +153,9 @@ namespace Digiwin.Chun.Common.Controller {
             return insertString.ToString();
         }
 
-        
+
         /// <summary>
-        /// 取得主機上執行檔路徑
+        ///     取得主機上執行檔路徑
         /// </summary>
         /// <param name="toolName"></param>
         /// <returns></returns>
@@ -183,7 +171,6 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="fullFilePath"></param>
         /// <param name="serverFilePath"></param>
@@ -196,7 +183,6 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="lpHandle"></param>
         /// <param name="lpProgram"></param>
@@ -216,9 +202,9 @@ namespace Digiwin.Chun.Common.Controller {
             //System.Diagnostics.Process.Start(lpProgram, lpParameter);
             return true;
         }
-        
+
         /// <summary>
-        /// 取得機碼執行檔路徑
+        ///     取得機碼執行檔路徑
         /// </summary>
         public static void AutoUpgrade() {
             if (GetServerExePath("VSTool") != "") {

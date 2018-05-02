@@ -114,7 +114,7 @@ namespace Digiwin.Chun.Common.Views
             propies.ForEach(prop => {
                 var propName = $@"columns.Add(""{prop}"",OOQL.CreateConstants())";
                 sb.AppendLine(prop.Equals(propies[propies.Count - 1])
-                    ? propName : propName + @",");
+                    ? propName : propName + @";");
             });
             sb.AppendLine($@"node = OOQL.Insert(""{fullTypeKey}"", columns.Keys.ToArray()).Values(columns.Values.ToArray())");
 

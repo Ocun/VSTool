@@ -10,34 +10,22 @@ using VSTool.Properties;
 namespace VSTool {
     // ReSharper disable once InconsistentNaming
     public partial class VSTOOL : Form {
+        private string VersionNum { get; set; }
+
         public VSTOOL(string[] pToIni) {
             InitializeComponent();
+            VersionNum = Version.Text;
             Version.Text = string.Format(Resources.Version, Version.Text);
             ControlDataBingding();
 
             #region 自動更新
 
             Task.Factory.StartNew(() => {
-               var existedUpdate= CallUpdate.CheckAndUpdate(Version.Text);
-                if (existedUpdate) {
-                    CallUpdate.MyCallUpdate();
-                }
+               var existedUpdate= CallUpdate.CheckAndUpdate(VersionNum);
+                if (!existedUpdate) return;
+                CallUpdate.MyCallUpdate();
             });
-            //CallUpdate.AutoUpgrade();
             #endregion
-
-            #region 複製最新的佈署dll
-
-            try {
-                //var mServerExePath = CallUpdate.GetExeFolder(CallUpdate.GetServerExePath("VSTool"));
-                //OldTools.CopynewVsTool(mServerExePath, Toolpars.MvsToolpath);
-            }
-            catch {
-                // ignored
-            }
-
-            #endregion
-
             MyTools.InitToolpars(pToIni);
             AddEventHandler();
         }
@@ -98,6 +86,5 @@ namespace VSTool {
                 borderColor, borderWidth, borderLineStyleNo);
         }
 
-      
     }
 }
