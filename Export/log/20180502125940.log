@@ -1,0 +1,46 @@
+﻿___________________________________________________PCInfo___________________________________________________
+      #CpuCount#      1
+      #Manufacturer0#      
+      #CpuName0#      Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+      #Speed#      
+      #OSName0#      Microsoft Windows 10 Education Insider Preview|C:\WINDOWS|\Device\Harddisk0\Partition1
+      #OSVersion0#      10.0.17063
+      #WinverInfo#      Microsoft Windows NT 6.2.9200.0
+      #CurrentDomain#      H-08628
+      #Description#      VirtualBox Host-Only Ethernet Adapter
+      #IpAddress0#      169.254.158.83
+      #MacAddress0#      0A:00:27:00:00:09
+      #Description#      VirtualBox Host-Only Ethernet Adapter #2
+      #IpAddress1#      192.168.12.2
+      #MacAddress1#      0A:00:27:00:00:10
+      #Description#      Realtek PCIe GBE Family Controller
+      #IpAddress2#      192.168.11.124
+      #MacAddress2#      1C:87:2C:58:1C:49
+      #Manufacturer0#      Kingston
+      #Size0#      8G
+      #Speed0#      1600MHz
+      #Manufacturer0#      ASUSTeK COMPUTER INC.
+      #Product0#      B85M-E R2.0
+      #SerialNumber0#      150544730500110
+      #Version0#      Rev X.0x
+      #Model0#      WDC WD10EZEX-21M2NA0
+      #SerialNumber0#              WCC3F0RNA461
+      #Size0#      932GB
+      #UsedSpace0#      GB
+      #FreeSpace0#      GB
+      #Model1#      PLEXTOR PX-128M6S
+      #SerialNumber1#      P02522109891
+      #Size1#      119GB
+      #UsedSpace1#      GB
+      #FreeSpace1#      GB
+___________________________________________________PCInfo___________________________________________________
+
+___________________________________________________OperationMsg___________________________________________________
+      #OperationTime#      2018-05-02 12:59:321
+      #OperationUser#      H-08628
+      #WinUser#      zychu
+      # 服务\工具类       MyTools
+      # 服务\工具类       ServiceTools
+
+___________________________________________________OperationMsg___________________________________________________
+

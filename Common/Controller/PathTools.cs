@@ -1,6 +1,7 @@
 ﻿// create By 08628 20180411
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -136,7 +137,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="strs"></param>
         /// <returns></returns>
-        public static string CombineStr(string[] strs) {
+        public static string CombineStr(IEnumerable<string> strs) {
             var sb = new StringBuilder();
             strs.ToList().ForEach(str => sb.Append((str ?? string.Empty).Trim()));
             return sb.ToString();

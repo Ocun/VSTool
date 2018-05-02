@@ -59,8 +59,9 @@ namespace Digiwin.Chun.Common.Controller {
                     }
                      
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogTools.LogError($@"BinarySerialize error！ Detail:{ex.Message}");
                 return null;
             }
         }
@@ -87,6 +88,7 @@ namespace Digiwin.Chun.Common.Controller {
             }
             catch (Exception er)
             {
+                LogTools.LogError($@"BinarySave error！ Detail:{er.Message}");
                 throw new Exception(er.Message);
             }
             return true;
@@ -105,7 +107,8 @@ namespace Digiwin.Chun.Common.Controller {
                     return  bf.Deserialize(fs) as T;
                 }
             }
-            catch (Exception) {
+            catch (Exception ex) {
+                LogTools.LogError($@"BinaryDeSerializer error！ Detail:{ex.Message}");
                 return null;
             }
         }   
@@ -178,7 +181,8 @@ namespace Digiwin.Chun.Common.Controller {
                         break;
                 }
             }
-            catch (Exception ) {
+            catch (Exception ex) {
+                LogTools.LogError($@"SaveSerialize error！ Detail:{ex.Message}");
                 return false;
             } 
           
@@ -198,7 +202,8 @@ namespace Digiwin.Chun.Common.Controller {
                     return serializer.Deserialize(xr) as T;
                 }
             }
-            catch (Exception) {
+            catch (Exception ex) {
+                LogTools.LogError($@"ReadXml error！ Detail:{ex.Message}");
                 return null;
             }
         }
@@ -215,7 +220,8 @@ namespace Digiwin.Chun.Common.Controller {
 
                 return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented, jsonSetting);
             }
-            catch (Exception) {
+            catch (Exception ex) {
+                LogTools.LogError($@"ConvertToJson error！ Detail:{ex.Message}");
                 return null;
             }
         } /// <summary>
@@ -234,7 +240,8 @@ namespace Digiwin.Chun.Common.Controller {
                 }
                
             }
-            catch (Exception) {
+            catch (Exception ex) {
+                LogTools.LogError($@"ReadJson error！ Detail:{ex.Message}");
                 return null;
             }
         }

@@ -33,7 +33,7 @@ namespace Digiwin.Chun.Common.Controller {
                     var jsonText = File.ReadAllText(updatePath);
                     var jo = (JArray) JsonConvert.DeserializeObject(jsonText);
                     var version = jo[0]["Version"].ToString();
-                    if (string.Compare(oldVer, version, StringComparison.Ordinal) >= 1) existedUpdate = true;
+                    if (string.Compare(oldVer, version, StringComparison.Ordinal) == -1) existedUpdate = true;
                 }
             }
             catch (Exception ex) {
@@ -49,7 +49,7 @@ namespace Digiwin.Chun.Common.Controller {
             if (File.Exists(path))
                 MyTools.OpenExe(path);
             else
-                MessageBox.Show($@"Can't Find AutoUpdate.exe!");
+                MessageBox.Show($@"Find Update,But Can't Find AutoUpdate.exe!");
         }
 
         /// <summary>

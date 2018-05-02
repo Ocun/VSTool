@@ -666,7 +666,12 @@ namespace Digiwin.Chun.Common.Controller {
                 {
                     if (file.Directory == null) continue;
                     var pathDir = file.Directory.FullName;
-                    if (!filePath.Contains(pathDir)) continue;
+                    //找到相对位置
+                    var index = filePath.IndexOf(pathDir, StringComparison.Ordinal);
+
+                    if (index <= -1) continue;
+                    var filterPath =filePath.Substring(index + pathDir.Length);
+                    if (filterPath.StartsWith(@".")) continue;
                     csPath = file.FullName;
                     break;
                 }

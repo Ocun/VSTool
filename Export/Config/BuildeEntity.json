@@ -23,6 +23,16 @@
                     "ShowParWindow": "False",
                     "ShowCheckedBox": "True",
                     "Visiable": "True"
+                },
+                {
+                    "Id": "UITools",
+                    "Name": "工具类(客户端)",
+                    "Description": "提供常用的方法",
+                    "Checked": "False",
+                    "ReadOnly": "False",
+                    "ShowParWindow": "False",
+                    "ShowCheckedBox": "True",
+                    "Visiable": "True"
                 }
             ]
         },

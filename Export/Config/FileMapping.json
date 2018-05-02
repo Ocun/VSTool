@@ -12,7 +12,14 @@
             "Description": "工具类",
             "Paths": [
                 "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\MyTools.cs",
-                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\ServiceTools.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\ServiceTools.cs"
+               
+            ]
+        },
+        {
+            "Id": "UITools",
+            "Description": "工具类(客户端)",
+            "Paths": [
                 "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Tools\\MyUITools.cs",
                 "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Tools\\UIServiceTools.cs"
             ]
@@ -53,7 +60,7 @@
         {
             "Id": "EditControllerCommand",
             "Description": "菜单",
-            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\testCommand.cs"]
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\MenuItem\\MyCommand.cs"]
         },
         {
             "Id": "ImportExcel",
