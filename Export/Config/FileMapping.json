@@ -43,6 +43,11 @@
             "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\commonInterceptor.cs"]
         },
         {
+            "Id": "ClientCommonInterceptor",
+            "Description": "通用切片，保存/数据跟踪",
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\commonInterceptor.cs"]
+        },
+        {
             "Id": "Validator",
             "Description": "校验",
             "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\testValidate.cs"]

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Digiwin.Common;
+using Digiwin.Common.Query2;
+using Digiwin.Common.Torridity;
 
 namespace Digiwin.ERP.XTEST.Business.Implement
 {
@@ -31,7 +33,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement
         }
         #endregion
 
-        DependencyObjectCollection myFunc()
+        public DependencyObjectCollection MyFunc()
         {
             // 使用事务
             //using (ITransactionService trans = this.GetService<ITransactionService>()) {
