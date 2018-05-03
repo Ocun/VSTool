@@ -216,10 +216,9 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="filePath"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static bool CheckFile(string filePath)
-        {
+        public static bool CheckFile(string filePath) {
             if (!File.Exists(filePath))
-                throw new Exception(string.Format(Resources.NotFindFile, filePath));
+                LogTools.LogError(string.Format(Resources.NotFindFile, filePath));
             return true;
         }
 

@@ -40,10 +40,13 @@ namespace Digiwin.Chun.Common.Views
         private void TextBox1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
+
             var fulltypeKey = textBox1.Text.Trim();
             if (fulltypeKey.Equals(string.Empty)) 
                 return;
+
             var typeKey = fulltypeKey;
+            MyTools.InsertInfo("SelectTypeKeyPropies");
             var isSplit = false;
             if (fulltypeKey.Contains(@".")) {
                 var splitRes = fulltypeKey.Split('.');

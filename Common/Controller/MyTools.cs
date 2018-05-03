@@ -34,6 +34,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="pToIni"></param>
         public static void InitToolpars(string[] pToIni) {
+            Toolpars.ModelType = ModelType.Json;
             if (pToIni == null) {
                 Toolpars.FormEntity.TxtToPath = string.Empty;
             }
@@ -63,7 +64,6 @@ namespace Digiwin.Chun.Common.Controller {
             //最大分割列
             Toolpars.FormEntity.MaxSplitCount = 6;
             Toolpars.OldTypekey = Toolpars.SettingPathEntity.TemplateTypeKey;
-            Toolpars.ModelType = ModelType.Json;
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
@@ -348,7 +348,7 @@ namespace Digiwin.Chun.Common.Controller {
                 }
                 else {
                     if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Warning) != DialogResult.OK)
+                            MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         KillProcess(processNames);
                         CopyUIdll();
@@ -436,7 +436,7 @@ namespace Digiwin.Chun.Common.Controller {
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else {
                     if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Warning) != DialogResult.OK) {
+                            MessageBoxIcon.Warning) == DialogResult.OK) {
                         KillProcess(processNames);
                         CopyDll();
                     }
@@ -531,7 +531,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="bt"></param>
         public static void OpenTools(BuildeType bt) {
             try {
-              
+                InsertInfo($@"Open{bt.Id}");
                 var infos = Process.GetProcesses();
                 var path = bt.Url;
                 if (!File.Exists(path))
@@ -574,6 +574,7 @@ namespace Digiwin.Chun.Common.Controller {
         public static void CallModule(BuildeType bt) {
             var plugPath = bt.PlugPath;
             var moduleName = bt.ModuleName;
+            InsertInfo($@"Call{moduleName}");
             if (plugPath == null
                 || plugPath.Trim().Equals(string.Empty)
                 || moduleName == null
@@ -1382,7 +1383,7 @@ namespace Digiwin.Chun.Common.Controller {
         ///     打开服务器
         /// </summary>
         public static void ClientOn(string args) {
-            InsertInfo("BtnServerOn");
+            InsertInfo("BtnClientOn");
             if (!CheckProcessOn("Digiwin.Mars.ServerStart")) {
                 MessageBox.Show(Resources.ServerNotRunning);
                 return;
