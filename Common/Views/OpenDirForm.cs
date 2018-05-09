@@ -91,12 +91,12 @@ namespace Digiwin.Chun.Common.Views {
                     txtToPath = txtToPath.Replace(Toolpars.CustomerName, customerName);
                     if (!txtToPath.Equals(string.Empty)) {
                          dirPath = PathTools.PathCombine(Path.GetDirectoryName(Path.GetDirectoryName(txtToPath)),
-                            WdPr,"SRC", $"Digiwin.Erp.{typeKey}");
+                            WdPr,"SRC", $"Digiwin.ERP.{typeKey}");
                     }  
                 }
                 else {
                     var shadowDir = ShadowTB.Text.Trim();
-                    dirPath = PathTools.PathCombine(shadowDir, WdPr, "SRC", $"Digiwin.Erp.{typeKey}");
+                    dirPath = PathTools.PathCombine(shadowDir, WdPr, "SRC", $"Digiwin.ERP.{typeKey}");
                 }
             }
             else if (name.Equals(BtnOpenClient.Name)) {

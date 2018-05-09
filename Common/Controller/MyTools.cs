@@ -417,9 +417,8 @@ namespace Digiwin.Chun.Common.Controller {
                         File.Copy(uiDllFullPath,
                             clientPath + pathEntity.UiDllName, true);
                 //ui.implement.dll
-                if (!File.Exists(uiImplementDllFullPath))
-                    return;
-                if (Directory.Exists(clientPath))
+                if (File.Exists(uiImplementDllFullPath))
+                    if (Directory.Exists(clientPath))
                     File.Copy(uiImplementDllFullPath,
                         clientPath + pathEntity.UiImplementDllName, true);
 

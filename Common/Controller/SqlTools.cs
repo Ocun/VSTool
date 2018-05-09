@@ -65,7 +65,7 @@ namespace Digiwin.Chun.Common.Controller
                     connection.Open();
                     Builder.Length = 0;
                     Builder.AppendFormat(
-                        "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1:yyyyMMddHHmmss}',{2:},'{3}','{4}',{5},'{6}','{7}',{8})",
+                        "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1:yyyyMMddHHmmssfff}',{2:},'{3}','{4}',{5},'{6}','{7}',{8})",
                         "VSTool", DateTime.Now, DateTime.Now.ToString("yyyyMMddHHmmss")
                             .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8), Environment.MachineName,
                         "N", 1, pTheMemo, pDemandId, pUseYear);
