@@ -1225,7 +1225,7 @@ namespace Digiwin.Chun.Common.Controller {
                     var hintPaths = new[] { "bin", "Export" };
                     text = hintPaths.Aggregate(text, 
                         (current, hitPath) => 
-                        current.Replace(bpath + hitPath, bpath + @"..\..\..\WD_PR\SRC\" + hintPaths));
+                        current.Replace(bpath + hitPath, bpath + @"..\..\..\WD_PR\SRC\" + hitPath));
                     File.SetAttributes(filePath, FileAttributes.Normal);
                     File.WriteAllText(filePath, text, Encoding.UTF8);
 
