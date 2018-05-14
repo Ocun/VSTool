@@ -50,8 +50,8 @@ namespace Digiwin.Chun.Common.Controller {
                 Toolpars.CustomerName = args[6];
 
                 Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
-                if (Toolpars.MIndustry)
-                    Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
+                //if (Toolpars.MIndustry)
+                //    Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
 
                 Toolpars.FormEntity.TxtPkGpath = $@"{Toolpars.MdesignPath}\WD_PR\SRC";
                 Toolpars.FormEntity.Industry = Toolpars.MIndustry;

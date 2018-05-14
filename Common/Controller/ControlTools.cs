@@ -339,7 +339,6 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void BtnCreate_Click(object sender, EventArgs e) {
-
             try {
                 var pathInfo = Toolpars.PathEntity;
                 if (!ModiCkb.Checked) {
@@ -524,8 +523,8 @@ namespace Digiwin.Chun.Common.Controller {
                 return;
             Toolpars.MIndustry = control.Checked;
             Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
-            if (Toolpars.MIndustry)
-                Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
+            //if (Toolpars.MIndustry)
+            //    Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
         }
 
 

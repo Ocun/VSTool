@@ -1527,6 +1527,12 @@
             <param name="pUseYear"></param>
             <param name="pTheMemo"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.SqlTools.QueryInfo(System.String)">
+            <summary>
+            单笔插入
+            </summary>
+            <param name="sqlString"></param>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.SqlTools.InsertToolInfo(System.String,System.Collections.Generic.IEnumerable{Digiwin.Chun.Common.Model.FileInfos})">
             <summary>
             批量插入

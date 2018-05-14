@@ -77,6 +77,24 @@ namespace Digiwin.Chun.Common.Controller
                 Connection.Close();
             }
         }
+        /// <summary>
+        /// 单笔插入
+        /// </summary>
+        /// <param name="sqlString"></param>
+        public static void QueryInfo(string sqlString)
+        {
+            try
+            {
+                using (var connection = Connection) {
+                    connection.Open();
+                    new SqlCommand(sqlString, connection).ExecuteReader();
+                }
+            }
+            catch(Exception ex) {
+                LogTools.LogError($"QueryInfo Error! Detail:{ex.Message}");
+                Connection.Close();
+            }
+        }
 
         /// <summary>
         /// 批量插入
