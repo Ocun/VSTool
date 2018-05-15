@@ -68,7 +68,30 @@ namespace Digiwin.Chun.Common.Controller {
             IconTools.InitImageList();
             InitBuilderEntity();
         }
-        
+        /// <summary>
+        /// 文件copy
+        /// </summary>
+        /// <param name="fromDir"></param>
+        /// <param name="toDir"></param>
+        public static void CopyTo(string fromDir, string toDir)
+        {
+            var formFiles = GetFilePath(fromDir);
+            foreach (var file in formFiles)
+            {
+                var fileinfo = new FileInfo(file);
+                var frompath = fileinfo.FullName;
+                if (fileinfo.Directory == null)
+                    continue;
+                var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty);
+                var absolutePath = file.Replace(fromDir, string.Empty);
+                var newFilePath = PathTools.PathCombine(toDir, absolutePath);
+                var newFileDir = PathTools.PathCombine(toDir, absolutedir);
+
+                if (!Directory.Exists(newFileDir))
+                    Directory.CreateDirectory(newFileDir);
+                CopyFile(frompath, newFilePath);
+            }
+        }
         /// <summary>
         ///     把文件拷入指定的文件夹,并修改文件名
         /// </summary>
@@ -189,7 +212,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="dirpath"></param>
         /// <returns></returns>
-        private static List<string> GetFilePath(string dirpath) {
+        public static List<string> GetFilePath(string dirpath) {
             var filepathList = new List<string>();
             if (!Directory.Exists(dirpath))
                 return filepathList;
@@ -770,38 +793,14 @@ namespace Digiwin.Chun.Common.Controller {
 
                     foreach (var kv in pathDic)
                     foreach (var path in kv.Value) {
-                        var fileinfo = new FileInfo(path.FromPath);
+                      
+                        CreateFile(path);
 
                         var fileName = path.FileName;
                         var toPath = path.ToPath;
-                        var parentDir = Path.GetDirectoryName(toPath);
-                        if (!Directory.Exists(parentDir))
-                            if (parentDir != null)
-                                Directory.CreateDirectory(parentDir);
-                        if (File.Exists(toPath)) {
-                            if (path.IsMerge != null
-                                && path.IsMerge.Equals("True")) {
-                                //將唯讀權限拿掉
-                                File.SetAttributes(toPath, FileAttributes.Normal);
-                                FindPartAndInsert(path);
-                            }
-                            else {
-                                //將唯讀權限拿掉
-                                File.SetAttributes(toPath, FileAttributes.Normal);
-                                //修改
-                                fileinfo.CopyTo(toPath, true);
-                            }
-                        }
-                        else {
-                            if (path.PartId != null
-                                && !path.PartId.Equals(String.Empty))
-                                FindPartAndInsert(path);
-                            else
-                                fileinfo.CopyTo(toPath);
-                        }
                         //修改形如‘_ClassName_’类名为文件名，否则不管
-                        var csName = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\:{]+(?=[\n\:{])";
-                        ReplaceByRegex(toPath, csName, fileName);
+                        var csNameMatch = @"(?<=[^\/\:]\s+(class|interface)\s+)[^\n\:{]+(?=[\n\:{])";
+                        ReplaceByRegex(toPath, csNameMatch, fileName);
 
                         #region 修改解决方案
 
@@ -834,6 +833,40 @@ namespace Digiwin.Chun.Common.Controller {
             return true;
         }
 
+        /// <summary>
+        /// 从模版copy对应的文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private static void CreateFile(FileInfos path) {
+            var fileinfo = new FileInfo(path.FromPath);
+            var toPath = path.ToPath;
+            var parentDir = Path.GetDirectoryName(toPath);
+            if (!Directory.Exists(parentDir))
+                if (parentDir != null)
+                    Directory.CreateDirectory(parentDir);
+            if (File.Exists(toPath)) {
+                if (path.IsMerge != null
+                    && path.IsMerge.Equals("True")) {
+                    //將唯讀權限拿掉
+                    File.SetAttributes(toPath, FileAttributes.Normal);
+                    FindPartAndInsert(path);
+                }
+                else {
+                    //將唯讀權限拿掉
+                    File.SetAttributes(toPath, FileAttributes.Normal);
+                    //修改
+                    fileinfo.CopyTo(toPath, true);
+                }
+            }
+            else {
+                if (path.PartId != null
+                    && !path.PartId.Equals(String.Empty))
+                    FindPartAndInsert(path);
+                else
+                    fileinfo.CopyTo(toPath);
+            }
+        }
 
 
         /// <summary>

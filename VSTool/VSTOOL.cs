@@ -53,6 +53,7 @@ namespace VSTool {
         private void AddEventHandler() {
             ControlTools.VsForm = this;
             Load += ControlTools.VSTOOL_Load;
+            FormClosed += ControlTools.VSTOOL_FormClosed;
             ClientSizeChanged += ControlTools.VSTOOL_ClientSizeChanged;
             KeyDown += ControlTools.VSTOOL_KeyDown;
             BtnCreate.Click += ControlTools.BtnCreate_Click;

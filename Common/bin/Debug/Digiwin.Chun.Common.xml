@@ -76,6 +76,112 @@
             系统硬件信息
             </summary>
         </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_Processor">
+            <summary>
+            CPU 处理器
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_PhysicalMemory">
+            <summary>
+            // 物理内存条
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_Keyboard">
+            <summary>
+            // 键盘
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_PointingDevice">
+            <summary>
+            // 点输入设备，包括鼠标。
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_FloppyDrive">
+            <summary>
+            // 软盘驱动器
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_DiskDrive">
+            <summary>
+             // 硬盘驱动器
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_CDROMDrive">
+            <summary>
+            // 光盘驱动器
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_BaseBoard">
+            <summary>
+            // 主板
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_BIOS">
+            <summary>
+             // BIOS 芯片
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_ParallelPort">
+            <summary>
+            // 并口
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_SerialPort">
+            <summary>
+            // 串口
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_SerialPortConfiguration">
+            <summary>
+            // 串口配置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_SoundDevice">
+            <summary>
+             // 多媒体设置，一般指声卡。
+            </summary>
+        </member>
+        <!-- 对于成员“F:Digiwin.Chun.Common.Controller.WMIPath.Win32_SystemSlot”忽略有格式错误的 XML 注释 -->
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_USBController">
+            <summary>
+             // USB 控制器
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_NetworkAdapter">
+            <summary>
+            // 网络适配器
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_NetworkAdapterConfiguration">
+            <summary>
+            // 网络适配器设置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_Printer">
+            <summary>
+            // 打印机
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_PrinterConfiguration">
+            <summary>
+            // 打印机设置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_PrintJob">
+            <summary>
+             // 打印机任务
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_TCPIPPrinterPort">
+            <summary>
+             // 打印机端口
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.WMIPath.Win32_POTSModem">
+            <summary>
+            // MODEM
+            </summary>
+        </member>
         <member name="T:Digiwin.Chun.Common.Controller.ControlTools">
             <summary>
                 事件帮助类
@@ -195,6 +301,13 @@
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_Load(System.Object,System.EventArgs)">
+            <summary>
+                主界面加载时
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.ControlTools.VSTOOL_FormClosed(System.Object,System.Windows.Forms.FormClosedEventArgs)">
             <summary>
                 主界面加载时
             </summary>
@@ -1011,6 +1124,12 @@
             </summary>
             <param name="fileInfos"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.LogTools.UploadLog(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="upDir"></param>
+        </member>
         <member name="T:Digiwin.Chun.Common.Controller.MyTools">
             <summary>
                 工具类
@@ -1030,6 +1149,13 @@
                 初始化窗体参数
             </summary>
             <param name="pToIni"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String)">
+            <summary>
+            文件copy
+            </summary>
+            <param name="fromDir"></param>
+            <param name="toDir"></param>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{Digiwin.Chun.Common.Model.FileInfos},System.Boolean)">
             <summary>
@@ -1161,6 +1287,13 @@
                 根据选择生成项目文件
             </summary>
             <param name="treeView"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CreateFile(Digiwin.Chun.Common.Model.FileInfos)">
+            <summary>
+            从模版copy对应的文件
+            </summary>
+            <param name="path"></param>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.InitBuilderEntity">

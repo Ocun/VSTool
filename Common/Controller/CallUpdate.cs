@@ -52,6 +52,8 @@ namespace Digiwin.Chun.Common.Controller {
                 MessageBox.Show($@"Find Update,But Can't Find AutoUpdate.exe!");
         }
 
+
+
         /// <summary>
         ///     E
         ///     取得電腦名稱

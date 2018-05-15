@@ -23,32 +23,97 @@ namespace Digiwin.Chun.Common.Controller {
     /// <summary>
     /// 系统硬件信息
     /// </summary>
-    // ReSharper disable once InconsistentNaming
     public enum WMIPath
     {
         // 硬件
-        Win32_Processor,     // CPU 处理器
-        Win32_PhysicalMemory,  // 物理内存条
-        Win32_Keyboard,     // 键盘
-        Win32_PointingDevice,  // 点输入设备，包括鼠标。
-        Win32_FloppyDrive,    // 软盘驱动器
-        Win32_DiskDrive,     // 硬盘驱动器
-        Win32_CDROMDrive,    // 光盘驱动器
-        Win32_BaseBoard,     // 主板
-        Win32_BIOS,       // BIOS 芯片
-        Win32_ParallelPort,   // 并口
-        Win32_SerialPort,    // 串口
-        Win32_SerialPortConfiguration, // 串口配置
-        Win32_SoundDevice,    // 多媒体设置，一般指声卡。
-        Win32_SystemSlot,    // 主板插槽 (ISA & PCI & AGP)
-        Win32_USBController,   // USB 控制器
-        Win32_NetworkAdapter,  // 网络适配器
-        Win32_NetworkAdapterConfiguration, // 网络适配器设置
-        Win32_Printer,      // 打印机
-        Win32_PrinterConfiguration, // 打印机设置
-        Win32_PrintJob,     // 打印机任务
-        Win32_TCPIPPrinterPort, // 打印机端口
-        Win32_POTSModem,     // MODEM
+        /// <summary>
+        /// CPU 处理器
+        /// </summary>
+        Win32_Processor,
+        /// <summary>
+        /// // 物理内存条
+        /// </summary>
+        Win32_PhysicalMemory,
+        /// <summary>
+        /// // 键盘
+        /// </summary>
+        Win32_Keyboard,
+        /// <summary>
+        /// // 点输入设备，包括鼠标。
+        /// </summary>
+        Win32_PointingDevice,
+        /// <summary>
+        /// // 软盘驱动器
+        /// </summary>
+        Win32_FloppyDrive,
+        /// <summary>
+        ///  // 硬盘驱动器
+        /// </summary>
+        Win32_DiskDrive,
+        /// <summary>
+        /// // 光盘驱动器
+        /// </summary>
+        Win32_CDROMDrive,
+        /// <summary>
+        /// // 主板
+        /// </summary>
+        Win32_BaseBoard,
+        /// <summary>
+        ///  // BIOS 芯片
+        /// </summary>
+        Win32_BIOS,
+        /// <summary>
+        /// // 并口
+        /// </summary>
+        Win32_ParallelPort,
+        /// <summary>
+        /// // 串口
+        /// </summary>
+        Win32_SerialPort,
+        /// <summary>
+        /// // 串口配置
+        /// </summary>
+        Win32_SerialPortConfiguration,
+        /// <summary>
+        ///  // 多媒体设置，一般指声卡。
+        /// </summary>
+        Win32_SoundDevice,
+        /// <summary>
+        /// // 主板插槽 (ISA & PCI & AGP)
+        /// </summary>
+        Win32_SystemSlot,
+        /// <summary>
+        ///  // USB 控制器
+        /// </summary>
+        Win32_USBController,
+        /// <summary>
+        /// // 网络适配器
+        /// </summary>
+        Win32_NetworkAdapter,
+        /// <summary>
+        /// // 网络适配器设置
+        /// </summary>
+        Win32_NetworkAdapterConfiguration,
+        /// <summary>
+        /// // 打印机
+        /// </summary>
+        Win32_Printer,
+        /// <summary>
+        /// // 打印机设置
+        /// </summary>
+        Win32_PrinterConfiguration,
+        /// <summary>
+        ///  // 打印机任务
+        /// </summary>
+        Win32_PrintJob,
+        /// <summary>
+        ///  // 打印机端口
+        /// </summary>
+        Win32_TCPIPPrinterPort,
+        /// <summary>
+        /// // MODEM
+        /// </summary>
+        Win32_POTSModem,     
         Win32_POTSModemToSerialPort, // MODEM 端口
         Win32_DesktopMonitor,  // 显示器
         Win32_DisplayConfiguration, // 显卡

@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using Digiwin.Chun.Common.Model;
 using Digiwin.Chun.Common.Views;
+using System.Threading.Tasks;
 
 namespace Digiwin.Chun.Common.Controller {
     /// <summary>
@@ -80,7 +82,8 @@ namespace Digiwin.Chun.Common.Controller {
             var headContentStr = GetHeadStr(@"_", 50);
             logStr.AppendLine($"{headContentStr}PCInfo{headContentStr}");
             if (hardwareInfo != null) {
-                logStr.AppendLine($"{empStr}#CpuCount#{empStr}{hardwareInfo.CpuInfos?.Count}");
+                logStr.AppendLine($"#CPUinfo:")
+                .AppendLine($"{empStr}#CpuCount#{empStr}{hardwareInfo.CpuInfos?.Count}");
 
                 for (var i = 0; i < hardwareInfo.CpuInfos?.Count; i++)
                 {
@@ -90,6 +93,7 @@ namespace Digiwin.Chun.Common.Controller {
                         .AppendLine($"{empStr}#CpuName{i}#{empStr}{cpuInfos.Name}")
                         .AppendLine($"{empStr}#Speed#{empStr}{cpuInfos.MaxClockSpeed}");
                 }
+                logStr.AppendLine($"#OSinfo:");
                 for (var i = 0; i < hardwareInfo.OsInfo?.Count; i++)
                 {
                     var osInfo = hardwareInfo.OsInfo[i];
@@ -98,6 +102,7 @@ namespace Digiwin.Chun.Common.Controller {
                         .AppendLine($"{empStr}#WinverInfo#{empStr}{Environment.OSVersion.VersionString}")
                         .AppendLine($"{empStr}#CurrentDomain#{empStr}{Environment.UserDomainName}");
                 }
+                logStr.AppendLine($"#NetWorkInfo:");
                 for (var i = 0; i < hardwareInfo.NetworkInfos?.Count; i++)
                 {
                     var netInfo = hardwareInfo.NetworkInfos[i];
@@ -105,7 +110,7 @@ namespace Digiwin.Chun.Common.Controller {
                     logStr.AppendLine($"{empStr}#IpAddress{i}#{empStr}{netInfo.IpAddress}");
                     logStr.AppendLine($"{empStr}#MacAddress{i}#{empStr}{netInfo.MacAddress}");
                 }
-
+                logStr.AppendLine($"#MemoryInfo:");
                 for (var i = 0; i < hardwareInfo.MemoryInfo?.Count; i++)
                 {
                     var memoryInfos = hardwareInfo.MemoryInfo[i];
@@ -113,6 +118,7 @@ namespace Digiwin.Chun.Common.Controller {
                     logStr.AppendLine($"{empStr}#Size{i}#{empStr}{memoryInfos.Size}G");
                     logStr.AppendLine($"{empStr}#Speed{i}#{empStr}{memoryInfos.Speed}MHz");
                 }
+                logStr.AppendLine($"#MainBoardInfo:");
                 for (var i = 0; i < hardwareInfo.MainBoardInfos?.Count; i++)
                 {
                     var mainBoardInfos = hardwareInfo.MainBoardInfos[i];
@@ -121,6 +127,7 @@ namespace Digiwin.Chun.Common.Controller {
                     logStr.AppendLine($"{empStr}#SerialNumber{i}#{empStr}{mainBoardInfos.SerialNumber}");
                     logStr.AppendLine($"{empStr}#Version{i}#{empStr}{mainBoardInfos.Version}");
                 }
+                logStr.AppendLine($"#DiskDriveInfo:");
                 for (var i = 0; i < hardwareInfo.DiskDriveInfos?.Count; i++)
                 {
                     var diskDriveInfo = hardwareInfo.DiskDriveInfos[i];
@@ -186,6 +193,23 @@ namespace Digiwin.Chun.Common.Controller {
             SqlTools.InsertToolInfo(toolpars.FormEntity.TxtNewTypeKey, fileInfos);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="upDir"></param>
+        public static  void UploadLog(string upDir) {
+            if (!Directory.Exists(upDir)) return;
+            var newDir =PathTools.PathCombine(upDir, $"{Environment.MachineName}-{DateTime.Now.Date:yyyyMMdd}");
+            if (Directory.Exists(newDir)) return;
+
+            var logPath = PathTools.PathCombine(AppDomain.CurrentDomain.BaseDirectory, "log");
+            if (!Directory.Exists(logPath)) return;
+            MyTools.CopyTo(logPath, newDir);
+            //var th = new Thread(() => { MyTools.CopyTo(logPath, newDir); });
+            //th.Start();
+        }
+
+       
         #endregion
     }
 }

@@ -285,6 +285,23 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
+        ///     主界面加载时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void VSTOOL_FormClosed(object sender, FormClosedEventArgs e) {
+            //try
+            //{
+            //    var serverPath = @"\\192.168.168.15\E10_Tools\E10_Switch\VSTOOL\log";
+            //    LogTools.UploadLog(serverPath);
+            //}
+            //catch
+            //{
+            //    // ignored
+            //}
+        }
+
+        /// <summary>
         ///     增加快捷键编辑菜单
         /// </summary>
         /// <param name="sender"></param>

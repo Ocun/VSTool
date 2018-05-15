@@ -291,7 +291,7 @@ namespace VSTool
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(199, 467);
+            this.panel3.Size = new System.Drawing.Size(196, 467);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3_Paint);
             // 
@@ -322,7 +322,7 @@ namespace VSTool
             this.RighteTreeView.ShowDescription = false;
             this.RighteTreeView.ShowLines = false;
             this.RighteTreeView.ShowPlusMinus = false;
-            this.RighteTreeView.Size = new System.Drawing.Size(184, 444);
+            this.RighteTreeView.Size = new System.Drawing.Size(181, 444);
             this.RighteTreeView.TabIndex = 15;
             // 
             // label1
@@ -386,7 +386,7 @@ namespace VSTool
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(49, 15);
             this.Version.TabIndex = 35;
-            this.Version.Text = "1.0.0.0.6";
+            this.Version.Text = "1.0.0.0.7";
             // 
             // linkLabel1
             // 
@@ -464,7 +464,7 @@ namespace VSTool
             // 
             this.SplitContainer1.Panel2.Controls.Add(this.panel3);
             this.SplitContainer1.Size = new System.Drawing.Size(982, 467);
-            this.SplitContainer1.SplitterDistance = 782;
+            this.SplitContainer1.SplitterDistance = 785;
             this.SplitContainer1.SplitterWidth = 1;
             this.SplitContainer1.TabIndex = 36;
             // 
@@ -475,7 +475,7 @@ namespace VSTool
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(782, 467);
+            this.panel2.Size = new System.Drawing.Size(785, 467);
             this.panel2.TabIndex = 33;
             // 
             // SplitContainer2
@@ -495,7 +495,7 @@ namespace VSTool
             // 
             this.SplitContainer2.Panel2.Controls.Add(this.ScrollPanel);
             this.SplitContainer2.Panel2.Controls.Add(this.TreeView1);
-            this.SplitContainer2.Size = new System.Drawing.Size(782, 467);
+            this.SplitContainer2.Size = new System.Drawing.Size(785, 467);
             this.SplitContainer2.SplitterDistance = 245;
             this.SplitContainer2.SplitterWidth = 1;
             this.SplitContainer2.TabIndex = 14;
@@ -539,7 +539,7 @@ namespace VSTool
             this.ScrollPanel.Location = new System.Drawing.Point(0, 0);
             this.ScrollPanel.Margin = new System.Windows.Forms.Padding(2);
             this.ScrollPanel.Name = "ScrollPanel";
-            this.ScrollPanel.Size = new System.Drawing.Size(536, 467);
+            this.ScrollPanel.Size = new System.Drawing.Size(539, 467);
             this.ScrollPanel.TabIndex = 35;
             // 
             // TreeView1
@@ -567,7 +567,7 @@ namespace VSTool
             this.TreeView1.ShowDescription = false;
             this.TreeView1.ShowLines = false;
             this.TreeView1.ShowPlusMinus = false;
-            this.TreeView1.Size = new System.Drawing.Size(536, 467);
+            this.TreeView1.Size = new System.Drawing.Size(539, 467);
             this.TreeView1.TabIndex = 13;
             this.TreeView1.Visible = false;
             // 
