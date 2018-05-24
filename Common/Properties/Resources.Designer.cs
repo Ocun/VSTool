@@ -246,6 +246,15 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
+        ///   查找类似 提示 的本地化字符串。
+        /// </summary>
+        internal static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 未指定模块信息或模块名 的本地化字符串。
         /// </summary>
         internal static string ModuleNotExisted {

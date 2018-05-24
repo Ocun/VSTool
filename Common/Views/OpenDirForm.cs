@@ -107,6 +107,7 @@ namespace Digiwin.Chun.Common.Views {
                 else {
                     var clientDir = ClientTB.Text.Trim();
                     dirPath = FindTypekeyDir(clientDir, typeKey);
+                    dirPath = string.IsNullOrEmpty(dirPath) ? clientDir : dirPath;
                 }
             }
             else if (name.Equals(BtnOpenServer.Name)) {
@@ -117,6 +118,7 @@ namespace Digiwin.Chun.Common.Views {
                 else {
                     var serverDir = ServerTB.Text.Trim();
                     dirPath = FindTypekeyDir(serverDir, typeKey);
+                    dirPath = string.IsNullOrEmpty(dirPath) ? serverDir: dirPath;
                 }
             }
             else if (name.Equals(BtnOpenShadow.Name)) {
@@ -132,7 +134,7 @@ namespace Digiwin.Chun.Common.Views {
                 dirPath = BaseTB.Text.Trim();
             }
             if (PathTools.IsNullOrEmpty(dirPath)) {
-                MessageBox.Show($@"不可为空或Typekey{TypeKeyTB.Text.Trim()}不存在！");
+                MessageBox.Show($@"不可为空或Typekey:{TypeKeyTB.Text.Trim()}不存在！");
                 return;
             }
 

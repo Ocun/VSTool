@@ -76,7 +76,7 @@ namespace Digiwin.Chun.Common.Views {
                 }
                 var tSerFolPath =
                     Toolpars.Mplatform
-                    + @"\Server\Control"; //^_^20160511 add by nicknt9095 for 啟動前關閉所有SERVER、CLIENT<S00349_20160505_02>
+                    + @"\Server\Control";
                 var myDate = DateTime.Now;
                 var tToDayDate = myDate.ToString("yyyyMMdd");
                 Thread.Sleep(3000);
@@ -218,7 +218,46 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CopyClientBtn_Click(object sender, EventArgs e) {
-            MyTools.CopyUIdll();
+            try {
+                MyTools.CopyUIdll();
+                var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
+                var isOn = MyTools.CheckProcessOn("Digiwin.Mars.ClientStart");
+                if (isServerOn && !isOn) {
+                    if (MessageBox.Show($@"{Resources.CopySucess} 是否启动客户端?", Resources.Information,
+                            MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Information) == DialogResult.OK) {
+                        StartClientBtn_Click(null, null);
+                    }
+                }
+                else {
+                    MessageBox.Show(Resources.CopySucess, Resources.Information,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+             
+            }
+            catch (Exception ex){
+                LogTools.LogError($"CopyUIDll error! Detail:{ex.Message}");
+                string[] processNames = {
+                    "Digiwin.Mars.ClientStart"
+                };
+                var f = MyTools.CheckCanCopyDll(processNames);
+                if (f)
+                {
+                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        MyTools.KillProcess(processNames);
+                        CopyClientBtn_Click(null,null);
+
+                    }
+
+                }
+            }
         }
 
         /// <summary>
@@ -227,7 +266,45 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CopyBtn_Click(object sender, EventArgs e) {
-            MyTools.CopyDll();
+            try {
+                MyTools.CopyDll();
+                var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
+                if (!isServerOn) {
+                    if (MessageBox.Show($@"{Resources.CopySucess} 是否启动服务端?", Resources.Information,
+                            MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Information) == DialogResult.OK) {
+                        StartBtn_Click(null, null);
+                    }
+                }
+                else {
+                    MessageBox.Show(Resources.CopySucess, Resources.Information,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+             
+            }
+            catch (Exception ex)
+            {
+                string[] processNames = {
+                    "Digiwin.Mars.ClientStart",
+                    "Digiwin.Mars.ServerStart",
+                    "Digiwin.Mars.AccountSetStart"
+                };
+                var f = MyTools.CheckCanCopyDll(processNames);
+                if (f)
+                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        MyTools.KillProcess(processNames);
+                        CopyBtn_Click(null,null);
+                    }
+                }
+
+
+            }
         }
     }
 

@@ -2838,6 +2838,11 @@
               查找类似 帮助文档不存在！ 的本地化字符串。
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.Information">
+            <summary>
+              查找类似 提示 的本地化字符串。
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.ModuleNotExisted">
             <summary>
               查找类似 未指定模块信息或模块名 的本地化字符串。

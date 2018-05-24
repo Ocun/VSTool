@@ -21,6 +21,18 @@ namespace Digiwin.Chun.Common.Controller {
     ///     工具类
     /// </summary>
     public static class MyTools {
+        static void SetTestdata() {
+            Toolpars.Mpath = ""; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
+            Toolpars.MInpath = ""; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
+            Toolpars.Mplatform = @""; //C:\DF_E10_2.0.2
+            Toolpars.MdesignPath =""; //E:\平台\E202
+            Toolpars.MVersion = ""; //DF_E10_2.0.2
+            Toolpars.MIndustry = false;
+            Toolpars.CustomerName ="";
+
+            Toolpars.FormEntity.TxtToPath =$@"C:\Users\zychu\Desktop\justtest";
+            Toolpars.FormEntity.TxtPkGpath = $@"E:\DF_E10_5.0.0\WD_PR\SRC";
+        }
         /// <summary>
         /// </summary>
         public static Toolpars Toolpars { get; } = new Toolpars();
@@ -67,6 +79,9 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
+          //  SetTestdata();
+
+
         }
         /// <summary>
         /// 文件copy
@@ -114,14 +129,11 @@ namespace Digiwin.Chun.Common.Controller {
                 var fileinfo = new FileInfo(file);
                 var extensionName = Path.GetExtension(file);
                
-                var frompath = fileinfo.FullName;
                 if (!copyAll && filterfilesinfo != null
                     && filterfilesinfo.Count > 0) {
-                    var selected = filterfilesinfo.FirstOrDefault(f => f.FromPath.Equals(frompath));
-                    var extionName = Path.GetExtension(frompath);
-                 
+                    var selected = filterfilesinfo.FirstOrDefault(f => f.FromPath.Equals(file));
                     if (selected == null
-                        && !extensions.Contains(extionName)
+                        && !extensions.Contains(extensionName)
                     )
                     {
                         continue;
@@ -131,7 +143,10 @@ namespace Digiwin.Chun.Common.Controller {
                 if (fileinfo.Directory == null)
                     continue;
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
-                var absolutePath = file.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
+             //   var absolutePath = file.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
+                var fileName = fileinfo.Name;
+                var absolutePath = PathTools.PathCombine(absolutedir,fileName);
+
                 var newFilePath = PathTools.PathCombine(toDir, absolutePath);
                 var newFileDir = PathTools.PathCombine(toDir, absolutedir);
 
@@ -149,14 +164,14 @@ namespace Digiwin.Chun.Common.Controller {
                         continue;
                 }
 
-                CopyFile(frompath, newFilePath);
+                CopyFile(file, newFilePath);
                 // 无法释放，所以用流形式
                 //  fileinfo.CopyTo(newFilePath, true);
                 //一键copy先copy文件，再统一改变typekey
                 if (copyAll) {
                     logPath.Add(new FileInfos {
                         FileName = fileinfo.Name,
-                        FromPath = frompath,
+                        FromPath = file,
                         ToPath = newFilePath
                     });
                     continue;
@@ -329,13 +344,10 @@ namespace Digiwin.Chun.Common.Controller {
         ///     將dll 考入平臺目錄
         /// </summary>
         public static void CopyUIdll() {
-            try {
-
                 InsertInfo("btncopyUIdll_Click");
-
                 if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
                     MessageBox.Show(Resources.TypekeyNotExisted);
-                    return;
+                    return ;
                 }
                 var fromPath = Toolpars.PathEntity.ExportFullPath;
                 var toPath = $"{Toolpars.Mplatform}\\DeployServer\\Shared\\Customization\\Programs\\";
@@ -344,42 +356,18 @@ namespace Digiwin.Chun.Common.Controller {
                     toPath = $"{Toolpars.Mplatform}\\DeployServer\\Shared\\Industry\\Programs\\";
                 if (!Directory.Exists(fromPath)) {
                     MessageBox.Show(string.Format(Resources.DirNotExisted, fromPath));
-                    return;
+                    return ;
                 }
                 if (!Directory.Exists(toPath)) {
                     MessageBox.Show(string.Format(Resources.DirNotExisted, toPath));
-                    return;
+                    return ;
                 }
                 var filedir = Directory.GetFiles(fromPath, filterStr,
                     SearchOption.AllDirectories);
                 foreach (var mfile in filedir) {
                     var tagertDir = mfile.Replace(fromPath, toPath);
                     File.Copy(mfile, tagertDir, true);
-
                 }
-                MessageBox.Show(Resources.CopySucess);
-            }
-            catch (Exception ex) {
-
-                LogTools.LogError($"CopyUIDll error! Detail:{ex.Message}");
-                string[] processNames = {
-                    "Digiwin.Mars.ClientStart"
-                };
-                var f = CheckCanCopyDll(processNames);
-                if (f) {
-                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else {
-                    if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Warning) == DialogResult.OK)
-                    {
-                        KillProcess(processNames);
-                        CopyUIdll();
-                    }
-                 
-                }
-                   
-            }
         }
 
         /// <summary>
@@ -399,7 +387,7 @@ namespace Digiwin.Chun.Common.Controller {
         ///     CopyDll
         /// </summary>
         public static void CopyDll() {
-            try {
+           
                 InsertInfo("btncopydll_Click");
 
                 var pathEntity = Toolpars.PathEntity;
@@ -445,27 +433,8 @@ namespace Digiwin.Chun.Common.Controller {
                     File.Copy(uiImplementDllFullPath,
                         clientPath + pathEntity.UiImplementDllName, true);
 
-                MessageBox.Show(Resources.CopySucess);
-            }
-            catch (Exception ex) {
-                    string[] processNames = {
-                        "Digiwin.Mars.ClientStart",
-                        "Digiwin.Mars.ServerStart",
-                        "Digiwin.Mars.AccountSetStart"
-                    };
-                    var f = CheckCanCopyDll(processNames);
-                if (f)
-                    MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else {
-                    if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Warning) == DialogResult.OK) {
-                        KillProcess(processNames);
-                        CopyDll();
-                    }
-                }
-               
-                 
-            }
+           
+         
         }
 
         /// <summary>
