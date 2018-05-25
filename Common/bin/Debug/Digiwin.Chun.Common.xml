@@ -71,6 +71,26 @@
                 二进制
             </summary>
         </member>
+        <member name="T:Digiwin.Chun.Common.Controller.CopyModelType">
+            <summary>
+                model文件类型
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.CopyModelType.ALL">
+            <summary>
+                xml类型
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.CopyModelType.Client">
+            <summary>
+                json类型
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Controller.CopyModelType.Server">
+            <summary>
+                二进制
+            </summary>
+        </member>
         <member name="T:Digiwin.Chun.Common.Controller.WMIPath">
             <summary>
             系统硬件信息
@@ -1198,23 +1218,18 @@
             <param name="typeKey"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyUIdll">
-            <summary>
-                將dll 考入平臺目錄
-            </summary>
-        </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.InsertInfo(System.String)">
             <summary>
             操作插入数据库
             </summary>
             <param name="operationName"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyDll">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyDll(Digiwin.Chun.Common.Controller.CopyModelType)">
             <summary>
                 CopyDll
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CheckCanCopyDll(System.String[])">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CheckProcessRunning(System.String[])">
             <summary>
                 检查dll是否被占用
             </summary>

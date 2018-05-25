@@ -18,6 +18,25 @@ namespace Digiwin.Chun.Common.Controller {
         ///     二进制
         /// </summary>
         Binary
+    }   
+    /// <summary>
+    ///     model文件类型
+    /// </summary>
+    public enum CopyModelType {
+        /// <summary>
+        ///     xml类型
+        /// </summary>
+        ALL,
+
+        /// <summary>
+        ///     json类型
+        /// </summary>
+        Client,
+
+        /// <summary>
+        ///     二进制
+        /// </summary>
+        Server
     }
 
     /// <summary>

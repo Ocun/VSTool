@@ -143,7 +143,6 @@ namespace Digiwin.Chun.Common.Controller {
                 if (fileinfo.Directory == null)
                     continue;
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
-             //   var absolutePath = file.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
                 var fileName = fileinfo.Name;
                 var absolutePath = PathTools.PathCombine(absolutedir,fileName);
 
@@ -155,9 +154,10 @@ namespace Digiwin.Chun.Common.Controller {
 
                 if (File.Exists(newFilePath)) {
                     //项目文件已存在则忽略
-                    if (extensions.Contains(extensionName)) {
+                    if (extensions.Contains(extensionName) ) {
                         continue;
                     }
+                    //否则跳过
                     if (MessageBox.Show(Resources.FileExisted, Resources.WarningMsg, MessageBoxButtons.YesNo,
                             MessageBoxIcon.Warning)
                         != DialogResult.Yes)
@@ -339,37 +339,7 @@ namespace Digiwin.Chun.Common.Controller {
         #endregion
 
         #region CopyDll
-
-        /// <summary>
-        ///     將dll 考入平臺目錄
-        /// </summary>
-        public static void CopyUIdll() {
-                InsertInfo("btncopyUIdll_Click");
-                if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
-                    MessageBox.Show(Resources.TypekeyNotExisted);
-                    return ;
-                }
-                var fromPath = Toolpars.PathEntity.ExportFullPath;
-                var toPath = $"{Toolpars.Mplatform}\\DeployServer\\Shared\\Customization\\Programs\\";
-                var filterStr = $"*{Toolpars.FormEntity.TxtNewTypeKey}.UI.*";
-                if (Toolpars.MIndustry)
-                    toPath = $"{Toolpars.Mplatform}\\DeployServer\\Shared\\Industry\\Programs\\";
-                if (!Directory.Exists(fromPath)) {
-                    MessageBox.Show(string.Format(Resources.DirNotExisted, fromPath));
-                    return ;
-                }
-                if (!Directory.Exists(toPath)) {
-                    MessageBox.Show(string.Format(Resources.DirNotExisted, toPath));
-                    return ;
-                }
-                var filedir = Directory.GetFiles(fromPath, filterStr,
-                    SearchOption.AllDirectories);
-                foreach (var mfile in filedir) {
-                    var tagertDir = mfile.Replace(fromPath, toPath);
-                    File.Copy(mfile, tagertDir, true);
-                }
-        }
-
+        
         /// <summary>
         /// 操作插入数据库
         /// </summary>
@@ -381,60 +351,89 @@ namespace Digiwin.Chun.Common.Controller {
                     $"{DateTime.Now:yyyyMMdd}", operationName);
             });
         }
+        
+             /// <summary>
+            ///     CopyDll
+            /// </summary>
+        public static bool CopyDll(CopyModelType copyModelType) {
+            if (copyModelType.Equals(CopyModelType.ALL)) {
+                 InsertInfo("CopyALLdll_Click");
 
+            }else if (copyModelType.Equals(CopyModelType.Server)) {
+                 InsertInfo("CopyServerdll_Click");
 
-        /// <summary>
-        ///     CopyDll
-        /// </summary>
-        public static void CopyDll() {
-           
-                InsertInfo("btncopydll_Click");
+            }else if (copyModelType.Equals(CopyModelType.Client)) {
+                 InsertInfo("CopyClientdll_Click");
 
-                var pathEntity = Toolpars.PathEntity;
-                if (pathEntity == null)
-                    return;
-                if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
-                    MessageBox.Show(Resources.TypekeyNotExisted);
-                    return;
+            }
+
+            var pathEntity = Toolpars.PathEntity;
+            if (pathEntity == null)
+                return false;
+            if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
+                MessageBox.Show(Resources.TypekeyNotExisted);
+                return false;
+            }
+            var serverPath = pathEntity.ServerProgramsFullPath;
+            var clientPath = pathEntity.DeployProgramsFullPath;
+            var exportFullPath = pathEntity.ExportFullPath;
+            var filterStr = $"*{Toolpars.FormEntity.TxtNewTypeKey}.*";
+            if (!Directory.Exists(exportFullPath)) {
+                MessageBox.Show(string.Format(Resources.DirNotExisted, exportFullPath));
+                return false;
+            }
+            if (!Directory.Exists(serverPath)) {
+                MessageBox.Show(string.Format(Resources.DirNotExisted, serverPath));
+                return false;
+            }
+            if (!Directory.Exists(clientPath)) {
+                MessageBox.Show(string.Format(Resources.DirNotExisted, clientPath));
+                return false;
+            }
+            var filedir = Directory.GetFiles(exportFullPath, filterStr,
+                SearchOption.AllDirectories);
+            var clientDll = new []{".UI.dll",
+                ".UI.Implement.dll",
+                ".Business.dll"};
+            var serverDll = new []{
+                ".Business.Implement.dll",
+                ".Business.dll"};
+            foreach (var mfile in filedir) {
+                switch (copyModelType) {
+                    case CopyModelType.ALL:
+                        clientDll.ToList().ForEach(item => {
+                            if (!mfile.ToUpper().EndsWith(item.ToUpper())) return;
+                            var tagertDir = mfile.Replace(exportFullPath, clientPath);
+                            File.Copy(mfile, tagertDir, true);
+                        });
+                        serverDll.ToList().ForEach(item => {
+                            if (!mfile.ToUpper().EndsWith(item.ToUpper())) return;
+                            var tagertDir = mfile.Replace(exportFullPath, serverPath);
+                            File.Copy(mfile, tagertDir, true);
+                        });
+                        break;
+                    case CopyModelType.Server:
+                        serverDll.ToList().ForEach(item => {
+                            if (!mfile.ToUpper().EndsWith(item.ToUpper())) return;
+                            var tagertDir = mfile.Replace(exportFullPath, serverPath);
+                            File.Copy(mfile, tagertDir, true);
+                        });
+                        break;
+                    case CopyModelType.Client:
+                        clientDll.ToList().ForEach(item => {
+                            if (!mfile.ToUpper().EndsWith(item.ToUpper())) return;
+                            var tagertDir = mfile.Replace(exportFullPath, clientPath);
+                            File.Copy(mfile, tagertDir, true);
+                        });
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(copyModelType), copyModelType, null);
                 }
-
-                var serverPath = pathEntity.ServerProgramsFullPath;
-                var clientPath = pathEntity.DeployProgramsFullPath;
-                var businessDllFullPath = pathEntity.ExportFullPath + pathEntity.BusinessDllName;
-                var implementDllFullPath = pathEntity.ExportFullPath + pathEntity.ImplementDllName;
-                var uiDllFullPath = pathEntity.ExportFullPath + pathEntity.UiDllName;
-                var uiImplementDllFullPath = pathEntity.ExportFullPath + pathEntity.UiImplementDllName;
-
-                //business.dll
-                if (File.Exists(businessDllFullPath)) {
-                    string toPath;
-                    if (Directory.Exists(serverPath)) {
-                        toPath = serverPath + pathEntity.BusinessDllName;
-                        File.Copy(businessDllFullPath, toPath, true);
-                    }
-                    if (Directory.Exists(clientPath)) {
-                        toPath = clientPath + pathEntity.BusinessDllName;
-                        File.Copy(businessDllFullPath, toPath, true);
-                    }
-                }
-                //business.implement.dll
-                if (File.Exists(implementDllFullPath))
-                    if (Directory.Exists(serverPath))
-                        File.Copy(implementDllFullPath,
-                            serverPath + pathEntity.ImplementDllName, true);
-                //ui.dll
-                if (File.Exists(uiDllFullPath))
-                    if (Directory.Exists(clientPath))
-                        File.Copy(uiDllFullPath,
-                            clientPath + pathEntity.UiDllName, true);
-                //ui.implement.dll
-                if (File.Exists(uiImplementDllFullPath))
-                    if (Directory.Exists(clientPath))
-                    File.Copy(uiImplementDllFullPath,
-                        clientPath + pathEntity.UiImplementDllName, true);
-
-           
+              
+            }
          
+            return true;
+
         }
 
         /// <summary>
@@ -442,12 +441,12 @@ namespace Digiwin.Chun.Common.Controller {
         /// </summary>
         /// <param name="processNames"></param>
         /// <returns></returns>
-        public static bool CheckCanCopyDll(string[] processNames) {
-            var flag = true;
+        public static bool CheckProcessRunning(string[] processNames) {
+            var flag = false;
             var infos = Process.GetProcesses();
             foreach (var info in infos)
                 if (processNames.Contains(info.ProcessName))
-                    flag = false;
+                    flag = true;
             return flag;
         }
 

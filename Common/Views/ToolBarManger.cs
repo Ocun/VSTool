@@ -219,30 +219,33 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="e"></param>
         private void CopyClientBtn_Click(object sender, EventArgs e) {
             try {
-                MyTools.CopyUIdll();
+                var success = MyTools.CopyDll(CopyModelType.Client);
+                if (!success) return;
                 var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
                 var isOn = MyTools.CheckProcessOn("Digiwin.Mars.ClientStart");
-                if (isServerOn && !isOn) {
+                if (isServerOn && !isOn)
+                {
                     if (MessageBox.Show($@"{Resources.CopySucess} 是否启动客户端?", Resources.Information,
                             MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Information) == DialogResult.OK) {
+                            MessageBoxIcon.Information) == DialogResult.OK)
+                    {
                         StartClientBtn_Click(null, null);
                     }
                 }
-                else {
+                else
+                {
                     MessageBox.Show(Resources.CopySucess, Resources.Information,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
-             
             }
             catch (Exception ex){
                 LogTools.LogError($"CopyUIDll error! Detail:{ex.Message}");
                 string[] processNames = {
                     "Digiwin.Mars.ClientStart"
                 };
-                var f = MyTools.CheckCanCopyDll(processNames);
-                if (f)
+                var f = MyTools.CheckProcessRunning(processNames);
+                if (!f)
                 {
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -267,7 +270,8 @@ namespace Digiwin.Chun.Common.Views {
         /// <param name="e"></param>
         private void CopyBtn_Click(object sender, EventArgs e) {
             try {
-                MyTools.CopyDll();
+                var success = MyTools.CopyDll(CopyModelType.ALL);
+                if (!success) return;
                 var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
                 if (!isServerOn) {
                     if (MessageBox.Show($@"{Resources.CopySucess} 是否启动服务端?", Resources.Information,
@@ -290,8 +294,8 @@ namespace Digiwin.Chun.Common.Views {
                     "Digiwin.Mars.ServerStart",
                     "Digiwin.Mars.AccountSetStart"
                 };
-                var f = MyTools.CheckCanCopyDll(processNames);
-                if (f)
+                var f = MyTools.CheckProcessRunning(processNames);
+                if (!f)
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
                 {

@@ -51,7 +51,7 @@
             this.StopBtn.ForeColor = System.Drawing.Color.DarkGreen;
             this.StopBtn.Location = new System.Drawing.Point(206, 0);
             this.StopBtn.Name = "StopBtn";
-            this.StopBtn.Size = new System.Drawing.Size(14, 21);
+            this.StopBtn.Size = new System.Drawing.Size(14, 19);
             this.StopBtn.TabIndex = 43;
             this.StopBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.StopBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -69,7 +69,7 @@
             this.StartBtn.ForeColor = System.Drawing.Color.DarkGreen;
             this.StartBtn.Location = new System.Drawing.Point(71, 0);
             this.StartBtn.Name = "StartBtn";
-            this.StartBtn.Size = new System.Drawing.Size(14, 21);
+            this.StartBtn.Size = new System.Drawing.Size(14, 19);
             this.StartBtn.TabIndex = 42;
             this.StartBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.StartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -88,7 +88,7 @@
             this.CopyBtn.Location = new System.Drawing.Point(248, 0);
             this.CopyBtn.Margin = new System.Windows.Forms.Padding(5);
             this.CopyBtn.Name = "CopyBtn";
-            this.CopyBtn.Size = new System.Drawing.Size(14, 21);
+            this.CopyBtn.Size = new System.Drawing.Size(14, 19);
             this.CopyBtn.TabIndex = 44;
             this.CopyBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CopyBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -107,7 +107,7 @@
             this.RefreshBtn.Location = new System.Drawing.Point(226, 0);
             this.RefreshBtn.Margin = new System.Windows.Forms.Padding(5);
             this.RefreshBtn.Name = "RefreshBtn";
-            this.RefreshBtn.Size = new System.Drawing.Size(14, 21);
+            this.RefreshBtn.Size = new System.Drawing.Size(14, 19);
             this.RefreshBtn.TabIndex = 45;
             this.RefreshBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.RefreshBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -125,7 +125,7 @@
             this.StartClientBtn.ForeColor = System.Drawing.Color.DarkGreen;
             this.StartClientBtn.Location = new System.Drawing.Point(139, 0);
             this.StartClientBtn.Name = "StartClientBtn";
-            this.StartClientBtn.Size = new System.Drawing.Size(14, 21);
+            this.StartClientBtn.Size = new System.Drawing.Size(14, 19);
             this.StartClientBtn.TabIndex = 47;
             this.StartClientBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.StartClientBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -144,7 +144,7 @@
             this.CopyClientBtn.Location = new System.Drawing.Point(272, 0);
             this.CopyClientBtn.Margin = new System.Windows.Forms.Padding(5);
             this.CopyClientBtn.Name = "CopyClientBtn";
-            this.CopyClientBtn.Size = new System.Drawing.Size(14, 21);
+            this.CopyClientBtn.Size = new System.Drawing.Size(14, 19);
             this.CopyClientBtn.TabIndex = 48;
             this.CopyClientBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CopyClientBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
