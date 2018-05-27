@@ -99,6 +99,15 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
+        ///   查找类似 借用Typekey源码和配置不存在 的本地化字符串。
+        /// </summary>
+        internal static string CopyResourceNotExisted {
+            get {
+                return ResourceManager.GetString("CopyResourceNotExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 复制成功 !!! 的本地化字符串。
         /// </summary>
         internal static string CopySucess {

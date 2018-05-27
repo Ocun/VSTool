@@ -53,3 +53,12 @@ G:\my document\my project\VSTools\VSTool\Export\VSTool.exe
 G:\my document\my project\VSTools\VSTool\Export\VSTool.pdb
 E:\MyProject\VSTool\Export\VSTool.exe
 E:\MyProject\VSTool\Export\VSTool.pdb
+I:\document\my Project\VSTool\Export\VSTool.exe
+I:\document\my Project\VSTool\Export\VSTool.pdb
+I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.csprojResolveAssemblyReference.cache
+I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.VSTOOL.resources
+I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.Properties.Resources.resources
+I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.csproj.GenerateResource.Cache
+I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.csproj.CoreCompileInputs.cache
+I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.exe
+I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.pdb

@@ -241,4 +241,7 @@
   <data name="Information" xml:space="preserve">
     <value>提示</value>
   </data>
+  <data name="CopyResourceNotExisted" xml:space="preserve">
+    <value>借用Typekey源码和配置不存在</value>
+  </data>
 </root>

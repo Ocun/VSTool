@@ -203,7 +203,7 @@ namespace Digiwin.Chun.Common.Views {
         }
 
         private string GetServerDirPath() {
-           return MyTools.GetServerDirPath(Wd);
+           return MyTools.GetServerDirPath(IsPkg);
         }
 
         private void CopyPkg() {

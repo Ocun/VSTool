@@ -36,3 +36,18 @@ E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.dll
 E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.pdb
 G:\my document\my project\VSTools\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csprojResolveAssemblyReference.cache
 E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.OpenDirForm.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csprojResolveAssemblyReference.cache
+I:\document\my Project\VSTool\Common\obj\Debug\Interop.IWshRuntimeLibrary.dll
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.ResolveComReference.cache
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Properties.Resources.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.OpenDirForm.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ToolBarManger.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.CreateToolForm.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.InsertForm.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiName.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.ModiPkgForm.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.Views.SetToolPath.resources
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.GenerateResource.Cache
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.CoreCompileInputs.cache
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.dll
+I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.pdb

@@ -1324,10 +1324,11 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         /// 获取服务端目录
         /// </summary>
-        /// <param name="wd"></param>
+        /// <param name="IsPkg"></param>
         /// <returns></returns>
-        public static string GetServerDirPath(string wd)
+        public static string GetServerDirPath(bool IsPkg)
         {
+            var wd  = IsPkg ? "WD" : "WD_C";
             var path = string.Empty;
             var pkgPath = Toolpars.FormEntity.TxtPkGpath;
             var typeKeyDir = $@"{pkgPath}\{wd}";
@@ -1353,25 +1354,42 @@ namespace Digiwin.Chun.Common.Controller {
 
         /// <summary>
         /// </summary>
-        /// <param name="pkgPath"></param>
         /// <param name="IsPkg"></param>
         /// <returns></returns>
         public static bool CopyAllPkG(bool IsPkg) {
             var success = true;
             try {
                 var pathInfo = Toolpars.PathEntity;
+                //默认取pkgsource为digiwin.erp.typekey
                 var pkgPath = pathInfo.PkgTypeKeyFullRootDir;
                 var newTypeKeyFullRootDir = pathInfo.TypeKeyFullRootDir;
                 var newTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
                 var oldTypeKey = Toolpars.FormEntity.PkgTypekey;
+                //找到typeKey目录
+                var formTypeKeyDir = GetServerDirPath(IsPkg);
+                //typekey目录
+                var newTypeKeyDir = string.Empty;
+                if (!string.IsNullOrEmpty(formTypeKeyDir) && Directory.Exists(formTypeKeyDir)) {
+                    var directoryInfo = new DirectoryInfo(formTypeKeyDir);
+                    var wdPr = IsPkg ? "WD_PR" : "WD_PR_C";
+                    var index = Toolpars.FormEntity.TxtToPath.LastIndexOf($@"{wdPr}\SRC", StringComparison.Ordinal);
+                    if (index > -1)
+                    {
+                        newTypeKeyDir = Toolpars.FormEntity.TxtToPath.Substring(0, index);
+                    }
+                    newTypeKeyDir = PathTools.PathCombine(newTypeKeyDir, Toolpars.FormEntity.TxtNewTypeKey);
+                }
+
                 //客户与typekey不可为空
-                if (!PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
+                    if (!PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
                     && !PathTools.IsNullOrEmpty(newTypeKey)) {
-                    //客户是否存在
+                    //客户需存在
                     if (Directory.Exists(Toolpars.FormEntity.TxtToPath)) {
-                        //借用是否存在
-                        if (!Directory.Exists(pkgPath)) {
-                            MessageBox.Show(string.Format(Resources.DirNotExisted, pkgPath), Resources.ErrorMsg,
+                        //借用是否存在（源码/typekey）
+                        if (!Directory.Exists(pkgPath)
+                            &&!string.IsNullOrEmpty(formTypeKeyDir) 
+                            &&!Directory.Exists(formTypeKeyDir)) {
+                            MessageBox.Show(Resources.CopyResourceNotExisted, Resources.ErrorMsg,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                             success = false;
@@ -1392,7 +1410,7 @@ namespace Digiwin.Chun.Common.Controller {
                             }
                             if (success) {
                                 //copyTypeKey
-                                var typeKeyDir = GetServerDirPath();
+                               
                                 //copy源码
                                 CopyTo(pkgPath, newTypeKeyFullRootDir, oldTypeKey,newTypeKey,null,true);
                             }
