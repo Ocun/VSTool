@@ -194,7 +194,7 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        /// 
+        /// 上传日志
         /// </summary>
         /// <param name="upDir"></param>
         public static  void UploadLog(string upDir) {

@@ -25,6 +25,16 @@
           "ShowParWindow": "False",
           "ShowCheckedBox": "True",
           "Visiable": "True"
+        },
+        {
+          "Id": "UITools",
+          "Name": "工具类(客户端)",
+          "Description": "提供常用的方法",
+          "Checked": "False",
+          "ReadOnly": "False",
+          "ShowParWindow": "False",
+          "ShowCheckedBox": "True",
+          "Visiable": "True"
         }
       ]
     },
@@ -71,11 +81,6 @@
           "Description": "涉及校验操作时"
         },
         {
-          "Id": "DataEntityChanged",
-          "Name": "数据跟踪",
-          "Description": "涉及数据跟踪操作时，字段改变带值，界面实体刷新"
-        },
-        {
           "Id": "SelectWindowDialogEx",
           "Name": "功能开窗",
           "Description": "涉及数据跟踪操作时，字段改变带值，界面实体刷新"
@@ -84,6 +89,20 @@
           "Id": "EditControllerCommand",
           "Name": "菜单",
           "Description": "涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改"
+        },
+        {
+          "IsMerge": "False",
+          "Id": "DocumentSaveService",
+          "Name": "客户端保存",
+          "Description": "涉及保存操作时",
+          "PartId": "ClientCommonInterceptor"
+        },
+        {
+          "IsMerge": "False",
+          "Id": "DataEntityChangedInterceptor",
+          "Name": "数据跟踪",
+          "Description": "涉及数据跟踪操作时，字段改变带值，界面实体刷新",
+          "PartId": "ClientCommonInterceptor"
         }
       ]
     },
@@ -144,6 +163,12 @@
           "Id": "Print",
           "Name": "打印",
           "Description": "故名思议",
+          "ShowParWindow": "False"
+        },
+        {
+          "Id": "AllChoose",
+          "Name": "全选",
+          "Description": "提供表格全选,撤销功能",
           "ShowParWindow": "False"
         }
       ]
@@ -243,15 +268,6 @@
           "ShowCheckedBox": "False",
           "IsTools": "True",
           "Url": "D:\\Program Files\\GUID_SHOW\\GUID_SHOW.exe",
-          "ShowIcon": "True"
-        },
-        {
-          "Id": "CreateGitHubDesktopID",
-          "Name": "GitHubDesktop",
-          "Description": "远程代码仓储中心",
-          "ShowCheckedBox": "False",
-          "IsTools": "True",
-          "Url": "C:\\Users\\zychu\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe",
           "ShowIcon": "True"
         }
       ]

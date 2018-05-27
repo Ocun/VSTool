@@ -511,22 +511,6 @@ namespace Digiwin.Chun.Common.Controller {
             if (typeKeyTbBox == null)
                 // ReSharper disable once RedundantJumpStatement
                 return;
-            //if (!string.Equals(Toolpars.FormEntity.TxtToPath, string.Empty, StringComparison.Ordinal)
-            //    && !string.Equals(typeKeyTbBox.Text.Trim(), string.Empty, StringComparison.Ordinal)
-            //    && !string.Equals(Toolpars.FormEntity.PkgTypekey, string.Empty, StringComparison.Ordinal)
-            //)
-            //{
-            //    var pathInfo = Toolpars.PathEntity;
-            //    var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
-            //    if (Directory.Exists(pkgDir))
-            //        MyTreeViewTools.MyPaintTreeView(pkgDir);
-            //    else
-            //        TreeView1.Nodes.Clear();
-            //}
-            //else
-            //{
-            //    TreeView1.Nodes.Clear();
-            //}
         }
 
         /// <summary>
@@ -540,8 +524,6 @@ namespace Digiwin.Chun.Common.Controller {
                 return;
             Toolpars.MIndustry = control.Checked;
             Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
-            //if (Toolpars.MIndustry)
-            //    Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
         }
 
 

@@ -74,22 +74,26 @@ namespace Digiwin.Chun.Common.Views
 
         private void TreeView_MouseUp(object sender, MouseEventArgs e) {
             var node = GetNodeAt(e.X, e.Y) as MyTreeNode;
-            if (node == null
-                || !node.CheckBoxVisible
-                || !node.IsVisible)
+            if (node == null|| !node.IsVisible)
                 return;
             var bt = node.BuildeType;
             //编辑状态 删除按钮
             var delRect = new Rectangle(Width - 40, node.Bounds.Y + 5, 25, 25);
-            if (Toolpars.FormEntity.EditState) {
-                if (delRect.Contains(e.X, e.Y)) {
+            if (Toolpars.FormEntity.EditState)
+            {
+                if (delRect.Contains(e.X, e.Y))
+                {
                     if (MessageBox.Show($@"确定删除项目{node.Text}吗？", Resources.WarningMsg, MessageBoxButtons.YesNo) ==
-                        DialogResult.Yes) {
-                       MyTools.DeleteById(bt);
+                        DialogResult.Yes)
+                    {
+                        MyTools.DeleteById(bt);
                     }
                     return;
                 }
             }
+            if ( !node.CheckBoxVisible)
+                return;
+          
 
             //设置Image绘制Rectangle  
             var checkboxImgRect = new Rectangle(node.Bounds.X + PaddingSetting.X, node.Bounds.Y + PaddingSetting.Y + 3,
@@ -271,7 +275,7 @@ namespace Digiwin.Chun.Common.Views
                 }
             }
             var editState = Toolpars.FormEntity.EditState;
-            if (editState)
+            if (editState && !bt.Id.Equals("MainAddNewItemID"))
             {
                 var imgRect1 = new Rectangle(Width - 40, node.Bounds.Y+5, 25, 25);
 
@@ -303,6 +307,8 @@ namespace Digiwin.Chun.Common.Views
         protected override void OnNodeMouseDoubleClick(TreeNodeMouseClickEventArgs e) {
             base.OnNodeMouseDoubleClick(e);
             var node = e.Node as MyTreeNode;
+            if (Toolpars.FormEntity.EditState)
+                return;
             var bt = node?.BuildeType;
             if (!PathTools.IsTrue(bt?.IsTools))
                 return;

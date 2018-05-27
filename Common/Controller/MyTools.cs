@@ -108,7 +108,48 @@ namespace Digiwin.Chun.Common.Controller {
             }
         }
         /// <summary>
-        ///     把文件拷入指定的文件夹,并修改文件名
+        ///    CopyTypeKey
+        /// </summary>
+        /// <param name="fromDir"></param>
+        /// <param name="toDir"></param>
+        /// <param name="fromTypeKey"></param>
+        /// <param name="toTypeKey"></param>
+        // ReSharper disable once UnusedMember.Global
+        public static void CopyTo(string fromDir, string toDir,
+            string fromTypeKey, string toTypeKey) {
+            var formFiles = GetFilePath(fromDir);
+         
+            //记录一键Copy的文件
+            var logPath = new List<FileInfos>();
+            foreach (var file in formFiles) {
+                var fileinfo = new FileInfo(file);
+
+                if (fileinfo.Directory == null)
+                    continue;
+                var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
+                //不改变文件名，copy代码不用改文件名
+                var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
+                var absolutePath = PathTools.PathCombine(absolutedir,fileName);
+
+                var newFilePath = PathTools.PathCombine(toDir, absolutePath);
+                var newFileDir = PathTools.PathCombine(toDir, absolutedir);
+
+                if (!Directory.Exists(newFileDir))
+                    Directory.CreateDirectory(newFileDir);
+
+                CopyFile(file, newFilePath);
+             
+            }
+           Task.Factory.StartNew(() => {
+                    Thread.CurrentThread.IsBackground = false;
+                    LogTools.WriteToServer(logPath);
+            });
+            
+            
+        }
+
+        /// <summary>
+        ///   Copy源码
         /// </summary>
         /// <param name="fromDir"></param>
         /// <param name="toDir"></param>
@@ -143,6 +184,7 @@ namespace Digiwin.Chun.Common.Controller {
                 if (fileinfo.Directory == null)
                     continue;
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
+                //不改变文件名，copy代码不用改文件名
                 var fileName = fileinfo.Name;
                 var absolutePath = PathTools.PathCombine(absolutedir,fileName);
 
@@ -1279,15 +1321,46 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         #region 一键借用
+        /// <summary>
+        /// 获取服务端目录
+        /// </summary>
+        /// <param name="wd"></param>
+        /// <returns></returns>
+        public static string GetServerDirPath(string wd)
+        {
+            var path = string.Empty;
+            var pkgPath = Toolpars.FormEntity.TxtPkGpath;
+            var typeKeyDir = $@"{pkgPath}\{wd}";
+
+            var batchObjectsDir = $@"{typeKeyDir}\BatchObjects";
+            var businessObjectsDir = $@"{typeKeyDir}\BusinessObjects";
+            var reportObjectsDir = $@"{typeKeyDir}\ReportObjects";
+            var searchList = new List<string> { batchObjectsDir, businessObjectsDir, reportObjectsDir };
+            foreach (var filterStr in searchList)
+            {
+                if (!Directory.Exists(filterStr))
+                {
+                    continue;
+                }
+                var directoryInfo = new DirectoryInfo(filterStr);
+                var filterDirs = directoryInfo.GetDirectories(Toolpars.FormEntity.PkgTypekey, SearchOption.TopDirectoryOnly);
+                if (filterDirs.Length <= 0) continue;
+                path = filterDirs[0].FullName;
+                break;
+            }
+            return path;
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="pkgPath"></param>
+        /// <param name="IsPkg"></param>
         /// <returns></returns>
-        public static bool CopyAllPkG(string pkgPath) {
+        public static bool CopyAllPkG(bool IsPkg) {
             var success = true;
             try {
                 var pathInfo = Toolpars.PathEntity;
+                var pkgPath = pathInfo.PkgTypeKeyFullRootDir;
                 var newTypeKeyFullRootDir = pathInfo.TypeKeyFullRootDir;
                 var newTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
                 var oldTypeKey = Toolpars.FormEntity.PkgTypekey;
@@ -1317,8 +1390,12 @@ namespace Digiwin.Chun.Common.Controller {
                                     success = false;
                                 }
                             }
-                            if (success)
+                            if (success) {
+                                //copyTypeKey
+                                var typeKeyDir = GetServerDirPath();
+                                //copy源码
                                 CopyTo(pkgPath, newTypeKeyFullRootDir, oldTypeKey,newTypeKey,null,true);
+                            }
                         }
                     }
                     else {

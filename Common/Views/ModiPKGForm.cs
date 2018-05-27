@@ -88,10 +88,10 @@ namespace Digiwin.Chun.Common.Views {
             }
             var customerName = CustomerText.Text.Trim();
             var empStr = string.Empty;
-            var isPkg = customerName.Equals(empStr);
-            WdPr = isPkg ? "WD_PR" : "WD_PR_C";
-            Wd = isPkg ? "WD" : "WD_C";
-            Spec = isPkg ? "SPEC" : "SPEC_C";
+            var IsPkg = customerName.Equals(empStr);
+            WdPr = IsPkg ? "WD_PR" : "WD_PR_C";
+            Wd = IsPkg ? "WD" : "WD_C";
+            Spec = IsPkg ? "SPEC" : "SPEC_C";
             if (FromServer.Checked) {
 
                 Toolpars.FormEntity.TxtPkGpath =
@@ -116,7 +116,7 @@ namespace Digiwin.Chun.Common.Views {
                 }
                 var customerFullPathDir = PathTools.PathCombine(customerDir, customerName, WdPr, "SRC");
                 Toolpars.FormEntity.TxtPkGpath =
-                    isPkg ? PkgPathOld : customerFullPathDir;
+                    IsPkg ? PkgPathOld : customerFullPathDir;
             }
             DialogResult = DialogResult.OK;
         }
@@ -131,13 +131,16 @@ namespace Digiwin.Chun.Common.Views {
             }
 
             if (FromServer.Checked) {
+
+                //查找typekey
                 var typeKeyDir = GetServerDirPath();
+                //标准源码目录
                 var pkgTypeKeyDir = PathTools.PathCombine(pkgPath, WdPr, "SRC");
                 var pkgTypeKeyPath = pkgFullPath;
                 //不存在TypeKey配置，直接copy代码
                 if (!Directory.Exists(typeKeyDir)) {
                    
-                        CopyPkg(pkgTypeKeyPath);
+                        CopyPkg();
                 }
                 else {
                     var directoryInfo = new DirectoryInfo(typeKeyDir);
@@ -148,6 +151,7 @@ namespace Digiwin.Chun.Common.Views {
                     }
                     targetDir = PathTools.PathCombine(targetDir,Toolpars.FormEntity.TxtNewTypeKey);
 
+                    MyTools.CopyTo(typeKeyDir, targetDir);
                    // CopyPkg(typeKeyDir, targetDir);
 
                     #region 从功能包copy对应的代码
@@ -176,7 +180,7 @@ namespace Digiwin.Chun.Common.Views {
                         {
                             if (!path.pkgTypePath.Equals(Toolpars.FormEntity.PkgTypekey)) return;
                             pkgTypeKeyPath = PathTools.PathCombine(pkgTypeKeyDir, path.pkgTypePath);
-                            CopyPkg(pkgTypeKeyPath);
+                            CopyPkg();
                         });
                     } 
                     #endregion
@@ -185,7 +189,7 @@ namespace Digiwin.Chun.Common.Views {
             }
             else {
                 var pkgTypeKeyPath = pkgFullPath;
-                CopyPkg(pkgTypeKeyPath);
+                CopyPkg();
             }
         }
 
@@ -199,29 +203,11 @@ namespace Digiwin.Chun.Common.Views {
         }
 
         private string GetServerDirPath() {
-            var path = string.Empty;
-            var pkgPath = Toolpars.FormEntity.TxtPkGpath;
-            var typeKeyDir = $@"{pkgPath}\{Wd}";
-
-            var batchObjectsDir = $@"{typeKeyDir}\BatchObjects";
-            var businessObjectsDir = $@"{typeKeyDir}\BusinessObjects";
-            var reportObjectsDir = $@"{typeKeyDir}\ReportObjects";
-            var searchList = new List<string>{batchObjectsDir, businessObjectsDir, reportObjectsDir};
-            foreach (var filterStr in searchList) {
-                if (!Directory.Exists(filterStr)) {
-                    continue;
-                }
-                var directoryInfo = new DirectoryInfo(filterStr);
-                var filterDirs = directoryInfo.GetDirectories(Toolpars.FormEntity.PkgTypekey, SearchOption.TopDirectoryOnly);
-                if (filterDirs.Length <= 0) continue;
-                path = filterDirs[0].FullName;
-                break;
-            }
-           return path;
+           return MyTools.GetServerDirPath(Wd);
         }
 
-        private void CopyPkg(string pkgTypeKeyPath) {
-            var success = MyTools.CopyAllPkG(pkgTypeKeyPath);
+        private void CopyPkg() {
+            var success = MyTools.CopyAllPkG(IsPkg);
             if (!success) return;
             FromServer.Checked = false;
             DialogResult = DialogResult.Yes;
@@ -234,14 +220,15 @@ namespace Digiwin.Chun.Common.Views {
         private void CustomerText_TextChanged(object sender, EventArgs e) {
             SetPkgPath();
         }
-        
+
+        public bool IsPkg { get; set; } 
         private void SetPkgPath() {
             var customerName = CustomerText.Text.Trim();
             var empStr = string.Empty;
-            var isPkg = customerName.Equals(empStr);
-            WdPr = isPkg ? "WD_PR" : "WD_PR_C";
-            Wd = isPkg ? "WD" : "WD_C";
-            Spec = isPkg ? "SPEC" : "SPEC_C";
+             IsPkg = customerName.Equals(empStr);
+            WdPr = IsPkg ? "WD_PR" : "WD_PR_C";
+            Wd = IsPkg ? "WD" : "WD_C";
+            Spec = IsPkg ? "SPEC" : "SPEC_C";
             if (FromServer.Checked) {
                
                 Toolpars.FormEntity.TxtPkGpath = 
@@ -255,7 +242,7 @@ namespace Digiwin.Chun.Common.Views {
                   customerDir =Path.GetDirectoryName(Path.GetDirectoryName(PkgPathOld));
                 }
                 Toolpars.FormEntity.TxtPkGpath =
-                    isPkg ? PkgPathOld  : $@"{customerDir}\{customerName}\{WdPr}\SRC";
+                    IsPkg ? PkgPathOld  : $@"{customerDir}\{customerName}\{WdPr}\SRC";
             }
 
           
