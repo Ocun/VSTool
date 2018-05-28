@@ -72,23 +72,22 @@ namespace Digiwin.Chun.Common.Model {
         /// <summary>
         ///     新typekey目录,相对目录
         /// </summary>
-        public string TypeKeyRootDir { get; set; } = string.Empty;
+        public string TypeKeySrcRootDir { get; set; } = string.Empty;
 
         /// <summary>
         ///     新typekey目录，绝对目录
         /// </summary>
-        public string TypeKeyFullRootDir { get; set; } = string.Empty;
+        public string TypeKeySrcFullRootDir { get; set; } = string.Empty;
 
         /// <summary>
         ///     借用typekey路径(代码)，相对路径
         /// </summary>
-        public string PkgTypeKeyRootDir { get; set; } = string.Empty;
+        public string PkgTypeKeySrcRootDir { get; set; } = string.Empty;
 
         /// <summary>
         ///     借用typekey路径(代码)，绝对路径
         /// </summary>
-        public string PkgTypeKeyFullRootDir { get; set; } = string.Empty;
-
+        public string PkgTypeKeySrcFullRootDir { get; set; } = string.Empty;
         
     }
 }

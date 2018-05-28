@@ -25,7 +25,7 @@ namespace Digiwin.Chun.Common.Controller {
         private static MyTreeView _myTreeView1;
         private static MyTreeView _myTreeView5;
         private static MyTreeView _treeView1;
-        private static TextBox _txtPkGpath;
+        private static TextBox _pkgPath;
         private static CheckBox _modiCkb;
         private static MyPanel _headerPanel;
         private static readonly Toolpars Toolpars = MyTools.Toolpars;
@@ -76,12 +76,12 @@ namespace Digiwin.Chun.Common.Controller {
         public static MyTreeView TreeView1 => _treeView1 ?? (_treeView1 = GetControlByName<MyTreeView>("TreeView1"));
 
         /// <summary>
-        ///     窗体控件TxtPKGpath
+        ///     窗体控件PKGpath
         /// </summary>
-        public static TextBox TxtPkGpath => _txtPkGpath ?? (_txtPkGpath = GetControlByName<TextBox>("TxtPkGpath"));
+        public static TextBox PkgPath => _pkgPath ?? (_pkgPath = GetControlByName<TextBox>("PkgPath"));
 
         /// <summary>
-        ///     窗体控件TxtPKGpath
+        ///     ModiCkb
         /// </summary>
         public static CheckBox ModiCkb => _modiCkb ?? (_modiCkb = GetControlByName<CheckBox>("ModiCkb"));
 
@@ -368,7 +368,7 @@ namespace Digiwin.Chun.Common.Controller {
                         LogTools.WriteToServer(fileInfos);
                     });
 
-                    if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
+                    if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.ToPath)
                         || PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
                         MessageBox.Show(Resources.TypekeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
@@ -391,14 +391,14 @@ namespace Digiwin.Chun.Common.Controller {
                         LogTools.WriteToServer(fileInfos);
                     });
 
-                    if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
+                    if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.ToPath)
                         || PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)
                     ) {
                         MessageBox.Show(Resources.TypekeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return;
                     }
-                    var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
+                    var pkgDir = pathInfo.PkgTypeKeySrcFullRootDir;
 
                     if (!Directory.Exists(pkgDir)) {
                         MessageBox.Show(string.Format(Resources.DirNotExisted, pkgDir), Resources.ErrorMsg,
@@ -451,12 +451,12 @@ namespace Digiwin.Chun.Common.Controller {
             try {
                 if (name != null
                     && name.Equals("BtnOpenTo")) {
-                    var targetDir = Toolpars.FormEntity.TxtToPath;
+                    var targetDir = Toolpars.FormEntity.SrcToPath;
                     MyTools.OpenDir(targetDir);
                 }
                 else if (name != null
                          && name.Equals("PkgOpenTo")) {
-                    var targetDir = Toolpars.FormEntity.TxtPkGpath;
+                    var targetDir = Toolpars.FormEntity.PkgSrcPath;
                     MyTools.OpenDir(targetDir);
                 }
             }
@@ -489,8 +489,9 @@ namespace Digiwin.Chun.Common.Controller {
         {
             var typekey = Toolpars.FormEntity.TxtNewTypeKey;
             try {
-                var targetDir = Toolpars.PathEntity.TypeKeyFullRootDir;
-                if (typekey.Equals(string.Empty)) targetDir = Path.GetDirectoryName(targetDir);
+                var targetDir = Toolpars.PathEntity.TypeKeySrcFullRootDir;
+                if (typekey.Equals(string.Empty)||!Directory.Exists(targetDir))
+                    targetDir = Path.GetDirectoryName(targetDir);
 
                 MyTools.OpenDir(targetDir);
             }
@@ -523,7 +524,9 @@ namespace Digiwin.Chun.Common.Controller {
             if (control == null)
                 return;
             Toolpars.MIndustry = control.Checked;
-            Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
+            if (string.IsNullOrEmpty(Toolpars.Mpath)) return;
+            var dirInfo = new DirectoryInfo(Toolpars.Mpath);
+            Toolpars.FormEntity.ToPath = dirInfo.Parent?.Parent?.FullName;
         }
 
 
@@ -547,7 +550,7 @@ namespace Digiwin.Chun.Common.Controller {
             if (Toolpars.FormEntity.PkgTypekey == "")
                 return;
             var pathInfo = Toolpars.PathEntity;
-            var targetDir = pathInfo.PkgTypeKeyFullRootDir;
+            var targetDir = pathInfo.PkgTypeKeySrcFullRootDir;
             if (Directory.Exists(targetDir))
                 Process.Start(targetDir);
             else
@@ -580,11 +583,11 @@ namespace Digiwin.Chun.Common.Controller {
                     TreeView1.Visible = true;
                     ScrollPanel.Controls[0].Visible = false;
                     ScrollPanel.Visible = false;
-                    if (!PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
+                    if (!PathTools.IsNullOrEmpty(Toolpars.FormEntity.ToPath)
                         && !PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)
                         && !PathTools.IsNullOrEmpty(Toolpars.FormEntity.PkgTypekey)) {
                         var pathInfo = Toolpars.PathEntity;
-                        var pkgDir = pathInfo.PkgTypeKeyFullRootDir;
+                        var pkgDir = pathInfo.PkgTypeKeySrcFullRootDir;
 
                         if (Directory.Exists(pkgDir)) {
                             RighteTreeView.Nodes.Clear();
@@ -617,7 +620,7 @@ namespace Digiwin.Chun.Common.Controller {
                 if (NavTreeView.SelectedNode is MyTreeNode node)
                     CreateTree(node.BuildeType.Id);
             }
-            TxtPkGpath.Text = Toolpars.FormEntity.TxtPkGpath;
+            PkgPath.Text = Toolpars.FormEntity.PkgPath;
         }
 
         #endregion

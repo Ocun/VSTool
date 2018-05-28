@@ -73,7 +73,7 @@ namespace Digiwin.Chun.Common.Views {
                         var oldFilePath = Path.GetFileNameWithoutExtension(path);
                         if (oldFilePath != null) {
                             var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-                            fileinfo.ToPath = $@"{_toolpars.FormEntity.TxtToPath}\{newFilePath}";
+                            fileinfo.ToPath = $@"{_toolpars.FormEntity.SrcToPath}\{newFilePath}";
                         }
                         if (BuildeType.PartId != null
                             && !BuildeType.PartId.Equals(string.Empty)) {
@@ -114,7 +114,7 @@ namespace Digiwin.Chun.Common.Views {
                             if (oldFilePath != null) {
                                 var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
 
-                                fileinfo.ToPath = _toolpars.FormEntity.TxtToPath + @"\" + newFilePath;
+                                fileinfo.ToPath = _toolpars.FormEntity.SrcToPath + @"\" + newFilePath;
                             }
 
 

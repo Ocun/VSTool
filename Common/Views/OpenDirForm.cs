@@ -52,15 +52,15 @@ namespace Digiwin.Chun.Common.Views {
             var btn = sender as Button;
             var name = btn?.Name;
             var dirPath = string.Empty;
-            var txtToPath = Toolpars.FormEntity.TxtToPath;
+            var srcToPath = Toolpars.FormEntity.SrcToPath;
             if (name == null) return;
             if (name.Equals(BtnOpenCustomer.Name)) {
                 var customerName = CustomerTB.Text.Trim();
                 if (!PathTools.IsNullOrEmpty(customerName)) {
                     var customerDir = string.Empty;
-                    txtToPath = txtToPath.Replace(Toolpars.CustomerName, customerName);
-                    if (!txtToPath.Equals(string.Empty)) {
-                        customerDir = Path.GetDirectoryName(Path.GetDirectoryName(txtToPath));
+                    srcToPath = srcToPath.Replace(Toolpars.CustomerName, customerName);
+                    if (!srcToPath.Equals(string.Empty)) {
+                        customerDir = Path.GetDirectoryName(Path.GetDirectoryName(srcToPath));
                     }
 
                     dirPath = customerDir;
@@ -71,26 +71,26 @@ namespace Digiwin.Chun.Common.Views {
                 var customerName = CustomerTB.Text.Trim();
                 if (!PathTools.IsNullOrEmpty(customerName)) {
                     var customerDir = string.Empty;
-                    txtToPath = txtToPath.Replace(Toolpars.CustomerName, customerName);
-                    if (!txtToPath.Equals(string.Empty)) {
-                        customerDir = PathTools.PathCombine(Path.GetDirectoryName(Path.GetDirectoryName(txtToPath)),
+                    srcToPath = srcToPath.Replace(Toolpars.CustomerName, customerName);
+                    if (!srcToPath.Equals(string.Empty)) {
+                        customerDir = PathTools.PathCombine(Path.GetDirectoryName(Path.GetDirectoryName(srcToPath)),
                             Wd);
                     }
-                    dirPath = FindTypekeyDir(customerDir, typeKey);
+                    dirPath = MyTools.FindTypekeyDir(customerDir, typeKey);
                 }
                 else {
                     var shadowDir = ShadowTB.Text.Trim();
                     shadowDir = PathTools.PathCombine(shadowDir, Wd);
-                    dirPath = PathTools.IsNullOrEmpty(typeKey) ? dirPath : FindTypekeyDir(shadowDir, typeKey);
+                    dirPath = PathTools.IsNullOrEmpty(typeKey) ? dirPath : MyTools.FindTypekeyDir(shadowDir, typeKey);
                 }
             }
             else if (name.Equals(BtnCode.Name)) {
                 var typeKey = TypeKeyTB.Text.Trim();
                 var customerName = CustomerTB.Text.Trim();
                 if (!PathTools.IsNullOrEmpty(customerName)) {
-                    txtToPath = txtToPath.Replace(Toolpars.CustomerName, customerName);
-                    if (!txtToPath.Equals(string.Empty)) {
-                         dirPath = PathTools.PathCombine(Path.GetDirectoryName(Path.GetDirectoryName(txtToPath)),
+                    srcToPath = srcToPath.Replace(Toolpars.CustomerName, customerName);
+                    if (!srcToPath.Equals(string.Empty)) {
+                         dirPath = PathTools.PathCombine(Path.GetDirectoryName(Path.GetDirectoryName(srcToPath)),
                             WdPr,"SRC", $"Digiwin.ERP.{typeKey}");
                     }  
                 }
@@ -106,7 +106,7 @@ namespace Digiwin.Chun.Common.Views {
                 }
                 else {
                     var clientDir = ClientTB.Text.Trim();
-                    dirPath = FindTypekeyDir(clientDir, typeKey);
+                    dirPath = MyTools.FindTypekeyDir(clientDir, typeKey);
                     dirPath = string.IsNullOrEmpty(dirPath) ? clientDir : dirPath;
                 }
             }
@@ -117,7 +117,7 @@ namespace Digiwin.Chun.Common.Views {
                 }
                 else {
                     var serverDir = ServerTB.Text.Trim();
-                    dirPath = FindTypekeyDir(serverDir, typeKey);
+                    dirPath = MyTools.FindTypekeyDir(serverDir, typeKey);
                     dirPath = string.IsNullOrEmpty(dirPath) ? serverDir: dirPath;
                 }
             }
@@ -125,7 +125,7 @@ namespace Digiwin.Chun.Common.Views {
                 var typeKey = TypeKeyTB.Text.Trim();
                 var shadowDir = ShadowTB.Text.Trim();
                 shadowDir = PathTools.PathCombine(shadowDir,Wd);
-                dirPath = PathTools.IsNullOrEmpty(typeKey) ? shadowDir : FindTypekeyDir(shadowDir, typeKey);
+                dirPath = PathTools.IsNullOrEmpty(typeKey) ? shadowDir : MyTools.FindTypekeyDir(shadowDir, typeKey);
             }
             else if (name.Equals(BtnOpenPublish.Name)) {
                     dirPath = PublishTB.Text.Trim();
@@ -146,30 +146,6 @@ namespace Digiwin.Chun.Common.Views {
             MyTools.InsertInfo($"{BtnOpenCustomer.Name}");
         }
 
-        private string FindTypekeyDir(string path, string typeKey) {
-            var dirPath = string.Empty;
-            try {
-                var batchObjectsDir = $@"{path}\BatchObjects";
-                var businessObjectsDir = $@"{path}\BusinessObjects";
-                var reportObjectsDir = $@"{path}\ReportObjects";
-                var searchList = new List<string> {batchObjectsDir, businessObjectsDir, reportObjectsDir};
-              
-                foreach (var filterStr in searchList) {
-                    if (!Directory.Exists(filterStr))
-                        continue;
-                    var directoryInfo = new DirectoryInfo(filterStr);
-                    var filterDirs = directoryInfo.GetDirectories(typeKey, SearchOption.TopDirectoryOnly);
-                    if (filterDirs.Length <= 0) continue;
-                    dirPath = filterDirs[0].FullName;
-                    break;
-                }
-            }
-            catch (Exception ex) {
-                LogTools.LogError($"FindTypeKeyDir Error! Detail:{ex.Message}");
-            }
-        
-            return dirPath;
-        }
 
         private bool IsPkg { get; set; } = false;
 

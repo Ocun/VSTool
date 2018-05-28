@@ -273,6 +273,15 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
+        ///   查找类似 无copy资源 的本地化字符串。
+        /// </summary>
+        internal static string NoCopySource {
+            get {
+                return ResourceManager.GetString("NoCopySource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 没有找到 的本地化字符串。
         /// </summary>
         internal static string NotFind {

@@ -36,7 +36,7 @@ namespace Digiwin.Chun.Common.Controller {
                 settingPathEntity.Programs
             }); //平台\\DeployServer\\Shared\\Customization\\Programs\\
             var exportFullPath = CombineStr(new[]
-                {toolpars.FormEntity.TxtToPath, settingPathEntity.ExportDir}); //个案\\Export\\
+                {toolpars.FormEntity.SrcToPath, settingPathEntity.ExportDir}); //个案\\Export\\
 
             #region typekey路径
             var txtNewTypeKey = toolpars.FormEntity.TxtNewTypeKey;
@@ -45,7 +45,7 @@ namespace Digiwin.Chun.Common.Controller {
                 newTypeKeyRootDir= CombineStr(new[]
                     {settingPathEntity.PackageBaseName, txtNewTypeKey}); //Digiwin.ERP.typekey
             }
-            var newTypeKeyFullRootDir = PathCombine(toolpars.FormEntity.TxtToPath, newTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
+            var newTypeKeyFullRootDir = PathCombine(toolpars.FormEntity.SrcToPath, newTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
             #endregion
 
             #region pkgTypeKey路径
@@ -56,7 +56,7 @@ namespace Digiwin.Chun.Common.Controller {
                     {settingPathEntity.PackageBaseName, pkgTxtNewTypeKey}); //Digiwin.ERP.typekey  
             }
             
-            var pkgTypeKeyFullRootDir = PathCombine(toolpars.FormEntity.TxtPkGpath, pkgTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
+            var pkgTypeKeyFullRootDir = PathCombine(toolpars.FormEntity.PkgSrcPath, pkgTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
             #endregion
 
             var businessDir =
@@ -99,10 +99,10 @@ namespace Digiwin.Chun.Common.Controller {
                 ServerProgramsFullPath = serverProgramsFullPath,
                 DeployProgramsFullPath = clientProgramsFullPath,
                 ExportFullPath = exportFullPath,
-                TypeKeyRootDir = newTypeKeyRootDir,
-                TypeKeyFullRootDir = newTypeKeyFullRootDir,
-                PkgTypeKeyRootDir =  pkgTypeKeyRootDir,
-                PkgTypeKeyFullRootDir =  pkgTypeKeyFullRootDir,
+                TypeKeySrcRootDir = newTypeKeyRootDir,
+                TypeKeySrcFullRootDir = newTypeKeyFullRootDir,
+                PkgTypeKeySrcRootDir =  pkgTypeKeyRootDir,
+                PkgTypeKeySrcFullRootDir =  pkgTypeKeyFullRootDir,
                 BusinessDir = businessDir,
                 ImplementDir = implementDir,
                 UiDir = uiDir,

@@ -241,14 +241,14 @@
                 窗体控件treeView1
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Controller.ControlTools.TxtPkGpath">
+        <member name="P:Digiwin.Chun.Common.Controller.ControlTools.PkgPath">
             <summary>
-                窗体控件TxtPKGpath
+                窗体控件PKGpath
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.ModiCkb">
             <summary>
-                窗体控件TxtPKGpath
+                ModiCkb
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Controller.ControlTools.HeaderPanel">
@@ -1146,7 +1146,7 @@
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.LogTools.UploadLog(System.String)">
             <summary>
-            
+            上传日志
             </summary>
             <param name="upDir"></param>
         </member>
@@ -1177,9 +1177,18 @@
             <param name="fromDir"></param>
             <param name="toDir"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.String,System.String)">
+            <summary>
+               CopyTypeKey
+            </summary>
+            <param name="fromDir"></param>
+            <param name="toDir"></param>
+            <param name="fromTypeKey"></param>
+            <param name="toTypeKey"></param>
+        </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyTo(System.String,System.String,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{Digiwin.Chun.Common.Model.FileInfos},System.Boolean)">
             <summary>
-                把文件拷入指定的文件夹,并修改文件名
+              Copy源码
             </summary>
             <param name="fromDir"></param>
             <param name="toDir"></param>
@@ -1372,7 +1381,7 @@
             <param name="nodes"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ModiFile(System.Boolean)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.ModiFile(System.String,System.Boolean,System.Boolean)">
             <summary>
             修改文件 新的typekey
             </summary>
@@ -1384,10 +1393,26 @@
             <param name="nodes"></param>
             <returns></returns>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyAllPkG(System.String)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.GetServerDirPath(System.Boolean)">
+            <summary>
+            获取服务端目录
+            </summary>
+            <param name="typeKey"></param>
+            <param name="isPkg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.FindTypekeyDir(System.String,System.String)">
+            <summary>
+            获取TYPEKEY目录
+            </summary>
+            <param name="path"></param>
+            <param name="typeKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyAllPkG(System.Boolean)">
             <summary>
             </summary>
-            <param name="pkgPath"></param>
+            <param name="isPkg"></param>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.ServerOn(System.String)">
@@ -2498,14 +2523,29 @@
                 界面參數
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtToPath">
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.ToPath">
             <summary>
-                個案路徑
+                個案路徑 E:\E10_5.0.0\TEST
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtPkGpath">
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.IsPkg">
             <summary>
-                借用路徑
+            不知何用，可能是标准？
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.SrcToPath">
+            <summary>
+                個案源码路徑  E:\E10_5.0.0\TEST\WD_PR_C\SRC
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.PkgPath">
+            <summary>
+                借用路徑 （客户目录）
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Model.FormEntity.PkgSrcPath">
+            <summary>
+                借用源码路徑
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Model.FormEntity.TxtNewTypeKey">
@@ -2613,22 +2653,22 @@
                 dll部署路径
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeyRootDir">
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeySrcRootDir">
             <summary>
                 新typekey目录,相对目录
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeyFullRootDir">
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.TypeKeySrcFullRootDir">
             <summary>
                 新typekey目录，绝对目录
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeyRootDir">
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeySrcRootDir">
             <summary>
                 借用typekey路径(代码)，相对路径
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeyFullRootDir">
+        <member name="P:Digiwin.Chun.Common.Model.PathEntity.PkgTypeKeySrcFullRootDir">
             <summary>
                 借用typekey路径(代码)，绝对路径
             </summary>
@@ -2773,6 +2813,11 @@
               查找类似 复制失败 的本地化字符串。
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.CopyResourceNotExisted">
+            <summary>
+              查找类似 借用Typekey源码和配置不存在 的本地化字符串。
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.CopySucess">
             <summary>
               查找类似 复制成功 !!! 的本地化字符串。
@@ -2861,6 +2906,11 @@
         <member name="P:Digiwin.Chun.Common.Properties.Resources.ModuleNotExisted">
             <summary>
               查找类似 未指定模块信息或模块名 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.NoCopySource">
+            <summary>
+              查找类似 无copy资源 的本地化字符串。
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.NotFind">

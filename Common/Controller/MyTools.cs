@@ -24,14 +24,13 @@ namespace Digiwin.Chun.Common.Controller {
         static void SetTestdata() {
             Toolpars.Mpath = ""; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
             Toolpars.MInpath = ""; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
-            Toolpars.Mplatform = @""; //C:\DF_E10_2.0.2
-            Toolpars.MdesignPath =""; //E:\平台\E202
-            Toolpars.MVersion = ""; //DF_E10_2.0.2
+            Toolpars.Mplatform = @"E:\平台\E50"; //C:\DF_E10_2.0.2
+            Toolpars.MdesignPath = @"E:\平台\E50"; //E:\平台\E202
+            Toolpars.MVersion = "DF_E10_5.0.0"; //DF_E10_2.0.2
             Toolpars.MIndustry = false;
-            Toolpars.CustomerName ="";
-
-            Toolpars.FormEntity.TxtToPath =$@"C:\Users\zychu\Desktop\justtest";
-            Toolpars.FormEntity.TxtPkGpath = $@"E:\DF_E10_5.0.0\WD_PR\SRC";
+            Toolpars.CustomerName = "TEST";
+            Toolpars.FormEntity.ToPath = $@"E:\DF_E10_5.0.0\TEST";
+            Toolpars.FormEntity.PkgPath = $@"E:\DF_E10_5.0.0";
         }
         /// <summary>
         /// </summary>
@@ -48,28 +47,32 @@ namespace Digiwin.Chun.Common.Controller {
         public static void InitToolpars(string[] pToIni) {
             Toolpars.ModelType = ModelType.Json;
             if (pToIni == null) {
-                Toolpars.FormEntity.TxtToPath = string.Empty;
+                Toolpars.FormEntity.ToPath = string.Empty;
             }
             else {
                 Toolpars.Mall = pToIni[0];
                 var args = Toolpars.Mall.Split('&');
-                Toolpars.Mpath = args[0]; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
+                var mpath = args[0];
+                Toolpars.Mpath = mpath;//D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
                 Toolpars.MInpath = args[1]; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
                 Toolpars.Mplatform = args[2]; //C:\DF_E10_2.0.2
                 Toolpars.MdesignPath = args[3]; //E:\平台\E202
                 Toolpars.MVersion = args[4]; //DF_E10_2.0.2
                 Toolpars.MIndustry = Convert.ToBoolean(args[5]);
                 Toolpars.CustomerName = args[6];
-
-                Toolpars.FormEntity.TxtToPath = Toolpars.Mpath;
-                //if (Toolpars.MIndustry)
-                //    Toolpars.FormEntity.TxtToPath = Toolpars.MInpath;
-
-                Toolpars.FormEntity.TxtPkGpath = $@"{Toolpars.MdesignPath}\WD_PR\SRC";
+                if (!string.IsNullOrEmpty(mpath)) {
+                    var srcDir = new DirectoryInfo(mpath);
+                    Toolpars.FormEntity.ToPath = srcDir.Parent?.Parent?.FullName;
+                }
+                Toolpars.FormEntity.PkgPath = $@"{Toolpars.MdesignPath}";
+              
                 Toolpars.FormEntity.Industry = Toolpars.MIndustry;
                 if (Toolpars.Mpath.Contains("PKG")
-                    && !Toolpars.MIndustry)
-                    Toolpars.FormEntity.TxtToPath = $@"{Toolpars.MdesignPath}\WD_PR\SRC\";
+                    && !Toolpars.MIndustry) {
+                    Toolpars.FormEntity.IsPkg = true;
+                    Toolpars.FormEntity.ToPath = $@"{Toolpars.MdesignPath}";
+                }
+
             }
             //分割宽度
             Toolpars.FormEntity.SpiltWidth = 200;
@@ -79,7 +82,7 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-          //  SetTestdata();
+           // SetTestdata();
 
 
         }
@@ -94,11 +97,13 @@ namespace Digiwin.Chun.Common.Controller {
             foreach (var file in formFiles)
             {
                 var fileinfo = new FileInfo(file);
+            
                 var frompath = fileinfo.FullName;
                 if (fileinfo.Directory == null)
                     continue;
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty);
                 var absolutePath = file.Replace(fromDir, string.Empty);
+               
                 var newFilePath = PathTools.PathCombine(toDir, absolutePath);
                 var newFileDir = PathTools.PathCombine(toDir, absolutedir);
 
@@ -123,12 +128,14 @@ namespace Digiwin.Chun.Common.Controller {
             var logPath = new List<FileInfos>();
             foreach (var file in formFiles) {
                 var fileinfo = new FileInfo(file);
-
                 if (fileinfo.Directory == null)
                     continue;
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
                 //不改变文件名，copy代码不用改文件名
                 var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
+                if (fileName.Contains("ReportLayoutInfo") && (fileName.EndsWith(".repx") || fileName.EndsWith(".xml"))) {
+                    fileName = $@"X{fileName}";
+                }
                 var absolutePath = PathTools.PathCombine(absolutedir,fileName);
 
                 var newFilePath = PathTools.PathCombine(toDir, absolutePath);
@@ -692,7 +699,7 @@ namespace Digiwin.Chun.Common.Controller {
             var csPath = string.Empty;
             try {
                 var pathInfo = Toolpars.PathEntity;
-                var typeKeyFullRootDir = pathInfo.TypeKeyFullRootDir;
+                var typeKeyFullRootDir = pathInfo.TypeKeySrcFullRootDir;
                 var dirInfo = new DirectoryInfo(typeKeyFullRootDir);
                 var csFiles = dirInfo.GetFiles("*.csproj", SearchOption.AllDirectories);
                 foreach(var file in csFiles)
@@ -1006,7 +1013,7 @@ namespace Digiwin.Chun.Common.Controller {
                 var fromPath = PathTools.PathCombine(Toolpars.MvsToolpath, "Template", path);
 
                 var newFilePath = path.Replace(templateType, newTypeKey);
-                newFilePath = PathTools.PathCombine(Toolpars.FormEntity.TxtToPath, newFilePath);
+                newFilePath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
 
                 if (File.Exists(newFilePath))
                     return;
@@ -1025,8 +1032,8 @@ namespace Digiwin.Chun.Common.Controller {
             //个案路径
             var oldKey = Toolpars.OldTypekey;
             var pathInfo = Toolpars.PathEntity;
-            var directoryPath = $@"{pathInfo.TypeKeyFullRootDir}\";
-            var typeKeyRootDir = pathInfo.TypeKeyRootDir;
+            var directoryPath = $@"{pathInfo.TypeKeySrcFullRootDir}\";
+            var typeKeyRootDir = pathInfo.TypeKeySrcRootDir;
             var tDes = new DirectoryInfo(directoryPath);
 
             var tSearchPatternList = new List<string>();
@@ -1116,7 +1123,7 @@ namespace Digiwin.Chun.Common.Controller {
                         return;
                     var newFilePath = basePath.Replace(templateType, newTypeKey)
                         .Replace(oldFilePath, fileinfo.FileName);
-                    fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.TxtToPath, newFilePath);
+                    fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
                 }
             );
         }
@@ -1150,7 +1157,7 @@ namespace Digiwin.Chun.Common.Controller {
                 var oldFilePath = Path.GetFileNameWithoutExtension(path);
                 if (oldFilePath != null) {
                     var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-                    fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.TxtToPath, newFilePath);
+                    fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
                 }
                 if (bt.PartId != null
                     && !bt.PartId.Equals(String.Empty)) {
@@ -1176,7 +1183,7 @@ namespace Digiwin.Chun.Common.Controller {
                     if (oldFilePath != null) {
                         var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
 
-                        fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.TxtToPath, newFilePath);
+                        fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
                     }
 
                     fileInfos.Add(fileinfo);
@@ -1200,10 +1207,10 @@ namespace Digiwin.Chun.Common.Controller {
             try {
                 var fileInfos = GetTreeViewPath(nodes);
                 var pathInfo = Toolpars.PathEntity;
-                 var formDir = pathInfo.PkgTypeKeyFullRootDir;
-                var toDir = pathInfo.TypeKeyFullRootDir;
+                 var formDir = pathInfo.PkgTypeKeySrcFullRootDir;
+                var toDir = pathInfo.TypeKeySrcFullRootDir;
                 CopyTo(formDir, toDir, Toolpars.FormEntity.PkgTypekey, Toolpars.FormEntity.TxtNewTypeKey, fileInfos,false);
-                ModiFile(false);
+                ModiFile(toDir,true, false);
             }
             catch (Exception) {
                 sucess = false;
@@ -1218,16 +1225,15 @@ namespace Digiwin.Chun.Common.Controller {
         /// <summary>
         /// 修改文件 新的typekey
         /// </summary>
-        public static void ModiFile(bool modiAll) {
+        public static void ModiFile(string targetDir,bool isSrc,bool modiAll) {
             var oldTypekey = Toolpars.FormEntity.PkgTypekey;
             var newTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
             var pathInfo = Toolpars.PathEntity;
-            var newTypeKeyRootDir = pathInfo.TypeKeyRootDir;
-            var tempTypeKeyRootDir = pathInfo.PkgTypeKeyRootDir;
+            var newTypeKeyRootDir = pathInfo.TypeKeySrcRootDir;
+            var tempTypeKeyRootDir = pathInfo.PkgTypeKeySrcRootDir;
 
             //个案路径
-            var directoryPath = pathInfo.TypeKeyFullRootDir;
-            var tDes = new DirectoryInfo(directoryPath);
+            var tDes = new DirectoryInfo(targetDir);
             //修改解决方案
             var tSearchPatternList = new List<string>();
             tSearchPatternList.AddRange(new[] {
@@ -1246,49 +1252,72 @@ namespace Digiwin.Chun.Common.Controller {
                     var filePath = f.FullName;
                     if (!File.Exists(filePath))
                         continue;
-
                     var text = File.ReadAllText(filePath);
-                    var oldStr = t.Equals("*.sln")
-                        ? oldTypekey
-                        : tempTypeKeyRootDir; 
-                    var newStr = t.Equals("*.sln")
-                        ? newTypeKey
-                        : newTypeKeyRootDir;
-                    var matchStr = $@"\b{oldStr}\b";
-                    var regex = new Regex(matchStr);
-                    text = regex.Replace(text, newStr);
-                    //text = t.Equals("*.sln")
-                    //    ? text.Replace(oldTypekey,
-                    //        newTypeKey)
-                    //    : text.Replace(tempTypeKeyRootDir,
-                    //        newTypeKeyRootDir);
+                    if (isSrc) {
+                     
+                        var oldStr = !t.Equals("*.sln")
+                                ? tempTypeKeyRootDir
+                                : oldTypekey
+                            ;
+                        var newStr = !t.Equals("*.sln")
+                            ? newTypeKeyRootDir
+                            : newTypeKey;
+                        var matchStr = $@"\b{oldStr}\b";
+                        var regex = new Regex(matchStr);
+                        text = regex.Replace(text, newStr);
+                        //text = t.Equals("*.sln")
+                        //    ? text.Replace(oldTypekey,
+                        //        newTypeKey)
+                        //    : text.Replace(tempTypeKeyRootDir,
+                        //        newTypeKeyRootDir);
 
 
-                    const string bpath = @"<HintPath>..\..\";
-                    var hintPaths = new[] { "bin", "Export" };
-                    text = hintPaths.Aggregate(text, 
-                        (current, hitPath) => 
-                        current.Replace(bpath + hitPath, bpath + @"..\..\..\WD_PR\SRC\" + hitPath));
-                    File.SetAttributes(filePath, FileAttributes.Normal);
-                    File.WriteAllText(filePath, text, Encoding.UTF8);
+                        const string bpath = @"<HintPath>..\..\";
+                        var hintPaths = new[] {"bin", "Export"};
+                        text = hintPaths.Aggregate(text,
+                            (current, hitPath) =>
+                                current.Replace(bpath + hitPath, bpath + @"..\..\..\WD_PR\SRC\" + hitPath));
+                        File.SetAttributes(filePath, FileAttributes.Normal);
+                        File.WriteAllText(filePath, text, Encoding.UTF8);
+                        //
+                        if (!modiAll) {
+                            // 添加编译选项
+                            var extionName = Path.GetExtension(filePath);
+                            var extionNames = new[] {".cs", ".resx"};
+                            if (!extionNames.Contains(extionName)) continue;
 
-                    //
-                    if (!modiAll) {
-                        // 添加编译选项
-                        var extionName = Path.GetExtension(filePath);
-                        var extionNames = new[] { ".cs", ".resx" };
-                        if (!extionNames.Contains(extionName)) continue;
-                        
-                        var csPath =FindCSproj(filePath);
-                        var csDir = $@"{Path.GetDirectoryName(csPath)}\";
+                            var csPath = FindCSproj(filePath);
+                            var csDir = $@"{Path.GetDirectoryName(csPath)}\";
 
-                        //找到相对位置
-                        var index = filePath.IndexOf(csDir, StringComparison.Ordinal);
+                            //找到相对位置
+                            var index = filePath.IndexOf(csDir, StringComparison.Ordinal);
 
-                        if (index > -1)
-                            XmlTools.AddCsproj(csPath, filePath.Substring(index + csDir.Length));
+                            if (index > -1)
+                                XmlTools.AddCsproj(csPath, filePath.Substring(index + csDir.Length));
+                        }
                     }
-                   
+                    else {
+                      
+                        text = text.Replace(oldTypekey, newTypeKey);
+                        File.SetAttributes(f.FullName, FileAttributes.Normal);
+                        File.Delete(f.FullName);
+                        if (f.Name.Contains("ReportInfoContainer.RPDdcxml") ||
+                            f.Name.Contains("ReportInfoContainer_Ex.xml") || f.Name.Contains("DataAuthorizationInfoContainer.dcxml"))
+                        {
+                            if (text.Contains("_ReportLayoutInfo_")) {
+                                if (f.Directory != null) {
+                                    var title = f.Directory.Name.Split('_');
+                                    text = text.Replace(title[0].Substring(1) + "_ReportLayoutInfo_", title[0] + "_ReportLayoutInfo_");
+                                }
+                            }
+                            else
+                            {
+                                text = text.Replace("ReportLayoutInfo_", "XReportLayoutInfo_");
+                            }
+                        }
+                        File.WriteAllText(f.FullName, text);
+                    }
+                  
                 }
             }
         }
@@ -1321,103 +1350,163 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         #region 一键借用
+
         /// <summary>
         /// 获取服务端目录
         /// </summary>
-        /// <param name="IsPkg"></param>
+        /// <param name="typeKey"></param>
+        /// <param name="isPkg"></param>
         /// <returns></returns>
-        public static string GetServerDirPath(bool IsPkg)
+        public static string GetServerDirPath(bool isPkg)
         {
-            var wd  = IsPkg ? "WD" : "WD_C";
-            var path = string.Empty;
-            var pkgPath = Toolpars.FormEntity.TxtPkGpath;
+            var wd  = isPkg ? "WD" : "WD_C";
+            var pkgPath = Toolpars.FormEntity.PkgPath;
             var typeKeyDir = $@"{pkgPath}\{wd}";
-
-            var batchObjectsDir = $@"{typeKeyDir}\BatchObjects";
-            var businessObjectsDir = $@"{typeKeyDir}\BusinessObjects";
-            var reportObjectsDir = $@"{typeKeyDir}\ReportObjects";
-            var searchList = new List<string> { batchObjectsDir, businessObjectsDir, reportObjectsDir };
-            foreach (var filterStr in searchList)
-            {
-                if (!Directory.Exists(filterStr))
-                {
-                    continue;
-                }
-                var directoryInfo = new DirectoryInfo(filterStr);
-                var filterDirs = directoryInfo.GetDirectories(Toolpars.FormEntity.PkgTypekey, SearchOption.TopDirectoryOnly);
-                if (filterDirs.Length <= 0) continue;
-                path = filterDirs[0].FullName;
-                break;
-            }
+            var path = FindTypekeyDir(typeKeyDir, Toolpars.FormEntity.PkgTypekey);
             return path;
         }
 
         /// <summary>
+        /// 获取TYPEKEY目录
         /// </summary>
-        /// <param name="IsPkg"></param>
+        /// <param name="path"></param>
+        /// <param name="typeKey"></param>
         /// <returns></returns>
-        public static bool CopyAllPkG(bool IsPkg) {
+        public static string FindTypekeyDir(string path, string typeKey)
+        {
+            var dirPath = string.Empty;
+            try
+            {
+                var batchObjectsDir = $@"{path}\BatchObjects";
+                var businessObjectsDir = $@"{path}\BusinessObjects";
+                var reportObjectsDir = $@"{path}\ReportObjects";
+                var businessQueryObjectsDir = $@"{path}\BusinessQueryObjects";
+                var searchList = new List<string> { batchObjectsDir, businessObjectsDir, reportObjectsDir, businessQueryObjectsDir };
+
+                foreach (var filterStr in searchList)
+                {
+                    if (!Directory.Exists(filterStr))
+                        continue;
+                    var directoryInfo = new DirectoryInfo(filterStr);
+                    var filterDirs = directoryInfo.GetDirectories(typeKey, SearchOption.TopDirectoryOnly);
+                    if (filterDirs.Length <= 0) continue;
+                    dirPath = filterDirs[0].FullName;
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogTools.LogError($"FindTypeKeyDir Error! Detail:{ex.Message}");
+            }
+
+            return dirPath;
+        }
+
+        private static string GetPkgTypePathFormServer(string path)
+        {
+            var pkgTypePath = string.Empty;
+            var filterPath = path.Split('.');
+            if (filterPath.Length <= 3) return pkgTypePath;
+            pkgTypePath = $@"{filterPath[0]}.{filterPath[1]}.{filterPath[2]}";
+            return pkgTypePath;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="isPkg"></param>
+        /// <returns></returns>
+        public static bool CopyAllPkG(bool isPkg) {
             var success = true;
             try {
+                var customerToPath = Toolpars.FormEntity.ToPath;
+                var copySrc = true;
+                var copyWd = true;
+                var copyModel = true;
+
                 var pathInfo = Toolpars.PathEntity;
                 //默认取pkgsource为digiwin.erp.typekey
-                var pkgPath = pathInfo.PkgTypeKeyFullRootDir;
-                var newTypeKeyFullRootDir = pathInfo.TypeKeyFullRootDir;
+                var pkgPath = pathInfo.PkgTypeKeySrcFullRootDir;
+                var newTypeKeyFullRootDir = pathInfo.TypeKeySrcFullRootDir;
                 var newTypeKey = Toolpars.FormEntity.TxtNewTypeKey;
                 var oldTypeKey = Toolpars.FormEntity.PkgTypekey;
+                if (!oldTypeKey.ToUpper().StartsWith(@"X")&&!Directory.Exists(pkgPath)) {
+                    pkgPath = pkgPath.Replace(oldTypeKey, $@"X{oldTypeKey}");
+                }
+                //  var TxtToPath
                 //找到typeKey目录
-                var formTypeKeyDir = GetServerDirPath(IsPkg);
+                var formTypeKeyDir = GetServerDirPath(isPkg);
                 //typekey目录
                 var newTypeKeyDir = string.Empty;
+                //formTypeKeyDir一定是形如 WD_C\BUSINESS_OBJECT\MO 的目录
                 if (!string.IsNullOrEmpty(formTypeKeyDir) && Directory.Exists(formTypeKeyDir)) {
+                  
                     var directoryInfo = new DirectoryInfo(formTypeKeyDir);
-                    var wdPr = IsPkg ? "WD_PR" : "WD_PR_C";
-                    var index = Toolpars.FormEntity.TxtToPath.LastIndexOf($@"{wdPr}\SRC", StringComparison.Ordinal);
-                    if (index > -1)
-                    {
-                        newTypeKeyDir = Toolpars.FormEntity.TxtToPath.Substring(0, index);
-                    }
-                    newTypeKeyDir = PathTools.PathCombine(newTypeKeyDir, Toolpars.FormEntity.TxtNewTypeKey);
+                    var absoluteDir = $@"{directoryInfo.Parent?.Parent?.Name}\{directoryInfo.Parent?.Name}";
+                    var wd = isPkg ? "WD" : "WD_C";
+                    absoluteDir = absoluteDir.Replace(wd, "WD_C");
+                    newTypeKeyDir = PathTools.PathCombine(customerToPath, absoluteDir, Toolpars.FormEntity.TxtNewTypeKey);
                 }
 
                 //客户与typekey不可为空
-                    if (!PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtToPath)
+                    if (!PathTools.IsNullOrEmpty(customerToPath)
                     && !PathTools.IsNullOrEmpty(newTypeKey)) {
                     //客户需存在
-                    if (Directory.Exists(Toolpars.FormEntity.TxtToPath)) {
-                        //借用是否存在（源码/typekey）
+                    if (Directory.Exists(customerToPath)) {
+                        //借用不存在（源码/typekey）
                         if (!Directory.Exists(pkgPath)
-                            &&!string.IsNullOrEmpty(formTypeKeyDir) 
-                            &&!Directory.Exists(formTypeKeyDir)) {
+                            && !string.IsNullOrEmpty(formTypeKeyDir)
+                            && !Directory.Exists(formTypeKeyDir)) {
                             MessageBox.Show(Resources.CopyResourceNotExisted, Resources.ErrorMsg,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                             success = false;
                         }
                         else {
-                            //已借用，是否覆盖,直接删除全部
-                            if (Directory.Exists(newTypeKeyFullRootDir)) {
-                                if (MessageBox.Show(
-                                        newTypeKeyFullRootDir
-                                        + Environment.NewLine + Resources.DirExisted,
-                                        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) {
+                            //源码已借用，询问是否覆盖,直接删除全部
+                            if (Directory.Exists(newTypeKeyFullRootDir)
+                            ) {
+                                if (MessageBox.Show(newTypeKeyFullRootDir + Environment.NewLine + Resources.DirExisted,
+                                        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                                    == DialogResult.Yes) {
                                     object tArgsPath = Path.Combine(newTypeKeyFullRootDir);
                                     OldTools.DeleteAll(tArgsPath);
                                 }
                                 else {
-                                    success = false;
+                                    copySrc = false;
                                 }
                             }
-                            if (success) {
-                                //copyTypeKey
-                               
-                                //copy源码
-                                CopyTo(pkgPath, newTypeKeyFullRootDir, oldTypeKey,newTypeKey,null,true);
+                            //配置已借用，询问是否覆盖,直接删除全部
+                            if ((!string.IsNullOrEmpty(newTypeKeyDir) && (Directory.Exists(newTypeKeyDir))
+                            )) {
+                                if (MessageBox.Show(newTypeKeyDir + Environment.NewLine + Resources.DirExisted,
+                                        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                                    == DialogResult.Yes) {
+                                    object tArgsPath = Path.Combine(newTypeKeyDir);
+                                    OldTools.DeleteAll(tArgsPath);
+                                }
+                                else {
+                                    copyWd = false;
+                                }
+                            }
+                            //copyTypeKey
+                            if (copyWd) {
+                                if (!string.IsNullOrEmpty(formTypeKeyDir)
+                                    && Directory.Exists(formTypeKeyDir)) {
+                                    CopyTo(formTypeKeyDir, newTypeKeyDir, oldTypeKey, newTypeKey);
+                                }
+                            }
+                            //COPYSRC
+                            if (copySrc) {
+                                if (!string.IsNullOrEmpty(pkgPath)
+                                    && Directory.Exists(pkgPath)) {
+                                    //copy源码
+                                    CopyTo(pkgPath, newTypeKeyFullRootDir, oldTypeKey, newTypeKey, null, true);
+                                }
                             }
                         }
                     }
                     else {
-                        MessageBox.Show(string.Format(Resources.DirNotExisted, Toolpars.FormEntity.TxtToPath),
+                        MessageBox.Show(string.Format(Resources.DirNotExisted, customerToPath),
                             Resources.ErrorMsg,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
@@ -1432,11 +1521,22 @@ namespace Digiwin.Chun.Common.Controller {
 
                 #region 修改命名
 
-                if (success) {
-                    ModiFile(true);
-                    MessageBox.Show(Resources.GenerateSucess);
+              
+                if (copyWd)
+                {
+                    ModiFile(newTypeKeyDir, false, true);
+                    success = true;
                 }
-
+                if (copySrc)
+                {
+                    ModiFile(newTypeKeyFullRootDir, true, true);
+                }
+                if (copySrc || copyWd)
+                    MessageBox.Show(Resources.GenerateSucess);
+                else {
+                    success = false;
+                    MessageBox.Show(Resources.NoCopySource);
+                }
                 #endregion
             }
             catch (Exception ex) {

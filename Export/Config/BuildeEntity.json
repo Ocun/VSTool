@@ -87,18 +87,18 @@
                     "Name": "菜单",
                     "Description": "涉及菜单操作时，添加按钮，按钮隐藏，按钮逻辑更改"
                 },
-				{
+                {
                     "IsMerge": "False",
                     "Id": "DocumentSaveService",
                     "Name": "客户端保存",
                     "Description": "涉及保存操作时",
                     "PartId": "ClientCommonInterceptor"
                 }, {
-				    "IsMerge": "False",
+                    "IsMerge": "False",
                     "Id": "DataEntityChangedInterceptor",
                     "Name": "数据跟踪",
                     "Description": "涉及数据跟踪操作时，字段改变带值，界面实体刷新",
-					"PartId": "ClientCommonInterceptor"
+                    "PartId": "ClientCommonInterceptor"
                 }
             ]
         },
@@ -134,31 +134,31 @@
             "BuildeItems": [{
                     "Id": "ImportExcel",
                     "Name": "导入Excel",
-                    "Description": "故名思议",
+                    "Description": "顾名思义",
                     "ShowParWindow": "False"
                 },
                 {
                     "Id": "ExportExcel",
                     "Name": "导出Excel",
-                    "Description": "故名思议",
+                    "Description": "顾名思义",
                     "ShowParWindow": "False"
                 },
                 {
                     "Id": "LowFill",
                     "Name": "向下填充",
-                    "Description": "故名思议",
+                    "Description": "顾名思义",
                     "ShowParWindow": "False"
                 },
                 {
                     "Id": "PrintPreview",
                     "Name": "打印预览",
-                    "Description": "故名思议",
+                    "Description": "顾名思义",
                     "ShowParWindow": "False"
                 },
                 {
                     "Id": "Print",
                     "Name": "打印",
-                    "Description": "故名思议",
+                    "Description": "顾名思义",
                     "ShowParWindow": "False"
                 },
                 {
@@ -181,16 +181,6 @@
                     "IsPlug": "True",
                     "PlugPath": "Digiwin.Chun.Common.dll",
                     "ModuleName": "Digiwin.Chun.Common.Views.InsertForm",
-                    "ShowIcon": "True"
-                },
-                {
-                    "Id": "oneCopy",
-                    "Name": "一键借用",
-                    "Description": "复制标准或客户作业",
-                    "ShowCheckedBox": "False",
-                    "IsPlug": "True",
-                    "PlugPath": "Digiwin.Chun.Common.dll",
-                    "ModuleName": "Digiwin.Chun.Common.Views.ModiPkgForm",
                     "ShowIcon": "True"
                 },
                 {
@@ -263,15 +253,6 @@
                     "ShowCheckedBox": "False",
                     "IsTools": "True",
                     "Url": "D:\\Program Files\\GUID_SHOW\\GUID_SHOW.exe",
-                    "ShowIcon": "True"
-                },
-                {
-                    "Id": "CreateGitHubDesktopID",
-                    "Name": "GitHubDesktop",
-                    "Description": "远程代码仓储中心",
-                    "ShowCheckedBox": "False",
-                    "IsTools": "True",
-                    "Url": "C:\\Users\\zychu\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe",
                     "ShowIcon": "True"
                 }
             ]

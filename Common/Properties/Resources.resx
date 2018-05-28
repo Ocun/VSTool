@@ -244,4 +244,7 @@
   <data name="CopyResourceNotExisted" xml:space="preserve">
     <value>借用Typekey源码和配置不存在</value>
   </data>
+  <data name="NoCopySource" xml:space="preserve">
+    <value>无copy资源</value>
+  </data>
 </root>

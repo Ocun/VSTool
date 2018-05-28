@@ -40,9 +40,9 @@ namespace VSTool {
         private void ControlDataBingding() {
             SplitContainer2.Panel2.HorizontalScroll.Visible = false;
             //绑定类，当类或控件值改变时触发更新
-            txtToPath.DataBindings.Add(new Binding("Text", Toolpars.FormEntity, "txtToPath", true,
+            ToPath.DataBindings.Add(new Binding("Text", Toolpars.FormEntity, "ToPath", true,
                 DataSourceUpdateMode.OnPropertyChanged));
-            TxtPkGpath.DataBindings.Add(new Binding("Text", Toolpars.FormEntity, "TxtPkGpath", true,
+            PkgPath.DataBindings.Add(new Binding("Text", Toolpars.FormEntity, "PkgPath", true,
                 DataSourceUpdateMode.OnPropertyChanged));
             txtNewTypeKey.DataBindings.Add(new Binding("Text", Toolpars.FormEntity, "txtNewTypeKey", true,
                 DataSourceUpdateMode.OnPropertyChanged));

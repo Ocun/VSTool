@@ -35,11 +35,11 @@ namespace VSTool
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VSTOOL));
             this.BtnCreate = new System.Windows.Forms.Button();
             this.BtnOpenTo = new System.Windows.Forms.Button();
-            this.txtToPath = new System.Windows.Forms.TextBox();
+            this.ToPath = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.TxtPkGpath = new System.Windows.Forms.TextBox();
+            this.PkgPath = new System.Windows.Forms.TextBox();
             this.btnP = new System.Windows.Forms.Button();
             this.btnG = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -110,14 +110,14 @@ namespace VSTool
             this.BtnOpenTo.Text = "○";
             this.BtnOpenTo.UseVisualStyleBackColor = true;
             // 
-            // txtToPath
+            // ToPath
             // 
-            this.txtToPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ToPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtToPath.Location = new System.Drawing.Point(21, 42);
-            this.txtToPath.Name = "txtToPath";
-            this.txtToPath.Size = new System.Drawing.Size(728, 21);
-            this.txtToPath.TabIndex = 10;
+            this.ToPath.Location = new System.Drawing.Point(21, 42);
+            this.ToPath.Name = "ToPath";
+            this.ToPath.Size = new System.Drawing.Size(728, 21);
+            this.ToPath.TabIndex = 10;
             // 
             // folderBrowserDialog1
             // 
@@ -147,14 +147,14 @@ namespace VSTool
             this.btnOpen.Text = "OPEN";
             this.btnOpen.UseVisualStyleBackColor = true;
             // 
-            // TxtPkGpath
+            // PkgPath
             // 
-            this.TxtPkGpath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.PkgPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtPkGpath.Location = new System.Drawing.Point(21, 95);
-            this.TxtPkGpath.Name = "TxtPkGpath";
-            this.TxtPkGpath.Size = new System.Drawing.Size(728, 21);
-            this.TxtPkGpath.TabIndex = 27;
+            this.PkgPath.Location = new System.Drawing.Point(21, 95);
+            this.PkgPath.Name = "PkgPath";
+            this.PkgPath.Size = new System.Drawing.Size(728, 21);
+            this.PkgPath.TabIndex = 27;
             // 
             // btnP
             // 
@@ -291,7 +291,7 @@ namespace VSTool
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(193, 467);
+            this.panel3.Size = new System.Drawing.Size(190, 467);
             this.panel3.TabIndex = 34;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3_Paint);
             // 
@@ -322,7 +322,7 @@ namespace VSTool
             this.RighteTreeView.ShowDescription = false;
             this.RighteTreeView.ShowLines = false;
             this.RighteTreeView.ShowPlusMinus = false;
-            this.RighteTreeView.Size = new System.Drawing.Size(178, 444);
+            this.RighteTreeView.Size = new System.Drawing.Size(175, 444);
             this.RighteTreeView.TabIndex = 15;
             // 
             // label1
@@ -345,13 +345,13 @@ namespace VSTool
             this.panel4.Controls.Add(this.ToolsDescrition);
             this.panel4.Controls.Add(this.PkgOpenTo);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.txtToPath);
+            this.panel4.Controls.Add(this.ToPath);
             this.panel4.Controls.Add(this.btnG);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.BtnCreate);
             this.panel4.Controls.Add(this.btnP);
             this.panel4.Controls.Add(this.BtnOpenTo);
-            this.panel4.Controls.Add(this.TxtPkGpath);
+            this.panel4.Controls.Add(this.PkgPath);
             this.panel4.Controls.Add(this.btnOpen);
             this.panel4.Controls.Add(this.btnClear);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -386,7 +386,7 @@ namespace VSTool
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(49, 15);
             this.Version.TabIndex = 35;
-            this.Version.Text = "1.0.0.0.8";
+            this.Version.Text = "1.0.0.0.9";
             // 
             // linkLabel1
             // 
@@ -464,7 +464,7 @@ namespace VSTool
             // 
             this.SplitContainer1.Panel2.Controls.Add(this.panel3);
             this.SplitContainer1.Size = new System.Drawing.Size(982, 467);
-            this.SplitContainer1.SplitterDistance = 788;
+            this.SplitContainer1.SplitterDistance = 791;
             this.SplitContainer1.SplitterWidth = 1;
             this.SplitContainer1.TabIndex = 36;
             // 
@@ -475,7 +475,7 @@ namespace VSTool
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(788, 467);
+            this.panel2.Size = new System.Drawing.Size(791, 467);
             this.panel2.TabIndex = 33;
             // 
             // SplitContainer2
@@ -495,7 +495,7 @@ namespace VSTool
             // 
             this.SplitContainer2.Panel2.Controls.Add(this.ScrollPanel);
             this.SplitContainer2.Panel2.Controls.Add(this.TreeView1);
-            this.SplitContainer2.Size = new System.Drawing.Size(788, 467);
+            this.SplitContainer2.Size = new System.Drawing.Size(791, 467);
             this.SplitContainer2.SplitterDistance = 245;
             this.SplitContainer2.SplitterWidth = 1;
             this.SplitContainer2.TabIndex = 14;
@@ -539,7 +539,7 @@ namespace VSTool
             this.ScrollPanel.Location = new System.Drawing.Point(0, 0);
             this.ScrollPanel.Margin = new System.Windows.Forms.Padding(2);
             this.ScrollPanel.Name = "ScrollPanel";
-            this.ScrollPanel.Size = new System.Drawing.Size(542, 467);
+            this.ScrollPanel.Size = new System.Drawing.Size(545, 467);
             this.ScrollPanel.TabIndex = 35;
             // 
             // TreeView1
@@ -567,7 +567,7 @@ namespace VSTool
             this.TreeView1.ShowDescription = false;
             this.TreeView1.ShowLines = false;
             this.TreeView1.ShowPlusMinus = false;
-            this.TreeView1.Size = new System.Drawing.Size(542, 467);
+            this.TreeView1.Size = new System.Drawing.Size(545, 467);
             this.TreeView1.TabIndex = 13;
             this.TreeView1.Visible = false;
             // 
@@ -611,11 +611,11 @@ namespace VSTool
 
         private System.Windows.Forms.Button BtnCreate;
         private System.Windows.Forms.Button BtnOpenTo;
-        private System.Windows.Forms.TextBox txtToPath;
+        private System.Windows.Forms.TextBox ToPath;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.TextBox TxtPkGpath;
+        private System.Windows.Forms.TextBox PkgPath;
         private System.Windows.Forms.Button btnP;
         private System.Windows.Forms.Button btnG;
         private System.Windows.Forms.Panel panel1;
