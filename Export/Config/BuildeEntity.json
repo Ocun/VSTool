@@ -7,16 +7,17 @@
                     "Id": "Service",
                     "IsMerge": "False",
                     "Name": "服务",
-                    "PartId": "CommonService",
+                    "ParentId": "CommonService",
                     "Visiable": "False",
                     "Description": "搭建一个服务的框架"
                 },
                 {
                     "Id": "IService",
                     "IsMerge": "False",
-                    "PartId": "ICommonService",
-                    "Name": "服务接口",
-                    "Description": "搭建一个服务的框架"
+                    "ParentId": "ICommonService",
+                    "Name": "服务",
+                    "Description": "搭建一个服务的框架",
+                    "UnionId":["Service"]
                 },
                 {
                     "Id": "Tools",
@@ -49,32 +50,32 @@
                     "Id": "SaveInterceptor",
                     "Name": "保存",
                     "Description": "涉及保存操作时",
-                    "PartId": "commonInterceptor"
+                    "ParentId": "commonInterceptor"
                 },
                 {
                     "IsMerge": "False",
                     "Id": "ApproveInterceptor",
                     "Name": "审核",
                     "Description": "涉及审核操作时",
-                    "PartId": "commonInterceptor"
+                    "ParentId": "commonInterceptor"
                 },
                 {
                     "Id": "IDisconfirmInterceptor",
                     "Name": "撤销审核",
                     "Description": "涉及撤销审核操作时",
-                    "PartId": "commonInterceptor"
+                    "ParentId": "commonInterceptor"
                 },
                 {
                     "Id": "DeleteInterceptor",
                     "Name": "删除",
                     "Description": "涉及删除操作时",
-                    "PartId": "commonInterceptor"
+                    "ParentId": "commonInterceptor"
                 },
                 {
                     "Id": "ApproveStatusInterceptor",
                     "Name": "作废/生失效",
                     "Description": "涉及作废/生失效操作时",
-                    "PartId": "commonInterceptor"
+                    "ParentId": "commonInterceptor"
                 },
                 {
                     "Id": "Validator",
@@ -96,13 +97,13 @@
                     "Id": "DocumentSaveService",
                     "Name": "客户端保存",
                     "Description": "涉及保存操作时",
-                    "PartId": "ClientCommonInterceptor"
+                    "ParentId": "ClientCommonInterceptor"
                 }, {
                     "IsMerge": "False",
                     "Id": "DataEntityChangedInterceptor",
                     "Name": "数据跟踪",
                     "Description": "涉及数据跟踪操作时，字段改变带值，界面实体刷新",
-                    "PartId": "ClientCommonInterceptor"
+                    "ParentId": "ClientCommonInterceptor"
                 }
             ]
         },

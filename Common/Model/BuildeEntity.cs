@@ -57,6 +57,10 @@ namespace Digiwin.Chun.Common.Model {
         [XmlIgnore]
         public List<FileInfos> FileInfos { get; set; }
 
+        /// <remarks />
+        [XmlArrayItem("UnionId", IsNullable = false)]
+        public string[] UnionId { get; set; }
+
         /// <summary>
         ///     点击是否显示参数框
         /// </summary>
@@ -65,7 +69,7 @@ namespace Digiwin.Chun.Common.Model {
         /// <summary>
         ///     指示所属代码片段
         /// </summary>
-        public string PartId { get; set; }
+        public string ParentId { get; set; }
 
         /// <summary>
         ///     是否显示复选框

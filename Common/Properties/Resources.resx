@@ -247,4 +247,13 @@
   <data name="NoCopySource" xml:space="preserve">
     <value>无copy资源</value>
   </data>
+  <data name="CodeSource" xml:space="preserve">
+    <value>源码</value>
+  </data>
+  <data name="WhetherOrNot" xml:space="preserve">
+    <value>是否</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
 </root>

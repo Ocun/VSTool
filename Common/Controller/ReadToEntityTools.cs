@@ -216,6 +216,7 @@ namespace Digiwin.Chun.Common.Controller {
         /// <returns></returns>
         public static string SerializeObject<T>(T obj) where T : class {
             try {
+                //忽略null
                 var jsonSetting = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
 
                 return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented, jsonSetting);

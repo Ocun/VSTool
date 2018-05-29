@@ -82,7 +82,7 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-            //SetTestdata();
+            SetTestdata();
 
 
         }
@@ -846,7 +846,6 @@ namespace Digiwin.Chun.Common.Controller {
                 return false;
             LogTools.WriteLogByTreeView(treeView);
             InitBuilderEntity();
-            MessageBox.Show(Resources.GenerateSucess);
             return true;
         }
 
@@ -1166,10 +1165,10 @@ namespace Digiwin.Chun.Common.Controller {
             var id = bt.Id;
             var fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
                 filmap.Id.Equals(id));
-            if (bt.PartId != null
-                && !bt.PartId.Equals(string.Empty))
+            if (bt.ParentId != null
+                && !bt.ParentId.Equals(string.Empty))
                 fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
-                    filmap.Id.Equals(bt.PartId));
+                    filmap.Id.Equals(bt.ParentId));
             return fileInfo;
         }
 
@@ -1188,30 +1187,15 @@ namespace Digiwin.Chun.Common.Controller {
                 return fileInfos;
             if (fileInfo.Paths.Length == 1) {
                var fileinfo =CreateFileInfos( className, functionName, fileInfo.Paths[0]);
-                if (bt.PartId != null
-                    && !bt.PartId.Equals(string.Empty))
+                if (bt.ParentId != null
+                    && !bt.ParentId.Equals(string.Empty))
                 {
-                    fileinfo.PartId = bt.PartId;
+                    fileinfo.PartId = bt.ParentId;
                     fileinfo.Id = bt.Id;
                     fileinfo.IsMerge = bt.IsMerge;
                 }
                 fileInfos.Add(fileinfo);
-
-                //这一段用来处理接口与实现
-                if (!bt.Id.Equals("IService")) return fileInfos;
-                var iService = GetBuildeTypeById("Service", Toolpars.BuilderEntity.BuildeTypies);
-                if (iService == null) return fileInfos;
-                var fileInfoS = QueryMappingItemByBt(iService);
-                if (fileInfoS?.Paths == null) return fileInfos;
-                var fileinfos = CreateFileInfos(className.Substring(1), functionName, fileInfoS.Paths[0]);
-                if (iService.PartId != null
-                    && !iService.PartId.Equals(string.Empty))
-                {
-                    fileinfos.PartId = iService.PartId;
-                    fileinfos.Id = iService.Id;
-                    fileinfos.IsMerge = iService.IsMerge;
-                }
-                fileInfos.Add(fileinfos);
+             
             }
             else {
                 fileInfo.Paths.ToList().ForEach(path => {
@@ -1221,6 +1205,24 @@ namespace Digiwin.Chun.Common.Controller {
                 });
             }
 
+            //联动其他项
+            if (PathTools.IsNullOrEmpty(bt.UnionId))
+                return fileInfos;
+            var unionItems = bt.UnionId;
+            unionItems.ToList().ForEach(id => {
+                if(id.Equals(bt.Id))return;//防联动自身死循环
+                var iService = GetBuildeTypeById(id, Toolpars.BuilderEntity.BuildeTypies);
+                if (iService == null) return;
+                var newClassName = $@"Create{id}";
+                var newFunctionName = $@"Create{id}";
+                if (id.Equals("IService"))
+                {
+                    newClassName = className.Substring(1);
+                    newFunctionName = functionName;
+                }
+                var newFileInfo = CreateFileMappingInfo(iService, newClassName, newFunctionName);
+                fileInfos.AddRange(newFileInfo);
+            });
             return fileInfos;
         }
 

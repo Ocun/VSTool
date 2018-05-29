@@ -358,6 +358,7 @@ namespace Digiwin.Chun.Common.Controller {
         public static void BtnCreate_Click(object sender, EventArgs e) {
             try {
                 var pathInfo = Toolpars.PathEntity;
+                var success = false;
                 if (!ModiCkb.Checked) {
                     var dicPath = MyTools.GetTreeViewFilePath(RighteTreeView.Nodes);
                     var fileInfos = new List<FileInfos>();
@@ -374,10 +375,11 @@ namespace Digiwin.Chun.Common.Controller {
                             MessageBoxIcon.Error);
                         return;
                     }
-                    var success = MyTools.CreateFile(RighteTreeView);
+                     success = MyTools.CreateFile(RighteTreeView);
 
                     if (!success)
                         return;
+                  
                     if (NavTreeView.SelectedNode != null) {
                         var node = NavTreeView.SelectedNode as MyTreeNode;
                         ShowTreeView(node);
@@ -411,9 +413,14 @@ namespace Digiwin.Chun.Common.Controller {
                     var flag = MyTools.CopyModi(TreeView1.Nodes);
                     if (!flag)
                         return;
-                    MessageBox.Show(Resources.GenerateSucess);
+                    success = true;
                     ModiCkb.Checked = false;
                 }
+                    if(MessageBox.Show($@"{Resources.GenerateSucess},{Resources.WhetherOrNot}{Resources.Open}{Resources.CodeSource}?",
+                          Resources.Information, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        OpenCode_Click(null, null);
+                    }
             }
             catch (Exception ex) {
                 LogTools.LogError($"GenerClass Error! Detail {ex.Message}");

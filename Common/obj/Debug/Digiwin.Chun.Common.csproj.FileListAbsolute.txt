@@ -51,3 +51,8 @@ I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.Genera
 I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.CoreCompileInputs.cache
 I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.dll
 I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.pdb
+I:\document\my Project\VSTool\Common\bin\Debug\Digiwin.Chun.Common.xml
+I:\document\my Project\VSTool\Common\bin\Debug\Digiwin.Chun.Common.dll
+I:\document\my Project\VSTool\Common\bin\Debug\Digiwin.Chun.Common.pdb
+I:\document\my Project\VSTool\Common\bin\Debug\Newtonsoft.Json.dll
+I:\document\my Project\VSTool\Common\bin\Debug\Newtonsoft.Json.xml

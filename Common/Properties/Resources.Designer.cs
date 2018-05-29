@@ -70,6 +70,15 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
+        ///   查找类似 源码 的本地化字符串。
+        /// </summary>
+        internal static string CodeSource {
+            get {
+                return ResourceManager.GetString("CodeSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap Copy {
@@ -309,6 +318,15 @@ namespace Digiwin.Chun.Common.Properties {
         }
         
         /// <summary>
+        ///   查找类似 打开 的本地化字符串。
+        /// </summary>
+        internal static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开Word文档出错 的本地化字符串。
         /// </summary>
         internal static string OpenDocError {
@@ -456,6 +474,15 @@ namespace Digiwin.Chun.Common.Properties {
         internal static string WarningMsg {
             get {
                 return ResourceManager.GetString("WarningMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否 的本地化字符串。
+        /// </summary>
+        internal static string WhetherOrNot {
+            get {
+                return ResourceManager.GetString("WhetherOrNot", resourceCulture);
             }
         }
     }

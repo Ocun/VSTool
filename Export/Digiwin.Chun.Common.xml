@@ -1866,12 +1866,15 @@
               对应的模板文件
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.UnionId">
+            <remarks />
+        </member>
         <member name="P:Digiwin.Chun.Common.Model.BuildeType.ShowParWindow">
             <summary>
                 点击是否显示参数框
             </summary>
         </member>
-        <member name="P:Digiwin.Chun.Common.Model.BuildeType.PartId">
+        <member name="P:Digiwin.Chun.Common.Model.BuildeType.ParentId">
             <summary>
                 指示所属代码片段
             </summary>
@@ -2832,6 +2835,11 @@
               查找类似 客户端正在运行 的本地化字符串。
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.CodeSource">
+            <summary>
+              查找类似 源码 的本地化字符串。
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.Copy">
             <summary>
               查找 System.Drawing.Bitmap 类型的本地化资源。
@@ -2962,6 +2970,11 @@
               查找类似 不可为空 的本地化字符串。
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.Open">
+            <summary>
+              查找类似 打开 的本地化字符串。
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Properties.Resources.OpenDocError">
             <summary>
               查找类似 打开Word文档出错 的本地化字符串。
@@ -3040,6 +3053,11 @@
         <member name="P:Digiwin.Chun.Common.Properties.Resources.WarningMsg">
             <summary>
               查找类似 警告 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Properties.Resources.WhetherOrNot">
+            <summary>
+              查找类似 是否 的本地化字符串。
             </summary>
         </member>
         <member name="T:Digiwin.Chun.Common.Views.OpenDirForm">
