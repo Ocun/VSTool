@@ -131,7 +131,7 @@ namespace Digiwin.Chun.Common.Controller {
                 if (fileinfo.Directory == null)
                     continue;
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
-                //不改变文件名，copy代码不用改文件名
+              
                 var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
                 if (fileName.Contains("ReportLayoutInfo") && (fileName.EndsWith(".repx") || fileName.EndsWith(".xml"))) {
                     fileName = $@"X{fileName}";
@@ -192,7 +192,7 @@ namespace Digiwin.Chun.Common.Controller {
                     continue;
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
                 //不改变文件名，copy代码不用改文件名
-                var fileName = fileinfo.Name;
+                var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
                 var absolutePath = PathTools.PathCombine(absolutedir,fileName);
 
                 var newFilePath = PathTools.PathCombine(toDir, absolutePath);

@@ -51,4 +51,3 @@ I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.Genera
 I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csproj.CoreCompileInputs.cache
 I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.dll
 I:\document\my Project\VSTool\Common\obj\Debug\Digiwin.Chun.Common.pdb
-E:\MyProject\VSTool\Common\obj\Debug\Digiwin.Chun.Common.csprojResolveAssemblyReference.cache

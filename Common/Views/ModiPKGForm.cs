@@ -1,9 +1,7 @@
 ﻿// create By 08628 20180411
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Controller;
 using Digiwin.Chun.Common.Model;
@@ -95,9 +93,8 @@ namespace Digiwin.Chun.Common.Views {
 
                 Toolpars.FormEntity.PkgPath =
                     customerName.Equals(empStr)
-                        ? PathTools.PathCombine(@"\\192.168.168.15\PKG_Source", Toolpars.MVersion, WdPr, "SRC")
-                        : PathTools.PathCombine(@"\\192.168.168.15\E10_Shadow", Toolpars.MVersion, customerName, WdPr,
-                            "SRC");
+                        ? PathTools.PathCombine(@"\\192.168.168.15\PKG_Source", Toolpars.MVersion)
+                        : PathTools.PathCombine(@"\\192.168.168.15\E10_Shadow", Toolpars.MVersion, customerName);
                 var pathInfo = Toolpars.PathEntity;
                 var pkgDir = pathInfo.PkgTypeKeySrcFullRootDir;
                 if (!Directory.Exists(pkgDir)) {
@@ -113,7 +110,7 @@ namespace Digiwin.Chun.Common.Views {
                 {
                     customerDir = Path.GetDirectoryName(Path.GetDirectoryName(PkgPathOld));
                 }
-                var customerFullPathDir = PathTools.PathCombine(customerDir, customerName, WdPr, "SRC");
+                var customerFullPathDir = PathTools.PathCombine(customerDir, customerName);
                 Toolpars.FormEntity.PkgPath =
                     IsPkg ? PkgPathOld : customerFullPathDir;
             }
@@ -165,7 +162,7 @@ namespace Digiwin.Chun.Common.Views {
                   customerDir =Path.GetDirectoryName(Path.GetDirectoryName(PkgPathOld));
                 }
                 Toolpars.FormEntity.PkgPath =
-                    IsPkg ? PkgPathOld  : $@"{customerDir}\{customerName}\{WdPr}\SRC";
+                    IsPkg ? PkgPathOld  : $@"{customerDir}\{customerName}";
             }
 
           
