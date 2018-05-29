@@ -82,7 +82,7 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-           // SetTestdata();
+            //SetTestdata();
 
 
         }
@@ -770,7 +770,7 @@ namespace Digiwin.Chun.Common.Controller {
             #region 检查覆盖
 
             if (msgList.Count > 0) {
-                var msg = String.Empty;
+                var msg = string.Empty;
                 msgList.ForEach(str => { msg += str + Environment.NewLine; });
                 if (MessageBox.Show(msg + Resources.FileExisted, Resources.WarningMsg, MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning)
@@ -908,9 +908,9 @@ namespace Digiwin.Chun.Common.Controller {
         private static void InitBuildeTypies(BuildeType[] buildeTypies) {
             buildeTypies?.ToList().ForEach(item => {
                 if (item.Checked != null
-                    && item.Checked.Equals("True")
+                    &&PathTools.IsTrue("True")
                 ) {
-                    item.FileInfos = CreateFileMappingInfo(item);
+                    item.FileInfos = CreateFileMappingInfo(item, $"Create{item.Id}", $"Create{item.Id}");
                     if (item.BuildeItems != null)
                         InitBuildeTypies(item.BuildeItems);
                 }
@@ -1129,63 +1129,94 @@ namespace Digiwin.Chun.Common.Controller {
         }
 
         /// <summary>
-        ///     创建项目的模板文件映射
+        /// 
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <param name="bt"></param>
+        /// <param name="fileInfos"></param>
+        public static void SetFileInfo(string parentId, BuildeType bt,List<FileInfos> fileInfos)  {
+            var parItem = Toolpars.BuilderEntity.BuildeTypies.ToList()
+                .Where(et => et.Id.Equals(parentId)).ToList();
+            if (parItem.Count <= 0) return;
+            {
+                var citem = parItem[0].BuildeItems
+                    .Where(et => et.Id.Equals(bt.Id)).ToList();
+                if (citem.Count > 0)
+                    if (PathTools.IsTrue(bt.Checked))
+                        citem.ForEach(ee => {
+                                ee.Checked = "True";
+                                ee.FileInfos = fileInfos;
+                            }
+                        );
+                    else
+                        citem.ForEach(ee => {
+                            ee.Checked = "False";
+                            ee.FileInfos = fileInfos;
+                        });
+            }
+        }
+
+        /// <summary>
+        /// 返回项目对应的文件
         /// </summary>
         /// <param name="bt"></param>
         /// <returns></returns>
-        public static List<FileInfos> CreateFileMappingInfo(BuildeType bt) {
-            var fileInfos = new List<FileInfos>();
+        public static MappingItem QueryMappingItemByBt(BuildeType bt) {
             var fileMapping = Toolpars.FileMappingEntity;
             var id = bt.Id;
             var fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
-                filmap.Id.Equals(id)
-            );
+                filmap.Id.Equals(id));
+            if (bt.PartId != null
+                && !bt.PartId.Equals(string.Empty))
+                fileInfo = fileMapping.MappingItems.ToList().FirstOrDefault(filmap =>
+                    filmap.Id.Equals(bt.PartId));
+            return fileInfo;
+        }
+
+        /// <summary>
+        ///     创建项目的模板文件映射
+        /// </summary>
+        /// <param name="bt"></param>
+        /// <param name="className"></param>
+        /// <param name="functionName"></param>
+        /// <returns></returns>
+        public static List<FileInfos> CreateFileMappingInfo(BuildeType bt,string className,string functionName) {
+            var fileInfos = new List<FileInfos>();
+            var fileInfo = QueryMappingItemByBt(bt);
+
             if (fileInfo?.Paths == null)
                 return fileInfos;
             if (fileInfo.Paths.Length == 1) {
-                var fileinfo = new FileInfos {
-                    ActionName = "",
-                    ClassName = $"Create{id}",
-                    FileName = $"Create{id}",
-                    FunctionName = $"Create{id}"
-                };
-
-                var path = fileInfo.Paths[0];
-                fileinfo.BasePath = fileInfo.Paths[0];
-                var fromPath = PathTools.PathCombine(Toolpars.MvsToolpath, "Template", path);
-                fileinfo.FromPath = fromPath;
-                var oldFilePath = Path.GetFileNameWithoutExtension(path);
-                if (oldFilePath != null) {
-                    var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-                    fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
-                }
+               var fileinfo =CreateFileInfos( className, functionName, fileInfo.Paths[0]);
                 if (bt.PartId != null
-                    && !bt.PartId.Equals(String.Empty)) {
+                    && !bt.PartId.Equals(string.Empty))
+                {
                     fileinfo.PartId = bt.PartId;
-                    fileinfo.PartId = bt.Id;
+                    fileinfo.Id = bt.Id;
                     fileinfo.IsMerge = bt.IsMerge;
                 }
                 fileInfos.Add(fileinfo);
+
+                //这一段用来处理接口与实现
+                if (!bt.Id.Equals("IService")) return fileInfos;
+                var iService = GetBuildeTypeById("Service", Toolpars.BuilderEntity.BuildeTypies);
+                if (iService == null) return fileInfos;
+                var fileInfoS = QueryMappingItemByBt(iService);
+                if (fileInfoS?.Paths == null) return fileInfos;
+                var fileinfos = CreateFileInfos(className.Substring(1), functionName, fileInfoS.Paths[0]);
+                if (iService.PartId != null
+                    && !iService.PartId.Equals(string.Empty))
+                {
+                    fileinfos.PartId = iService.PartId;
+                    fileinfos.Id = iService.Id;
+                    fileinfos.IsMerge = iService.IsMerge;
+                }
+                fileInfos.Add(fileinfos);
             }
             else {
                 fileInfo.Paths.ToList().ForEach(path => {
                     var classNameFiled = Path.GetFileNameWithoutExtension(path);
-                    var fromPath = PathTools.PathCombine(Toolpars.MvsToolpath, "Template", path);
-                    var fileinfo = new FileInfos {
-                        ActionName = "",
-                        ClassName = classNameFiled,
-                        FileName = classNameFiled,
-                        FunctionName = "",
-                        BasePath = path,
-                        FromPath = fromPath
-                    };
-                    var oldFilePath = Path.GetFileNameWithoutExtension(path);
-                    if (oldFilePath != null) {
-                        var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-
-                        fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
-                    }
-
+                    var fileinfo = CreateFileInfos(classNameFiled,"",path);
                     fileInfos.Add(fileinfo);
                 });
             }
@@ -1193,10 +1224,34 @@ namespace Digiwin.Chun.Common.Controller {
             return fileInfos;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="functionName"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static FileInfos CreateFileInfos(string className,string functionName,string path) {
+            var fromPath = PathTools.PathCombine(Toolpars.MvsToolpath, "Template", path);
+            var fileinfo = new FileInfos {
+                ActionName = "",
+                ClassName = className,
+                FileName = className,
+                FunctionName = functionName,
+                BasePath = path,
+                FromPath = fromPath,
+            };
+            var oldFilePath = Path.GetFileNameWithoutExtension(path);
+            if (oldFilePath == null) return fileinfo;
+            var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
+            fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
+            return fileinfo;
+        }
+
         #endregion
 
         #region 借用修改
-        
+
         /// <summary>
         ///     修改代码
         /// </summary>
@@ -1207,10 +1262,11 @@ namespace Digiwin.Chun.Common.Controller {
             try {
                 var fileInfos = GetTreeViewPath(nodes);
                 var pathInfo = Toolpars.PathEntity;
-                 var formDir = pathInfo.PkgTypeKeySrcFullRootDir;
+                var formDir = pathInfo.PkgTypeKeySrcFullRootDir;
                 var toDir = pathInfo.TypeKeySrcFullRootDir;
-                CopyTo(formDir, toDir, Toolpars.FormEntity.PkgTypekey, Toolpars.FormEntity.TxtNewTypeKey, fileInfos,false);
-                ModiFile(toDir,true, false);
+                CopyTo(formDir, toDir, Toolpars.FormEntity.PkgTypekey, Toolpars.FormEntity.TxtNewTypeKey, fileInfos,
+                    false);
+                ModiFile(toDir, true, false);
             }
             catch (Exception) {
                 sucess = false;
@@ -1221,7 +1277,7 @@ namespace Digiwin.Chun.Common.Controller {
 
             return sucess;
         }
-        
+
         /// <summary>
         /// 修改文件 新的typekey
         /// </summary>
@@ -1658,6 +1714,28 @@ namespace Digiwin.Chun.Common.Controller {
             return btsList.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="bts"></param>
+        /// <returns></returns>
+        public static BuildeType GetBuildeTypeById(string id, BuildeType[] bts) {
+                 if (PathTools.IsNullOrEmpty(id)
+                || bts == null) return null;
+                var btsList = bts.ToList();
+                var resBt = btsList.FirstOrDefault(bt => bt.Id.Equals(id));
+                if (resBt != null) return resBt;
+            
+                foreach (var bt in btsList) {
+                    if (bt.BuildeItems == null) continue;
+                    resBt = GetBuildeTypeById(id, bt.BuildeItems);
+                    if (resBt != null) break;
+                }
+            
+
+            return resBt;
+        }
 
         /// <summary>
         ///  根据Id删除配置节点

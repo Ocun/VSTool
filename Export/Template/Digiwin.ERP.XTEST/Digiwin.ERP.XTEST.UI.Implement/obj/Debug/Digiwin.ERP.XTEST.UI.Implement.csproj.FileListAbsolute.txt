@@ -1,11 +1,5 @@
-C:\Users\lihui\Desktop\test\jeck\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\ResolveAssemblyReference.cache
-E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\ResolveAssemblyReference.cache
-E:\DF_E10_5.0.0\TEST\SRC\Export\Digiwin.ERP.XTEST.UI.Implement.dll
-E:\DF_E10_5.0.0\TEST\SRC\Export\Digiwin.ERP.XTEST.UI.Implement.pdb
-E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.dll
-E:\DF_E10_5.0.0\TEST\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.pdb
 E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\ResolveAssemblyReference.cache
-E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.pdb
 E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Export\Digiwin.ERP.XTEST.UI.Implement.dll
 E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Export\Digiwin.ERP.XTEST.UI.Implement.pdb
 E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.dll
+E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.UI.Implement\obj\Debug\Digiwin.ERP.XTEST.UI.Implement.pdb

@@ -1,19 +1,27 @@
 {
     "MappingItems": [{
-            "Id": "Service",
+            "Id": "CommonService",
             "Description": "服务",
             "Paths": [
-                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\InterFace\\ITestsService.cs",
                 "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Implement\\TestsService.cs"
             ]
         },
+
+        {
+            "Id": "ICommonService",
+            "Description": "服务",
+            "Paths": [
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\InterFace\\ITestsService.cs"
+            ]
+        },
+
         {
             "Id": "Tools",
             "Description": "工具类",
             "Paths": [
                 "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\MyTools.cs",
                 "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Tools\\ServiceTools.cs"
-               
+
             ]
         },
         {

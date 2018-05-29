@@ -9,7 +9,11 @@ namespace Digiwin.ERP.XTEST.Business
 {
     [TypeKeyOnly]	
     public interface _ITestsService_
-    {
+    { 
+        #region __InsertHere__
+        #region  Service
         DependencyObjectCollection MyFunc();
+        #endregion  Service
+        #endregion __InsertHere__
     }
 }

@@ -1367,11 +1367,37 @@
             </summary>
             <param name="fileInfos"></param>
         </member>
-        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CreateFileMappingInfo(Digiwin.Chun.Common.Model.BuildeType)">
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.SetFileInfo(System.String,Digiwin.Chun.Common.Model.BuildeType,System.Collections.Generic.List{Digiwin.Chun.Common.Model.FileInfos})">
+            <summary>
+            
+            </summary>
+            <param name="parentId"></param>
+            <param name="bt"></param>
+            <param name="fileInfos"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.QueryMappingItemByBt(Digiwin.Chun.Common.Model.BuildeType)">
+            <summary>
+            返回项目对应的文件
+            </summary>
+            <param name="bt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CreateFileMappingInfo(Digiwin.Chun.Common.Model.BuildeType,System.String,System.String)">
             <summary>
                 创建项目的模板文件映射
             </summary>
             <param name="bt"></param>
+            <param name="className"></param>
+            <param name="functionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.CreateFileInfos(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="className"></param>
+            <param name="functionName"></param>
+            <param name="path"></param>
             <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.CopyModi(System.Windows.Forms.TreeNodeCollection)">
@@ -1445,6 +1471,14 @@
             </summary>
             <param name="id"></param>
             <param name="bts"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Controller.MyTools.GetBuildeTypeById(System.String,Digiwin.Chun.Common.Model.BuildeType[])">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="bts"></param>
+            <returns></returns>
         </member>
         <member name="M:Digiwin.Chun.Common.Controller.MyTools.DeleteById(Digiwin.Chun.Common.Model.BuildeType)">
             <summary>
@@ -3233,13 +3267,19 @@
             <summary>
             </summary>
         </member>
-        <member name="M:Digiwin.Chun.Common.Views.ModiName.#ctor(Digiwin.Chun.Common.Model.BuildeType,Digiwin.Chun.Common.Model.Toolpars)">
+        <member name="M:Digiwin.Chun.Common.Views.ModiName.#ctor(Digiwin.Chun.Common.Model.BuildeType,Digiwin.Chun.Common.Model.BuildeType,Digiwin.Chun.Common.Model.Toolpars)">
             <summary>
             </summary>
             <param name="itemBuildeType"></param>
+            <param name="parBuliderType"></param>
             <param name="toolpars"></param>
         </member>
         <member name="P:Digiwin.Chun.Common.Views.ModiName.BuildeType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Views.ModiName.ParBuliderType">
             <summary>
             
             </summary>

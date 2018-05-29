@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Digiwin.Common;
+using Digiwin.Common.Core;
 using Digiwin.Common.Query2;
 using Digiwin.Common.Torridity;
+using System.ComponentModel;
+using Digiwin.Common.Services;
+using Digiwin.ERP.Common.Utils;
+using Digiwin.ERP.CommonSupplyChain.Business;
+using Digiwin.ERP.Common.Business;
+using Digiwin.Common.Torridity.Metadata;
 
 namespace Digiwin.ERP.XTEST.Business.Implement
 {
@@ -32,7 +40,8 @@ namespace Digiwin.ERP.XTEST.Business.Implement
             get { return _myServiceTool ?? (_myServiceTool = MyTool.MyService); }
         }
         #endregion
-
+        #region __InsertHere__
+        #region Service
         public DependencyObjectCollection MyFunc()
         {
             // 使用事务
@@ -40,5 +49,8 @@ namespace Digiwin.ERP.XTEST.Business.Implement
             //trans.Complete();
             //}
         }
+        
+         #endregion Service
+        #endregion __InsertHere__
     }
 }

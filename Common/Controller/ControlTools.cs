@@ -382,6 +382,7 @@ namespace Digiwin.Chun.Common.Controller {
                         var node = NavTreeView.SelectedNode as MyTreeNode;
                         ShowTreeView(node);
                     }
+                    //清空右侧导航
                     MyTreeViewTools.CreateRightView(RighteTreeView);
                 }
                 else {
@@ -856,29 +857,30 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.MDistince = false;
             var trueStr = "True";
             var falseStr = "False";
+            var parNode = NavTreeView.SelectedNode as MyTreeNode;
+            var parBuildeType = parNode?.BuildeType;
             if (e.Node is MyTreeNode node) {
                 var builderType = node.BuildeType;
                 if (Toolpars.FormEntity.EditState)
                     return;
                 if (PathTools.IsTrue(builderType.ReadOnly))
                     return;
-
-                var fileInfos = new List<FileInfos>();
                 if (e.Node.Checked) {
                     builderType.Checked = trueStr;
                     if (!ModiCkb.Checked)
                         if (PathTools.IsFasle(builderType.ShowParWindow)
                         ) {
-                            fileInfos = MyTools.CreateFileMappingInfo(builderType);
+                            var fileInfos=  
+                                MyTools.CreateFileMappingInfo(builderType, 
+                                $"Create{builderType.Id}",
+                                $"Create{builderType.Id}" );
+                            MyTools.SetFileInfo(parBuildeType?.Id, builderType, fileInfos);
                         }
                         else {
                             var myForm =
-                                new ModiName(builderType, Toolpars)
+                                new ModiName(builderType, parBuildeType, Toolpars)
                                     {StartPosition = FormStartPosition.CenterParent};
-                            if (myForm.ShowDialog() == DialogResult.OK) {
-                                fileInfos = myForm.FileInfos;
-                            }
-                            else {
+                            if (myForm.ShowDialog() != DialogResult.OK) {
                                 builderType.Checked = falseStr;
                                 e.Node.Checked = false;
                             }
@@ -886,32 +888,12 @@ namespace Digiwin.Chun.Common.Controller {
                 }
                 else {
                     builderType.Checked = falseStr;
+                    MyTools.SetFileInfo(parBuildeType?.Id, builderType, null);
                 }
-                if (NavTreeView.SelectedNode != null) {
-                    var parNode = NavTreeView.SelectedNode as MyTreeNode;
-                    var parItem = Toolpars.BuilderEntity.BuildeTypies.ToList()
-                        .Where(et => parNode != null && et.Id.Equals(parNode.BuildeType.Id)).ToList();
-                    if (parItem.Count > 0) {
-                        var citem = parItem[0].BuildeItems
-                            .Where(et => {
-                                var myTreeNode = e.Node as MyTreeNode;
-                                return myTreeNode != null && et.Id.Equals(myTreeNode.BuildeType.Id);
-                            }).ToList();
-                        if (citem.Count > 0)
-                            if (e.Node.Checked)
-                                citem.ForEach(ee => {
-                                        ee.Checked = trueStr;
-                                        ee.FileInfos = fileInfos;
-                                    }
-                                );
-                            else
-                                citem.ForEach(ee => {
-                                    ee.Checked = falseStr;
-                                    ee.FileInfos = fileInfos;
-                                });
-                    }
-                }
+              
+              
             }
+            //刷新右面板
             if (!Toolpars.FormEntity.EditState)
                 MyTreeViewTools.CreateRightView(RighteTreeView);
         }

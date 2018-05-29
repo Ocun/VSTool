@@ -80,8 +80,8 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             targetType = null;
             string[] spiltTypeKeys = null;
             //单身
-            bool isColls = false;
-            string primaryKey = string.Empty;
+            var isColls = false;
+            var primaryKey = string.Empty;
             if (typeKey.Contains(@".")) {
                 spiltTypeKeys = typeKey.Split(new[] {'.'});
                 typeKey = spiltTypeKeys[0];
@@ -95,7 +95,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             }
             var entity = createSrv.Create() as DependencyObject;
             if (entity != null) {
-                DependencyObjectType toType = entity.DependencyObjectType;
+                var toType = entity.DependencyObjectType;
                 //去单身实体结构
                 if (isColls) {
                     spiltTypeKeys.ToList().ForEach(key => {
@@ -105,11 +105,11 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                         }
                     });
                 }
-                IBusinessTypeService businessTypeSrv = MyService.BusinessTypeSrv;
+                var businessTypeSrv = MyService.BusinessTypeSrv;
                 targetType = RegiesterType(toType, null);
                 if (isColls) {
                     //附加父主键
-                    string primaryKeyName = primaryKey + "_ID";
+                    var primaryKeyName = primaryKey + "_ID";
 
                     targetType.RegisterSimpleProperty(primaryKeyName, businessTypeSrv.SimplePrimaryKeyType,
                         null, false, new Attribute[] {
@@ -158,14 +158,14 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         // ReSharper disable once UnusedMember.Local
         public void CreateTmp(DependencyObjectCollection datas, out DependencyObjectType tmpType, out DataTable tempDt) {
             try {
-                DependencyObjectType itemDependencyObjectType = datas.ItemDependencyObjectType;
+                var itemDependencyObjectType = datas.ItemDependencyObjectType;
                 //创建临时表
                 tmpType = RegiesterType(itemDependencyObjectType, null);
                 tempDt = new DataTable();
                 if (tmpType == null) {
                     return;
                 }
-                IQueryService qurService = MyService.QuerySrv;
+                var qurService = MyService.QuerySrv;
                 qurService.CreateTempTable(tmpType);
                 //创建DataTable
                 tempDt = CreateDt(itemDependencyObjectType, tempDt);
@@ -231,24 +231,24 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <returns></returns>
         public DependencyObjectType RegiesterType(
             DependencyObjectType formType, DependencyObjectType targetType) {
-            IBusinessTypeService businessTypeSrv = MyService.BusinessTypeSrv;
+            var businessTypeSrv = MyService.BusinessTypeSrv;
             var stringAttr = new SimplePropertyAttribute(GeneralDBType.String);
             var dtAttr = new SimplePropertyAttribute(GeneralDBType.DateTime);
             var intAttr = new SimplePropertyAttribute(GeneralDBType.Int32);
             if (targetType == null) {
-                string tempTableName = "tmpYC_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var tempTableName = "tmpYC_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
                 targetType = new DependencyObjectType(tempTableName, new Attribute[] {});
             }
 
             if (formType == null) {
                 return null;
             }
-            foreach (DependencyProperty prop in formType.Properties) {
+            foreach (var prop in formType.Properties) {
                 //临时表字段名不可大于30个字符，不是处理方式，后续补充
-                string propName = prop.Name.Length > 30 ? prop.Name.Substring(0, 29) : prop.Name;
+                var propName = prop.Name.Length > 30 ? prop.Name.Substring(0, 29) : prop.Name;
 
 
-                DependencyProperty isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(propName));
+                var isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(propName));
                 if (isExist != null) {
                     continue;
                 }
@@ -256,33 +256,33 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 string[] cnames = {
                     "Version",
                     "CreateDate", "LastModifiedDate", "ModifiedDate", "CreateBy",
-                    "LastModifiedBy", "ModifiedBy", "ApproveStatus", "ApproveDate", "ApproveBy"
+                    "LastModifiedBy", "ModifiedBy", "ApproveBy"
                 };
                 if (cnames.Contains(propName)) {
                     continue;
                 }
 
-                Type propType = prop.PropertyType;
+                var propType = prop.PropertyType;
 
                 if (propType == typeof (DependencyObject)
                     ||
                     propType == typeof (DependencyObjectCollection)) {
                     // 本次个案需要
                     try {
-                        bool flag = prop is IComplexProperty;
+                        var flag = prop is IComplexProperty;
                         if (flag) {
                             if (((IComplexProperty) (prop)).DataEntityType.Name == "ReferToEntity") {
-                                ISimplePropertyCollection cpropies =
+                                var cpropies =
                                     ((IComplexProperty) (prop)).DataEntityType.SimpleProperties;
 
                                 if (cpropies != null) {
-                                    ISimpleProperty existRtk =
+                                    var existRtk =
                                         cpropies.ToList()
                                             .FirstOrDefault(
                                                 cprop => cprop.Name.Equals("ROid") || cprop.Name.Equals("RTK"));
                                     if (existRtk != null) {
-                                        string rtkName = propName + "_RTK";
-                                        string roidName = propName + "_ROid";
+                                        var rtkName = propName + "_RTK";
+                                        var roidName = propName + "_ROid";
                                         targetType.RegisterSimpleProperty(rtkName, typeof (string),
                                             string.Empty, false, new Attribute[] {
                                                 stringAttr
@@ -298,7 +298,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                             }
                         }
                     }
-                    catch (Exception) {
+                    catch {
                     }
                 }
                 //忽略UDF字段
@@ -363,17 +363,17 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             if (fromType == null) {
                 return null;
             }
-            DependencyPropertyCollection dpc = fromType.Properties;
+            var dpc = fromType.Properties;
 
             if (targetTable == null) {
                 targetTable = new DataTable();
             }
 
             try {
-                foreach (DependencyProperty prop in dpc) {
-                    Type propType = prop.PropertyType;
-                    string targetName = prop.Name; //列名
-                    bool isExist = false;
+                foreach (var prop in dpc) {
+                    var propType = prop.PropertyType;
+                    var targetName = prop.Name; //列名
+                    var isExist = false;
                     foreach (DataColumn column in targetTable.Columns) {
                         isExist = column.ColumnName.Equals(targetName);
                     }
@@ -387,7 +387,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                     string[] cnames = {
                         "Version",
                         "CreateDate", "LastModifiedDate", "ModifiedDate", "CreateBy",
-                        "LastModifiedBy", "ModifiedBy", "ApproveStatus", "ApproveDate", "ApproveBy"
+                        "LastModifiedBy", "ModifiedBy", "ApproveBy"
                     };
                     if (cnames.Contains(prop.Name)) {
                         continue;
@@ -399,15 +399,15 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                         ) {
                         if (prop is IComplexProperty
                             && ((IComplexProperty) (prop)).DataEntityType.Name == "ReferToEntity") {
-                            ISimplePropertyCollection cpropies =
+                            var cpropies =
                                 ((IComplexProperty) (prop)).DataEntityType.SimpleProperties;
                             if (cpropies != null) {
-                                ISimpleProperty existRtk =
+                                var existRtk =
                                     cpropies.ToList()
                                         .FirstOrDefault(cprop => cprop.Name.Equals("ROid") || cprop.Name.Equals("RTK"));
                                 if (existRtk != null) {
-                                    string rtkName = targetName + "_RTK";
-                                    string roidName = targetName + "_ROid";
+                                    var rtkName = targetName + "_RTK";
+                                    var roidName = targetName + "_ROid";
                                     targetTable.Columns.Add(rtkName, typeof (string));
                                     targetTable.Columns.Add(roidName, typeof (object));
                                 }
@@ -437,7 +437,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         public DependencyObjectType RegiesterType(
             IEnumerable<RegiesterTypeParameter> formType, DependencyObjectType targetType) {
             if (targetType == null) {
-                string tempTableName = "tmpYC_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var tempTableName = "tmpYC_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
                 targetType = new DependencyObjectType(tempTableName, new Attribute[] {});
             }
             var businessTypeSrv = MyService.BusinessTypeSrv;
@@ -449,12 +449,12 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             }
 
             formType.ToList().ForEach(prop => {
-                Type propType = prop.Type;
-                List<string> propNames = prop.Properties;
-                foreach (string propName in propNames) {
-                    string typeName = propType.ToString();
-                    string name = propName;
-                    DependencyProperty isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(name));
+                var propType = prop.Type;
+                var propNames = prop.Properties;
+                foreach (var propName in propNames) {
+                    var typeName = propType.ToString();
+                    var name = propName;
+                    var isExist = targetType.Properties.FirstOrDefault(p => p.Name.Equals(name));
                     if (isExist != null) {
                         continue;
                     }
@@ -518,10 +518,10 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             }
 
             fromType.ForEach(prop => {
-                Type propType = prop.Type;
-                List<string> propNames = prop.Properties;
+                var propType = prop.Type;
+                var propNames = prop.Properties;
                 foreach (string propName in propNames) {
-                    bool isExist = false;
+                    var isExist = false;
                     foreach (DataColumn column in targetTable.Columns) {
                         isExist = column.ColumnName.Equals(propName);
                     }
@@ -543,30 +543,30 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <param name="targetTable"></param>
         /// <returns></returns>
         public DataTable DOCToDataTable(IEnumerable<DependencyObject> formCollection, DataTable targetTable) {
-            foreach (DependencyObject item in formCollection) {
-                DataRow dr = targetTable.NewRow();
+            foreach (var item in formCollection) {
+                var dr = targetTable.NewRow();
 
                 foreach (DataColumn col in targetTable.Columns) {
                     try {
-                        DependencyProperty fristObject =
+                        var fristObject =
                             item.DependencyObjectType.Properties.FirstOrDefault(p => p.Name.Equals(col.ColumnName));
                         if (fristObject != null) {
                             dr[col.ColumnName] = item[col.ColumnName];
                         }
                         else {
                             // 转化复杂类型
-                            string targetName = col.ColumnName; //列名
+                            var targetName = col.ColumnName; //列名
                             //列名中的下划线大于0，且以[_RTK]或[_ROid]结尾的列名视为多来源字段
                             if ((targetName.IndexOf("_", StringComparison.CurrentCultureIgnoreCase) > 0)
                                 && (targetName.EndsWith("_RTK", StringComparison.CurrentCultureIgnoreCase)
                                     || targetName.EndsWith("_ROid", StringComparison.CurrentCultureIgnoreCase))) {
                                 //列名长度
-                                int nameLength = targetName.Length;
+                                var nameLength = targetName.Length;
                                 //最后一个下划线后一位位置
-                                int endPos = targetName.LastIndexOf("_", StringComparison.Ordinal) + 1;
+                                var endPos = targetName.LastIndexOf("_", StringComparison.Ordinal) + 1;
                                 //拼接目标字段名
-                                string newTargetName = targetName.Substring(0, endPos - 1);
-                                string extName = targetName.Substring(endPos, nameLength - endPos);
+                                var newTargetName = targetName.Substring(0, endPos - 1);
+                                var extName = targetName.Substring(endPos, nameLength - endPos);
                                 fristObject =
                                     item.DependencyObjectType.Properties.FirstOrDefault(
                                         p => p.Name.Equals(newTargetName));
@@ -615,7 +615,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
                 }
                 else {
                     var confirmService = GetService<IConfirmService>(typekey);
-                    ILogOnService logOnSer = MyService.LogOnSrv;
+                    var logOnSer = MyService.LogOnSrv;
                     var context = new ConfirmContext(id, logOnSer.CurrentUserId, dt) {UseTransaction = false};
                     confirmService.Execute(context);
                 }
@@ -660,12 +660,12 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <param name="enabled"></param>
         public void SetValidateEnable(string typeKey, IEnumerable<ValidateActivePoint> points, bool enabled) {
             var validateSrv = GetService<IValidatorContainer>(typeKey);
-            ValidatorCollection validateColl = validateSrv.Validators;
+            var validateColl = validateSrv.Validators;
             validateColl.ToList().ForEach(validate => {
-                ValidateActivePointCollection activePointColl = validate.ActivePoints;
+                var activePointColl = validate.ActivePoints;
                 activePointColl.ToList().ForEach(activePoint => {
-                    bool exist =
-                        points.Any(point => activePoint.ActivePoint != null && activePoint.ActivePoint.Equals(point));
+                    var exist =
+                        points.Any(point => activePoint != null && activePoint.Equals(point));
                     if (exist) {
                         activePoint.Enabled = enabled;
                     }
@@ -683,7 +683,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <param name="isEnable"></param>
         public void SetFormula(string typeKey, string path, string id, bool isEnable) {
             var formulas = GetService<IFormulaContainer>(typeKey);
-            foreach (FormulaBase item in formulas.Formulas) {
+            foreach (var item in formulas.Formulas) {
                 if (item.Path == path & item.Id == id) {
                     item.Enabled = isEnable;
                 }
@@ -697,9 +697,9 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
         /// <param name="path"></param>
         /// <param name="id"></param>
         /// <param name="isEnable"></param>
-        public void SetRelatedData(string typeKey, string path, string id, bool isEnable) {
+        public void SetRelatedData(string typeKey,bool isEnable) {
             var relate = GetService<IDocumentRelatedDataService>(typeKey);
-            foreach (RelatedData item in relate.RelatedDatas) {
+            foreach (var item in relate.RelatedDatas) {
                 item.Enabled = isEnable;
             }
         }
@@ -721,7 +721,7 @@ namespace Digiwin.ERP.XTEST.Business.Implement {
             if (type == ParameterStyle.List)
             {
                 var list = new IExpression[parameter.Length];
-                for (int i = 0; i < parameter.Length; i++)
+                for (var i = 0; i < parameter.Length; i++)
                 {
                     list[i] = new ConstantsQueryProperty(parameter[i], GeneralDBType.String);
                 }

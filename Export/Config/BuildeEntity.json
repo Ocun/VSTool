@@ -5,14 +5,18 @@
             "Description": "操作数据库，增删改查",
             "BuildeItems": [{
                     "Id": "Service",
+                    "IsMerge": "False",
                     "Name": "服务",
+                    "PartId": "CommonService",
+                    "Visiable": "False",
                     "Description": "搭建一个服务的框架"
                 },
                 {
-                    "Id": "Service",
-                    "Name": "服务",
-                    "Description": "搭建一个服务的框架",
-                    "Visiable": "False"
+                    "Id": "IService",
+                    "IsMerge": "False",
+                    "PartId": "ICommonService",
+                    "Name": "服务接口",
+                    "Description": "搭建一个服务的框架"
                 },
                 {
                     "Id": "Tools",

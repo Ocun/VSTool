@@ -73,7 +73,8 @@ namespace Digiwin.Chun.Common.Controller {
                     if (PathTools.IsTrue(buildeType.Checked) &&
                         PathTools.IsTrue(buildeType.ReadOnly)
                     )
-                        newChild.BuildeType.FileInfos = MyTools.CreateFileMappingInfo(newChild.BuildeType);
+                        newChild.BuildeType.FileInfos = MyTools.CreateFileMappingInfo(newChild.BuildeType,
+                            $"Create{newChild.BuildeType.Id}", $"Create{newChild.BuildeType.Id}");
                     newChild.CheckBoxVisible = true;
                 }
             //读下层目录
