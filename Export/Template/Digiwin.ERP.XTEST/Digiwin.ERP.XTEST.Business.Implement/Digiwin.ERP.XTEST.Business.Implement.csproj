@@ -81,11 +81,11 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonFinance.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonFinance.Business.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonFinance.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonFinance.Business.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.ApplicationUtils.Common, Version=1.6.0.26, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -133,11 +133,11 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonManufacture.Business.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonManufacture.Business.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonManufacture.Business.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonManufacture.Business.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.UI.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -145,11 +145,11 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonSupplyChain.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonSupplyChain.Business.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonSupplyChain.Business.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonSupplyChain.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonSupplyChain.Business.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonSupplyChain.Business.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.Integration, Version=1.9.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

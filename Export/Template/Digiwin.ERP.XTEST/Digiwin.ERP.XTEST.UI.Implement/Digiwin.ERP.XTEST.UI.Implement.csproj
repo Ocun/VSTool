@@ -81,15 +81,15 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonFinance.Business.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonFinance.Business.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonFinance.Business.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.FormBaseExtensions.UI.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.FormBaseExtensions.UI.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.FormBaseExtensions.UI.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.ImagesPreviewWindowOpener.UI.Implement, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.ImagesPreviewWindowOpener.UI.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.ImagesPreviewWindowOpener.UI.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.Mars.ApplicationUtils.Common, Version=1.6.0.26, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -133,7 +133,7 @@
     </Reference>
     <Reference Include="Digiwin.ERP.CommonManufacture.UI.Implement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\WD_PR\SRC\bin\Digiwin.ERP.CommonManufacture.UI.Implement.dll</HintPath>
+      <HintPath>..\..\..\..\..\WD_PR\SRC\Export\Digiwin.ERP.CommonManufacture.UI.Implement.dll</HintPath>
     </Reference>
     <Reference Include="Digiwin.ERP.CommonSupplyChain.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
