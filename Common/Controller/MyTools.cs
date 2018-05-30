@@ -1452,7 +1452,7 @@ namespace Digiwin.Chun.Common.Controller {
                 var businessObjectsDir = $@"{path}\BusinessObjects";
                 var reportObjectsDir = $@"{path}\ReportObjects";
                 var businessQueryObjectsDir = $@"{path}\BusinessQueryObjects";
-                var dataModelDir = $@"{path}\DataModel";
+                var dataModelDir = $@"{path}\DataModels";
                 var searchList = new List<string> { batchObjectsDir, businessObjectsDir, reportObjectsDir, businessQueryObjectsDir, dataModelDir };
 
                 foreach (var filterStr in searchList)
