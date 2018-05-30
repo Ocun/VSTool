@@ -1276,7 +1276,6 @@ namespace Digiwin.Chun.Common.Controller {
                 //if(Directory.Exists(formDir))
                 //      OldTools.DeleteAll(formDir);
             }
-
             return sucess;
         }
 
@@ -1312,7 +1311,8 @@ namespace Digiwin.Chun.Common.Controller {
                         continue;
                     var text = File.ReadAllText(filePath);
                     if (isSrc) {
-                     
+                        //修改与新增，可能引发的问题是，将旧type重复命名，如XMO-->XXMO
+                        //一键copy不存在此问题，因为每次都是删除全部文件后添加
                         var oldStr = !t.Equals("*.sln")
                                 ? tempTypeKeyRootDir
                                 : oldTypekey
@@ -1320,21 +1320,21 @@ namespace Digiwin.Chun.Common.Controller {
                         var newStr = !t.Equals("*.sln")
                             ? newTypeKeyRootDir
                             : newTypeKey;
-                        var matchStr = $@"\b{oldStr}\b";
+                        var matchStr = modiAll && t.Equals("*proj")?$@"{oldTypekey}": $@"\b{oldStr}\b";
                         var regex = new Regex(matchStr);
-                        text = regex.Replace(text, newStr);
-                        //text = t.Equals("*.sln")
-                        //    ? text.Replace(oldTypekey,
-                        //        newTypeKey)
-                        //    : text.Replace(tempTypeKeyRootDir,
-                        //        newTypeKeyRootDir);
+                        if (modiAll && t.Equals("*proj")) {
+                            text = regex.Replace(text, newTypeKey);
+                        }
+                        else {
+                            text = regex.Replace(text, newStr);
 
-
+                        }
                         const string bpath = @"<HintPath>..\..\";
                         var hintPaths = new[] {"bin", "Export"};
                         text = hintPaths.Aggregate(text,
                             (current, hitPath) =>
                                 current.Replace(bpath + hitPath, bpath + @"..\..\..\WD_PR\SRC\" + hitPath));
+                      
                         File.SetAttributes(filePath, FileAttributes.Normal);
                         File.WriteAllText(filePath, text, Encoding.UTF8);
                         //
@@ -1354,6 +1354,7 @@ namespace Digiwin.Chun.Common.Controller {
                                 XmlTools.AddCsproj(csPath, filePath.Substring(index + csDir.Length));
                         }
                     }
+                    //配置
                     else {
                       
                         text = text.Replace(oldTypekey, newTypeKey);
@@ -1474,11 +1475,11 @@ namespace Digiwin.Chun.Common.Controller {
         /// <param name="isPkg"></param>
         /// <returns></returns>
         public static bool CopyAllPkG(bool isPkg) {
-            var success = true;
+            var success = false;
             try {
                 var customerToPath = Toolpars.FormEntity.ToPath;
-                var copySrc = true;
-                var copyWd = true;
+                var copySrc = false;
+                var copyWd = false;
                 var copyModel = true;
 
                 var pathInfo = Toolpars.PathEntity;
@@ -1517,35 +1518,48 @@ namespace Digiwin.Chun.Common.Controller {
                             MessageBox.Show(Resources.CopyResourceNotExisted, Resources.ErrorMsg,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
-                            success = false;
                         }
                         else {
                             //源码已借用，询问是否覆盖,直接删除全部
-                            if (Directory.Exists(newTypeKeyFullRootDir)
-                            ) {
-                                if (MessageBox.Show(newTypeKeyFullRootDir + Environment.NewLine + Resources.DirExisted,
-                                        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                                    == DialogResult.Yes) {
-                                    object tArgsPath = Path.Combine(newTypeKeyFullRootDir);
-                                    OldTools.DeleteAll(tArgsPath);
+                            if (Directory.Exists(pkgPath)) {
+                                if (Directory.Exists(newTypeKeyFullRootDir)
+                                )
+                                {
+                                    if (MessageBox.Show(newTypeKeyFullRootDir + Environment.NewLine + Resources.DirExisted,
+                                            Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                                        == DialogResult.Yes)
+                                    {
+                                        copySrc = true;
+                                        object tArgsPath = Path.Combine(newTypeKeyFullRootDir);
+                                        OldTools.DeleteAll(tArgsPath);
+                                    }
                                 }
-                                else {
-                                    copySrc = false;
-                                }
-                            }
-                            //配置已借用，询问是否覆盖,直接删除全部
-                            if ((!string.IsNullOrEmpty(newTypeKeyDir) && (Directory.Exists(newTypeKeyDir))
-                            )) {
-                                if (MessageBox.Show(newTypeKeyDir + Environment.NewLine + Resources.DirExisted,
-                                        Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                                    == DialogResult.Yes) {
-                                    object tArgsPath = Path.Combine(newTypeKeyDir);
-                                    OldTools.DeleteAll(tArgsPath);
-                                }
-                                else {
-                                    copyWd = false;
+                                else
+                                {
+                                    copySrc = true;
                                 }
                             }
+                            if (!string.IsNullOrEmpty(formTypeKeyDir)
+                                && !Directory.Exists(formTypeKeyDir)) {
+                                //配置已借用，询问是否覆盖,直接删除全部
+                                if ((!string.IsNullOrEmpty(newTypeKeyDir) && (Directory.Exists(newTypeKeyDir))
+                                ))
+                                {
+                                    if (MessageBox.Show(newTypeKeyDir + Environment.NewLine + Resources.DirExisted,
+                                            Resources.WarningMsg, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                                        == DialogResult.Yes)
+                                    {
+                                        copyWd = true;
+                                        object tArgsPath = Path.Combine(newTypeKeyDir);
+                                        OldTools.DeleteAll(tArgsPath);
+                                    }
+                                }
+                                else
+                                {
+                                    copyWd = true;
+                                }
+                            }
+                        
                             //copyTypeKey
                             if (copyWd) {
                                 if (!string.IsNullOrEmpty(formTypeKeyDir)
@@ -1568,13 +1582,11 @@ namespace Digiwin.Chun.Common.Controller {
                             Resources.ErrorMsg,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
-                        success = false;
                     }
                 }
                 else {
                     MessageBox.Show(Resources.TypekeyNotExisted, Resources.ErrorMsg, MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
-                    success = false;
                 }
 
                 #region 修改命名
@@ -1583,22 +1595,22 @@ namespace Digiwin.Chun.Common.Controller {
                 if (copyWd)
                 {
                     ModiFile(newTypeKeyDir, false, true);
-                    success = true;
                 }
                 if (copySrc)
                 {
                     ModiFile(newTypeKeyFullRootDir, true, true);
                 }
-                if (copySrc || copyWd)
+                if (copySrc || copyWd) {
+                    success = true;
                     MessageBox.Show(Resources.GenerateSucess);
+                }
                 else {
-                    success = false;
+                    
                     MessageBox.Show(Resources.NoCopySource);
                 }
                 #endregion
             }
             catch (Exception ex) {
-                success = false;
                 LogTools.LogError($"CopyAllPkg Error! Detail {ex.Message}");
                 MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

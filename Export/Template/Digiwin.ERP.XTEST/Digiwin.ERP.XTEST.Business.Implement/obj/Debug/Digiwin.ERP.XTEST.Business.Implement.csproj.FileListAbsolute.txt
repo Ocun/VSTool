@@ -1,5 +1,0 @@
-E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\obj\Debug\ResolveAssemblyReference.cache
-E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Export\Digiwin.ERP.XTEST.Business.Implement.dll
-E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Export\Digiwin.ERP.XTEST.Business.Implement.pdb
-E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\obj\Debug\Digiwin.ERP.XTEST.Business.Implement.dll
-E:\DF_E10_5.0.0\TEST\WD_PR_C\SRC\Digiwin.ERP.XTEST\Digiwin.ERP.XTEST.Business.Implement\obj\Debug\Digiwin.ERP.XTEST.Business.Implement.pdb
