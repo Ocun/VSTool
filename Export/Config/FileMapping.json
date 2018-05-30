@@ -11,7 +11,7 @@
             "Id": "ICommonService",
             "Description": "服务",
             "Paths": [
-                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\InterFace\\ITestsService.cs"
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business\\Interface\\ITestsService.cs"
             ]
         },
 

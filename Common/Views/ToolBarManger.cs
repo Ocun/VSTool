@@ -59,6 +59,11 @@ namespace Digiwin.Chun.Common.Views {
             MyTools.ServerOn(args);
         }
 
+
+        /// <summary>
+        /// 当前正在执行自启动客户端
+        /// </summary>
+        public bool isAutoRunning { get; set; }
         /// <summary>
         ///     打开服务端/客户端
         /// </summary>
@@ -66,14 +71,18 @@ namespace Digiwin.Chun.Common.Views {
             ServerOn();
          
             try {
+               
                 var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
                 if (!isServerOn)
                     return;
+                if (isAutoRunning) return;
+              
                 var isOn = MyTools.CheckProcessOn("Digiwin.Mars.ClientStart");
                 if (isOn) {
                     MessageBox.Show(Resources.ClientRunning);
                     return;
                 }
+                isAutoRunning = true;
                 var tSerFolPath =
                     Toolpars.Mplatform
                     + @"\Server\Control";
@@ -158,33 +167,41 @@ namespace Digiwin.Chun.Common.Views {
                 _aTimer.Enabled = false;
                 return;
             }
-            var tSerFolPath = CheckServerTable["tSerFolPath"].ToString();
-            var tSerFolLogName = CheckServerTable["tSerFolLogName"].ToString();
-            var tSerFolLogPath = CheckServerTable["tSerFolLogPath"].ToString();
-            var tSerFolLogName1 = CheckServerTable["tSerFolLogName1"].ToString();
-            if (File.Exists(tSerFolLogPath + @"\server.log"))
-                File.Delete(tSerFolLogPath + @"\server.log");
-            File.Copy(Path.Combine(tSerFolPath, tSerFolLogName), Path.Combine(tSerFolLogPath, tSerFolLogName1));
-            using (var tLogFile = new StreamReader(tSerFolLogPath + @"\server.log")) {
-                string line;
-                while ((line = tLogFile.ReadLine()) != null) {
-                    if (line.IndexOf("服務端啟動完畢，輸入q結束", StringComparison.Ordinal) == -1
-                        && line.IndexOf("服务端启动完毕，输入q结束", StringComparison.Ordinal) == -1)
-                        continue;
-                    var tClientPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
-                    var args = string.Empty;
-                    if (!File.Exists(tClientPath)) {
-                        _aTimer.Enabled = false;
-                        MessageBox.Show(string.Format(Resources.NotFindFile, tClientPath));
-                        return;
-                    }
-                    if (comboBox1.SelectedValue.Equals(1))
-                        args += " /d";
+            try {
+                var tSerFolPath = CheckServerTable["tSerFolPath"].ToString();
+                var tSerFolLogName = CheckServerTable["tSerFolLogName"].ToString();
+                var tSerFolLogPath = CheckServerTable["tSerFolLogPath"].ToString();
+                var tSerFolLogName1 = CheckServerTable["tSerFolLogName1"].ToString();
+                if (File.Exists(tSerFolLogPath + @"\server.log"))
+                    File.Delete(tSerFolLogPath + @"\server.log");
+                File.Copy(Path.Combine(tSerFolPath, tSerFolLogName), Path.Combine(tSerFolLogPath, tSerFolLogName1));
+                using (var tLogFile = new StreamReader(tSerFolLogPath + @"\server.log")) {
+                    string line;
+                    while ((line = tLogFile.ReadLine()) != null) {
+                        if (line.IndexOf("服務端啟動完畢，輸入q結束", StringComparison.Ordinal) == -1
+                            && line.IndexOf("服务端启动完毕，输入q结束", StringComparison.Ordinal) == -1)
+                            continue;
+                        var tClientPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
+                        var args = string.Empty;
+                        if (!File.Exists(tClientPath)) {
+                            _aTimer.Enabled = false;
+                            MessageBox.Show(string.Format(Resources.NotFindFile, tClientPath));
+                            return;
+                        }
+                        if (SelectedValue.Equals(1))
+                            args += " /d";
 
-                    Process.Start(tClientPath, args);
-                    _aTimer.Enabled = false;
+                        Process.Start(tClientPath, args);
+                        _aTimer.Enabled = false;
+                        isAutoRunning = false;
+                    }
                 }
             }
+            catch (Exception ex) {
+                isAutoRunning = false;
+                LogTools.LogError($@"AutoClient Error! Detail:{ex.Message}");
+            }
+           
         }
 
         private void Stop_Click(object sender, EventArgs e) {
@@ -309,6 +326,13 @@ namespace Digiwin.Chun.Common.Views {
 
 
             }
+        }
+
+        public object SelectedValue { get; set; } = 1;
+    
+
+        private void ComboBox1_SelectedValueChanged(object sender, EventArgs e) {
+                SelectedValue = comboBox1.SelectedValue ;
         }
     }
 

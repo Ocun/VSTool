@@ -13,11 +13,16 @@ namespace Digiwin.Chun.Common.Controller
     /// <summary>
     /// sql辅助类
     /// </summary>
-    public class SqlTools {
+    public  class SqlTools {
         private static string _connectionString = "";
         private static SqlConnection _connection ;
         private static StringBuilder _builder = new StringBuilder();
         private static string _address =string.Empty;
+
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        public static string VersionNum => $@"VSTool_{MyTools.Toolpars.FormEntity.VersionNum??"0.0.0.0"}";
 
         /// <summary>
         /// Connection
@@ -66,10 +71,12 @@ namespace Digiwin.Chun.Common.Controller
                     Builder.Length = 0;
                     Builder.AppendFormat(
                         "INSERT INTO WF_TOOLINFO (ToolName,UseDate, UseTime ,PCName,IsFailed,UsedCount,TheMemo,DemandID,UseYear) VALUES ('{0}','{1:yyyyMMddHHmmssfff}',{2:},'{3}','{4}',{5},'{6}','{7}',{8})",
-                        "VSTool", DateTime.Now, DateTime.Now.ToString("yyyyMMddHHmmss")
+                        VersionNum, DateTime.Now, DateTime.Now.ToString("yyyyMMddHHmmss")
                             .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8), Environment.MachineName,
                         "N", 1, pTheMemo, pDemandId, pUseYear);
-                    new SqlCommand(Builder.ToString(), connection).ExecuteNonQuery();
+                    var sqlCommand = new SqlCommand(Builder.ToString(), connection);
+                    var res= sqlCommand.ExecuteNonQuery();
+                    Connection.Close();
                 }
             }
             catch(Exception ex) {
@@ -125,7 +132,7 @@ namespace Digiwin.Chun.Common.Controller
                             
                             var nowDate = DateTime.Now;
                             var dr = dt.NewRow();
-                            dr["ToolName"] = "VSTool";
+                            dr["ToolName"] = VersionNum;
                             dr["UseDate"] = nowDate.AddMilliseconds(count++).ToString("yyyyMMddHHmmssfff");
                             dr["UseTime"] = nowDate.ToString("yyyyMMddHHmmss")
                                 .Substring(8, DateTime.Now.ToString("yyyyMMddHHmmss").Length - 8);

@@ -17,7 +17,7 @@
                     "ParentId": "ICommonService",
                     "Name": "服务",
                     "Description": "搭建一个服务的框架",
-                    "UnionId":["Service"]
+                    "UnionId": ["Service"]
                 },
                 {
                     "Id": "Tools",
@@ -27,7 +27,7 @@
                     "ReadOnly": "False",
                     "ShowParWindow": "False",
                     "ShowCheckedBox": "True",
-                    "Visiable": "True"
+                    "Visiable": "False"
                 },
                 {
                     "Id": "UITools",

@@ -82,7 +82,7 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-            SetTestdata();
+           // SetTestdata();
 
 
         }

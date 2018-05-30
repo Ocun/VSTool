@@ -20,13 +20,15 @@ namespace VSTool {
 
             #region 自動更新
 
-            //Task.Factory.StartNew(() => {
-            //   var existedUpdate= CallUpdate.CheckAndUpdate(VersionNum);
-            //    if (!existedUpdate) return;
-            //    CallUpdate.MyCallUpdate();
-            //});
+            Task.Factory.StartNew(() =>
+            {
+                var existedUpdate = CallUpdate.CheckAndUpdate(VersionNum);
+                if (!existedUpdate) return;
+                CallUpdate.MyCallUpdate();
+            });
             #endregion
             MyTools.InitToolpars(pToIni);
+            Toolpars.FormEntity.VersionNum = VersionNum;
             AddEventHandler();
         }
 

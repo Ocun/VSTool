@@ -12,7 +12,7 @@ namespace Digiwin.Chun.Common.Model {
         ///     個案路徑 E:\E10_5.0.0\TEST
         /// </summary>
         public string ToPath { get; set; } = string.Empty;
-
+        public string VersionNum { get; set; } = string.Empty;
         /// <summary>
         /// 不知何用，可能是标准？
         /// </summary>

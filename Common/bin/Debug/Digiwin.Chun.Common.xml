@@ -1710,6 +1710,11 @@
             sql辅助类
             </summary>
         </member>
+        <member name="P:Digiwin.Chun.Common.Controller.SqlTools.VersionNum">
+            <summary>
+            版本号
+            </summary>
+        </member>
         <member name="P:Digiwin.Chun.Common.Controller.SqlTools.Connection">
             <summary>
             Connection
@@ -3109,6 +3114,11 @@
         <member name="M:Digiwin.Chun.Common.Views.ToolBarManger.ServerOn">
             <summary>
                 打开服务器
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Views.ToolBarManger.isAutoRunning">
+            <summary>
+            当前正在执行自启动客户端
             </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Views.ToolBarManger.AutoOnServerAndClient">
