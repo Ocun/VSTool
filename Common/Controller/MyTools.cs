@@ -39,17 +39,21 @@ namespace Digiwin.Chun.Common.Controller {
         /// 硬件信息
         /// </summary>
         public static HardwareEntity HardwareInfo { get; } =  HardwareTools.GetHardwareInfo();
+        #region 初始化窗体参数
 
         /// <summary>
         ///     初始化窗体参数
         /// </summary>
         /// <param name="pToIni"></param>
-        public static void InitToolpars(string[] pToIni) {
+        public static void InitToolpars(string[] pToIni)
+        {
             Toolpars.ModelType = ModelType.Json;
-            if (pToIni == null) {
+            if (pToIni == null)
+            {
                 Toolpars.FormEntity.ToPath = string.Empty;
             }
-            else {
+            else
+            {
                 Toolpars.Mall = pToIni[0];
                 var args = Toolpars.Mall.Split('&');
                 var mpath = args[0];
@@ -60,15 +64,17 @@ namespace Digiwin.Chun.Common.Controller {
                 Toolpars.MVersion = args[4]; //DF_E10_2.0.2
                 Toolpars.MIndustry = Convert.ToBoolean(args[5]);
                 Toolpars.CustomerName = args[6];
-                if (!string.IsNullOrEmpty(mpath)) {
+                if (!string.IsNullOrEmpty(mpath))
+                {
                     var srcDir = new DirectoryInfo(mpath);
                     Toolpars.FormEntity.ToPath = srcDir.Parent?.Parent?.FullName;
                 }
                 Toolpars.FormEntity.PkgPath = $@"{Toolpars.MdesignPath}";
-              
+
                 Toolpars.FormEntity.Industry = Toolpars.MIndustry;
                 if (Toolpars.Mpath.Contains("PKG")
-                    && !Toolpars.MIndustry) {
+                    && !Toolpars.MIndustry)
+                {
                     Toolpars.FormEntity.IsPkg = true;
                     Toolpars.FormEntity.ToPath = $@"{Toolpars.MdesignPath}";
                 }
@@ -82,10 +88,14 @@ namespace Digiwin.Chun.Common.Controller {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-           // SetTestdata();
+            // SetTestdata();
 
 
         }
+        
+
+        #endregion
+
         /// <summary>
         /// 文件copy
         /// </summary>
