@@ -1523,8 +1523,8 @@ namespace Digiwin.Chun.Common.Controller {
                     if (Directory.Exists(customerToPath)) {
                         //借用不存在（源码/typekey）
                         if (!Directory.Exists(pkgPath)
-                            && !string.IsNullOrEmpty(formTypeKeyDir)
-                            && !Directory.Exists(formTypeKeyDir)) {
+                            && (string.IsNullOrEmpty(formTypeKeyDir)
+                            || !Directory.Exists(formTypeKeyDir))) {
                             MessageBox.Show(Resources.CopyResourceNotExisted, Resources.ErrorMsg,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
@@ -1549,8 +1549,8 @@ namespace Digiwin.Chun.Common.Controller {
                                     copySrc = true;
                                 }
                             }
-                            if (!string.IsNullOrEmpty(formTypeKeyDir)
-                                && !Directory.Exists(formTypeKeyDir)) {
+                            if ((!string.IsNullOrEmpty(formTypeKeyDir)
+                                 && Directory.Exists(formTypeKeyDir))) {
                                 //配置已借用，询问是否覆盖,直接删除全部
                                 if ((!string.IsNullOrEmpty(newTypeKeyDir) && (Directory.Exists(newTypeKeyDir))
                                 ))
