@@ -1493,7 +1493,6 @@ namespace Digiwin.Chun.Common.Controller {
                 var customerToPath = Toolpars.FormEntity.ToPath;
                 var copySrc = false;
                 var copyWd = false;
-                var copyModel = true;
 
                 var pathInfo = Toolpars.PathEntity;
                 //默认取pkgsource为digiwin.erp.typekey
