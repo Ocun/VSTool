@@ -1371,7 +1371,9 @@ namespace Digiwin.Chun.Common.Controller {
                         File.SetAttributes(f.FullName, FileAttributes.Normal);
                         File.Delete(f.FullName);
                         if (f.Name.Contains("ReportInfoContainer.RPDdcxml") ||
-                            f.Name.Contains("ReportInfoContainer_Ex.xml") || f.Name.Contains("DataAuthorizationInfoContainer.dcxml"))
+                            f.Name.Contains("ReportInfoContainer_Ex.xml") ||
+                            f.Name.Contains("DataAuthorizationInfoContainer.dcxml")||
+                            f.Name.Contains("QueryInfoContainer.dcxml") )
                         {
                             if (text.Contains("_ReportLayoutInfo_")) {
                                 if (f.Directory != null) {
@@ -1381,7 +1383,7 @@ namespace Digiwin.Chun.Common.Controller {
                             }
                             else
                             {
-                                text = text.Replace("ReportLayoutInfo_", "XReportLayoutInfo_");
+                                  text = text.Replace("ReportLayoutInfo_", "XReportLayoutInfo_");
                             }
                         }
                         File.WriteAllText(f.FullName, text);
@@ -1450,7 +1452,8 @@ namespace Digiwin.Chun.Common.Controller {
                 var businessObjectsDir = $@"{path}\BusinessObjects";
                 var reportObjectsDir = $@"{path}\ReportObjects";
                 var businessQueryObjectsDir = $@"{path}\BusinessQueryObjects";
-                var searchList = new List<string> { batchObjectsDir, businessObjectsDir, reportObjectsDir, businessQueryObjectsDir };
+                var dataModelDir = $@"{path}\DataModel";
+                var searchList = new List<string> { batchObjectsDir, businessObjectsDir, reportObjectsDir, businessQueryObjectsDir, dataModelDir };
 
                 foreach (var filterStr in searchList)
                 {
