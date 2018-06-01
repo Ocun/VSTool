@@ -386,7 +386,7 @@ namespace VSTool
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(49, 15);
             this.Version.TabIndex = 35;
-            this.Version.Text = "1.0.0.1.1";
+            this.Version.Text = "1.0.0.1.2";
             // 
             // linkLabel1
             // 

@@ -359,7 +359,7 @@ namespace Digiwin.Chun.Views.Tools {
         public static void BtnCreate_Click(object sender, EventArgs e) {
             try {
                 var pathInfo = Toolpars.PathEntity;
-                var success = false;
+                bool success;
                 if (!ModiCkb.Checked) {
                     var dicPath = MyTools.GetTreeViewFilePath(RighteTreeView.Nodes);
                     var fileInfos = new List<FileInfos>();
@@ -414,7 +414,6 @@ namespace Digiwin.Chun.Views.Tools {
                     var flag = MyTools.CopyModi(TreeView1.Nodes);
                     if (!flag)
                         return;
-                    success = true;
                     ModiCkb.Checked = false;
                 }
                     if(MessageBox.Show($@"{Resources.GenerateSucess},{Resources.WhetherOrNot}{Resources.Open}{Resources.CodeSource}?",
