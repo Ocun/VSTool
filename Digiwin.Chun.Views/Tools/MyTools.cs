@@ -170,7 +170,7 @@ namespace Digiwin.Chun.Views.Tools {
         {
             var toolpars = Toolpars;
             var xmlPath = GetSettingPath("BuildeEntity", modelType);
-            SaveSerialize(toolpars.BuilderEntity, modelType, xmlPath);
+            SaveSerialize(toolpars.BuildeEntity, modelType, xmlPath);
             xmlPath = GetSettingPath("FileMappingEntity", modelType);
             SaveSerialize(toolpars.FileMappingEntity, modelType, xmlPath);
             xmlPath = GetSettingPath("SettingPathEntity", modelType);
@@ -542,8 +542,8 @@ namespace Digiwin.Chun.Views.Tools {
             switch (modelType) {
                 case ModelType.Binary:
                 case ModelType.Json:
-                    ModiBuilderById(Toolpars.BuilderEntity.BuildeTypies,bt.Id,bt.Url);
-                    SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, settingPath);
+                    ModiBuilderById(Toolpars.BuildeEntity.BuildeTypies,bt.Id,bt.Url);
+                    SaveSerialize(Toolpars.BuildeEntity, Toolpars.ModelType, settingPath);
                     break;
                 case ModelType.Xml:
                     var xpath= $@"//BuildeItem[Id='{bt.Id}']/Url";
@@ -871,8 +871,8 @@ namespace Digiwin.Chun.Views.Tools {
         public static void InitBuilderEntity() {
             try {
                 var path = GetSettingPath("BuildeEntity", Toolpars.ModelType);
-                Toolpars.BuilderEntity = ReadToEntity<BuildeEntity>(path, Toolpars.ModelType);
-                InitBuildeTypies(Toolpars.BuilderEntity.BuildeTypies);
+                Toolpars.BuildeEntity = ReadToEntity<BuildeEntity>(path, Toolpars.ModelType);
+                InitBuildeTypies(Toolpars.BuildeEntity.BuildeTypies);
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message);
@@ -1114,7 +1114,7 @@ namespace Digiwin.Chun.Views.Tools {
         /// <param name="bt"></param>
         /// <param name="fileInfos"></param>
         public static void SetFileInfo(string parentId, BuildeType bt,List<FileInfos> fileInfos)  {
-            var parItem = Toolpars.BuilderEntity.BuildeTypies.ToList()
+            var parItem = Toolpars.BuildeEntity.BuildeTypies.ToList()
                 .Where(et => et.Id.Equals(parentId)).ToList();
             if (parItem.Count <= 0) return;
             {
@@ -1191,7 +1191,7 @@ namespace Digiwin.Chun.Views.Tools {
             var unionItems = bt.UnionId;
             unionItems.ToList().ForEach(id => {
                 if(id.Equals(bt.Id))return;//防联动自身死循环
-                var iService = GetBuildeTypeById(id, Toolpars.BuilderEntity.BuildeTypies);
+                var iService = GetBuildeTypeById(id, Toolpars.BuildeEntity.BuildeTypies);
                 if (iService == null) return;
                 var newClassName = $@"Create{id}";
                 var newFunctionName = $@"Create{id}";
@@ -1569,10 +1569,10 @@ namespace Digiwin.Chun.Views.Tools {
 
                 if (bt == null)
                     return;
-                Toolpars.BuilderEntity.BuildeTypies =
-                    FindBuilderTypeAndDelete(bt.Id, Toolpars.BuilderEntity.BuildeTypies);
-                var xmlPath = GetSettingPath("BuilderEntity", Toolpars.ModelType);
-                SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, xmlPath);
+                Toolpars.BuildeEntity.BuildeTypies =
+                    FindBuilderTypeAndDelete(bt.Id, Toolpars.BuildeEntity.BuildeTypies);
+                var xmlPath = GetSettingPath("BuildeEntity", Toolpars.ModelType);
+                SaveSerialize(Toolpars.BuildeEntity, Toolpars.ModelType, xmlPath);
                 ControlTools.InitMainView();
             }
             catch (Exception ex) {

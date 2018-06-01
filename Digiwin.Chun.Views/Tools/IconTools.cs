@@ -36,7 +36,7 @@ namespace Digiwin.Chun.Views.Tools {
         ///     初始化Tool图标
         /// </summary>
         public static void InitImageList() {
-            var bts =MyTools.Toolpars.BuilderEntity.BuildeTypies;
+            var bts =MyTools.Toolpars.BuildeEntity.BuildeTypies;
             InitImageList(bts);
         }
 

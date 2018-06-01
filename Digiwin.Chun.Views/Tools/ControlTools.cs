@@ -158,7 +158,7 @@ namespace Digiwin.Chun.Views.Tools {
         /// </summary>
         /// <param name="id"></param>
         public static void CreateTree(string id) {
-            var buildeEntity = Toolpars.BuilderEntity;
+            var buildeEntity = Toolpars.BuildeEntity;
 
             var item = buildeEntity.BuildeTypies.Where(et => et.Id.Equals(id) || id.Equals("RootView")).ToList();
             var editState = Toolpars.FormEntity.EditState;

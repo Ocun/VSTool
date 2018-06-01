@@ -66,7 +66,7 @@ namespace Digiwin.Chun.Views.Tools {
         /// <summary>
         ///     菜单项目实体
         /// </summary>
-        public BuildeEntity BuilderEntity {
+        public BuildeEntity BuildeEntity {
             get {
                 return _builderEntity = GetEntity(_builderEntity, "BuildeEntity"); 
             }

@@ -144,7 +144,7 @@ namespace Digiwin.Chun.Views.Tools {
         /// <param name="nodes"></param>
         public static void CreateRightView(TreeNodeCollection nodes) {
             var toolPar = MyTools.Toolpars;
-            var buildeEntity = toolPar.BuilderEntity.BuildeTypies.Where(builderItem=>!PathTools.IsFasle(builderItem.Visiable)).ToList();
+            var buildeEntity = toolPar.BuildeEntity.BuildeTypies.Where(builderItem=>!PathTools.IsFasle(builderItem.Visiable)).ToList();
             var item = buildeEntity.ToList();
             item.ForEach(buildeType => {
                 var node = CreateMainTreeNode(buildeType);

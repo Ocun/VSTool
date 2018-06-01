@@ -63,7 +63,7 @@ namespace Digiwin.Chun.Views {
                 Url = UrlTB.Text
             };
             var buildeItems = new List<BuildeType>() ;
-            Toolpar.BuilderEntity.BuildeTypies.ToList().ForEach(item => {
+            Toolpar.BuildeEntity.BuildeTypies.ToList().ForEach(item => {
                 if (!item.Id.Equals("MYTools"))
                     return;
                 buildeItems.AddRange(item.BuildeItems);
@@ -73,7 +73,7 @@ namespace Digiwin.Chun.Views {
 
 
             var xmlPath = PathTools.GetSettingPath("BuildeEntity", Toolpar.ModelType);
-            ReadToEntityTools.SaveSerialize(Toolpar.BuilderEntity, Toolpar.ModelType, xmlPath);
+            ReadToEntityTools.SaveSerialize(Toolpar.BuildeEntity, Toolpar.ModelType, xmlPath);
 
             IconTools.SetExeIcon(bt.Url);
             DialogResult = DialogResult.OK;
@@ -82,7 +82,7 @@ namespace Digiwin.Chun.Views {
         private void CreateToolForm_Load(object sender, EventArgs e) {
             var tagertPath = UrlTB.Text;
             var existed = false;
-            var buildeTypies = Toolpar.BuilderEntity.BuildeTypies.ToList();
+            var buildeTypies = Toolpar.BuildeEntity.BuildeTypies.ToList();
             foreach (var item in buildeTypies) {
 
                 if (!item.Id.Equals("MYTools"))
