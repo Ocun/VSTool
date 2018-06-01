@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Tools;
-using MSWord = Microsoft.Office.Interop.Word;
 using Digiwin.Chun.Models;
 using Digiwin.Chun.Views.Properties;
 using static Digiwin.Chun.Common.Tools.CommonTools;
@@ -100,7 +99,7 @@ namespace Digiwin.Chun.Views.Tools {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-            // SetTestdata();
+             SetTestdata();
 
 
         }
@@ -780,14 +779,7 @@ namespace Digiwin.Chun.Views.Tools {
 
                         #region 修改解决方案
 
-                        var csPath = FindCSproj(toPath); 
-                        var csDir = $@"{Path.GetDirectoryName(csPath)}\";
-
-                        //找到相对位置
-                        var index = toPath.IndexOf(csDir, StringComparison.Ordinal);
-
-                        if (index > -1)
-                            XmlTools.AddCsproj(csPath, toPath.Substring(index + csDir.Length));
+                        ModiCsproj(toPath);
 
                         #endregion
                     }
@@ -807,6 +799,22 @@ namespace Digiwin.Chun.Views.Tools {
             InitBuilderEntity();
             return true;
         }
+
+       /// <summary>
+       /// 修改csproj
+       /// </summary>
+       /// <param name="toPath"></param>
+       public static void ModiCsproj(string toPath) {
+            var csPath = FindCSproj(toPath);
+            var csDir = $@"{Path.GetDirectoryName(csPath)}\";
+
+            //找到相对位置
+            var index = toPath.IndexOf(csDir, StringComparison.Ordinal);
+
+            if (index > -1)
+                XmlTools.AddCsproj(csPath, toPath.Substring(index + csDir.Length));
+        }
+
         /// <summary>
         ///     日志
         /// </summary>
@@ -1001,6 +1009,11 @@ namespace Digiwin.Chun.Views.Tools {
                 if (newDir != null && !Directory.Exists(newDir))
                     Directory.CreateDirectory(newDir);
                 fileinfo.CopyTo(newFilePath);
+
+                //var extName = Path.GetExtension(newFilePath);
+                //if (extName.ToUpper().Equals(".cs".ToUpper())) {
+                //    ModiCsproj(newFilePath);
+                //}
             });
         }
 

@@ -448,6 +448,12 @@
             <param name="treeView"></param>
             <returns></returns>
         </member>
+        <member name="M:Digiwin.Chun.Views.Tools.MyTools.ModiCsproj(System.String)">
+            <summary>
+            修改csproj
+            </summary>
+            <param name="toPath"></param>
+        </member>
         <member name="M:Digiwin.Chun.Views.Tools.MyTools.WriteLogByTreeView(Digiwin.Chun.Views.MyTreeView)">
             <summary>
                 日志

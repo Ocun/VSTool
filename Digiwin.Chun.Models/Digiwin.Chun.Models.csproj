@@ -48,11 +48,13 @@
     <Compile Include="EnumEntity.cs" />
     <Compile Include="FileMappingEntity.cs" />
     <Compile Include="FormEntity.cs" />
+    <Compile Include="FormulaContainer.cs" />
     <Compile Include="HardwareEntity.cs" />
     <Compile Include="MetadataContainer.cs" />
     <Compile Include="PathEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingEntity.cs" />
+    <Compile Include="ValidatorContainer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

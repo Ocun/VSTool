@@ -390,6 +390,147 @@
             是否出现编辑菜单
             </summary>
         </member>
+        <member name="T:Digiwin.Chun.Models.FormulaContainer">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaContainer.Formulas">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaContainer.FileVersion">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaContainer.ProductVersion">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaContainer.ProductName">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaContainer.CopyRight">
+            <remarks/>
+        </member>
+        <member name="T:Digiwin.Chun.Models.Formulas">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.Formulas.Items">
+            <remarks/>
+        </member>
+        <member name="T:Digiwin.Chun.Models.LambdaFormula">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormula.Id">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormula.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormula.Path">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormula.Description">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormula.Target">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormula.Expression">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormula.ActivePoints">
+            <remarks/>
+        </member>
+        <member name="T:Digiwin.Chun.Models.FormulaActivePoint">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaActivePoint.ActivePoint">
+            <remarks/>
+        </member>
+        <member name="T:Digiwin.Chun.Models.LambdaFormulaGroup">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormulaGroup.Id">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormulaGroup.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormulaGroup.Path">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaFormulaGroup.Items">
+            <remarks/>
+        </member>
+        <member name="T:Digiwin.Chun.Models.FormulaItem">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaItem.Id">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaItem.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaItem.Description">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaItem.DependencyItems">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaItem.Target">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaItem.Expression">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormulaItem.ActivePoints">
+            <remarks/>
+        </member>
+        <member name="T:Digiwin.Chun.Models.ReversibleLambdaFormula">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.Id">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.Path">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.Target">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.Expression">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.ReverseTarget">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.ReverseExpression">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ReversibleLambdaFormula.ActivePoints">
+            <remarks/>
+        </member>
+        <member name="T:Digiwin.Chun.Models.ControlLambdaFormula">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ControlLambdaFormula.Control">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ControlLambdaFormula.Id">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ControlLambdaFormula.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ControlLambdaFormula.Target">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ControlLambdaFormula.Expression">
+            <remarks/>
+        </member>
+        <member name="P:Digiwin.Chun.Models.ControlLambdaFormula.ActivePoints">
+            <remarks/>
+        </member>
         <member name="T:Digiwin.Chun.Models.HardwareEntity">
             <summary>
             硬件信息
@@ -1039,6 +1180,102 @@
             <summary>
             模板路径
             </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Models.ValidatorContainer">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.ValidatorContainer.Validators">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Models.Validators">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.Validators.Items">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Models.LambdaValidator">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.Id">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.Path">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.Message">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.ResponseType">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.Expression">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.MessageIsExpression">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.ShowMessageTo">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.ActivePoints">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.LambdaValidator.PreValidators">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Models.ValidateActivePoint">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.ValidateActivePoint.ActivePoint">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.ValidateActivePoint.Enabled">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Models.PreValidators">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.PreValidators.PreValidator">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Models.PreValidator">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.PreValidator.ValidatorId">
+            <remarks />
+        </member>
+        <member name="T:Digiwin.Chun.Models.RequiredFieldValidator">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.Id">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.DisplayName">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.Path">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.Message">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.Description">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.ApplyTo">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.Expression">
+            <remarks />
+        </member>
+        <member name="P:Digiwin.Chun.Models.RequiredFieldValidator.ActivePoints">
+            <remarks />
         </member>
     </members>
 </doc>
