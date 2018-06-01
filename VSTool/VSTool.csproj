@@ -108,9 +108,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Digiwin.Chun.Common.csproj">
-      <Project>{B3C53F24-8BAD-439A-A43D-BB64C5F8296F}</Project>
-      <Name>Digiwin.Chun.Common</Name>
+    <ProjectReference Include="..\Digiwin.Chun.Common.Tools\Digiwin.Chun.Common.Tools.csproj">
+      <Project>{1DD82802-5A9A-46BD-8211-20D38E1D283D}</Project>
+      <Name>Digiwin.Chun.Common.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digiwin.Chun.Models\Digiwin.Chun.Models.csproj">
+      <Project>{84437287-a398-4a06-8c04-656d96a9ed76}</Project>
+      <Name>Digiwin.Chun.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digiwin.Chun.Views\Digiwin.Chun.Views.csproj">
+      <Project>{12e2d5a5-c06a-4baf-9918-b58f7e5502c6}</Project>
+      <Name>Digiwin.Chun.Views</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

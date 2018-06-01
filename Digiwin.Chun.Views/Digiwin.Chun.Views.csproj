@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{12E2D5A5-C06A-4BAF-9918-B58F7E5502C6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Digiwin.Chun.Views</RootNamespace>
+    <AssemblyName>Digiwin.Chun.Views</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Export\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tools\ControlTools.cs" />
+    <Compile Include="CreateToolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateToolForm.Designer.cs">
+      <DependentUpon>CreateToolForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\IconTools.cs" />
+    <Compile Include="InsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertForm.Designer.cs">
+      <DependentUpon>InsertForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModiName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModiName.Designer.cs">
+      <DependentUpon>ModiName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModiPKGForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModiPKGForm.Designer.cs">
+      <DependentUpon>ModiPKGForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\MyTools.cs" />
+    <Compile Include="MyTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyTreeView.Designer.cs">
+      <DependentUpon>MyTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenDirForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenDirForm.Designer.cs">
+      <DependentUpon>OpenDirForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ScrollerBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SetToolPath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="setToolPath.Designer.cs">
+      <DependentUpon>SetToolPath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolBarManger.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolBarManger.Designer.cs">
+      <DependentUpon>ToolBarManger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\MyTreeViewTools.cs" />
+    <Compile Include="Tools\Toolpars.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CreateToolForm.resx">
+      <DependentUpon>CreateToolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertForm.resx">
+      <DependentUpon>InsertForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModiName.resx">
+      <DependentUpon>ModiName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModiPKGForm.resx">
+      <DependentUpon>ModiPKGForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenDirForm.resx">
+      <DependentUpon>OpenDirForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="setToolPath.resx">
+      <DependentUpon>SetToolPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolBarManger.resx">
+      <DependentUpon>ToolBarManger.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Digiwin.Chun.Common.Tools\Digiwin.Chun.Common.Tools.csproj">
+      <Project>{1dd82802-5a9a-46bd-8211-20d38e1d283d}</Project>
+      <Name>Digiwin.Chun.Common.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digiwin.Chun.Models\Digiwin.Chun.Models.csproj">
+      <Project>{84437287-a398-4a06-8c04-656d96a9ed76}</Project>
+      <Name>Digiwin.Chun.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checked_.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Copy_Client.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\defautApp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\right-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Start_Client.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

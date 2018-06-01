@@ -3,8 +3,8 @@
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Digiwin.Chun.Common.Controller;
-using Digiwin.Chun.Common.Model;
+using Digiwin.Chun.Common.Tools;
+using Digiwin.Chun.Views.Tools;
 using VSTool.Properties;
 
 namespace VSTool {

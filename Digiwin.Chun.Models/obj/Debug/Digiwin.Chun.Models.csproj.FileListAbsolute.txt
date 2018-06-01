@@ -1,0 +1,13 @@
+E:\MyProject\VSTool_新目录结构\Export\Digiwin.Chun.Models.dll
+E:\MyProject\VSTool_新目录结构\Export\Digiwin.Chun.Models.pdb
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Models.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Models.dll
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Models.pdb
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.dll
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.pdb
+E:\MyProject\VSTool\Export\Digiwin.Chun.Models.dll
+E:\MyProject\VSTool\Export\Digiwin.Chun.Models.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.dll
+E:\MyProject\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.pdb

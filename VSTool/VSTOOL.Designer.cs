@@ -1,5 +1,5 @@
 ﻿
-using Digiwin.Chun.Common.Views;
+using Digiwin.Chun.Views;
 
 namespace VSTool
 {
@@ -43,15 +43,15 @@ namespace VSTool
             this.btnP = new System.Windows.Forms.Button();
             this.btnG = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.HeaderPanel = new Digiwin.Chun.Common.Views.MyPanel();
+            this.HeaderPanel = new Digiwin.Chun.Views.MyPanel();
             this.OpenCode = new System.Windows.Forms.Button();
-            this.MyToolbar = new Digiwin.Chun.Common.Views.ToolBarManger();
+            this.MyToolbar = new Digiwin.Chun.Views.ToolBarManger();
             this.ModiCkb = new System.Windows.Forms.CheckBox();
             this.txtNewTypeKey = new System.Windows.Forms.TextBox();
             this.Industry = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.RighteTreeView = new Digiwin.Chun.Common.Views.MyTreeView();
+            this.RighteTreeView = new Digiwin.Chun.Views.MyTreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -64,9 +64,9 @@ namespace VSTool
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.SplitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.NavTreeView = new Digiwin.Chun.Common.Views.MyTreeView();
-            this.ScrollPanel = new Digiwin.Chun.Common.Views.MyPanel();
-            this.TreeView1 = new Digiwin.Chun.Common.Views.MyTreeView();
+            this.NavTreeView = new Digiwin.Chun.Views.MyTreeView();
+            this.ScrollPanel = new Digiwin.Chun.Views.MyPanel();
+            this.TreeView1 = new Digiwin.Chun.Views.MyTreeView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.HeaderPanel.SuspendLayout();

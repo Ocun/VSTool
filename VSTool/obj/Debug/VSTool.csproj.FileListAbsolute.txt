@@ -62,3 +62,12 @@ I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.csproj.GenerateResource.Ca
 I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.csproj.CoreCompileInputs.cache
 I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.exe
 I:\document\my Project\VSTool\VSTool\obj\Debug\VSTool.pdb
+E:\MyProject\VSTool_新目录结构\VSTool\obj\Debug\VSTool.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool_新目录结构\VSTool\obj\Debug\VSTool.VSTOOL.resources
+E:\MyProject\VSTool_新目录结构\VSTool\obj\Debug\VSTool.Properties.Resources.resources
+E:\MyProject\VSTool_新目录结构\VSTool\obj\Debug\VSTool.csproj.GenerateResource.Cache
+E:\MyProject\VSTool_新目录结构\VSTool\obj\Debug\VSTool.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool_新目录结构\VSTool\obj\Debug\VSTool.exe
+E:\MyProject\VSTool_新目录结构\VSTool\obj\Debug\VSTool.pdb
+E:\MyProject\VSTool_新目录结构\Export\VSTool.exe
+E:\MyProject\VSTool_新目录结构\Export\VSTool.pdb

@@ -1,0 +1,15 @@
+E:\MyProject\VSTool\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Model.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool\Digiwin.Chun.Model\bin\Debug\Digiwin.Chun.Model.dll
+E:\MyProject\VSTool\Digiwin.Chun.Model\bin\Debug\Digiwin.Chun.Model.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Model\bin\Debug\Newtonsoft.Json.dll
+E:\MyProject\VSTool\Digiwin.Chun.Model\bin\Debug\Newtonsoft.Json.xml
+E:\MyProject\VSTool\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Model.dll
+E:\MyProject\VSTool\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Model.pdb
+E:\MyProject\VSTool\Export\Digiwin.Chun.Model.dll
+E:\MyProject\VSTool\Export\Digiwin.Chun.Model.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Model.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool_新目录结构\Export\Digiwin.Chun.Model.dll
+E:\MyProject\VSTool_新目录结构\Export\Digiwin.Chun.Model.pdb
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Model.csproj.CoreCompileInputs.cache
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Model.dll
+E:\MyProject\VSTool_新目录结构\Digiwin.Chun.Model\obj\Debug\Digiwin.Chun.Model.pdb
