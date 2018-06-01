@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Digiwin.Chun.Model")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This Dll Create By Chun")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Digiwin.Chun")]
 [assembly: AssemblyProduct("Digiwin.Chun.Model")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

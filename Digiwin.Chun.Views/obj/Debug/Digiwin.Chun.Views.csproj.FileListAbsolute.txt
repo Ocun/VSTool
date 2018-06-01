@@ -55,3 +55,6 @@ E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Newtonsoft.Json.dll
 E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Common.Tools.pdb
 E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Models.pdb
 E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Newtonsoft.Json.xml
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Views.xml
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Common.Tools.xml
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Models.xml

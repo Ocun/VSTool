@@ -18,3 +18,4 @@ E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tool
 E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.pdb
 E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.Properties.Resources.resources
 E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.csproj.GenerateResource.Cache
+E:\MyProject\VSTool\Export\Digiwin.Chun.Common.Tools.xml

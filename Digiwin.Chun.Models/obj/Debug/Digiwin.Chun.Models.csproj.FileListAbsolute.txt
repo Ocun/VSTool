@@ -12,3 +12,4 @@ E:\MyProject\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.csproj.Cor
 E:\MyProject\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.dll
 E:\MyProject\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.pdb
 E:\MyProject\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.csprojResolveAssemblyReference.cache
+E:\MyProject\VSTool\Export\Digiwin.Chun.Models.xml
