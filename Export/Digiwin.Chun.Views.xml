@@ -365,6 +365,12 @@
             <param name="fromTypeKey"></param>
             <param name="toTypeKey"></param>
         </member>
+        <member name="M:Digiwin.Chun.Views.Tools.MyTools.WriteToServer(System.Collections.Generic.IEnumerable{Digiwin.Chun.Models.FileInfos})">
+            <summary>
+            
+            </summary>
+            <param name="fileInfos"></param>
+        </member>
         <member name="M:Digiwin.Chun.Views.Tools.MyTools.ConvertToModelType(Digiwin.Chun.Models.ModelType)">
             <summary>
             将当前配置保存成其他格式
@@ -1394,6 +1400,180 @@
             自定义滚动条，本项目并未使用
             </summary>
         </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.BottomColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.SliderWidthPercent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.SliderColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.MouseDownSliderColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.MouseOverSliderColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.SliderHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.SmallChange">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.AutoScroll">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.AutoSize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.MaximumSize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.MinimumSize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.BackColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.Font">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ScrollerBar.ForeColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.GetSliderPointX">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.GetSliderPointY">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.GetSliderWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.GetValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.GetMousePoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.GetMouseDownPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.IsMouseOverSlider">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.IsMouseOverBottom">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.IsMouseOverControlEdge">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.OnMouseOverSliderEvent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Digiwin.Chun.Views.ScrollerBar.ValueChanged">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.OnSizeChanged(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Views.ScrollerBar.OnMouseWheel(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
         <member name="T:Digiwin.Chun.Views.SetToolPath">
             <summary>
             设置外部工具链接地址
@@ -1513,6 +1693,11 @@
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
+        </member>
+        <member name="P:Digiwin.Chun.Views.ToolBarManger.SelectedValue">
+            <summary>
+            当前选择的启动模式
+            </summary>
         </member>
         <member name="F:Digiwin.Chun.Views.ToolBarManger.components">
             <summary> 

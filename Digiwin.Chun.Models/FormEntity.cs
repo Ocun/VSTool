@@ -1,6 +1,5 @@
 ﻿// create By 08628 20180411
 
-using System;
 
 namespace Digiwin.Chun.Models {
     /// <summary>
@@ -12,6 +11,9 @@ namespace Digiwin.Chun.Models {
         ///     個案路徑 E:\E10_5.0.0\TEST
         /// </summary>
         public string ToPath { get; set; } = string.Empty;
+        /// <summary>
+        /// 版本号
+        /// </summary>
         public string VersionNum { get; set; } = string.Empty;
         /// <summary>
         /// 不知何用，可能是标准？

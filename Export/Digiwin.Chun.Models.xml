@@ -266,7 +266,11 @@
              // 多媒体设置，一般指声卡。
             </summary>
         </member>
-        <!-- 对于成员“F:Digiwin.Chun.Models.WMIPath.Win32_SystemSlot”忽略有格式错误的 XML 注释 -->
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_SystemSlot">
+            <summary>
+             主板插槽 (ISA PCI AGP)
+            </summary>
+        </member>
         <member name="F:Digiwin.Chun.Models.WMIPath.Win32_USBController">
             <summary>
              // USB 控制器
@@ -307,6 +311,141 @@
             // MODEM
             </summary>
         </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_POTSModemToSerialPort">
+            <summary>
+            MODEM端口
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_DesktopMonitor">
+            <summary>
+            显示器
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_DisplayConfiguration">
+            <summary>
+            显卡
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_DisplayControllerConfiguration">
+            <summary>
+            显卡设置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_VideoController">
+            <summary>
+            显卡细节
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_VideoSettings">
+            <summary>
+            显卡支持的显示模式
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_TimeZone">
+            <summary>
+            时区
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_SystemDriver">
+            <summary>
+            驱动程序
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_DiskPartition">
+            <summary>
+            磁盘分区
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_LogicalDisk">
+            <summary>
+            逻辑磁盘
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_LogicalDiskToPartition">
+            <summary>
+            逻辑磁盘所在分区及始末位置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_LogicalMemoryConfiguration">
+            <summary>
+            逻辑内存配置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_PageFile">
+            <summary>
+            系统页文件信息
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_PageFileSetting">
+            <summary>
+            页文件设置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_BootConfiguration">
+            <summary>
+            系统启动配置
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_ComputerSystem">
+            <summary>
+            计算机信息简要
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_OperatingSystem">
+            <summary>
+            操作系统信息
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_StartupCommand">
+            <summary>
+            系统自动启动程序
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_Service">
+            <summary>
+            系统安装的服务
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_Group">
+            <summary>
+            系统管理组
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_GroupUser">
+            <summary>
+            系统组帐号
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_UserAccount">
+            <summary>
+            用户帐号
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_Process">
+            <summary>
+            系统进程
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_Thread">
+            <summary>
+            系统线程
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_Share">
+            <summary>
+            共享
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_NetworkClient">
+            <summary>
+            已安装的网络客户端
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Models.WMIPath.Win32_NetworkProtocol">
+            <summary>
+            已安装的网络协议
+            </summary>
+        </member>
         <member name="T:Digiwin.Chun.Models.MappingEntity">
             <remarks />
         </member>
@@ -333,6 +472,11 @@
         <member name="P:Digiwin.Chun.Models.FormEntity.ToPath">
             <summary>
                 個案路徑 E:\E10_5.0.0\TEST
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Models.FormEntity.VersionNum">
+            <summary>
+            版本号
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Models.FormEntity.IsPkg">

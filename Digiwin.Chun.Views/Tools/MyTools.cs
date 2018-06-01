@@ -144,8 +144,14 @@ namespace Digiwin.Chun.Views.Tools {
                 if (!Directory.Exists(newFileDir))
                     Directory.CreateDirectory(newFileDir);
 
+                logPath.Add(new FileInfos
+                {
+                    FileName = fileinfo.Name,
+                    FromPath = file,
+                    ToPath = newFilePath
+                });
                 CopyFile(file, newFilePath);
-
+                
             }
             Task.Factory.StartNew(() =>
             {
@@ -156,6 +162,10 @@ namespace Digiwin.Chun.Views.Tools {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileInfos"></param>
         public static void WriteToServer(IEnumerable<FileInfos> fileInfos)
         {
             SqlTools.InsertToolInfo(Toolpars.FormEntity.TxtNewTypeKey, fileInfos);

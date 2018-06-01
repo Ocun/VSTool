@@ -13,6 +13,9 @@ using MSWord = Microsoft.Office.Interop.Word;
 
 namespace Digiwin.Chun.Common.Tools
 {
+    /// <summary>
+    /// 通用辅助类
+    /// </summary>
     public static class CommonTools
     {
        

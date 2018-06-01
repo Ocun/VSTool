@@ -66,6 +66,9 @@ namespace Digiwin.Chun.Views {
         protected int SliderWidth; //Width   SliderWidthPercent_
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ScrollerBar() {
             SetStyle(ControlStyles.ResizeRedraw, true); //当控件大小改变时自动重绘           
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer,
@@ -75,6 +78,9 @@ namespace Digiwin.Chun.Views {
 
         /*让变量显示在设计器中 连接设计器变量和内部变量  更改这两个变量的任
          * 何一个另一个都会被更改并触发Set中的代码  */
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -98,6 +104,9 @@ namespace Digiwin.Chun.Views {
 //把BottomColor_值赋给BottomColor
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -121,6 +130,9 @@ namespace Digiwin.Chun.Views {
             get => _sliderWidthPercent;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -134,6 +146,9 @@ namespace Digiwin.Chun.Views {
             get => _sliderColor;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -147,6 +162,9 @@ namespace Digiwin.Chun.Views {
             get => _mouseDownSliderColor;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -160,6 +178,9 @@ namespace Digiwin.Chun.Views {
             get => _mouseOverSliderColor;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -192,6 +213,9 @@ namespace Digiwin.Chun.Views {
             get => _value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -214,6 +238,9 @@ namespace Digiwin.Chun.Views {
             get => _sliderHeight;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
@@ -234,37 +261,61 @@ namespace Digiwin.Chun.Views {
         /*重写继承类中的变量或函数要用override关键字 并且这个变量或函数应当允许被重写*/
         /*设置Browsable(false) 设计器中将不再显示该变量 由于重写了变量改变时所运行的代码
          * 与该变量任何相关的事件都将消失*/
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         public override bool AutoScroll { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         public override bool AutoSize { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         public override Size MaximumSize { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         public override Size MinimumSize { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         public override Color BackColor { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         public override Font Font //这里好像必须要给个返回值 否则会提示该控件没有实例化
             => new Font("微软雅黑", 1);
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         public override Color ForeColor { set; get; }
 
         //大范围使用的方法*******************************************************
         //一些变量的值的更新方法
+        /// <summary>
+        /// 
+        /// </summary>
         protected void GetSliderPointX() //作为更新SliderPointX的值的方法
         {
             if (_sliderWidthPercent == 1)
@@ -273,6 +324,9 @@ namespace Digiwin.Chun.Views {
                 SliderPointX = (int) (Width * (1 - _sliderWidthPercent) / 2) + 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected void GetSliderPointY() //作为更新SliderPointY的值的方法
         {
             if (MouseDownOverSliderFlag == false) //当使用鼠标拖动使得Value改变时不要用再用Value计算SliderPointY
@@ -302,14 +356,22 @@ namespace Digiwin.Chun.Views {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected void GetSliderWidth() //作为更新SliderWidth的值的方法
         {
             if (_sliderWidthPercent == 1) //由于浮点数计算的误差 对于SliderWidthPercent=1的情况进行特殊处理
+            {
                 SliderWidth = Width;
+            }
             else //普通情况的浮点数计算
                 SliderWidth = (int) (Width * _sliderWidthPercent) - 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected void GetValue() //作为更新Value的值的方法
         {
             var sliderPointYFloatValue = SliderPointY / ((float) (Height - _sliderHeight) / 100);
@@ -320,17 +382,27 @@ namespace Digiwin.Chun.Views {
             Value = sliderPointYIntValue;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected void GetMousePoint() //作为更新MousePoint的值的方法
         {
             MousePoint = PointToClient(Cursor.Position);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected void GetMouseDownPoint() //作为更新MouseDownPoint的值的方法
         {
             MouseDownPoint = PointToClient(Cursor.Position);
         }
 
         //判断鼠标所在位置方法
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected bool IsMouseOverSlider() //判断鼠标是否在滑块上方
         {
             GetMousePoint();
@@ -338,12 +410,20 @@ namespace Digiwin.Chun.Views {
                    MousePoint.X >= SliderPointX && MousePoint.X <= SliderPointX + SliderWidth;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected bool IsMouseOverBottom() //判断鼠标是否在滑道上
         {
             GetMousePoint();
             return MousePoint.Y < SliderPointY || MousePoint.Y > SliderPointY + _sliderHeight;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected bool IsMouseOverControlEdge() //判断鼠标是否处于控件边缘部分
         {
             GetMousePoint();
@@ -353,6 +433,9 @@ namespace Digiwin.Chun.Views {
         //小范围使用的方法*************************************************************
         //
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected void OnMouseOverSliderEvent() //鼠标在滑块上方悬浮时的事件
         {
             MouseOverSliderFlag = IsMouseOverSlider();
@@ -365,13 +448,20 @@ namespace Digiwin.Chun.Views {
         //窗体设计器所添加或重写的事件*******************************
         //
 
+        /// <summary>
+        /// 
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DefaultValue(false)]
         [Category("操作")]
         [Description("当Value值改变时发生")]
-        public event System.EventHandler ValueChanged;
+        public event EventHandler ValueChanged;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnSizeChanged(EventArgs e) {
             if (Size.Height - _sliderHeight < 100) //要求滑块可滑动部分像素长度不得小于100
                 Height = _sliderHeight + 100;
@@ -389,6 +479,10 @@ namespace Digiwin.Chun.Views {
             base.OnSizeChanged(e);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e) {
             //设置绘制质量为最低 为了保证滑块在滑动时显示流畅
 
@@ -429,6 +523,10 @@ namespace Digiwin.Chun.Views {
             sliderSolidBrush.Dispose();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 GetMouseDownPoint(); //取得相对于控件的鼠标按下位置
@@ -463,6 +561,10 @@ namespace Digiwin.Chun.Views {
             base.OnMouseDown(e);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e) {
             if (MouseDownSliderFlag) {
                 MouseDownOverSliderFlag = true;
@@ -487,6 +589,10 @@ namespace Digiwin.Chun.Views {
             base.OnMouseMove(e);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e) {
             if (MouseDownSliderFlag) {
                 MouseDownSliderFlag = false;
@@ -497,6 +603,10 @@ namespace Digiwin.Chun.Views {
             base.OnMouseUp(e);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseWheel(MouseEventArgs e) {
             //计算Value值
             if (e.Delta > 0) {

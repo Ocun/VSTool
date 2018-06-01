@@ -332,6 +332,9 @@ namespace Digiwin.Chun.Views {
             }
         }
 
+        /// <summary>
+        /// 当前选择的启动模式
+        /// </summary>
         public object SelectedValue { get; set; } = 1;
     
 

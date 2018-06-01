@@ -108,6 +108,11 @@
                 取得機碼執行檔路徑
             </summary>
         </member>
+        <member name="T:Digiwin.Chun.Common.Tools.CommonTools">
+            <summary>
+            通用辅助类
+            </summary>
+        </member>
         <member name="M:Digiwin.Chun.Common.Tools.CommonTools.CopyFile(System.String,System.String)">
             <summary>
             流形式copyFile，媒体文件亦可
@@ -727,6 +732,16 @@
             </summary>
             <param name="msg"></param>
             <param name="logPath"></param>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.LogTools._hardwareInfo">
+            <summary>
+            硬件信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.LogTools.HardwareInfo">
+            <summary>
+            硬件信息
+            </summary>
         </member>
         <member name="M:Digiwin.Chun.Common.Tools.LogTools.GetHardInfo">
             <summary>

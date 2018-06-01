@@ -44,7 +44,13 @@ namespace Digiwin.Chun.Common.Tools {
             WriteToFile(logPath, logStr.ToString());
         }
 
-        public static HardwareEntity _hardwareInfo;
+        /// <summary>
+        /// 硬件信息
+        /// </summary>
+        private static HardwareEntity _hardwareInfo;
+        /// <summary>
+        /// 硬件信息
+        /// </summary>
         public static HardwareEntity HardwareInfo {
             get {
                 if (_hardwareInfo == null) {
@@ -68,7 +74,7 @@ namespace Digiwin.Chun.Common.Tools {
             var headContentStr = GetHeadStr(@"_", 50);
             logStr.AppendLine($"{headContentStr}PCInfo{headContentStr}");
             if (hardwareInfo != null) {
-                logStr.AppendLine($"#CPUinfo:")
+                logStr.AppendLine("#CPUinfo:")
                 .AppendLine($"{empStr}#CpuCount#{empStr}{hardwareInfo.CpuInfos?.Count}");
 
                 for (var i = 0; i < hardwareInfo.CpuInfos?.Count; i++)
@@ -147,7 +153,7 @@ namespace Digiwin.Chun.Common.Tools {
         /// </summary>
         /// <returns></returns>
         public static string GetLogDir(string operationLog) {
-            var appPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase; ;
+            var appPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase; 
             var varAppPath = Path.Combine(appPath, "log");
             if (!Directory.Exists(varAppPath))
                 Directory.CreateDirectory(varAppPath);
