@@ -1,8 +1,9 @@
 // create By 08628 20180411
 
 using System;
-using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Models;
+using static Digiwin.Chun.Common.Tools.PathTools;
+using static Digiwin.Chun.Common.Tools.ReadToEntityTools;
 
 namespace Digiwin.Chun.Views.Tools {
     /// <summary>
@@ -46,9 +47,9 @@ namespace Digiwin.Chun.Views.Tools {
         public T GetEntity<T>(T obj,string fileName) where T:class {
             if (obj != null)
                 return obj;
-            var path = PathTools.GetSettingPath(fileName,ModelType);
-            if (PathTools.CheckFile(path))
-                obj = ReadToEntityTools.ReadToEntity<T>(path, ModelType);
+            var path = GetSettingPath(fileName,ModelType);
+            if (CheckFile(path))
+                obj = ReadToEntity<T>(path, ModelType);
             return obj;
         }
 
@@ -142,10 +143,11 @@ namespace Digiwin.Chun.Views.Tools {
         /// </summary>
         public PathEntity PathEntity {
             get {
-                _pathEntity = MyTools.GetPathEntity(this);
+                _pathEntity =MyTools.GetPathEntity(this);
                 return _pathEntity;
             }
             set => _pathEntity = value;
         }
+
     }
 }

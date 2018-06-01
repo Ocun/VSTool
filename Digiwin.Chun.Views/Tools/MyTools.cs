@@ -17,6 +17,8 @@ using MSWord = Microsoft.Office.Interop.Word;
 using Digiwin.Chun.Models;
 using Digiwin.Chun.Views.Properties;
 using static Digiwin.Chun.Common.Tools.CommonTools;
+using static Digiwin.Chun.Common.Tools.PathTools;
+using static Digiwin.Chun.Common.Tools.ReadToEntityTools;
 
 namespace Digiwin.Chun.Views.Tools {
     /// <summary>
@@ -135,10 +137,10 @@ namespace Digiwin.Chun.Views.Tools {
                 {
                     fileName = $@"X{fileName}";
                 }
-                var absolutePath = PathTools.PathCombine(absolutedir, fileName);
+                var absolutePath = PathCombine(absolutedir, fileName);
 
-                var newFilePath = PathTools.PathCombine(toDir, absolutePath);
-                var newFileDir = PathTools.PathCombine(toDir, absolutedir);
+                var newFilePath = PathCombine(toDir, absolutePath);
+                var newFileDir = PathCombine(toDir, absolutedir);
 
                 if (!Directory.Exists(newFileDir))
                     Directory.CreateDirectory(newFileDir);
@@ -161,6 +163,22 @@ namespace Digiwin.Chun.Views.Tools {
         }
 
         /// <summary>
+        /// 将当前配置保存成其他格式
+        /// </summary>
+        /// <param name="modelType"></param>
+        public static void ConvertToModelType(ModelType modelType)
+        {
+            var toolpars = Toolpars;
+            var xmlPath = GetSettingPath("BuildeEntity", modelType);
+            SaveSerialize(toolpars.BuilderEntity, modelType, xmlPath);
+            xmlPath = GetSettingPath("FileMappingEntity", modelType);
+            SaveSerialize(toolpars.FileMappingEntity, modelType, xmlPath);
+            xmlPath = GetSettingPath("SettingPathEntity", modelType);
+            SaveSerialize(toolpars.SettingPathEntity, modelType, xmlPath);
+        }
+
+
+        /// <summary>
         ///     獲取各種路徑
         /// </summary>
         /// <param name="toolpars"></param>
@@ -169,21 +187,21 @@ namespace Digiwin.Chun.Views.Tools {
         {
             var settingPathEntity = toolpars.SettingPathEntity;
 
-            var serverFullPath = PathTools.CombineStr(new[] {
+            var serverFullPath = CombineStr(new[] {
                 toolpars.Mplatform, settingPathEntity.ServerDir
             }); //平台\\Server\\Application\\Customization
-            var clientFullPath = PathTools.CombineStr(new[] {
+            var clientFullPath = CombineStr(new[] {
                 toolpars.Mplatform, settingPathEntity.DeployServerDir
             }); //平台\\DeployServer\\Shared\\Customization\\
-            var serverProgramsFullPath = PathTools.CombineStr(new[] {
+            var serverProgramsFullPath = CombineStr(new[] {
                 serverFullPath,
                 settingPathEntity.Programs
             }); //平台\\Server\\Application\\Customization\\Programs\\
-            var clientProgramsFullPath = PathTools.CombineStr(new[] {
+            var clientProgramsFullPath = CombineStr(new[] {
                 clientFullPath,
                 settingPathEntity.Programs
             }); //平台\\DeployServer\\Shared\\Customization\\Programs\\
-            var exportFullPath = PathTools.CombineStr(new[]
+            var exportFullPath = CombineStr(new[]
                 {toolpars.FormEntity.SrcToPath, settingPathEntity.ExportDir}); //个案\\Export\\
 
             #region typekey路径
@@ -191,10 +209,10 @@ namespace Digiwin.Chun.Views.Tools {
             var newTypeKeyRootDir = txtNewTypeKey;
             if (!newTypeKeyRootDir.StartsWith(settingPathEntity.PackageBaseName))
             {
-                newTypeKeyRootDir = PathTools.CombineStr(new[]
+                newTypeKeyRootDir = CombineStr(new[]
                     {settingPathEntity.PackageBaseName, txtNewTypeKey}); //Digiwin.ERP.typekey
             }
-            var newTypeKeyFullRootDir = PathTools.PathCombine(toolpars.FormEntity.SrcToPath, newTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
+            var newTypeKeyFullRootDir = PathCombine(toolpars.FormEntity.SrcToPath, newTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
             #endregion
 
             #region pkgTypeKey路径
@@ -202,46 +220,46 @@ namespace Digiwin.Chun.Views.Tools {
             var pkgTypeKeyRootDir = pkgTxtNewTypeKey;
             if (!pkgTxtNewTypeKey.StartsWith(settingPathEntity.PackageBaseName))
             {
-                pkgTypeKeyRootDir = PathTools.CombineStr(new[]
+                pkgTypeKeyRootDir = CombineStr(new[]
                     {settingPathEntity.PackageBaseName, pkgTxtNewTypeKey}); //Digiwin.ERP.typekey  
             }
 
-            var pkgTypeKeyFullRootDir = PathTools.PathCombine(toolpars.FormEntity.PkgSrcPath, pkgTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
+            var pkgTypeKeyFullRootDir = PathCombine(toolpars.FormEntity.PkgSrcPath, pkgTypeKeyRootDir); //..\\Digiwin.ERP.typekey 
             #endregion
 
             var businessDir =
-                PathTools.CombineStr(new[]
+                CombineStr(new[]
                     {newTypeKeyRootDir, settingPathEntity.BusinessDirExtention}); //Digiwin.ERP.typekey.Business\\
-            var implementDir = PathTools.CombineStr(new[]
+            var implementDir = CombineStr(new[]
                 {businessDir, settingPathEntity.ImplementDirExtention}); //Digiwin.ERP.typekey.Business.Implement\\
-            var uiDir = PathTools.CombineStr(new[] { newTypeKeyRootDir, settingPathEntity.UiDirExtention }); //Digiwin.ERP.typekey.UI\\
+            var uiDir = CombineStr(new[] { newTypeKeyRootDir, settingPathEntity.UiDirExtention }); //Digiwin.ERP.typekey.UI\\
             var uiImplementDir =
-                PathTools.CombineStr(new[]
+                CombineStr(new[]
                     {uiDir, settingPathEntity.ImplementDirExtention}); //Digiwin.ERP.typekey.UI.Implement\\
             var businessDllName =
-                PathTools.CombineStr(new[]
+                CombineStr(new[]
                     {businessDir, settingPathEntity.DllExtention}); //Digiwin.ERP.typekey.Business.dll\\
             var implementDllName =
-                PathTools.CombineStr(new[]
+                CombineStr(new[]
                     {implementDir, settingPathEntity.DllExtention}); //Digiwin.ERP.typekey.Business.Implement.dll\\
-            var uiDllName = PathTools.CombineStr(new[]
+            var uiDllName = CombineStr(new[]
                 {uiDir, settingPathEntity.DllExtention}); //Digiwin.ERP.typekey.UI.dll\\
             var uiImplementDllName =
-                PathTools.CombineStr(new[]
+                CombineStr(new[]
                     {uiImplementDir, settingPathEntity.DllExtention}); //Digiwin.ERP.typekey.UI.Implement.dll\\
 
 
             if (toolpars.MIndustry)
             {
-                serverFullPath = PathTools.CombineStr(new[] {
+                serverFullPath = CombineStr(new[] {
                     toolpars.Mplatform, settingPathEntity.IndustryServerDir
                 }); //平台\\Server\\Application\\IndustryServerDir
-                clientFullPath = PathTools.CombineStr(new[] {
+                clientFullPath = CombineStr(new[] {
                     toolpars.Mplatform, settingPathEntity.IndustryDeployDir
                 }); //平台\\DeployServer\\Shared\\IndustryDeployDir
-                serverProgramsFullPath = PathTools.CombineStr(new[]
+                serverProgramsFullPath = CombineStr(new[]
                     {serverFullPath, settingPathEntity.Programs});
-                clientProgramsFullPath = PathTools.CombineStr(new[]
+                clientProgramsFullPath = CombineStr(new[]
                     {clientFullPath, settingPathEntity.Programs});
             }
             var pathEntity = new PathEntity
@@ -266,6 +284,7 @@ namespace Digiwin.Chun.Views.Tools {
             };
             return pathEntity;
         }
+   
         /// <summary>
         ///   Copy源码
         /// </summary>
@@ -307,10 +326,10 @@ namespace Digiwin.Chun.Views.Tools {
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
                 //不改变文件名，copy代码不用改文件名
                 var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
-                var absolutePath = PathTools.PathCombine(absolutedir, fileName);
+                var absolutePath = PathCombine(absolutedir, fileName);
 
-                var newFilePath = PathTools.PathCombine(toDir, absolutePath);
-                var newFileDir = PathTools.PathCombine(toDir, absolutedir);
+                var newFilePath = PathCombine(toDir, absolutePath);
+                var newFileDir = PathCombine(toDir, absolutedir);
 
                 if (!Directory.Exists(newFileDir))
                     Directory.CreateDirectory(newFileDir);
@@ -438,7 +457,7 @@ namespace Digiwin.Chun.Views.Tools {
             var pathEntity = Toolpars.PathEntity;
             if (pathEntity == null)
                 return false;
-            if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
+            if (IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
                 MessageBox.Show(Resources.TypekeyNotExisted);
                 return false;
             }
@@ -519,12 +538,12 @@ namespace Digiwin.Chun.Views.Tools {
                 return;
             bt.Url = (form.Path??string.Empty).Trim();
             var modelType = Toolpars.ModelType;
-            var settingPath = PathTools.GetSettingPath("BuildeEntity", modelType);
+            var settingPath = GetSettingPath("BuildeEntity", modelType);
             switch (modelType) {
                 case ModelType.Binary:
                 case ModelType.Json:
                     ModiBuilderById(Toolpars.BuilderEntity.BuildeTypies,bt.Id,bt.Url);
-                    ReadToEntityTools.SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, settingPath);
+                    SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, settingPath);
                     break;
                 case ModelType.Xml:
                     var xpath= $@"//BuildeItem[Id='{bt.Id}']/Url";
@@ -851,8 +870,8 @@ namespace Digiwin.Chun.Views.Tools {
         /// </summary>
         public static void InitBuilderEntity() {
             try {
-                var path = PathTools.GetSettingPath("BuildeEntity", Toolpars.ModelType);
-                Toolpars.BuilderEntity = ReadToEntityTools.ReadToEntity<BuildeEntity>(path, Toolpars.ModelType);
+                var path = GetSettingPath("BuildeEntity", Toolpars.ModelType);
+                Toolpars.BuilderEntity = ReadToEntity<BuildeEntity>(path, Toolpars.ModelType);
                 InitBuildeTypies(Toolpars.BuilderEntity.BuildeTypies);
             }
             catch (Exception ex) {
@@ -868,7 +887,7 @@ namespace Digiwin.Chun.Views.Tools {
         private static void InitBuildeTypies(BuildeType[] buildeTypies) {
             buildeTypies?.ToList().ForEach(item => {
                 if (item.Checked != null
-                    &&PathTools.IsTrue("True")
+                    &&IsTrue("True")
                 ) {
                     item.FileInfos = CreateFileMappingInfo(item, $"Create{item.Id}", $"Create{item.Id}");
                     if (item.BuildeItems != null)
@@ -970,10 +989,10 @@ namespace Digiwin.Chun.Views.Tools {
                 filmap.Id.Equals("BaseItem")
             );
             fileInfo?.Paths.ToList().ForEach(path => {
-                var fromPath = PathTools.PathCombine(Toolpars.MvsToolpath, "Template", path);
+                var fromPath = PathCombine(Toolpars.MvsToolpath, "Template", path);
 
                 var newFilePath = path.Replace(templateType, newTypeKey);
-                newFilePath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
+                newFilePath = PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
 
                 if (File.Exists(newFilePath))
                     return;
@@ -1083,7 +1102,7 @@ namespace Digiwin.Chun.Views.Tools {
                         return;
                     var newFilePath = basePath.Replace(templateType, newTypeKey)
                         .Replace(oldFilePath, fileinfo.FileName);
-                    fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
+                    fileinfo.ToPath = PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
                 }
             );
         }
@@ -1102,7 +1121,7 @@ namespace Digiwin.Chun.Views.Tools {
                 var citem = parItem[0].BuildeItems
                     .Where(et => et.Id.Equals(bt.Id)).ToList();
                 if (citem.Count > 0)
-                    if (PathTools.IsTrue(bt.Checked))
+                    if (IsTrue(bt.Checked))
                         citem.ForEach(ee => {
                                 ee.Checked = "True";
                                 ee.FileInfos = fileInfos;
@@ -1167,7 +1186,7 @@ namespace Digiwin.Chun.Views.Tools {
             }
 
             //联动其他项
-            if (PathTools.IsNullOrEmpty(bt.UnionId))
+            if (IsNullOrEmpty(bt.UnionId))
                 return fileInfos;
             var unionItems = bt.UnionId;
             unionItems.ToList().ForEach(id => {
@@ -1195,7 +1214,7 @@ namespace Digiwin.Chun.Views.Tools {
         /// <param name="path"></param>
         /// <returns></returns>
         public static FileInfos CreateFileInfos(string className,string functionName,string path) {
-            var fromPath = PathTools.PathCombine(Toolpars.MvsToolpath, "Template", path);
+            var fromPath = PathCombine(Toolpars.MvsToolpath, "Template", path);
             var fileinfo = new FileInfos {
                 ActionName = "",
                 ClassName = className,
@@ -1207,7 +1226,7 @@ namespace Digiwin.Chun.Views.Tools {
             var oldFilePath = Path.GetFileNameWithoutExtension(path);
             if (oldFilePath == null) return fileinfo;
             var newFilePath = path.Replace(oldFilePath, fileinfo.FileName);
-            fileinfo.ToPath = PathTools.PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
+            fileinfo.ToPath = PathCombine(Toolpars.FormEntity.SrcToPath, newFilePath);
             return fileinfo;
         }
 
@@ -1420,12 +1439,12 @@ namespace Digiwin.Chun.Views.Tools {
                     var absoluteDir = $@"{directoryInfo.Parent?.Parent?.Name}\{directoryInfo.Parent?.Name}";
                     var wd = isPkg ? "WD" : "WD_C";
                     absoluteDir = absoluteDir.Replace(wd, "WD_C");
-                    newTypeKeyDir = PathTools.PathCombine(customerToPath, absoluteDir, Toolpars.FormEntity.TxtNewTypeKey);
+                    newTypeKeyDir = PathCombine(customerToPath, absoluteDir, Toolpars.FormEntity.TxtNewTypeKey);
                 }
 
                 //客户与typekey不可为空
-                    if (!PathTools.IsNullOrEmpty(customerToPath)
-                    && !PathTools.IsNullOrEmpty(newTypeKey)) {
+                    if (!IsNullOrEmpty(customerToPath)
+                    && !IsNullOrEmpty(newTypeKey)) {
                     //客户需存在
                     if (Directory.Exists(customerToPath)) {
                         //借用不存在（源码/typekey）
@@ -1552,8 +1571,8 @@ namespace Digiwin.Chun.Views.Tools {
                     return;
                 Toolpars.BuilderEntity.BuildeTypies =
                     FindBuilderTypeAndDelete(bt.Id, Toolpars.BuilderEntity.BuildeTypies);
-                var xmlPath = PathTools.GetSettingPath("BuilderEntity", Toolpars.ModelType);
-                ReadToEntityTools.SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, xmlPath);
+                var xmlPath = GetSettingPath("BuilderEntity", Toolpars.ModelType);
+                SaveSerialize(Toolpars.BuilderEntity, Toolpars.ModelType, xmlPath);
                 ControlTools.InitMainView();
             }
             catch (Exception ex) {
