@@ -16,3 +16,5 @@ E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tool
 E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.csproj.CoreCompileInputs.cache
 E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.dll
 E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.Properties.Resources.resources
+E:\MyProject\VSTool\Digiwin.Chun.Common.Tools\obj\Debug\Digiwin.Chun.Common.Tools.csproj.GenerateResource.Cache

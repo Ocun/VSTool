@@ -35,7 +35,6 @@ E:\MyProject\VSTool\Export\Digiwin.Chun.Views.pdb
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.csprojResolveAssemblyReference.cache
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Interop.IWshRuntimeLibrary.dll
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.csproj.ResolveComReference.cache
-E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.View.CreateToolForm.resources
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.InsertForm.resources
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.ModiName.resources
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.ModiPkgForm.resources
@@ -47,3 +46,12 @@ E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.csproj.Gener
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.csproj.CoreCompileInputs.cache
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.dll
 E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Views\obj\Debug\Digiwin.Chun.Views.CreateToolForm.resources
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Views.dll
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Views.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Common.Tools.dll
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Models.dll
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Newtonsoft.Json.dll
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Common.Tools.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Digiwin.Chun.Models.pdb
+E:\MyProject\VSTool\Digiwin.Chun.Views\bin\Debug\Newtonsoft.Json.xml

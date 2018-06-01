@@ -16,13 +16,16 @@ using Digiwin.Chun.Common.Tools;
 using MSWord = Microsoft.Office.Interop.Word;
 using Digiwin.Chun.Models;
 using Digiwin.Chun.Views.Properties;
+using static Digiwin.Chun.Common.Tools.CommonTools;
 
 namespace Digiwin.Chun.Views.Tools {
     /// <summary>
     ///     工具类
     /// </summary>
     public static class MyTools {
-        static void SetTestdata() {
+        #region 测试参数
+        static void SetTestdata()
+        {
             Toolpars.Mpath = ""; //D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
             Toolpars.MInpath = ""; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
             Toolpars.Mplatform = @"E:\平台\E50"; //C:\DF_E10_2.0.2
@@ -32,6 +35,129 @@ namespace Digiwin.Chun.Views.Tools {
             Toolpars.CustomerName = "TEST";
             Toolpars.FormEntity.ToPath = $@"E:\DF_E10_5.0.0\TEST";
             Toolpars.FormEntity.PkgPath = $@"E:\DF_E10_5.0.0";
+        } 
+        #endregion
+
+        #region 属性
+        /// <summary>
+        /// </summary>
+        public static Toolpars Toolpars { get; } = new Toolpars();
+        /// <summary>
+        ///     存储图标
+        /// </summary>
+
+        public static Hashtable ImageList { get; set; } = new Hashtable(); 
+        #endregion
+
+        #region 初始化窗体参数
+
+        /// <summary>
+        ///     初始化窗体参数
+        /// </summary>
+        /// <param name="pToIni"></param>
+        public static void InitToolpars(string[] pToIni)
+        {
+            Toolpars.ModelType = ModelType.Json;
+            if (pToIni == null)
+            {
+                Toolpars.FormEntity.ToPath = string.Empty;
+            }
+            else
+            {
+                Toolpars.Mall = pToIni[0];
+                var args = Toolpars.Mall.Split('&');
+                var mpath = args[0];
+                Toolpars.Mpath = mpath;//D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
+                Toolpars.MInpath = args[1]; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
+                Toolpars.Mplatform = args[2]; //C:\DF_E10_2.0.2
+                Toolpars.MdesignPath = args[3]; //E:\平台\E202
+                Toolpars.MVersion = args[4]; //DF_E10_2.0.2
+                Toolpars.MIndustry = Convert.ToBoolean(args[5]);
+                Toolpars.CustomerName = args[6];
+                if (!string.IsNullOrEmpty(mpath))
+                {
+                    var srcDir = new DirectoryInfo(mpath);
+                    Toolpars.FormEntity.ToPath = srcDir.Parent?.Parent?.FullName;
+                }
+                Toolpars.FormEntity.PkgPath = $@"{Toolpars.MdesignPath}";
+
+                Toolpars.FormEntity.Industry = Toolpars.MIndustry;
+                if (Toolpars.Mpath.Contains("PKG")
+                    && !Toolpars.MIndustry)
+                {
+                    Toolpars.FormEntity.IsPkg = true;
+                    Toolpars.FormEntity.ToPath = $@"{Toolpars.MdesignPath}";
+                }
+
+            }
+            //分割宽度
+            Toolpars.FormEntity.SpiltWidth = 200;
+            //最大分割列
+            Toolpars.FormEntity.MaxSplitCount = 6;
+            Toolpars.OldTypekey = Toolpars.SettingPathEntity.TemplateTypeKey;
+            Toolpars.FormEntity.EditState = false;
+            IconTools.InitImageList();
+            InitBuilderEntity();
+            // SetTestdata();
+
+
+        }
+
+
+        #endregion
+
+        #region 辅助类
+
+        /// <summary>
+        ///    CopyTypeKey
+        /// </summary>
+        /// <param name="fromDir"></param>
+        /// <param name="toDir"></param>
+        /// <param name="fromTypeKey"></param>
+        /// <param name="toTypeKey"></param>
+        // ReSharper disable once UnusedMember.Global
+        public static void CopyTo(string fromDir, string toDir,
+            string fromTypeKey, string toTypeKey)
+        {
+            var formFiles = GetFilePath(fromDir);
+
+            //记录一键Copy的文件
+            var logPath = new List<FileInfos>();
+            foreach (var file in formFiles)
+            {
+                var fileinfo = new FileInfo(file);
+                if (fileinfo.Directory == null)
+                    continue;
+                var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
+
+                var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
+                if (fileName.Contains("ReportLayoutInfo") && (fileName.EndsWith(".repx") || fileName.EndsWith(".xml")))
+                {
+                    fileName = $@"X{fileName}";
+                }
+                var absolutePath = PathTools.PathCombine(absolutedir, fileName);
+
+                var newFilePath = PathTools.PathCombine(toDir, absolutePath);
+                var newFileDir = PathTools.PathCombine(toDir, absolutedir);
+
+                if (!Directory.Exists(newFileDir))
+                    Directory.CreateDirectory(newFileDir);
+
+                CopyFile(file, newFilePath);
+
+            }
+            Task.Factory.StartNew(() =>
+            {
+                Thread.CurrentThread.IsBackground = false;
+                WriteToServer(logPath);
+            });
+
+
+        }
+
+        public static void WriteToServer(IEnumerable<FileInfos> fileInfos)
+        {
+            SqlTools.InsertToolInfo(Toolpars.FormEntity.TxtNewTypeKey, fileInfos);
         }
 
         /// <summary>
@@ -140,120 +266,6 @@ namespace Digiwin.Chun.Views.Tools {
             };
             return pathEntity;
         }
-
-        /// <summary>
-        /// </summary>
-        public static Toolpars Toolpars { get; } = new Toolpars();
-        /// <summary>
-        ///     存储图标
-        /// </summary>
-
-        public static Hashtable ImageList { get; set; } = new Hashtable();
-        #region 初始化窗体参数
-
-        /// <summary>
-        ///     初始化窗体参数
-        /// </summary>
-        /// <param name="pToIni"></param>
-        public static void InitToolpars(string[] pToIni)
-        {
-            Toolpars.ModelType = ModelType.Json;
-            if (pToIni == null)
-            {
-                Toolpars.FormEntity.ToPath = string.Empty;
-            }
-            else
-            {
-                Toolpars.Mall = pToIni[0];
-                var args = Toolpars.Mall.Split('&');
-                var mpath = args[0];
-                Toolpars.Mpath = mpath;//D:\DF_E10_2.0.2\C002152226(达峰机械)\WD_PR_C\SRC
-                Toolpars.MInpath = args[1]; //D:\DF_E10_2.0.2\X30001(鼎捷紧固件)\WD_PR_I\SRC
-                Toolpars.Mplatform = args[2]; //C:\DF_E10_2.0.2
-                Toolpars.MdesignPath = args[3]; //E:\平台\E202
-                Toolpars.MVersion = args[4]; //DF_E10_2.0.2
-                Toolpars.MIndustry = Convert.ToBoolean(args[5]);
-                Toolpars.CustomerName = args[6];
-                if (!string.IsNullOrEmpty(mpath))
-                {
-                    var srcDir = new DirectoryInfo(mpath);
-                    Toolpars.FormEntity.ToPath = srcDir.Parent?.Parent?.FullName;
-                }
-                Toolpars.FormEntity.PkgPath = $@"{Toolpars.MdesignPath}";
-
-                Toolpars.FormEntity.Industry = Toolpars.MIndustry;
-                if (Toolpars.Mpath.Contains("PKG")
-                    && !Toolpars.MIndustry)
-                {
-                    Toolpars.FormEntity.IsPkg = true;
-                    Toolpars.FormEntity.ToPath = $@"{Toolpars.MdesignPath}";
-                }
-
-            }
-            //分割宽度
-            Toolpars.FormEntity.SpiltWidth = 200;
-            //最大分割列
-            Toolpars.FormEntity.MaxSplitCount = 6;
-            Toolpars.OldTypekey = Toolpars.SettingPathEntity.TemplateTypeKey;
-            Toolpars.FormEntity.EditState = false;
-            IconTools.InitImageList();
-            InitBuilderEntity();
-            // SetTestdata();
-
-
-        }
-        
-
-        #endregion
-
-      
-        /// <summary>
-        ///    CopyTypeKey
-        /// </summary>
-        /// <param name="fromDir"></param>
-        /// <param name="toDir"></param>
-        /// <param name="fromTypeKey"></param>
-        /// <param name="toTypeKey"></param>
-        // ReSharper disable once UnusedMember.Global
-        public static void CopyTo(string fromDir, string toDir,
-            string fromTypeKey, string toTypeKey) {
-            var formFiles = GetFilePath(fromDir);
-         
-            //记录一键Copy的文件
-            var logPath = new List<FileInfos>();
-            foreach (var file in formFiles) {
-                var fileinfo = new FileInfo(file);
-                if (fileinfo.Directory == null)
-                    continue;
-                var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
-              
-                var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
-                if (fileName.Contains("ReportLayoutInfo") && (fileName.EndsWith(".repx") || fileName.EndsWith(".xml"))) {
-                    fileName = $@"X{fileName}";
-                }
-                var absolutePath = PathTools.PathCombine(absolutedir,fileName);
-
-                var newFilePath = PathTools.PathCombine(toDir, absolutePath);
-                var newFileDir = PathTools.PathCombine(toDir, absolutedir);
-
-                if (!Directory.Exists(newFileDir))
-                    Directory.CreateDirectory(newFileDir);
-
-                CopyFile(file, newFilePath);
-             
-            }
-           Task.Factory.StartNew(() => {
-                    Thread.CurrentThread.IsBackground = false;
-                    WriteToServer(logPath);
-            });
-            
-            
-        }
-        public static void WriteToServer(IEnumerable<FileInfos> fileInfos)
-        {
-            SqlTools.InsertToolInfo(Toolpars.FormEntity.TxtNewTypeKey, fileInfos);
-        }
-
         /// <summary>
         ///   Copy源码
         /// </summary>
@@ -265,19 +277,22 @@ namespace Digiwin.Chun.Views.Tools {
         /// <param name="copyAll"></param>
         // ReSharper disable once UnusedMember.Global
         public static void CopyTo(string fromDir, string toDir,
-            string fromTypeKey, string toTypeKey, IReadOnlyCollection<FileInfos> filterfilesinfo, bool copyAll) {
+            string fromTypeKey, string toTypeKey, IReadOnlyCollection<FileInfos> filterfilesinfo, bool copyAll)
+        {
             var formFiles = GetFilePath(fromDir);
             string[] extensions = {
                 ".sln", ".csproj"
             };
             //记录一键Copy的文件
             var logPath = new List<FileInfos>();
-            foreach (var file in formFiles) {
+            foreach (var file in formFiles)
+            {
                 var fileinfo = new FileInfo(file);
                 var extensionName = Path.GetExtension(file);
-               
+
                 if (!copyAll && filterfilesinfo != null
-                    && filterfilesinfo.Count > 0) {
+                    && filterfilesinfo.Count > 0)
+                {
                     var selected = filterfilesinfo.FirstOrDefault(f => f.FromPath.Equals(file));
                     if (selected == null
                         && !extensions.Contains(extensionName)
@@ -292,7 +307,7 @@ namespace Digiwin.Chun.Views.Tools {
                 var absolutedir = fileinfo.Directory.FullName.Replace(fromDir, string.Empty).Replace(fromTypeKey, toTypeKey);
                 //不改变文件名，copy代码不用改文件名
                 var fileName = fileinfo.Name.Replace(fromTypeKey, toTypeKey);
-                var absolutePath = PathTools.PathCombine(absolutedir,fileName);
+                var absolutePath = PathTools.PathCombine(absolutedir, fileName);
 
                 var newFilePath = PathTools.PathCombine(toDir, absolutePath);
                 var newFileDir = PathTools.PathCombine(toDir, absolutedir);
@@ -300,9 +315,11 @@ namespace Digiwin.Chun.Views.Tools {
                 if (!Directory.Exists(newFileDir))
                     Directory.CreateDirectory(newFileDir);
 
-                if (File.Exists(newFilePath)) {
+                if (File.Exists(newFilePath))
+                {
                     //项目文件已存在则忽略
-                    if (extensions.Contains(extensionName) ) {
+                    if (extensions.Contains(extensionName))
+                    {
                         continue;
                     }
                     //否则跳过
@@ -316,8 +333,10 @@ namespace Digiwin.Chun.Views.Tools {
                 // 无法释放，所以用流形式
                 //  fileinfo.CopyTo(newFilePath, true);
                 //一键copy先copy文件，再统一改变typekey
-                if (copyAll) {
-                    logPath.Add(new FileInfos {
+                if (copyAll)
+                {
+                    logPath.Add(new FileInfos
+                    {
                         FileName = fileinfo.Name,
                         FromPath = file,
                         ToPath = newFilePath
@@ -329,105 +348,16 @@ namespace Digiwin.Chun.Views.Tools {
                 XmlTools.DeleteXmlNodeByXPath(newFilePath, "Compile");
                 XmlTools.DeleteXmlNodeByXPath(newFilePath, "EmbeddedResource");
             }
-            if (copyAll) {
-                Task.Factory.StartNew(() => {
+            if (copyAll)
+            {
+                Task.Factory.StartNew(() =>
+                {
                     Thread.CurrentThread.IsBackground = false;
                     WriteToServer(logPath);
                 });
             }
-            
-        }
-
-        /// <summary>
-        /// 流形式copyFile，媒体文件亦可
-        /// </summary>
-        /// <param name="fromPath"></param>
-        /// <param name="tagerPath"></param>
-        public static void CopyFile(string fromPath, string tagerPath) {
-            //创建一个负责读取的流
-            using (var fsRead = new FileStream(fromPath, FileMode.Open, FileAccess.Read))
-            {
-                //创建一个负责写入的流
-                using (var fsWrite = new FileStream(tagerPath, FileMode.OpenOrCreate, FileAccess.Write))
-                {
-                    var buffer = new byte[1024 * 1024 * 5];
-
-                    //因为文件可能比较大所以在读取的时候应该用循坏去读取
-                    while (true)
-                    {
-                        //返回本次实际读取到的字节数
-                        var r = fsRead.Read(buffer, 0, buffer.Length);
-
-                        if (r == 0)
-                        {
-                            break;
-                        }
-                        fsWrite.Write(buffer, 0, r); //写入
-                    }
-                    fsWrite.Flush();
-                }
-            }
-        }
-
-
-        /// <summary>
-        ///     递归获取指定文件夹内所有文件全路径
-        /// </summary>
-        /// <param name="dirpath"></param>
-        /// <returns></returns>
-        public static List<string> GetFilePath(string dirpath) {
-            var filepathList = new List<string>();
-            if (!Directory.Exists(dirpath))
-                return filepathList;
-            var dirinfo = new DirectoryInfo(dirpath);
-            //递归目录
-            var childDirList = dirinfo.GetDirectories();
-            if (childDirList.Length > 0)
-                childDirList.ToList().ForEach(a => {
-                        var res = GetFilePath(a.FullName);
-                        if (res.Count > 0)
-                            filepathList.AddRange(res);
-                    }
-                );
-            //文件
-            var filepaths = dirinfo.GetFiles();
-            filepaths.ToList().ForEach(a => filepathList.Add(a.FullName));
-            return filepathList;
-        }
-
-        /// <summary>
-        ///     指定文件文本替换
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="fromName"></param>
-        /// <param name="toName"></param>
-        private static void ChangeText(string path, string fromName, string toName) {
-            var text = File.ReadAllText(path);
-            text = text.Replace(fromName, toName);
-            File.SetAttributes(path, FileAttributes.Normal);
-            File.Delete(path);
-            File.WriteAllText(path, text, Encoding.UTF8);
-
-            //using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-            //{
-            //    using (StreamReader sr = new StreamReader(fs))
-            //    {
-            //        con = sr.ReadToEnd();
-            //        con = con.Replace(fromName, toName);
-            //        sr.Close();
-
-            //        FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Write);
-            //        StreamWriter sw = new StreamWriter(fs2, Encoding.UTF8);
-            //        sw.WriteLine(con);
-            //        sw.Flush();
-            //        sw.Close();
-            //        fs2.Close();
-
-            //    }
-
-
-            //}
-        }
+        } 
+        #endregion
 
         #region 操作实体
 
@@ -488,24 +418,14 @@ namespace Digiwin.Chun.Views.Tools {
 
         #region CopyDll
         
-        /// <summary>
-        /// 操作插入数据库
-        /// </summary>
-        /// <param name="operationName"></param>
-        public static void InsertInfo(string operationName) {
-            Task.Factory.StartNew(() => {
-                Thread.CurrentThread.IsBackground = false;
-                SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",
-                    $"{DateTime.Now:yyyyMMdd}", operationName);
-            });
-        }
+     
         
              /// <summary>
             ///     CopyDll
             /// </summary>
         public static bool CopyDll(CopyModelType copyModelType) {
             if (copyModelType.Equals(CopyModelType.ALL)) {
-                 InsertInfo("CopyALLdll_Click");
+               InsertInfo("CopyALLdll_Click");
 
             }else if (copyModelType.Equals(CopyModelType.Server)) {
                  InsertInfo("CopyServerdll_Click");
@@ -583,33 +503,8 @@ namespace Digiwin.Chun.Views.Tools {
             return true;
 
         }
-
-        /// <summary>
-        ///     检查dll是否被占用
-        /// </summary>
-        /// <param name="processNames"></param>
-        /// <returns></returns>
-        public static bool CheckProcessRunning(string[] processNames) {
-            var flag = false;
-            var infos = Process.GetProcesses();
-            foreach (var info in infos)
-                if (processNames.Contains(info.ProcessName))
-                    flag = true;
-            return flag;
-        }
-
-        /// <summary>
-        ///     kill the process
-        /// </summary>
-        public static void KillProcess(string[] processNames) {
-            InsertInfo("BtnKillProcess");
-            foreach (var p in Process.GetProcesses())
-                processNames.ToList().ForEach(processName => {
-                    if (p.ProcessName.Contains(processName))
-                        p.Kill();
-                });
-        }
-
+        
+       
         #endregion
 
         #region 开启外部程序
@@ -692,20 +587,6 @@ namespace Digiwin.Chun.Views.Tools {
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        public static void OpenExe(string path) {
-            try {
-                var p = new Process {StartInfo = {FileName = path}};
-
-                p.Start();
-            }
-            catch (Exception ex) {
-                LogTools.LogError($"Open{path} Error! Detail:{ex.Message}");
-            }
-        }
-        /// <summary>
         ///     呼叫第三方模块,反射比直接调用慢数百倍
         /// </summary>
         /// <param name="bt"></param>
@@ -745,47 +626,7 @@ namespace Digiwin.Chun.Views.Tools {
             //InsertForm insertForm = new InsertForm(Toolpars);
             //insertForm.ShowDialog();
         }
-
-        /// <summary>
-        ///     打开Word
-        /// </summary>
-        public static void OpenWord(string fileName) {
-            var basePath = AppDomain.CurrentDomain.BaseDirectory;
-            var dirInfo = new DirectoryInfo(basePath);
-            var matchFile = dirInfo.GetFiles(fileName, SearchOption.AllDirectories);
-            if (matchFile.Any()) {
-                var path = matchFile[0].FullName;
-
-                try {
-                    var app = new MSWord.Application {Visible = true};
-                    app.Documents.Open(path);
-                }
-                catch (Exception) {
-                    MessageBox.Show(Resources.OpenDocError);
-                }
-            }
-            else {
-                MessageBox.Show(Resources.HelpDocNotExiested);
-            }
-        }
-
-        /// <summary>
-        ///     打开文件夹
-        /// </summary>
-        /// <param name="targetDir"></param>
-        public static void OpenDir(string targetDir) {
-            try {
-                if (Directory.Exists(targetDir))
-                    Process.Start(targetDir);
-                else
-                    MessageBox.Show(string.Format(Resources.DirNotExisted, targetDir), Resources.WarningMsg,
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex) {
-                LogTools.LogError($"OpenDir{targetDir} Error! Detail:{ex.Message}");
-            }
-        }
-
+        
         #endregion
 
         #region CopyFile
@@ -1535,7 +1376,6 @@ namespace Digiwin.Chun.Views.Tools {
         /// <summary>
         /// 获取服务端目录
         /// </summary>
-        /// <param name="typeKey"></param>
         /// <param name="isPkg"></param>
         /// <returns></returns>
         public static string GetServerDirPath(bool isPkg)
@@ -1546,52 +1386,7 @@ namespace Digiwin.Chun.Views.Tools {
             var path = FindTypekeyDir(typeKeyDir, Toolpars.FormEntity.PkgTypekey);
             return path;
         }
-
-        /// <summary>
-        /// 获取TYPEKEY目录
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="typeKey"></param>
-        /// <returns></returns>
-        public static string FindTypekeyDir(string path, string typeKey)
-        {
-            var dirPath = string.Empty;
-            try
-            {
-                var batchObjectsDir = $@"{path}\BatchObjects";
-                var businessObjectsDir = $@"{path}\BusinessObjects";
-                var reportObjectsDir = $@"{path}\ReportObjects";
-                var businessQueryObjectsDir = $@"{path}\BusinessQueryObjects";
-                var dataModelDir = $@"{path}\DataModels";
-                var searchList = new List<string> { batchObjectsDir, businessObjectsDir, reportObjectsDir, businessQueryObjectsDir, dataModelDir };
-
-                foreach (var filterStr in searchList)
-                {
-                    if (!Directory.Exists(filterStr))
-                        continue;
-                    var directoryInfo = new DirectoryInfo(filterStr);
-                    var filterDirs = directoryInfo.GetDirectories(typeKey, SearchOption.TopDirectoryOnly);
-                    if (filterDirs.Length <= 0) continue;
-                    dirPath = filterDirs[0].FullName;
-                    break;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogTools.LogError($"FindTypeKeyDir Error! Detail:{ex.Message}");
-            }
-
-            return dirPath;
-        }
-
-        private static string GetPkgTypePathFormServer(string path)
-        {
-            var pkgTypePath = string.Empty;
-            var filterPath = path.Split('.');
-            if (filterPath.Length <= 3) return pkgTypePath;
-            pkgTypePath = $@"{filterPath[0]}.{filterPath[1]}.{filterPath[2]}";
-            return pkgTypePath;
-        }
+        
 
         /// <summary>
         /// </summary>
@@ -1739,178 +1534,12 @@ namespace Digiwin.Chun.Views.Tools {
             InsertInfo("COPY PKG SOURCE");
             return success;
         }
-        /// <summary>
-        ///     刪除文件夾及其子項
-        /// </summary>
-        /// <param name="pArgs"></param>
-        public static void DeleteAll(object pArgs)
-        {
-            var pFileName = pArgs.ToString();
-            var di = new DirectoryInfo(pFileName);
-            if (Directory.Exists(pFileName))
-            {
-                foreach (var d in di.GetDirectories())
-                {
-                    DeleteAll(d.FullName);
-                    try
-                    {
-                        d.Delete();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                }
-                foreach (var f in di.GetFiles())
-                    DeleteAll(f.FullName);
-            }
-            else if (File.Exists(pFileName))
-            {
-                //將唯讀權限拿掉
-                File.SetAttributes(pFileName, FileAttributes.Normal);
-                try
-                {
-                    File.Delete(pFileName);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-        }
+       
         #endregion
 
         #endregion
-
-        #region 开启客户端，服务端
-
-        /// <summary>
-        ///     打开服务器
-        /// </summary>
-        public static void ServerOn(string args) {
-            InsertInfo("BtnServerOn");
-            var isOn = CheckProcessOn("Digiwin.Mars.ServerStart");
-            if (isOn) {
-                MessageBox.Show(Resources.ServerRunning);
-                return;
-            }
-            var tServerPath = Toolpars.Mplatform + "\\Server\\Control\\Digiwin.Mars.ServerStart.exe";
-          
-
-            if (!File.Exists(tServerPath)) {
-                MessageBox.Show(string.Format(Resources.NotFindFile, tServerPath));
-                return;
-            }
-            Process.Start(tServerPath, args);
-        }
-
-        /// <summary>
-        ///     打开服务器
-        /// </summary>
-        public static void ClientOn(string args) {
-            InsertInfo("BtnClientOn");
-            if (!CheckProcessOn("Digiwin.Mars.ServerStart")) {
-                MessageBox.Show(Resources.ServerNotRunning);
-                return;
-            }
-            if (CheckProcessOn("Digiwin.Mars.ClientStart")) {
-                MessageBox.Show(Resources.ClientRunning);
-                return;
-            }
-            var tClientPath = Toolpars.Mplatform + "\\DeployServer\\Shared\\Digiwin.Mars.ClientStart.exe";
-            if (!File.Exists(tClientPath))
-            {
-                MessageBox.Show(string.Format(Resources.NotFindFile, tClientPath));
-                return;
-            }
-            Process.Start(tClientPath, args);
-        }
-
-        #region executeCmd
-
-        /// <summary>
-        ///     打开cmd执行bat命令，本项目未用到 mark
-        /// </summary>
-        /// <param name="pFileName"></param>
-        /// <param name="pArguments"></param>
-        // ReSharper disable once UnusedMember.Local
-        private static void ExecuteCmd(string pFileName, string pArguments) {
-            var process = new Process {
-                StartInfo = {
-                    FileName = pFileName,
-                    Arguments = pArguments,
-                    UseShellExecute = false,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden
-                }
-            };
-            process.Start();
-        }
-
-        #endregion
-
-        /// <summary>
-        ///     检查进程是否启动
-        /// </summary>
-        /// <param name="processName"></param>
-        /// <returns></returns>
-        public static bool CheckProcessOn(string processName) {
-            var tIsOpen = false;
-            foreach (var p in Process.GetProcesses())
-                if (p.ProcessName.Contains(processName))
-                    tIsOpen = true;
-            return tIsOpen;
-        }
-
-        #endregion
-
+        
         #region 删除菜单
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="bts"></param>
-        public static BuildeType[] FindBuilderTypeAndDelete(string id, BuildeType[] bts)
-        {
-            if (PathTools.IsNullOrEmpty(id) || bts == null) return bts;
-            var btsList= bts.ToList();
-            var findIndex = btsList.FirstOrDefault(bt => bt.Id.Equals(id));
-            if (findIndex != null) {
-                btsList.Remove(findIndex);
-            }
-            else {
-                btsList.ForEach(bt=> bt.BuildeItems =FindBuilderTypeAndDelete(id, bt.BuildeItems));
-              
-            }
-            return btsList.ToArray();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="bts"></param>
-        /// <returns></returns>
-        public static BuildeType GetBuildeTypeById(string id, BuildeType[] bts) {
-                 if (PathTools.IsNullOrEmpty(id)
-                || bts == null) return null;
-                var btsList = bts.ToList();
-                var resBt = btsList.FirstOrDefault(bt => bt.Id.Equals(id));
-                if (resBt != null) return resBt;
-            
-                foreach (var bt in btsList) {
-                    if (bt.BuildeItems == null) continue;
-                    resBt = GetBuildeTypeById(id, bt.BuildeItems);
-                    if (resBt != null) break;
-                }
-            
-
-            return resBt;
-        }
-
         /// <summary>
         ///  根据Id删除配置节点
         /// </summary>

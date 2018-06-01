@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Views.Properties;
 using Digiwin.Chun.Views.Tools;
+using static Digiwin.Chun.Common.Tools.CommonTools;
 
 namespace Digiwin.Chun.Views {
     /// <summary>
@@ -76,12 +77,12 @@ namespace Digiwin.Chun.Views {
                         customerDir = PathTools.PathCombine(Path.GetDirectoryName(Path.GetDirectoryName(srcToPath)),
                             Wd);
                     }
-                    dirPath = MyTools.FindTypekeyDir(customerDir, typeKey);
+                    dirPath = FindTypekeyDir(customerDir, typeKey);
                 }
                 else {
                     var shadowDir = ShadowTB.Text.Trim();
                     shadowDir = PathTools.PathCombine(shadowDir, Wd);
-                    dirPath = PathTools.IsNullOrEmpty(typeKey) ? dirPath : MyTools.FindTypekeyDir(shadowDir, typeKey);
+                    dirPath = PathTools.IsNullOrEmpty(typeKey) ? dirPath : FindTypekeyDir(shadowDir, typeKey);
                 }
             }
             else if (name.Equals(BtnCode.Name)) {
@@ -106,7 +107,7 @@ namespace Digiwin.Chun.Views {
                 }
                 else {
                     var clientDir = ClientTB.Text.Trim();
-                    dirPath = MyTools.FindTypekeyDir(clientDir, typeKey);
+                    dirPath = FindTypekeyDir(clientDir, typeKey);
                     dirPath = string.IsNullOrEmpty(dirPath) ? clientDir : dirPath;
                 }
             }
@@ -117,7 +118,7 @@ namespace Digiwin.Chun.Views {
                 }
                 else {
                     var serverDir = ServerTB.Text.Trim();
-                    dirPath = MyTools.FindTypekeyDir(serverDir, typeKey);
+                    dirPath = FindTypekeyDir(serverDir, typeKey);
                     dirPath = string.IsNullOrEmpty(dirPath) ? serverDir: dirPath;
                 }
             }
@@ -125,7 +126,7 @@ namespace Digiwin.Chun.Views {
                 var typeKey = TypeKeyTB.Text.Trim();
                 var shadowDir = ShadowTB.Text.Trim();
                 shadowDir = PathTools.PathCombine(shadowDir,Wd);
-                dirPath = PathTools.IsNullOrEmpty(typeKey) ? shadowDir : MyTools.FindTypekeyDir(shadowDir, typeKey);
+                dirPath = PathTools.IsNullOrEmpty(typeKey) ? shadowDir : FindTypekeyDir(shadowDir, typeKey);
             }
             else if (name.Equals(BtnOpenPublish.Name)) {
                     dirPath = PublishTB.Text.Trim();
@@ -142,8 +143,8 @@ namespace Digiwin.Chun.Views {
                 MessageBox.Show(string.Format(Resources.DirNotExisted, dirPath));
                 return;
             }
-            MyTools.OpenDir(dirPath);
-            MyTools.InsertInfo($"{BtnOpenCustomer.Name}");
+            OpenDir(dirPath);
+            InsertInfo($"{BtnOpenCustomer.Name}");
         }
 
 

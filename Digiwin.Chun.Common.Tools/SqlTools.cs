@@ -22,7 +22,7 @@ namespace Digiwin.Chun.Common.Tools
         /// <summary>
         /// 版本号
         /// </summary>
-        public static string VersionNum => $@"VSTool";
+        public static string VersionNum { get; set; }  = $@"VSTool";
 
         /// <summary>
         /// Connection

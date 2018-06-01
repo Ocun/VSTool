@@ -8,6 +8,7 @@ using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Models;
 using Digiwin.Chun.Views.Properties;
 using Digiwin.Chun.Views.Tools;
+using static Digiwin.Chun.Common.Tools.CommonTools;
 
 namespace Digiwin.Chun.Views
 {
@@ -47,7 +48,7 @@ namespace Digiwin.Chun.Views
                 return;
 
             var typeKey = fulltypeKey;
-            MyTools.InsertInfo("SelectTypeKeyPropies");
+            InsertInfo("SelectTypeKeyPropies");
             var isSplit = false;
             if (fulltypeKey.Contains(@".")) {
                 var splitRes = fulltypeKey.Split('.');

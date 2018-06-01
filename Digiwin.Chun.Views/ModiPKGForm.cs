@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Views.Properties;
 using Digiwin.Chun.Views.Tools;
+using static Digiwin.Chun.Common.Tools.CommonTools;
 
 namespace Digiwin.Chun.Views {
     /// <summary>
@@ -69,13 +70,12 @@ namespace Digiwin.Chun.Views {
                     $@"{txtPath}\{WdPr}\SRC\Digiwin.ERP.{Toolpars.FormEntity.PkgTypekey}";
                 //规格
                 var specDir = $@"{txtPath}\{Spec}";
-                MyTools.OpenDir(codeDir);
-                MyTools.OpenDir(targetDir);
-                MyTools.OpenDir(specDir);
+                OpenDir(codeDir);
+                OpenDir(targetDir);
+                OpenDir(specDir);
             }
             else {
-
-                MyTools.OpenDir(targetDir);
+                OpenDir(targetDir);
             }
         }
 

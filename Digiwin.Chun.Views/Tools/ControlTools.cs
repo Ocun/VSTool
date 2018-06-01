@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Models;
-using Digiwin.Chun.View;
 using Digiwin.Chun.Views.Properties;
+using static Digiwin.Chun.Common.Tools.CommonTools;
 
 namespace Digiwin.Chun.Views.Tools {
     /// <summary>
@@ -466,12 +466,12 @@ namespace Digiwin.Chun.Views.Tools {
                 if (name != null
                     && name.Equals("BtnOpenTo")) {
                     var targetDir = Toolpars.FormEntity.SrcToPath;
-                    MyTools.OpenDir(targetDir);
+                    OpenDir(targetDir);
                 }
                 else if (name != null
                          && name.Equals("PkgOpenTo")) {
                     var targetDir = Toolpars.FormEntity.PkgSrcPath;
-                    MyTools.OpenDir(targetDir);
+                    OpenDir(targetDir);
                 }
             }
             catch (Exception ex) {
@@ -507,7 +507,7 @@ namespace Digiwin.Chun.Views.Tools {
                 if (typekey.Equals(string.Empty)||!Directory.Exists(targetDir))
                     targetDir = Path.GetDirectoryName(targetDir);
 
-                MyTools.OpenDir(targetDir);
+                OpenDir(targetDir);
             }
             catch (Exception ex) {
                 LogTools.LogError($"OpenDir {typekey} Error! Detail {ex.Message}");
@@ -647,7 +647,7 @@ namespace Digiwin.Chun.Views.Tools {
         /// <param name="e"></param>
         public static void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             Task.Factory.StartNew(() => 
-                MyTools.OpenWord("Help.docx")
+                OpenWord("Help.docx")
             );
         }
 

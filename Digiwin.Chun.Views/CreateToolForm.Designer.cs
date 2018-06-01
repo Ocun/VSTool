@@ -1,4 +1,4 @@
-﻿namespace Digiwin.Chun.View
+﻿namespace Digiwin.Chun.Views
 {
     partial class CreateToolForm
     {

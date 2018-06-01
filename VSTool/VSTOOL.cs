@@ -28,6 +28,7 @@ namespace VSTool {
             });
             #endregion
             MyTools.InitToolpars(pToIni);
+            SqlTools.VersionNum = $@"VSTool_{VersionNum ?? "0.0.0.0"}";
             Toolpars.FormEntity.VersionNum = VersionNum;
             AddEventHandler();
         }

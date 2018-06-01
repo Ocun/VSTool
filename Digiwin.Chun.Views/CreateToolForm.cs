@@ -8,7 +8,7 @@ using Digiwin.Chun.Models;
 using Digiwin.Chun.Views.Tools;
 using IWshRuntimeLibrary;
 
-namespace Digiwin.Chun.View {
+namespace Digiwin.Chun.Views {
     /// <summary>
     /// 创建工具项
     /// </summary>

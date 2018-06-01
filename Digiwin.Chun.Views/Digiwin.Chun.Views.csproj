@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Export\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -141,16 +141,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Digiwin.Chun.Common.Tools\Digiwin.Chun.Common.Tools.csproj">
-      <Project>{1dd82802-5a9a-46bd-8211-20d38e1d283d}</Project>
-      <Name>Digiwin.Chun.Common.Tools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digiwin.Chun.Models\Digiwin.Chun.Models.csproj">
-      <Project>{84437287-a398-4a06-8c04-656d96a9ed76}</Project>
-      <Name>Digiwin.Chun.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\checked_.png" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +186,16 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Digiwin.Chun.Common.Tools\Digiwin.Chun.Common.Tools.csproj">
+      <Project>{1dd82802-5a9a-46bd-8211-20d38e1d283d}</Project>
+      <Name>Digiwin.Chun.Common.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digiwin.Chun.Models\Digiwin.Chun.Models.csproj">
+      <Project>{84437287-a398-4a06-8c04-656d96a9ed76}</Project>
+      <Name>Digiwin.Chun.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

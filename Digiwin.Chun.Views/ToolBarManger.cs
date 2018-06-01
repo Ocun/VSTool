@@ -10,6 +10,7 @@ using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Models;
 using Digiwin.Chun.Views.Properties;
 using Digiwin.Chun.Views.Tools;
+using static Digiwin.Chun.Common.Tools.CommonTools;
 using Timer = System.Timers.Timer;
 
 namespace Digiwin.Chun.Views {
@@ -57,14 +58,15 @@ namespace Digiwin.Chun.Views {
                 args += " /r:true";
                 args += " /l:true";
             }
-            MyTools.ServerOn(args);
+            var tServerPath = Toolpars.Mplatform + "\\Server\\Control\\Digiwin.Mars.ServerStart.exe";
+            CommonTools.ServerOn(tServerPath,args);
         }
 
 
         /// <summary>
         /// 当前正在执行自启动客户端
         /// </summary>
-        public bool isAutoRunning { get; set; }
+        private bool IsAutoRunning { get; set; }
         /// <summary>
         ///     打开服务端/客户端
         /// </summary>
@@ -73,17 +75,17 @@ namespace Digiwin.Chun.Views {
          
             try {
                
-                var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
+                var isServerOn = CheckProcessOn("Digiwin.Mars.ServerStart");
                 if (!isServerOn)
                     return;
-                if (isAutoRunning) return;
+                if (IsAutoRunning) return;
               
-                var isOn = MyTools.CheckProcessOn("Digiwin.Mars.ClientStart");
+                var isOn = CheckProcessOn("Digiwin.Mars.ClientStart");
                 if (isOn) {
                     MessageBox.Show(Resources.ClientRunning);
                     return;
                 }
-                isAutoRunning = true;
+                IsAutoRunning = true;
                 var tSerFolPath =
                     Toolpars.Mplatform
                     + @"\Server\Control";
@@ -152,7 +154,8 @@ namespace Digiwin.Chun.Views {
             else {
                 args += " /d:false";
             }
-            MyTools.ClientOn(args);
+            var tClientPath = $@"{Toolpars.Mplatform}\DeployServer\Shared\Digiwin.Mars.ClientStart.exe";
+            ClientOn(tClientPath,args);
         }
 
         //^_^20160511 add by nicknt9095 for 自動偵測SERVER啟動CLIENT<S00349_20160505_02>--begin
@@ -162,7 +165,7 @@ namespace Digiwin.Chun.Views {
         /// <param name="source"></param>
         /// <param name="e"></param>
         private void OnAutoOpenClientTimedEvent(object source, ElapsedEventArgs e) {
-            var tIsServerOpen = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
+            var tIsServerOpen = CheckProcessOn("Digiwin.Mars.ServerStart");
 
             if (!tIsServerOpen) {
                 _aTimer.Enabled = false;
@@ -194,12 +197,12 @@ namespace Digiwin.Chun.Views {
 
                         Process.Start(tClientPath, args);
                         _aTimer.Enabled = false;
-                        isAutoRunning = false;
+                        IsAutoRunning = false;
                     }
                 }
             }
             catch (Exception ex) {
-                isAutoRunning = false;
+                IsAutoRunning = false;
                 LogTools.LogError($@"AutoClient Error! Detail:{ex.Message}");
             }
            
@@ -216,7 +219,7 @@ namespace Digiwin.Chun.Views {
         private static void KillProcess() {
             var killProcessName = new[]
                 {"Digiwin.Mars.ClientStart", "Digiwin.Mars.ServerStart", "Digiwin.Mars.AccountSetStart"};
-            MyTools.KillProcess(killProcessName);
+            CommonTools.KillProcess(killProcessName);
         }
 
         /// <summary>
@@ -239,8 +242,8 @@ namespace Digiwin.Chun.Views {
             try {
                 var success = MyTools.CopyDll(CopyModelType.Client);
                 if (!success) return;
-                var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
-                var isOn = MyTools.CheckProcessOn("Digiwin.Mars.ClientStart");
+                var isServerOn = CheckProcessOn("Digiwin.Mars.ServerStart");
+                var isOn = CheckProcessOn("Digiwin.Mars.ClientStart");
                 if (isServerOn && !isOn)
                 {
                     if (MessageBox.Show($@"{Resources.CopySucess} 是否启动客户端?", Resources.Information,
@@ -262,7 +265,7 @@ namespace Digiwin.Chun.Views {
                 string[] processNames = {
                     "Digiwin.Mars.ClientStart"
                 };
-                var f = MyTools.CheckProcessRunning(processNames);
+                var f = CheckProcessRunning(processNames);
                 if (!f)
                 {
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -272,7 +275,7 @@ namespace Digiwin.Chun.Views {
                     if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
                             MessageBoxIcon.Warning) == DialogResult.OK)
                     {
-                        MyTools.KillProcess(processNames);
+                        CommonTools.KillProcess(processNames);
                         CopyClientBtn_Click(null,null);
 
                     }
@@ -290,7 +293,7 @@ namespace Digiwin.Chun.Views {
             try {
                 var success = MyTools.CopyDll(CopyModelType.ALL);
                 if (!success) return;
-                var isServerOn = MyTools.CheckProcessOn("Digiwin.Mars.ServerStart");
+                var isServerOn = CheckProcessOn("Digiwin.Mars.ServerStart");
                 if (!isServerOn) {
                     if (MessageBox.Show($@"{Resources.CopySucess} 是否启动服务端?", Resources.Information,
                             MessageBoxButtons.OKCancel,
@@ -312,7 +315,7 @@ namespace Digiwin.Chun.Views {
                     "Digiwin.Mars.ServerStart",
                     "Digiwin.Mars.AccountSetStart"
                 };
-                var f = MyTools.CheckProcessRunning(processNames);
+                var f = CheckProcessRunning(processNames);
                 if (!f)
                     MessageBox.Show(ex.Message, Resources.ErrorMsg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
@@ -320,7 +323,7 @@ namespace Digiwin.Chun.Views {
                     if (MessageBox.Show(Resources.DllUsedMsg, Resources.WarningMsg, MessageBoxButtons.OKCancel,
                             MessageBoxIcon.Warning) == DialogResult.OK)
                     {
-                        MyTools.KillProcess(processNames);
+                        CommonTools.KillProcess(processNames);
                         CopyBtn_Click(null,null);
                     }
                 }
