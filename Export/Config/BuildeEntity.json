@@ -184,8 +184,8 @@
                     "Description": "提供查单实例",
                     "ShowCheckedBox": "False",
                     "IsPlug": "True",
-                    "PlugPath": "Digiwin.Chun.Common.dll",
-                    "ModuleName": "Digiwin.Chun.Common.Views.InsertForm",
+                    "PlugPath": "Digiwin.Chun.Views.dll",
+                    "ModuleName": "Digiwin.Chun.Views.InsertForm",
                     "ShowIcon": "True"
                 },
                 {

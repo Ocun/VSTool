@@ -121,7 +121,7 @@ namespace Digiwin.Chun.Views
                 sb.AppendLine(prop.Equals(propies[propies.Count - 1])
                     ? propName : propName + @";");
             });
-            sb.AppendLine($@"node = OOQL.Insert(""{fullTypeKey}"", columns.Keys.ToArray()).Values(columns.Values.ToArray())");
+            sb.AppendLine($@"node = OOQL.Insert(""{fullTypeKey}"", columns.Keys.ToArray()).Values(columns.Values.ToArray());");
 
             return sb.ToString();
         }
