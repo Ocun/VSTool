@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,7 +26,7 @@ namespace Digiwin.Chun.Common.Tools {
         ///     检查自动更新
         /// </summary>
         /// <param name="oldVer"></param>
-        public static bool CheckAndUpdate(string oldVer) {
+        public static  bool CheckAndUpdate(string oldVer) {
             var existedUpdate = false;
             var updatePath = @"\\192.168.168.15\E10_Tools\E10_Switch\VSTOOL\version.json";
             try {
@@ -42,6 +43,17 @@ namespace Digiwin.Chun.Common.Tools {
             return existedUpdate;
         }
 
+        /// <summary>
+        /// </summary>
+        public static void MyCallUpdate(bool existedUpdate) {
+            if (!existedUpdate) return;
+            var appPath = AppDomain.CurrentDomain.BaseDirectory;
+            var path = Path.Combine(appPath, "AutoUpdateVsTool.exe"); 
+            if (File.Exists(path))
+                CommonTools.OpenExe(path);
+            else
+                MessageBox.Show($@"Find Update,But Can't Find AutoUpdate.exe!");
+        }
         /// <summary>
         /// </summary>
         public static void MyCallUpdate() {

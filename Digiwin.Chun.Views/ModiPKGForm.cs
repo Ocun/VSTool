@@ -52,7 +52,6 @@ namespace Digiwin.Chun.Views {
         }
 
         private string WdPr { get; set; }
-        private string Wd { get; set; }
         private string Spec { get; set; }
 
         private void BtnOpenTo_Click(object sender, EventArgs e) {
@@ -87,7 +86,6 @@ namespace Digiwin.Chun.Views {
             var customerName = CustomerText.Text.Trim();
             var empStr = string.Empty;
             WdPr = IsPkg ? "WD_PR" : "WD_PR_C";
-            Wd = IsPkg ? "WD" : "WD_C";
             Spec = IsPkg ? "SPEC" : "SPEC_C";
             if (FromServer.Checked) {
 
@@ -134,7 +132,28 @@ namespace Digiwin.Chun.Views {
         }
 
         private void FromServer_CheckedChanged(object sender, EventArgs e) {
-            InitPkgPath();
+            Enabled = false;
+            if (FromServer.Checked) {
+
+
+                RunAsync(() => {
+                    var status = ConnectionStatusTool.CheckServeStatus("192.168.168.15");
+                    return status.Equals("200");
+                }, (c) => {
+                    if (c) {
+                        Enabled = true;
+                        InitPkgPath();
+                    }
+                    else {
+                        MessageBox.Show(Resources.ServerNotFound);
+                        FromServer.Checked = false;
+                        Enabled = true;
+                    }
+                });
+            }
+            else {
+                InitPkgPath();
+            }
         }
 
         private void CustomerText_TextChanged(object sender, EventArgs e) {
@@ -147,7 +166,6 @@ namespace Digiwin.Chun.Views {
             var empStr = string.Empty;
              IsPkg = customerName.Equals(empStr);
             WdPr = IsPkg ? "WD_PR" : "WD_PR_C";
-            Wd = IsPkg ? "WD" : "WD_C";
             Spec = IsPkg ? "SPEC" : "SPEC_C";
             if (FromServer.Checked) {
                

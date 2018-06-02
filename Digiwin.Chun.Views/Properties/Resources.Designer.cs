@@ -383,6 +383,15 @@ namespace Digiwin.Chun.Views.Properties {
         }
         
         /// <summary>
+        ///   查找类似 未发现服务器 的本地化字符串。
+        /// </summary>
+        internal static string ServerNotFound {
+            get {
+                return ResourceManager.GetString("ServerNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 服务端未启动 的本地化字符串。
         /// </summary>
         internal static string ServerNotRunning {

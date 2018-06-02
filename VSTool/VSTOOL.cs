@@ -1,6 +1,8 @@
 ﻿// create By 08628 20180411
 
+using System;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Tools;
@@ -18,19 +20,22 @@ namespace VSTool {
             Version.Text = string.Format(Resources.Version, Version.Text);
             ControlDataBingding();
 
-          
-
             #region 自動更新
-
-            Task.Factory.StartNew(() =>
-            {
-                var status = ConnectionStatusTool.CheckServeStatus("192.168.168.15");
-                if (!status.Equals("200"))
-                    return;
-                var existedUpdate = CallUpdate.CheckAndUpdate(VersionNum);
-                if (!existedUpdate) return;
-                CallUpdate.MyCallUpdate();
-            });
+            //异步写法，需要根据返回值处理时，可以用这个写法，否则用下面一个一样
+            var server = "192.168.168.15";
+            CommonTools.RunAsync(() => {
+                var status = ConnectionStatusTool.CheckServeStatus(server);
+                return status.Equals("200") && CallUpdate.CheckAndUpdate(VersionNum);
+            }, CallUpdate.MyCallUpdate);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    var status = ConnectionStatusTool.CheckServeStatus("192.168.168.15");
+            //    if (!status.Equals("200"))
+            //        return;
+            //    var existedUpdate = CallUpdate.CheckAndUpdate(VersionNum);
+            //    if (!existedUpdate) return;
+            //    CallUpdate.MyCallUpdate();
+            //});
             #endregion
             MyTools.InitToolpars(pToIni);
             SqlTools.VersionNum = $@"VSTool_{VersionNum ?? "0.0.0.0"}";

@@ -18,7 +18,51 @@ namespace Digiwin.Chun.Common.Tools
     /// </summary>
     public static class CommonTools
     {
-       
+        /// <summary>  
+        /// 将一个方法function异步运行，在执行完毕时执行回调callback  
+        /// </summary>  
+        /// <typeparam name="TResult">异步方法的返回类型</typeparam>  
+        /// <param name="function">异步方法，该方法没有参数，返回类型必须是TResult</param>  
+        /// <param name="callback">异步方法执行完毕时执行的回调方法，该方法参数为TResult，返回类型必须是void</param>  
+        public static async void RunAsync<TResult>(Func<TResult> function, Action<TResult> callback)
+        {
+            //Func方法为系统提供委托，有返回
+            //Action，无返回
+            //async/await 为关键字，async非必需
+            //await为懒加载，在callback时
+            Task<TResult> TaskFunc() {
+                return Task.Run(function);
+            }
+            //这里会一直等待处理完成，继续下一步
+            var rlt = await TaskFunc();
+            callback?.Invoke(rlt);
+        }
+
+        /// <summary>  
+        /// 将一个方法function异步运行，在执行完毕时执行回调callback  
+        /// </summary>  
+        /// <param name="function">异步方法，该方法没有参数，返回类型必须是void</param>  
+        /// <param name="callback">异步方法执行完毕时执行的回调方法，该方法没有参数，返回类型必须是void</param>  
+        public static async void RunAsync(Action function, Action callback)
+        {
+            Task TaskFunc() {
+                return Task.Run(function);
+            }
+            await TaskFunc();
+            callback?.Invoke();
+        }  
+        
+        /// <summary>  
+        /// 将一个方法function异步运行
+        /// </summary>  
+        /// <param name="function">异步方法，该方法没有参数，返回类型必须是void</param>  
+        public static async void RunAsync(Action function)
+        {
+            Task TaskFunc() {
+                return Task.Run(function);
+            }
+            await TaskFunc();
+        }
 
         /// <summary>
         /// 流形式copyFile，媒体文件亦可
@@ -118,11 +162,9 @@ namespace Digiwin.Chun.Common.Tools
         /// <param name="operationName"></param>
         public static void InsertInfo(string operationName)
         {
-            Task.Factory.StartNew(() => {
-                Thread.CurrentThread.IsBackground = false;
-                SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",
-                    $"{DateTime.Now:yyyyMMdd}", operationName);
-            });
+            RunAsync(()=>SqlTools.InsertToolInfo($"S01231_{DateTime.Now:yyyyMMdd}_01",
+                $"{DateTime.Now:yyyyMMdd}", operationName));
+            
         }
         /// <summary>
         ///     检查dll是否被占用
@@ -210,6 +252,7 @@ namespace Digiwin.Chun.Common.Tools
                 }
                 catch (Exception)
                 {
+                    LogTools.LogError(Resources.OpenDocError);
                     MessageBox.Show(Resources.OpenDocError);
                 }
             }
@@ -342,11 +385,11 @@ namespace Digiwin.Chun.Common.Tools
                 MessageBox.Show(Resources.ServerNotRunning);
                 return;
             }
-            if (CheckProcessOn("Digiwin.Mars.ClientStart"))
-            {
-                MessageBox.Show(Resources.ClientRunning);
-                return;
-            }
+            //if (CheckProcessOn("Digiwin.Mars.ClientStart"))
+            //{
+            //    MessageBox.Show(Resources.ClientRunning);
+            //    return;
+            //}
             if (!File.Exists(tClientPath))
             {
                 MessageBox.Show(string.Format(Resources.NotFindFile, tClientPath));

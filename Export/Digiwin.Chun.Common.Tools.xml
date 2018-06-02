@@ -21,6 +21,10 @@
             </summary>
             <param name="oldVer"></param>
         </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.MyCallUpdate(System.Boolean)">
+            <summary>
+            </summary>
+        </member>
         <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.MyCallUpdate">
             <summary>
             </summary>
@@ -112,6 +116,27 @@
             <summary>
             通用辅助类
             </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.RunAsync``1(System.Func{``0},System.Action{``0})">
+            <summary>  
+            将一个方法function异步运行，在执行完毕时执行回调callback  
+            </summary>  
+            <typeparam name="TResult">异步方法的返回类型</typeparam>  
+            <param name="function">异步方法，该方法没有参数，返回类型必须是TResult</param>  
+            <param name="callback">异步方法执行完毕时执行的回调方法，该方法参数为TResult，返回类型必须是void</param>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.RunAsync(System.Action,System.Action)">
+            <summary>  
+            将一个方法function异步运行，在执行完毕时执行回调callback  
+            </summary>  
+            <param name="function">异步方法，该方法没有参数，返回类型必须是void</param>  
+            <param name="callback">异步方法执行完毕时执行的回调方法，该方法没有参数，返回类型必须是void</param>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.RunAsync(System.Action)">
+            <summary>  
+            将一个方法function异步运行
+            </summary>  
+            <param name="function">异步方法，该方法没有参数，返回类型必须是void</param>  
         </member>
         <member name="M:Digiwin.Chun.Common.Tools.CommonTools.CopyFile(System.String,System.String)">
             <summary>
@@ -1096,6 +1121,11 @@
         <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ReadEntityError">
             <summary>
               查找类似 读取实体文件时发生错误 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ServerNotFound">
+            <summary>
+              查找类似 未发现服务器 的本地化字符串。
             </summary>
         </member>
         <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ServerNotRunning">

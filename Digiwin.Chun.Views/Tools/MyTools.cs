@@ -9,8 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Models;
@@ -153,13 +151,7 @@ namespace Digiwin.Chun.Views.Tools {
                 CopyFile(file, newFilePath);
                 
             }
-            Task.Factory.StartNew(() =>
-            {
-                Thread.CurrentThread.IsBackground = false;
-                WriteToServer(logPath);
-            });
-
-
+           RunAsync(()=> WriteToServer(logPath));
         }
 
         /// <summary>
@@ -378,11 +370,8 @@ namespace Digiwin.Chun.Views.Tools {
             }
             if (copyAll)
             {
-                Task.Factory.StartNew(() =>
-                {
-                    Thread.CurrentThread.IsBackground = false;
-                    WriteToServer(logPath);
-                });
+                RunAsync(()=>WriteToServer(logPath));
+            
             }
         } 
         #endregion

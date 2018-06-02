@@ -6,8 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Digiwin.Chun.Common.Tools;
 using Digiwin.Chun.Models;
@@ -282,7 +280,8 @@ namespace Digiwin.Chun.Views.Tools {
         public static void VSTOOL_Load(object sender, EventArgs e) {
             MyTreeViewTools.CreateRightView(RighteTreeView);
             CreateTree("RootView");
-            CreateMainView();
+            RunAsync(CreateMainView); 
+           
         }
 
         /// <summary>
@@ -359,16 +358,13 @@ namespace Digiwin.Chun.Views.Tools {
         public static void BtnCreate_Click(object sender, EventArgs e) {
             try {
                 var pathInfo = Toolpars.PathEntity;
-                bool success;
                 if (!ModiCkb.Checked) {
                     var dicPath = MyTools.GetTreeViewFilePath(RighteTreeView.Nodes);
                     var fileInfos = new List<FileInfos>();
                     foreach (var kv in dicPath)
                         fileInfos.AddRange(kv.Value);
-                    Task.Factory.StartNew(() => {
-                        Thread.CurrentThread.IsBackground = false;
-                        WriteToServer(fileInfos);
-                    });
+                    RunAsync(()=> WriteToServer(fileInfos)); 
+                 
 
                     if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.ToPath)
                         || PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)) {
@@ -376,7 +372,7 @@ namespace Digiwin.Chun.Views.Tools {
                             MessageBoxIcon.Error);
                         return;
                     }
-                     success = MyTools.CreateFile(RighteTreeView);
+                     var success = MyTools.CreateFile(RighteTreeView);
 
                     if (!success)
                         return;
@@ -390,10 +386,8 @@ namespace Digiwin.Chun.Views.Tools {
                 }
                 else {
                     var fileInfos = MyTools.GetTreeViewPath(TreeView1.Nodes);
-                    Task.Factory.StartNew(() => {
-                        Thread.CurrentThread.IsBackground = false;
-                        WriteToServer(fileInfos);
-                    });
+                    RunAsync(() => WriteToServer(fileInfos));
+                 
 
                     if (PathTools.IsNullOrEmpty(Toolpars.FormEntity.ToPath)
                         || PathTools.IsNullOrEmpty(Toolpars.FormEntity.TxtNewTypeKey)
@@ -645,9 +639,7 @@ namespace Digiwin.Chun.Views.Tools {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Task.Factory.StartNew(() => 
-                OpenWord("Help.docx")
-            );
+            RunAsync(() => OpenWord("Help.docx"));
         }
 
         /// <summary>
@@ -725,42 +717,52 @@ namespace Digiwin.Chun.Views.Tools {
         ///     创建主视图SplitContainer
         /// </summary>
         public static void CreateMainView() {
-            var iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
-            var width = iActulaWidth * 3 / 4;
-            var spiltWidth = Toolpars.FormEntity.SpiltWidth;
-            var maxSplitCount = Toolpars.FormEntity.MaxSplitCount;
-            var count = width / spiltWidth;
-            count = count == 0 ? 1 : count;
-            count = count > maxSplitCount ? maxSplitCount : count;
-            var mySpilterContaniers = new List<SplitContainer>();
-            for (var i = 0; i < count; i++) {
-                var mySplitContainer = new SplitContainer {
-                    IsSplitterFixed = true,
-                    Location = new Point(0, 0),
-                    Name = "MySplitContainer" + i + 1,
-                    SplitterWidth = 1
-                };
-                var myTreeView = CreateMyTreeView(i);
-                mySplitContainer.Panel1.Controls.Add(myTreeView);
-                if (i == 0) {
-                    mySplitContainer.Anchor = AnchorStyles.Top | AnchorStyles.Left
-                                              | AnchorStyles.Right;
-                    mySplitContainer.Size = new Size(ScrollPanel.ClientSize.Width, ScrollPanel.ClientSize.Height);
-                }
-                else if (i <= count - 1) {
-                    mySplitContainer.Dock = DockStyle.Fill;
-                    mySpilterContaniers[i - 1].Panel2.Controls.Add(mySplitContainer);
-                }
-                if (i == count - 1) {
-                    var lastmyTreeView = CreateMyTreeView(i + 1);
-                    mySplitContainer.Panel2.Controls.Add(lastmyTreeView);
+            VsForm.BeginInvoke(new Action(() => {
+
+                var iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
+                var width = iActulaWidth * 3 / 4;
+                var spiltWidth = Toolpars.FormEntity.SpiltWidth;
+                var maxSplitCount = Toolpars.FormEntity.MaxSplitCount;
+                var count = width / spiltWidth;
+                count = count == 0 ? 1 : count;
+                count = count > maxSplitCount ? maxSplitCount : count;
+                var mySpilterContaniers = new List<SplitContainer>();
+                for (var i = 0; i < count; i++)
+                {
+                    var mySplitContainer = new SplitContainer
+                    {
+                        IsSplitterFixed = true,
+                        Location = new Point(0, 0),
+                        Name = "MySplitContainer" + i + 1,
+                        SplitterWidth = 1
+                    };
+                    var myTreeView = CreateMyTreeView(i);
+                    mySplitContainer.Panel1.Controls.Add(myTreeView);
+                    if (i == 0)
+                    {
+                        mySplitContainer.Anchor = AnchorStyles.Top | AnchorStyles.Left
+                                                  | AnchorStyles.Right;
+                        mySplitContainer.Size = new Size(ScrollPanel.ClientSize.Width, ScrollPanel.ClientSize.Height);
+                    }
+                    else if (i <= count - 1)
+                    {
+                        mySplitContainer.Dock = DockStyle.Fill;
+                        mySpilterContaniers[i - 1].Panel2.Controls.Add(mySplitContainer);
+                    }
+                    if (i == count - 1)
+                    {
+                        var lastmyTreeView = CreateMyTreeView(i + 1);
+                        mySplitContainer.Panel2.Controls.Add(lastmyTreeView);
+                    }
+
+                    mySpilterContaniers.Add(mySplitContainer);
                 }
 
-                mySpilterContaniers.Add(mySplitContainer);
-            }
+                ScrollPanel.Controls.Clear();
+                ScrollPanel.Controls.Add(mySpilterContaniers[0]);
 
-            ScrollPanel.Controls.Clear();
-            ScrollPanel.Controls.Add(mySpilterContaniers[0]);
+            }) );
+            
         }
 
 
@@ -924,8 +926,9 @@ namespace Digiwin.Chun.Views.Tools {
                 return;
             if (bt?.IsPlug != null
                 && PathTools.IsTrue(bt.IsPlug)
-            )
-                MyTools.CallModule(bt);
+            ) {
+                RunAsync(()=>MyTools.CallModule(bt)); 
+            }
             else if (!PathTools.IsTrue(bt?.IsTools))
                 node.Checked = !PathTools.IsTrue(bt?.Checked);
         }

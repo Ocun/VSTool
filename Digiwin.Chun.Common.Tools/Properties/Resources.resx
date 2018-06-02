@@ -219,4 +219,7 @@
   <data name="Open" xml:space="preserve">
     <value>打开</value>
   </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>未发现服务器</value>
+  </data>
 </root>
