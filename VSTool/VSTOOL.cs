@@ -18,10 +18,15 @@ namespace VSTool {
             Version.Text = string.Format(Resources.Version, Version.Text);
             ControlDataBingding();
 
+          
+
             #region 自動更新
 
             Task.Factory.StartNew(() =>
             {
+                var status = ConnectionStatusTool.CheckServeStatus(@"192.168.168.15");
+                if (!status.Equals("202"))
+                    return;
                 var existedUpdate = CallUpdate.CheckAndUpdate(VersionNum);
                 if (!existedUpdate) return;
                 CallUpdate.MyCallUpdate();

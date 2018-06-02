@@ -40,6 +40,7 @@
       <HintPath>..\Export\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -55,6 +56,8 @@
   <ItemGroup>
     <Compile Include="CallUpdate.cs" />
     <Compile Include="CommonTools.cs" />
+    <Compile Include="ConfigerHelper.cs" />
+    <Compile Include="ConnectionStatusTool.cs" />
     <Compile Include="HardwareTools.cs" />
     <Compile Include="IconTools.cs" />
     <Compile Include="LogTools.cs" />

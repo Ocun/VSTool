@@ -223,6 +223,30 @@
             <param name="bts"></param>
             <returns></returns>
         </member>
+        <member name="T:Digiwin.Chun.Common.Tools.ConnectionStatusTool">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConnectionStatusTool.CheckServeStatus(System.String)">
+            <summary>
+            检测网络连接状态
+            </summary>
+            <param name="urls"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConnectionStatusTool.LocalConnectionStatus">
+            <summary>
+            判断本地的连接状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConnectionStatusTool.PingTest(System.String)">
+            <summary>
+            Ping命令检测网络是否畅通
+            </summary>
+            <param name="urls">URL数据</param>
+            <returns></returns>
+        </member>
         <member name="T:Digiwin.Chun.Common.Tools.HardwareTools">
             <summary>
                 获取系统硬件信息

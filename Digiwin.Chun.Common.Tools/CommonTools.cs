@@ -144,7 +144,7 @@ namespace Digiwin.Chun.Common.Tools
         /// </summary>
         public static void KillProcess(string[] processNames)
         {
-            CommonTools.InsertInfo("BtnKillProcess");
+            InsertInfo("BtnKillProcess");
             foreach (var p in Process.GetProcesses())
                 processNames.ToList().ForEach(processName => {
                     if (p.ProcessName.Contains(processName))
