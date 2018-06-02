@@ -58,6 +58,7 @@
     <Compile Include="CommonTools.cs" />
     <Compile Include="ConfigerHelper.cs" />
     <Compile Include="ConnectionStatusTool.cs" />
+    <Compile Include="DataTableListExtensions.cs" />
     <Compile Include="HardwareTools.cs" />
     <Compile Include="IconTools.cs" />
     <Compile Include="LogTools.cs" />
@@ -70,6 +71,7 @@
     </Compile>
     <Compile Include="ReadToEntityTools.cs" />
     <Compile Include="SqlTools.cs" />
+    <Compile Include="SysTimeHelper.cs" />
     <Compile Include="XmlTools.cs" />
   </ItemGroup>
   <ItemGroup>

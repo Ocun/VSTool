@@ -18,3 +18,4 @@ I:\document\my Project\VSTool\Export\Digiwin.Chun.Models.pdb
 I:\document\my Project\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.csproj.CoreCompileInputs.cache
 I:\document\my Project\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.dll
 I:\document\my Project\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.pdb
+I:\document\my Project\VSTool\Digiwin.Chun.Models\obj\Debug\Digiwin.Chun.Models.csprojResolveAssemblyReference.cache

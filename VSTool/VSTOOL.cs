@@ -24,8 +24,8 @@ namespace VSTool {
 
             Task.Factory.StartNew(() =>
             {
-                var status = ConnectionStatusTool.CheckServeStatus(@"192.168.168.15");
-                if (!status.Equals("202"))
+                var status = ConnectionStatusTool.CheckServeStatus("192.168.168.15");
+                if (!status.Equals("200"))
                     return;
                 var existedUpdate = CallUpdate.CheckAndUpdate(VersionNum);
                 if (!existedUpdate) return;

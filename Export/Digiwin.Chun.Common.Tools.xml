@@ -223,6 +223,54 @@
             <param name="bts"></param>
             <returns></returns>
         </member>
+        <member name="T:Digiwin.Chun.Common.Tools.ConfigerHelper">
+            <summary>
+            读取app.config 
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.GetConnectionStringsConfig(System.String)">
+            <summary>
+            依据连接串名字connectionName返回数据连接字符串
+            </summary>
+            <param name="connectionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.UpdateConnectionStringsConfig(System.String,System.String,System.String)">
+            <summary>
+            更新连接字符串
+            </summary>
+            <param name="newName">连接字符串名称</param>
+            <param name="newConString">连接字符串内容</param>
+            <param name="newProviderName">数据提供程序名称</param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.GetAppConfig(System.String)">
+            <summary>
+            返回＊.exe.config文件中appSettings配置节的value项
+            </summary>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.UpdateAppConfig(System.String,System.String)">
+            <summary>
+            在＊.exe.config文件中appSettings配置节增加一对键、值对
+            </summary>
+            <param name="newKey"></param>
+            <param name="newValue"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.WriteAppSettingKey(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.LoadAppSetting(System.String)">
+            <summary>
+            读取AppSetting信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:Digiwin.Chun.Common.Tools.ConnectionStatusTool">
             <summary>
             
@@ -246,6 +294,50 @@
             </summary>
             <param name="urls">URL数据</param>
             <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.DataTableListExtensions">
+            <summary>
+            DataTableToList
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTable``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>  
+            转化一个DataTable  
+            </summary>  
+            <typeparam name="T"></typeparam>  
+            <param name="list"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToList``1(System.Data.DataTable)">
+            <summary>  
+            DataTable 转换为List 集合  
+            </summary>  
+            <param name="dt">DataTable</param>  
+            <returns></returns>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ConvertToEntity``1(System.Data.DataRow)">
+            <summary>
+            将DataRow转换成指定类型  
+            </summary>
+            <param name="pDataRow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTableTow(System.Collections.IList)">
+            <summary>  
+            将集合类转换成DataTable  
+            </summary>  
+            <param name="list">集合</param>  
+            <returns></returns>  
+        </member>
+        <!-- 对于成员“M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTable``1(System.Collections.Generic.IList{``0})”忽略有格式错误的 XML 注释 -->
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTable``1(System.Collections.Generic.IList{``0},System.String[])">
+            <summary>  
+            将泛型集合类转换成DataTable  
+            </summary>  
+            <typeparam name="T">集合项类型</typeparam>  
+            <param name="list">集合</param>  
+            <param name="propertyName">需要返回的列的列名</param>  
+            <returns>数据集(表)</returns>  
         </member>
         <member name="T:Digiwin.Chun.Common.Tools.HardwareTools">
             <summary>
@@ -1170,6 +1262,16 @@
             </summary>
             <param name="typekey"></param>
             <param name="fileInfos"></param>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.SysTimeHelper">
+            <summary>
+            时间同步
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.SysTimeHelper.SynchronousTime(System.DateTime)">
+              <summary> 
+              设置与服务器同步时间   
+              </summary> 
         </member>
         <member name="T:Digiwin.Chun.Common.Tools.XmlTools">
             <summary>

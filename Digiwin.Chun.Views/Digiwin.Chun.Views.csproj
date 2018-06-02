@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Digiwin.Chun.Common.Tools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Export\Digiwin.Chun.Common.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="Digiwin.Chun.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Export\Digiwin.Chun.Models.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -173,16 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\unchecked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Digiwin.Chun.Common.Tools\Digiwin.Chun.Common.Tools.csproj">
-      <Project>{1dd82802-5a9a-46bd-8211-20d38e1d283d}</Project>
-      <Name>Digiwin.Chun.Common.Tools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digiwin.Chun.Models\Digiwin.Chun.Models.csproj">
-      <Project>{84437287-a398-4a06-8c04-656d96a9ed76}</Project>
-      <Name>Digiwin.Chun.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
