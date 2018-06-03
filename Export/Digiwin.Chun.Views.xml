@@ -163,6 +163,12 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:Digiwin.Chun.Views.Tools.ControlTools.WriteToServer(System.Collections.Generic.IEnumerable{Digiwin.Chun.Models.FileInfos})">
+            <summary>
+            
+            </summary>
+            <param name="fileInfos"></param>
+        </member>
         <member name="M:Digiwin.Chun.Views.Tools.ControlTools.BtnClear_Click(System.Object,System.EventArgs)">
             <summary>
                 清空按钮

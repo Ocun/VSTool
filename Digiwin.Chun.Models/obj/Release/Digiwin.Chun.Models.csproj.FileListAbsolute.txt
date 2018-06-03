@@ -1,0 +1,7 @@
+I:\document\my Project\VSTool\Digiwin.Chun.Models\bin\Release\Digiwin.Chun.Models.dll
+I:\document\my Project\VSTool\Digiwin.Chun.Models\bin\Release\Digiwin.Chun.Models.pdb
+I:\document\my Project\VSTool\Digiwin.Chun.Models\bin\Release\Newtonsoft.Json.dll
+I:\document\my Project\VSTool\Digiwin.Chun.Models\bin\Release\Newtonsoft.Json.xml
+I:\document\my Project\VSTool\Digiwin.Chun.Models\obj\Release\Digiwin.Chun.Models.csproj.CoreCompileInputs.cache
+I:\document\my Project\VSTool\Digiwin.Chun.Models\obj\Release\Digiwin.Chun.Models.dll
+I:\document\my Project\VSTool\Digiwin.Chun.Models\obj\Release\Digiwin.Chun.Models.pdb

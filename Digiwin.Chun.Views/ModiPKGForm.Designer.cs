@@ -64,7 +64,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(709, 12);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 29);
             this.button1.TabIndex = 1;
@@ -76,7 +76,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.Location = new System.Drawing.Point(616, 12);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(85, 29);
             this.btnOK.TabIndex = 0;
@@ -89,7 +89,7 @@
             this.TypeKeyText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.TypeKeyText.Location = new System.Drawing.Point(149, 78);
-            this.TypeKeyText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TypeKeyText.Margin = new System.Windows.Forms.Padding(4);
             this.TypeKeyText.Name = "TypeKeyText";
             this.TypeKeyText.Size = new System.Drawing.Size(557, 25);
             this.TypeKeyText.TabIndex = 11;
@@ -111,7 +111,7 @@
             this.btnOpenTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenTo.ForeColor = System.Drawing.Color.DarkCyan;
             this.btnOpenTo.Location = new System.Drawing.Point(716, 78);
-            this.btnOpenTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpenTo.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenTo.Name = "btnOpenTo";
             this.btnOpenTo.Size = new System.Drawing.Size(61, 25);
             this.btnOpenTo.TabIndex = 12;
@@ -139,7 +139,7 @@
             this.txtNewTypeKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.txtNewTypeKey.Location = new System.Drawing.Point(149, 42);
-            this.txtNewTypeKey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNewTypeKey.Margin = new System.Windows.Forms.Padding(4);
             this.txtNewTypeKey.Name = "txtNewTypeKey";
             this.txtNewTypeKey.Size = new System.Drawing.Size(557, 25);
             this.txtNewTypeKey.TabIndex = 14;
@@ -189,7 +189,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("宋体", 8F);
             this.button2.Location = new System.Drawing.Point(716, 112);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(44, 25);
             this.button2.TabIndex = 18;
@@ -214,7 +214,7 @@
             this.CustomerText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.CustomerText.Location = new System.Drawing.Point(149, 111);
-            this.CustomerText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CustomerText.Margin = new System.Windows.Forms.Padding(4);
             this.CustomerText.Name = "CustomerText";
             this.CustomerText.Size = new System.Drawing.Size(557, 25);
             this.CustomerText.TabIndex = 16;
@@ -229,7 +229,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModiPkgForm";

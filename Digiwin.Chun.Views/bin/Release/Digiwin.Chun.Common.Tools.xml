@@ -1,0 +1,1368 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Digiwin.Chun.Common.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:Digiwin.Chun.Common.Tools.CallUpdate">
+            <summary>
+                自动升级辅助类
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.KillTask(System.String)">
+            <summary>
+                Kill執行緒
+            </summary>
+            <param name="exeFileName"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.CheckAndUpdate(System.String)">
+            <summary>
+                检查自动更新
+            </summary>
+            <param name="oldVer"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.MyCallUpdate(System.Boolean)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.MyCallUpdate">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetPcHostName">
+            <summary>
+                E
+                取得電腦名稱
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetIpAddress">
+            <summary>
+                取得電腦IP
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetLocation">
+            <summary>
+                取得電腦所在地
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetExeFolder(System.String)">
+            <summary>
+                取得執行檔執行資料夾路徑
+            </summary>
+            <param name="fullFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetExeName(System.String)">
+            <summary>
+                取得執行檔名稱
+            </summary>
+            <param name="fullFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetWorkDayConnectionString(System.String)">
+            <summary>
+                取得本地workday連線字串
+            </summary>
+            <param name="getLocation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetWorkDayInsertString(System.Boolean,System.Boolean,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String)">
+            <summary>
+                取得Workday Insert指令
+            </summary>
+            <param name="isWfTool"></param>
+            <param name="toolName"></param>
+            <param name="useDate"></param>
+            <param name="useTime"></param>
+            <param name="pcName"></param>
+            <param name="isFailed"></param>
+            <param name="usedCount"></param>
+            <param name="theMemo"></param>
+            <param name="demandId"></param>
+            <param name="useYear"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.GetServerExePath(System.String)">
+            <summary>
+                取得主機上執行檔路徑
+            </summary>
+            <param name="toolName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.CompareFileLastWritedate(System.String,System.String)">
+            <summary>
+            </summary>
+            <param name="fullFilePath"></param>
+            <param name="serverFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.CallExe(System.Int32,System.String,System.String)">
+            <summary>
+            </summary>
+            <param name="lpHandle"></param>
+            <param name="lpProgram"></param>
+            <param name="lpParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CallUpdate.AutoUpgrade">
+            <summary>
+                取得機碼執行檔路徑
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.CommonTools">
+            <summary>
+            通用辅助类
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.RunAsync``1(System.Func{``0},System.Action{``0})">
+            <summary>  
+            将一个方法function异步运行，在执行完毕时执行回调callback  
+            </summary>  
+            <typeparam name="TResult">异步方法的返回类型</typeparam>  
+            <param name="function">异步方法，该方法没有参数，返回类型必须是TResult</param>  
+            <param name="callback">异步方法执行完毕时执行的回调方法，该方法参数为TResult，返回类型必须是void</param>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.RunAsync(System.Action,System.Action)">
+            <summary>  
+            将一个方法function异步运行，在执行完毕时执行回调callback  
+            </summary>  
+            <param name="function">异步方法，该方法没有参数，返回类型必须是void</param>  
+            <param name="callback">异步方法执行完毕时执行的回调方法，该方法没有参数，返回类型必须是void</param>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.RunAsync(System.Action)">
+            <summary>  
+            将一个方法function异步运行
+            </summary>  
+            <param name="function">异步方法，该方法没有参数，返回类型必须是void</param>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.CopyFile(System.String,System.String)">
+            <summary>
+            流形式copyFile，媒体文件亦可
+            </summary>
+            <param name="fromPath"></param>
+            <param name="tagerPath"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.GetFilePath(System.String)">
+            <summary>
+                递归获取指定文件夹内所有文件全路径
+            </summary>
+            <param name="dirpath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.ChangeText(System.String,System.String,System.String)">
+            <summary>
+                指定文件文本替换
+            </summary>
+            <param name="path"></param>
+            <param name="fromName"></param>
+            <param name="toName"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.InsertInfo(System.String)">
+            <summary>
+            操作插入数据库
+            </summary>
+            <param name="operationName"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.CheckProcessRunning(System.String[])">
+            <summary>
+                检查dll是否被占用
+            </summary>
+            <param name="processNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.KillProcess(System.String[])">
+            <summary>
+                kill the process
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.OpenExe(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.OpenDir(System.String)">
+            <summary>
+                打开文件夹
+            </summary>
+            <param name="targetDir"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.OpenWord(System.String)">
+            <summary>
+                打开Word
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.FindTypekeyDir(System.String,System.String)">
+            <summary>
+            获取TYPEKEY目录
+            </summary>
+            <param name="path"></param>
+            <param name="typeKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.GetPkgTypePathFormServer(System.String)">
+            <summary>
+            根据功能包获取Digiwin.ERP.Typekey
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.DeleteAll(System.Object)">
+            <summary>
+                刪除文件夾及其子項
+            </summary>
+            <param name="pArgs"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.ServerOn(System.String,System.String)">
+            <summary>
+                打开服务器
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.ClientOn(System.String,System.String)">
+            <summary>
+                打开服务器
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.CheckProcessOn(System.String)">
+            <summary>
+                检查进程是否启动
+            </summary>
+            <param name="processName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.FindBuilderTypeAndDelete(System.String,Digiwin.Chun.Models.BuildeType[])">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="bts"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.CommonTools.GetBuildeTypeById(System.String,Digiwin.Chun.Models.BuildeType[])">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="bts"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.ConfigerHelper">
+            <summary>
+            读取app.config 
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.GetConnectionStringsConfig(System.String)">
+            <summary>
+            依据连接串名字connectionName返回数据连接字符串
+            </summary>
+            <param name="connectionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.UpdateConnectionStringsConfig(System.String,System.String,System.String)">
+            <summary>
+            更新连接字符串
+            </summary>
+            <param name="newName">连接字符串名称</param>
+            <param name="newConString">连接字符串内容</param>
+            <param name="newProviderName">数据提供程序名称</param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.GetAppConfig(System.String)">
+            <summary>
+            返回＊.exe.config文件中appSettings配置节的value项
+            </summary>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.UpdateAppConfig(System.String,System.String)">
+            <summary>
+            在＊.exe.config文件中appSettings配置节增加一对键、值对
+            </summary>
+            <param name="newKey"></param>
+            <param name="newValue"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.WriteAppSettingKey(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConfigerHelper.LoadAppSetting(System.String)">
+            <summary>
+            读取AppSetting信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.ConnectionStatusTool">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConnectionStatusTool.CheckServeStatus(System.String)">
+            <summary>
+            检测网络连接状态
+            </summary>
+            <param name="urls"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConnectionStatusTool.LocalConnectionStatus">
+            <summary>
+            判断本地的连接状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ConnectionStatusTool.PingTest(System.String)">
+            <summary>
+            Ping命令检测网络是否畅通
+            </summary>
+            <param name="urls">URL数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.DataTableListExtensions">
+            <summary>
+            DataTableToList
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTable``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>  
+            转化一个DataTable  
+            </summary>  
+            <typeparam name="T"></typeparam>  
+            <param name="list"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToList``1(System.Data.DataTable)">
+            <summary>  
+            DataTable 转换为List 集合  
+            </summary>  
+            <param name="dt">DataTable</param>  
+            <returns></returns>  
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ConvertToEntity``1(System.Data.DataRow)">
+            <summary>
+            将DataRow转换成指定类型  
+            </summary>
+            <param name="pDataRow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTableTow(System.Collections.IList)">
+            <summary>  
+            将集合类转换成DataTable  
+            </summary>  
+            <param name="list">集合</param>  
+            <returns></returns>  
+        </member>
+        <!-- 对于成员“M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTable``1(System.Collections.Generic.IList{``0})”忽略有格式错误的 XML 注释 -->
+        <member name="M:Digiwin.Chun.Common.Tools.DataTableListExtensions.ToDataTable``1(System.Collections.Generic.IList{``0},System.String[])">
+            <summary>  
+            将泛型集合类转换成DataTable  
+            </summary>  
+            <typeparam name="T">集合项类型</typeparam>  
+            <param name="list">集合</param>  
+            <param name="propertyName">需要返回的列的列名</param>  
+            <returns>数据集(表)</returns>  
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.HardwareTools">
+            <summary>
+                获取系统硬件信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetHardwareInfo">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetManagementObjectCollection(System.String)">
+            <summary>
+                獲取硬件信息集合
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetCpuInfo">
+            <summary>
+                Cpu信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetMainBoardInfo">
+            <summary>
+                主板信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetDiskDriveInfo">
+            <summary>
+                硬盘信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetNetworkInfo">
+            <summary>
+                网络连接信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetOsInfo">
+            <summary>
+                操作系统信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.HardwareTools.GetMemoryInfo">
+            <summary>
+                内存信息
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.IconHelp">
+            <summary>
+                图标获取类
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IconHelp.SystemIcon(System.Boolean,System.Int32)">
+            <summary>
+                获取系统图标
+            </summary>
+            <param name="small"></param>
+            <param name="csidl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IconHelp.GetSmall(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+                获得小或大
+            </summary>
+            <param name="fileName"></param>
+            <param name="small"></param>
+            <param name="checkDisk"></param>
+            <param name="addOverlay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IconHelp.GetJumboIcon(System.String,System.Boolean,System.Boolean)">
+            <summary>
+                获得大或超大
+            </summary>
+            <param name="fileName"></param>
+            <param name="jumbo"></param>
+            <param name="checkDisk"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.NativeMethods.SHGetImageList(System.Int32,System.Guid@,Digiwin.Chun.Common.Tools.IImageList@)">
+            SHGetImageList is not exported correctly in XP.  See KB316931
+            http://support.microsoft.com/default.aspx?scid=kb;EN-US;Q316931
+            Apparently (and hopefully) ordinal 727 isn't going to change.
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.Shfileinfo">
+            <summary>
+                句柄与图标信息
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Shfileinfo.HIcon">
+            <summary>
+                Handle to the icon representing the file
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Shfileinfo.Icon">
+            <summary>
+                Index of the icon within the image list
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Shfileinfo.DwAttributes">
+            <summary>
+                Various attributes of the file
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Shfileinfo.SzDisplayName">
+            <summary>
+                Path to the file
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Shfileinfo.SzTypeName">
+            <summary>
+                File type
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.Imagelistdrawparams">
+            <summary>
+                获取图片信息
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.CbSize">
+            <summary>
+                尺寸
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.Himl">
+            <summary>
+                Himl
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.I">
+            <summary>
+                I
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.HdcDst">
+            <summary>
+                HdcDst
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.X">
+            <summary>
+                X
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.Y">
+            <summary>
+                Y
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.Cx">
+            <summary>
+                Cx
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.Cy">
+            <summary>
+                Cy
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.XBitmap">
+            <summary>
+                x offest from the upperleft of bitmap
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.YBitmap">
+            <summary>
+                y offset from the upperleft of bitmap
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.RgbBk">
+            <summary>
+                RgbBk
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.RgbFg">
+            <summary>
+                RgbFg
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.FStyle">
+            <summary>
+                FStyle
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.DwRop">
+            <summary>
+                DwRop
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.FState">
+            <summary>
+                FState
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.Frame">
+            <summary>
+                Frame
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imagelistdrawparams.CrEffect">
+            <summary>
+                CrEffect
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.Imageinfo">
+            <summary>
+                获取图片信息
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imageinfo.hbmImage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imageinfo.hbmMask">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imageinfo.Unused1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imageinfo.Unused2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.Imageinfo.rcImage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.IImageList">
+            <summary>
+                未知
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.Add(System.IntPtr,System.IntPtr,System.Int32@)">
+            <summary>
+            </summary>
+            <param name="hbmImage"></param>
+            <param name="hbmMask"></param>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.ReplaceIcon(System.Int32,System.IntPtr,System.Int32@)">
+            <summary>
+            </summary>
+            <param name="i"></param>
+            <param name="hicon"></param>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.SetOverlayImage(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="iImage"></param>
+            <param name="iOverlay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.Replace(System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="hbmImage"></param>
+            <param name="hbmMask"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.AddMasked(System.IntPtr,System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="hbmImage"></param>
+            <param name="crMask"></param>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.Draw(Digiwin.Chun.Common.Tools.Imagelistdrawparams@)">
+            <summary>
+            
+            </summary>
+            <param name="pimldp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.Remove(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetIcon(System.Int32,System.Int32,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="flags"></param>
+            <param name="picon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetImageInfo(System.Int32,Digiwin.Chun.Common.Tools.Imageinfo@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="pImageInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.Copy(System.Int32,Digiwin.Chun.Common.Tools.IImageList,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="iDst"></param>
+            <param name="punkSrc"></param>
+            <param name="iSrc"></param>
+            <param name="uFlags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.Merge(System.Int32,Digiwin.Chun.Common.Tools.IImageList,System.Int32,System.Int32,System.Int32,System.Guid@,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="i1"></param>
+            <param name="punk2"></param>
+            <param name="i2"></param>
+            <param name="dx"></param>
+            <param name="dy"></param>
+            <param name="riid"></param>
+            <param name="ppv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.Clone(System.Guid@,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="riid"></param>
+            <param name="ppv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetImageRect(System.Int32,System.Windows.Rect@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="prc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetIconSize(System.Int32@,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="cx"></param>
+            <param name="cy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.SetIconSize(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="cx"></param>
+            <param name="cy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetImageCount(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="pi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.SetImageCount(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="uNewCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.SetBkColor(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="clrBk"></param>
+            <param name="pclr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetBkColor(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="pclr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.BeginDrag(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="iTrack"></param>
+            <param name="dxHotspot"></param>
+            <param name="dyHotspot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.EndDrag">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.DragEnter(System.IntPtr,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="hwndLock"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.DragLeave(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="hwndLock"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.DragMove(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.SetDragCursorImage(Digiwin.Chun.Common.Tools.IImageList@,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="punk"></param>
+            <param name="iDrag"></param>
+            <param name="dxHotspot"></param>
+            <param name="dyHotspot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.DragShowNolock(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="fShow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetDragImage(System.Drawing.Point@,System.Drawing.Point@,System.Guid@,System.IntPtr@)">
+            <summary>
+            
+            </summary>
+            <param name="ppt"></param>
+            <param name="pptHotspot"></param>
+            <param name="riid"></param>
+            <param name="ppv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetItemFlags(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="dwFlags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.IImageList.GetOverlayImage(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="iOverlay"></param>
+            <param name="piIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.MyPair">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.MyPair.Icon">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.MyPair.IconHandleToDestroy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.LogTools">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.LogTools.LogError(System.String)">
+            <summary>
+            记录错误信息
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.LogTools.LogMsg(System.String,System.String)">
+            <summary>
+            记录日志
+            </summary>
+            <param name="msg"></param>
+            <param name="logPath"></param>
+        </member>
+        <member name="F:Digiwin.Chun.Common.Tools.LogTools._hardwareInfo">
+            <summary>
+            硬件信息
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.LogTools.HardwareInfo">
+            <summary>
+            硬件信息
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.LogTools.GetHardInfo">
+            <summary>
+            硬件信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.LogTools.WriteToFile(System.String,System.String)">
+            <summary>
+            记录到文件,已存在则追加
+            </summary>
+            <param name="path"></param>
+            <param name="logMsg"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.LogTools.GetLogDir(System.String)">
+            <summary>
+            获取log日志目录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.LogTools.GetHeadStr(System.String,System.Int32)">
+            <summary>
+            生成一段指定长度的字符
+            </summary>
+            <param name="targetStr"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.PathTools">
+            <summary>
+            路径辅助类
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.PathTools.IsTrue(System.String)">
+            <summary>
+            检查是否为True
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.PathTools.IsFasle(System.String)">
+            <summary>
+            检查是否为False
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.PathTools.CombineStr(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            连接字符串
+            </summary>
+            <param name="strs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.PathTools.PathCombine(System.String[])">
+            <summary>
+            连接路径
+            </summary>
+            <param name="strs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.PathTools.IsNullOrEmpty(System.Object)">
+            <summary>
+            检查空字符串
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.PathTools.CheckFile(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.PathTools.GetSettingPath(System.String,Digiwin.Chun.Models.ModelType)">
+            <summary>
+            
+            </summary>
+            <param name="fileName"></param>
+            <param name="modelType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ClientRunning">
+            <summary>
+              查找类似 客户端正在运行 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.CodeSource">
+            <summary>
+              查找类似 源码 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.CopyFailed">
+            <summary>
+              查找类似 复制失败 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.CopyResourceNotExisted">
+            <summary>
+              查找类似 借用Typekey源码和配置不存在 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.CopySucess">
+            <summary>
+              查找类似 复制成功 !!! 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.CreateFileName">
+            <summary>
+              查找类似 Create{0} 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.CustomerNameNotNull">
+            <summary>
+              查找类似 客户名称不可为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.DirExisted">
+            <summary>
+              查找类似 目录已存在，是否覆盖?? 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.DirNotExisted">
+            <summary>
+              查找类似 文件夹{0}不存在，请查看！！！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.DllUsedMsg">
+            <summary>
+              查找类似 当前DLL被占用，是否结束进程以复制？ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ErrorMsg">
+            <summary>
+              查找类似 Error 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ExeAlreadyExe">
+            <summary>
+              查找类似 已启动！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ExeExeError">
+            <summary>
+              查找类似 启动应用程序时出错！原因： 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.FileAlreadyCopy">
+            <summary>
+              查找类似 文件{0}已复制，是否覆盖？ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.FileExisted">
+            <summary>
+              查找类似 文件已存在，是否覆盖？ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.GenerateSucess">
+            <summary>
+              查找类似 生成成功 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.HelpDocNotExiested">
+            <summary>
+              查找类似 帮助文档不存在！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.Information">
+            <summary>
+              查找类似 提示 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ModuleNotExisted">
+            <summary>
+              查找类似 未指定模块信息或模块名 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.NoCopySource">
+            <summary>
+              查找类似 无copy资源 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.NotFind">
+            <summary>
+              查找类似 没有找到 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.NotFindFile">
+            <summary>
+              查找类似 找不到文件{0} 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.notNull">
+            <summary>
+              查找类似 不可为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.Open">
+            <summary>
+              查找类似 打开 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.OpenDocError">
+            <summary>
+              查找类似 打开Word文档出错 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.PkgDirNotExisted">
+            <summary>
+              查找类似 借用目录不存在！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.pkgNotNull">
+            <summary>
+              查找类似 借用TypeKey不可为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ReadEntityError">
+            <summary>
+              查找类似 读取实体文件时发生错误 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ServerNotFound">
+            <summary>
+              查找类似 未发现服务器 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ServerNotRunning">
+            <summary>
+              查找类似 服务端未启动 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.ServerRunning">
+            <summary>
+              查找类似 服务端正在运行 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.TemplateNotExisted">
+            <summary>
+              查找类似 {0}/{1}模板不存在，请检查 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.TypekeyNotExisted">
+            <summary>
+              查找类似 请输入创建地址及名称 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.WarningMsg">
+            <summary>
+              查找类似 警告 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.Properties.Resources.WhetherOrNot">
+            <summary>
+              查找类似 是否 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.ReadToEntityTools">
+            <summary>
+            Model辅助类
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.ReadToEntity``1(System.String,Digiwin.Chun.Models.ModelType)">
+            <summary>
+            读取文件到类
+            </summary>
+            <param name="path"></param>
+            <param name="modelType">文件类型</param>
+            <typeparam name="T"></typeparam>
+            <returns>T</returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.BinarySerialize``1(``0)">
+            <summary>
+                将类转化到二进制
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.BinarySave``1(``0,System.String)">
+            <summary>
+                将二进制保存到文件
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.BinaryDeSerializer``1(System.String)">
+            <summary>
+                将二进制读取到类中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.XmlSerialize``1(``0)">
+            <summary>
+                将类转化到xml
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.SaveSerialize``1(``0,Digiwin.Chun.Models.ModelType,System.String)">
+            <summary>
+                将类序列化保存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="modelType"></param>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.DeSerializer``1(System.String)">
+            <summary>
+                将xml读取到类中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.SerializeObject``1(``0)">
+            <summary>
+                将类转化为json
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.DeserializeObject``1(System.String)">
+            <summary>
+                将json读取到类中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.ReadToEntityTools.GetXml(System.String)">
+            <summary>
+                功能:读取XML到DataSet中
+            </summary>
+            <param name="xmlPath">xml路径</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.SqlTools">
+            <summary>
+            sql辅助类
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.SqlTools.VersionNum">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.SqlTools.Connection">
+            <summary>
+            Connection
+            </summary>
+        </member>
+        <member name="P:Digiwin.Chun.Common.Tools.SqlTools.Builder">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.SqlTools.GetConnectionStr">
+            <summary>
+            获取连接字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.SqlTools.InsertToolInfo(System.String,System.String,System.String)">
+            <summary>
+            单笔插入
+            </summary>
+            <param name="pDemandId"></param>
+            <param name="pUseYear"></param>
+            <param name="pTheMemo"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.SqlTools.QueryInfo(System.String)">
+            <summary>
+            单笔插入
+            </summary>
+            <param name="sqlString"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.SqlTools.InsertToolInfo(System.String,System.Collections.Generic.IEnumerable{Digiwin.Chun.Models.FileInfos})">
+            <summary>
+            批量插入
+            </summary>
+            <param name="typekey"></param>
+            <param name="fileInfos"></param>
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.SysTimeHelper">
+            <summary>
+            时间同步
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.SysTimeHelper.SynchronousTime(System.DateTime)">
+              <summary> 
+              设置与服务器同步时间   
+              </summary> 
+        </member>
+        <member name="T:Digiwin.Chun.Common.Tools.XmlTools">
+            <summary>
+                xml辅助类
+            </summary>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.LoadXml(System.String)">
+            <summary>
+                读取并返回一个文档对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.GetXmlNodeByXpath(System.Xml.XmlDocument,System.String)">
+            <summary>
+                获取xml结点，这里依据文档根目录处理命名空间的问题
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.GetXmlNodeListByXpath(System.Xml.XmlDocument,System.String)">
+            <summary>
+                获取xml结点，这里依据文档根目录处理命名空间的问题
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.ModiXmlByXpath(System.String,System.String,System.String)">
+            <summary>
+                根据xpath，修改xml某项的值
+            </summary>
+            <param name="xmlPath"></param>
+            <param name="xpath"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.DeleteXmlNodeByXPath(System.String,System.String)">
+            <summary>
+                根据xmlNode删除Node结点
+            </summary>
+            <param name="xmlFileName"></param>
+            <param name="xpath"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.GetPathByXpath(System.String,System.String)">
+            <summary>
+                获取模板
+            </summary>
+            <param name="xmlFileName"></param>
+            <param name="xpath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.AddCsproj(System.String,System.String)">
+            <summary>
+             添加解决方案
+            </summary>
+            <param name="xmlPath"></param>
+            <param name="csName"></param>
+        </member>
+        <member name="M:Digiwin.Chun.Common.Tools.XmlTools.CheckXmlNode(System.Xml.XmlNode,System.String)">
+            <summary>
+                判断节点是否存在
+            </summary>
+            <param name="root"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

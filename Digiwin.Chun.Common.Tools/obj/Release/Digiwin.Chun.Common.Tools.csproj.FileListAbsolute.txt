@@ -1,0 +1,12 @@
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\bin\Release\Digiwin.Chun.Common.Tools.dll
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\bin\Release\Digiwin.Chun.Common.Tools.pdb
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\bin\Release\Digiwin.Chun.Models.dll
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\bin\Release\Newtonsoft.Json.dll
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\bin\Release\Digiwin.Chun.Models.pdb
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\bin\Release\Newtonsoft.Json.xml
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\obj\Release\Digiwin.Chun.Common.Tools.csprojResolveAssemblyReference.cache
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\obj\Release\Digiwin.Chun.Common.Tools.Properties.Resources.resources
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\obj\Release\Digiwin.Chun.Common.Tools.csproj.GenerateResource.Cache
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\obj\Release\Digiwin.Chun.Common.Tools.csproj.CoreCompileInputs.cache
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\obj\Release\Digiwin.Chun.Common.Tools.dll
+I:\document\my Project\VSTool\Digiwin.Chun.Common.Tools\obj\Release\Digiwin.Chun.Common.Tools.pdb

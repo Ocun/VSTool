@@ -116,6 +116,7 @@ namespace Digiwin.Chun.Views {
         }
 
         private void Button1_Click(object sender, EventArgs e) {
+        
             CopyPkg();
         }
 
@@ -132,26 +133,33 @@ namespace Digiwin.Chun.Views {
         }
 
         private void FromServer_CheckedChanged(object sender, EventArgs e) {
-            Enabled = false;
-            if (FromServer.Checked) {
-
-
-                RunAsync(() => {
+           splitContainer1.Enabled = false;
+           panel1.Enabled = false;
+            if (FromServer.Checked)
+            {
+                RunAsync(() =>
+                {
                     var status = ConnectionStatusTool.CheckServeStatus("192.168.168.15");
                     return status.Equals("200");
-                }, (c) => {
-                    if (c) {
-                        Enabled = true;
+                }, (c) =>
+                {
+                    if (c)
+                    {
+                        splitContainer1.Enabled = true;
+                        panel1.Enabled = true;
                         InitPkgPath();
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show(Resources.ServerNotFound);
                         FromServer.Checked = false;
-                        Enabled = true;
+                        splitContainer1.Enabled = true;
+                        panel1.Enabled = true;
                     }
                 });
             }
-            else {
+            else
+            {
                 InitPkgPath();
             }
         }

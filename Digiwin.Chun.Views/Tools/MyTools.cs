@@ -97,8 +97,9 @@ namespace Digiwin.Chun.Views.Tools {
             Toolpars.FormEntity.EditState = false;
             IconTools.InitImageList();
             InitBuilderEntity();
-             SetTestdata();
-
+            #if DEBUG
+            SetTestdata();
+            #endif
 
         }
 

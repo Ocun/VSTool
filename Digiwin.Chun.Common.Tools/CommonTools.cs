@@ -32,9 +32,10 @@ namespace Digiwin.Chun.Common.Tools
             //await为懒加载，在callback时
             Task<TResult> TaskFunc() {
                 return Task.Run(function);
-            }
+            } 
             //这里会一直等待处理完成，继续下一步
             var rlt = await TaskFunc();
+         
             callback?.Invoke(rlt);
         }
 

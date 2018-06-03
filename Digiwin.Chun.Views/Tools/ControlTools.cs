@@ -422,6 +422,10 @@ namespace Digiwin.Chun.Views.Tools {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileInfos"></param>
         public static void WriteToServer(IEnumerable<FileInfos> fileInfos)
         {
             var toolpars = MyTools.Toolpars;

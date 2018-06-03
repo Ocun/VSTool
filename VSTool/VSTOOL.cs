@@ -22,7 +22,7 @@ namespace VSTool {
 
             #region 自動更新
             //异步写法，需要根据返回值处理时，可以用这个写法，否则用下面一个一样
-            var server = "192.168.168.15";
+            var server =  "192.168.168.15";
             CommonTools.RunAsync(() => {
                 var status = ConnectionStatusTool.CheckServeStatus(server);
                 return status.Equals("200") && CallUpdate.CheckAndUpdate(VersionNum);

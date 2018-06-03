@@ -269,3 +269,39 @@ ___________________________________________________OperationMsg_________________
       InsertToolInfo CallDigiwin.Chun.Views.InsertForm Error! Detail:在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
 ___________________________________________________OperationMsg___________________________________________________
 
+___________________________________________________OperationMsg___________________________________________________
+      #OperationTime#      2018-06-03 08:42:700
+      #OperationUser#      CHUN
+      #WinUser#      a2863
+      InsertToolInfo Error! Detail:在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+___________________________________________________OperationMsg___________________________________________________
+
+___________________________________________________OperationMsg___________________________________________________
+      #OperationTime#      2018-06-03 08:52:968
+      #OperationUser#      CHUN
+      #WinUser#      a2863
+      InsertToolInfo CallDigiwin.Chun.Views.InsertForm Error! Detail:超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+___________________________________________________OperationMsg___________________________________________________
+
+___________________________________________________OperationMsg___________________________________________________
+      #OperationTime#      2018-06-03 08:52:685
+      #OperationUser#      CHUN
+      #WinUser#      a2863
+      InsertToolInfo CallDigiwin.Chun.Views.InsertForm Error! Detail:超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+___________________________________________________OperationMsg___________________________________________________
+
+___________________________________________________OperationMsg___________________________________________________
+      #OperationTime#      2018-06-03 08:52:692
+      #OperationUser#      CHUN
+      #WinUser#      a2863
+      InsertToolInfo CallDigiwin.Chun.Views.InsertForm Error! Detail:在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+___________________________________________________OperationMsg___________________________________________________
+
+___________________________________________________OperationMsg___________________________________________________
+      #OperationTime#      2018-06-03 08:58:213
+      #OperationUser#      CHUN
+      #WinUser#      a2863
+      CopyAllPkg Error! Detail 字符串的长度不能为零。
+参数名: oldValue
+___________________________________________________OperationMsg___________________________________________________
+
