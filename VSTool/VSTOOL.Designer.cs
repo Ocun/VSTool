@@ -386,7 +386,7 @@ namespace VSTool
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(49, 15);
             this.Version.TabIndex = 35;
-            this.Version.Text = "1.0.0.1.2";
+            this.Version.Text = "1.0.0.1.3";
             // 
             // linkLabel1
             // 
@@ -464,7 +464,7 @@ namespace VSTool
             // 
             this.SplitContainer1.Panel2.Controls.Add(this.panel3);
             this.SplitContainer1.Size = new System.Drawing.Size(982, 467);
-            this.SplitContainer1.SplitterDistance = 794;
+            this.SplitContainer1.SplitterDistance = 750;
             this.SplitContainer1.SplitterWidth = 1;
             this.SplitContainer1.TabIndex = 36;
             // 

@@ -116,7 +116,11 @@ namespace Digiwin.Chun.Views {
         }
 
         private void Button1_Click(object sender, EventArgs e) {
-        
+            if ((Toolpars.FormEntity.PkgTypekey ?? string.Empty).Equals(string.Empty))
+            {
+                MessageBox.Show(Resources.pkgNotNull);
+                return;
+            }
             CopyPkg();
         }
 
@@ -133,10 +137,11 @@ namespace Digiwin.Chun.Views {
         }
 
         private void FromServer_CheckedChanged(object sender, EventArgs e) {
-           splitContainer1.Enabled = false;
-           panel1.Enabled = false;
+          
             if (FromServer.Checked)
             {
+                splitContainer1.Enabled = false;
+                panel1.Enabled = false;
                 RunAsync(() =>
                 {
                     var status = ConnectionStatusTool.CheckServeStatus("192.168.168.15");

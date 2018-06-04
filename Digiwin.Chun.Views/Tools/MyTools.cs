@@ -98,7 +98,7 @@ namespace Digiwin.Chun.Views.Tools {
             IconTools.InitImageList();
             InitBuilderEntity();
             #if DEBUG
-            SetTestdata();
+           // SetTestdata();
             #endif
 
         }
@@ -1553,10 +1553,10 @@ namespace Digiwin.Chun.Views.Tools {
                     success = true;
                     MessageBox.Show(Resources.GenerateSucess);
                 }
-                else {
+                //else {
                     
-                    MessageBox.Show(Resources.NoCopySource);
-                }
+                //    MessageBox.Show(Resources.NoCopySource);
+                //}
                 #endregion
             }
             catch (Exception ex) {
