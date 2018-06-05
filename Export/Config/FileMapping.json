@@ -41,8 +41,8 @@
             "Id": "GuideInterceptor",
             "Description": "向导式批次",
             "Paths": [
-                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\QueryResultAction.cs",
-                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\GConditionAction.cs"
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\MyGuideInterceptor.cs",
+                "Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\MyQueryConditionAction.cs"
             ]
         },
         {
@@ -58,17 +58,12 @@
         {
             "Id": "Validator",
             "Description": "校验",
-            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\testValidate.cs"]
-        },
-        {
-            "Id": "DataEntityChanged",
-            "Description": "数据跟踪",
-            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\Interceptor\\DefaultInterceptor.cs"]
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.Business.Implement\\Interceptor\\MyValidate.cs"]
         },
         {
             "Id": "SelectWindowDialogEx",
             "Description": "功能开窗",
-            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\FunctionWindowOpener\\FWOpener.cs"]
+            "Paths": ["Digiwin.ERP.XTEST\\Digiwin.ERP.XTEST.UI.Implement\\FunctionWindowOpener\\MyOpener.cs"]
         },
         {
             "Id": "EditControllerCommand",

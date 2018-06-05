@@ -15,16 +15,6 @@ namespace Digiwin.ERP.XTEST.UI.Implement
     {
         #region 自定义属性
 
-        private MyUITools _myUITool ;
-
-        public MyUITools MyUITool {
-            get {
-                if (_myUITool == null) {
-                    _myUITool = new MyUITools(this);
-                }
-                return _myUITool;
-            }
-        }
 
         /// <summary>
         /// 获取根实体
